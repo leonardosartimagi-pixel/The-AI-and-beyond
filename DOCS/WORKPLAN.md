@@ -1,0 +1,1479 @@
+# Work Plan
+# The AI and Beyond - Website
+
+> Master document for project execution. Each task has a complete, self-contained prompt.
+
+---
+
+## Project Overview
+
+**Project**: The AI and Beyond - Professional AI Consulting Website
+**Client**: Leonardo Sarti Magi
+**Goal**: Modern, animated single-page website to showcase AI services and generate leads
+**Target**: Italian businesses and professionals
+
+**Reference Documents**:
+- [PRD.md](./PRD.md) - Complete requirements
+- [STACK.md](./STACK.md) - Technology decisions
+- [RULES.md](../RULES.md) - Project rules (READ FIRST)
+
+---
+
+## Task List
+
+| ID | Task | Status | Priority | Effort | Dependencies |
+|----|------|--------|----------|--------|--------------|
+| TASK-000 | Project foundation (docs, structure) | [x] Completed | P0 | 2h | - |
+| TASK-001 | Next.js project setup with security config | [x] Completed | P0 | 2h | TASK-000 |
+| TASK-002 | Design system & base UI components | [ ] Pending | P0 | 3h | TASK-001 |
+| TASK-003 | Layout components (Header, Footer) | [ ] Pending | P0 | 3h | TASK-002 |
+| TASK-004 | Hero section with animations | [ ] Pending | P0 | 4h | TASK-003 |
+| TASK-005 | About section | [ ] Pending | P1 | 2h | TASK-002 |
+| TASK-006 | Services section with cards | [ ] Pending | P1 | 3h | TASK-002 |
+| TASK-007 | Portfolio section with modals | [ ] Pending | P1 | 4h | TASK-002 |
+| TASK-008 | Before/After comparison | [ ] Pending | P1 | 3h | TASK-002 |
+| TASK-009 | ROI Calculator | [ ] Pending | P1 | 3h | TASK-002 |
+| TASK-010 | Process timeline section | [ ] Pending | P2 | 2h | TASK-002 |
+| TASK-011 | Contact form with validation | [ ] Pending | P0 | 4h | TASK-002 |
+| TASK-012 | Contact API with rate limiting | [ ] Pending | P0 | 3h | TASK-011 |
+| TASK-013 | Cookie consent banner | [ ] Pending | P1 | 2h | TASK-002 |
+| TASK-014 | SEO & metadata | [ ] Pending | P1 | 2h | TASK-001 |
+| TASK-015 | Analytics integration | [ ] Pending | P2 | 1h | TASK-001 |
+| TASK-016 | Performance optimization | [ ] Pending | P1 | 2h | All sections |
+| TASK-017 | Accessibility audit & fixes | [ ] Pending | P1 | 2h | All sections |
+| TASK-018 | E2E tests for critical flows | [ ] Pending | P1 | 3h | TASK-012 |
+| TASK-019 | Final review & deployment | [ ] Pending | P0 | 2h | All tasks |
+
+---
+
+## Task Prompts
+
+---
+
+### TASK-001: Next.js Project Setup with Security Config
+
+**Status**: [x] Completed
+**Priority**: P0 - Critical
+**Estimated Effort**: 2 hours
+**Dependencies**: TASK-000
+
+---
+
+#### CONTEXT
+
+You are continuing work on "The AI and Beyond" website. This is the chat for TASK-001.
+
+**Completed so far:**
+- TASK-000: Project foundation (documentation, structure, rules)
+
+**Current state:**
+- Documentation complete in /DOCS folder
+- Directory structure created
+- No actual code yet
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+Before ANY action, read these files in this order:
+1. `RULES.md` - Follow ALL rules strictly
+2. `DOCS/PRD.md` - Understand requirements (Section 4: Non-Functional Requirements)
+3. `DOCS/STACK.md` - Understand technology choices
+
+---
+
+#### RULES REMINDER
+
+- Priorities: Speed, Quality, Control, Security
+- Functions: max 20 lines, max 3 params, single responsibility
+- Test first, test after each change
+- No hardcoded secrets, validate all input
+- Commit format: `<type>(<scope>): <desc> [TASK-001]`
+- Ask confirmation before committing
+
+---
+
+#### TASK OBJECTIVE
+
+Set up a production-ready Next.js 14 project with:
+1. TypeScript in strict mode
+2. Tailwind CSS with custom theme
+3. Framer Motion
+4. ESLint + Prettier configured
+5. Vitest for testing
+6. Security headers configured
+7. Environment variables structure
+
+**Acceptance Criteria:**
+- [ ] `npm run dev` starts development server
+- [ ] `npm run build` completes without errors
+- [ ] `npm run lint` passes
+- [ ] `npm run test` runs (even with no tests)
+- [ ] TypeScript strict mode enabled
+- [ ] Security headers in next.config.js
+- [ ] `.env.example` documents required variables
+- [ ] `.gitignore` includes all sensitive files
+
+---
+
+#### DETAILED INSTRUCTIONS
+
+**Step 1: Initialize Next.js Project**
+```bash
+npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false --import-alias="@/*"
+```
+
+**Step 2: Install Additional Dependencies**
+```bash
+# Animation
+npm install framer-motion
+
+# Forms & Validation
+npm install react-hook-form @hookform/resolvers zod
+
+# Email
+npm install resend
+
+# Testing
+npm install -D vitest @vitejs/plugin-react @testing-library/react @testing-library/jest-dom jsdom
+
+# Utilities
+npm install clsx tailwind-merge class-variance-authority
+
+# Development
+npm install -D prettier prettier-plugin-tailwindcss
+```
+
+**Step 3: Configure TypeScript (tsconfig.json)**
+Ensure strict mode is enabled:
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
+}
+```
+
+**Step 4: Configure Tailwind (tailwind.config.ts)**
+Add custom theme:
+```typescript
+const config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#1a365d',
+          dark: '#0f2744',
+          light: '#2c5282',
+        },
+        accent: {
+          DEFAULT: '#00bcd4',
+          dark: '#0097a7',
+          light: '#4dd0e1',
+        },
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
+      },
+    },
+  },
+};
+```
+
+**Step 5: Configure Security Headers (next.config.js)**
+```javascript
+const securityHeaders = [
+  { key: 'X-DNS-Prefetch-Control', value: 'on' },
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+  { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'origin-when-cross-origin' },
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+];
+```
+
+**Step 6: Create Environment Files**
+- `.env.example` - Template with variable names (no values)
+- `.env.local` - Actual values (gitignored)
+
+**Step 7: Configure Vitest (vitest.config.ts)**
+```typescript
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./tests/setup.ts'],
+    globals: true,
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './'),
+    },
+  },
+});
+```
+
+**Step 8: Update package.json Scripts**
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  }
+}
+```
+
+**Step 9: Create Prettier Config (.prettierrc)**
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
+```
+
+**Step 10: Verify Setup**
+- Run `npm run dev` - should start at localhost:3000
+- Run `npm run build` - should complete without errors
+- Run `npm run lint` - should pass
+- Run `npm run test` - should run (with existing tests)
+
+---
+
+#### SECURITY CHECKLIST
+
+- [ ] `.env.local` is in `.gitignore`
+- [ ] No API keys in code
+- [ ] Security headers configured
+- [ ] TypeScript strict mode enabled
+- [ ] `.env.example` has no actual secrets
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+1. Run all tests: `make test`
+2. Run security check: `make security-check`
+3. Run linter: `make lint`
+4. Create `DOCS/reports/TASK-001-report.md` with:
+   - What was done
+   - Files created/modified
+   - Tests added
+   - Security considerations
+   - Any issues and resolutions
+5. Update this WORKPLAN.md: Change status to `[x] Completed`
+6. **ASK FOR CONFIRMATION** before committing
+7. Commit: `chore(setup): initialize Next.js project with security config [TASK-001]`
+
+---
+
+---
+
+### TASK-002: Design System & Base UI Components
+
+**Status**: [ ] Pending
+**Priority**: P0 - Critical
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-001
+
+---
+
+#### CONTEXT
+
+You are continuing work on "The AI and Beyond" website. This is the chat for TASK-002.
+
+**Completed so far:**
+- TASK-000: Project foundation
+- TASK-001: Next.js project setup with security config
+
+**Current state:**
+- Next.js project initialized and configured
+- Dependencies installed
+- Security headers configured
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+Before ANY action, read these files in this order:
+1. `RULES.md` - Follow ALL rules strictly
+2. `DOCS/PRD.md` - Section 10: Brand Guidelines
+3. `DOCS/STACK.md` - Tailwind CSS and styling sections
+4. `DOCS/reports/TASK-001-report.md` - Previous task completion
+
+---
+
+#### RULES REMINDER
+
+- Priorities: Speed, Quality, Control, Security
+- Functions: max 20 lines, max 3 params, single responsibility
+- React: functional components only, TypeScript interfaces for props
+- Tailwind: mobile-first, consistent spacing
+- Commit format: `<type>(<scope>): <desc> [TASK-002]`
+- Ask confirmation before committing
+
+---
+
+#### TASK OBJECTIVE
+
+Create the design system and base UI components:
+1. Typography system (headings, body text)
+2. Color system in Tailwind config
+3. Button component with variants
+4. Card component
+5. Input components (text, textarea, checkbox)
+6. Badge/Chip component
+7. Animation utilities
+
+**Acceptance Criteria:**
+- [ ] All components have TypeScript interfaces
+- [ ] All components are accessible (ARIA, focus states)
+- [ ] All components support responsive design
+- [ ] Unit tests for component rendering
+- [ ] Storybook-like preview page at `/preview` (dev only)
+
+---
+
+#### DETAILED INSTRUCTIONS
+
+**File Structure to Create:**
+```
+components/
+├── ui/
+│   ├── Button.tsx
+│   ├── Card.tsx
+│   ├── Input.tsx
+│   ├── Textarea.tsx
+│   ├── Checkbox.tsx
+│   ├── Badge.tsx
+│   └── index.ts (barrel export)
+lib/
+├── utils.ts (cn function, etc.)
+├── animations.ts (Framer Motion variants)
+app/
+├── globals.css (update with typography)
+```
+
+**Step 1: Create utility function (lib/utils.ts)**
+```typescript
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+**Step 2: Create animation variants (lib/animations.ts)**
+```typescript
+export const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 20 },
+};
+
+export const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+// Add more variants...
+```
+
+**Step 3: Create Button component with CVA**
+- Variants: primary, secondary, outline, ghost
+- Sizes: sm, md, lg
+- States: loading, disabled
+- Full keyboard and focus support
+
+**Step 4: Create Card component**
+- Variants: default, interactive (hover effects)
+- Optional header, content, footer slots
+- Smooth hover animations
+
+**Step 5: Create Input components**
+- Input: text, email types
+- Textarea: with auto-resize option
+- Checkbox: with custom styling
+- All with error states and labels
+
+**Step 6: Create Badge component**
+- Keywords badge for hero section
+- Hover micro-animations
+- Color variants
+
+**Step 7: Update globals.css**
+- Typography scale
+- Focus ring utilities
+- Reduced motion support
+
+**Step 8: Write Tests**
+- Test each component renders
+- Test button click handlers
+- Test input change handlers
+- Test accessibility attributes
+
+---
+
+#### SECURITY CHECKLIST
+
+- [ ] No user input in component internals
+- [ ] Proper sanitization if rendering HTML
+- [ ] No dangerouslySetInnerHTML
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+1. Run all tests: `make test`
+2. Run security check: `make security-check`
+3. Run linter: `make lint`
+4. Create `DOCS/reports/TASK-002-report.md`
+5. Update WORKPLAN.md status to `[x] Completed`
+6. **ASK FOR CONFIRMATION** before committing
+7. Commit: `feat(ui): add design system and base UI components [TASK-002]`
+
+---
+
+---
+
+### TASK-003: Layout Components (Header, Footer)
+
+**Status**: [ ] Pending
+**Priority**: P0 - Critical
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-002
+
+---
+
+#### CONTEXT
+
+You are continuing work on "The AI and Beyond" website. This is the chat for TASK-003.
+
+**Completed so far:**
+- TASK-000: Project foundation
+- TASK-001: Next.js project setup
+- TASK-002: Design system & base UI components
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+1. `RULES.md` - Follow ALL rules strictly
+2. `DOCS/PRD.md` - Section 3.1 (Header) and 3.10 (Footer)
+3. `DOCS/reports/TASK-002-report.md` - Available components
+
+---
+
+#### RULES REMINDER
+
+- Priorities: Speed, Quality, Control, Security
+- Functions: max 20 lines, single responsibility
+- Framer Motion: GPU-accelerated only, respect reduced motion
+- Commit format: `<type>(<scope>): <desc> [TASK-003]`
+
+---
+
+#### TASK OBJECTIVE
+
+Create layout components:
+1. Header with sticky behavior and blur effect
+2. Mobile navigation with hamburger menu
+3. Footer with links and contact info
+4. Smooth scroll functionality
+
+**Acceptance Criteria:**
+- [ ] Header is sticky with blur on scroll
+- [ ] Mobile hamburger menu animates smoothly
+- [ ] Navigation links scroll to sections
+- [ ] "Parliamone" CTA scrolls to contact
+- [ ] Footer has all required links
+- [ ] All animations respect prefers-reduced-motion
+- [ ] Keyboard navigation works completely
+
+---
+
+#### DETAILED INSTRUCTIONS
+
+**File Structure:**
+```
+components/
+├── layout/
+│   ├── Header.tsx
+│   ├── MobileMenu.tsx
+│   ├── Footer.tsx
+│   ├── ScrollToTop.tsx (optional)
+│   └── index.ts
+```
+
+**Header Requirements:**
+- Logo on left (use onda_logo.png on mobile, logo.png on desktop)
+- Navigation: Chi Sono | Servizi | Portfolio | Come Lavoro | Contatti
+- CTA button "Parliamone" on right
+- Sticky positioning with backdrop blur
+- Opacity/blur increases on scroll
+- Hide/show on scroll direction (optional enhancement)
+
+**Mobile Menu Requirements:**
+- Hamburger icon with animation to X
+- Full-screen or slide-in menu
+- Staggered link animations
+- Focus trap when open
+- Close on link click
+- Close on escape key
+
+**Footer Requirements:**
+- Logo
+- Quick links to sections
+- Contact: email, LinkedIn
+- Copyright with current year
+- Privacy Policy link
+
+**Smooth Scroll:**
+- Create custom hook `useScrollTo`
+- Offset for sticky header height
+- Smooth animation
+
+---
+
+#### SECURITY CHECKLIST
+
+- [ ] External links have `rel="noopener noreferrer"`
+- [ ] No user-generated content in navigation
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+1. Run all tests: `make test`
+2. Run security check: `make security-check`
+3. Run linter: `make lint`
+4. Create `DOCS/reports/TASK-003-report.md`
+5. Update WORKPLAN.md status to `[x] Completed`
+6. **ASK FOR CONFIRMATION** before committing
+7. Commit: `feat(layout): add Header and Footer with mobile navigation [TASK-003]`
+
+---
+
+---
+
+### TASK-004: Hero Section with Animations
+
+**Status**: [ ] Pending
+**Priority**: P0 - Critical
+**Estimated Effort**: 4 hours
+**Dependencies**: TASK-003
+
+---
+
+#### CONTEXT
+
+You are continuing work on "The AI and Beyond" website. This is the chat for TASK-004.
+
+**Completed so far:**
+- TASK-000: Project foundation
+- TASK-001: Next.js project setup
+- TASK-002: Design system & base UI components
+- TASK-003: Layout components (Header, Footer)
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+1. `RULES.md` - Follow ALL rules strictly
+2. `DOCS/PRD.md` - Section 3.2 (Hero Section)
+3. `DOCS/STACK.md` - Framer Motion section
+4. `DOCS/reports/TASK-003-report.md`
+
+---
+
+#### RULES REMINDER
+
+- Priorities: Speed, Quality, Control, Security
+- Animations: 60fps, GPU-accelerated only
+- Framer Motion: respect prefers-reduced-motion
+- Commit format: `<type>(<scope>): <desc> [TASK-004]`
+
+---
+
+#### TASK OBJECTIVE
+
+Create the Hero section with:
+1. Animated wave logo (SVG path animation)
+2. Staggered text entrance animations
+3. Four keyword badges with hover effects
+4. Gradient background with subtle tech pattern
+5. Primary CTA button
+
+**Acceptance Criteria:**
+- [ ] Wave logo animates on load (draws itself)
+- [ ] Text enters with staggered fade + slide
+- [ ] Badges have micro-hover animations
+- [ ] Background gradient is smooth
+- [ ] Tech pattern is subtle, not distracting
+- [ ] All animations 60fps
+- [ ] Reduced motion users see static version
+- [ ] Mobile responsive
+
+---
+
+#### DETAILED INSTRUCTIONS
+
+**File Structure:**
+```
+components/
+├── sections/
+│   ├── Hero.tsx
+│   ├── AnimatedLogo.tsx
+│   └── index.ts
+public/
+├── images/
+│   ├── logo.png
+│   └── onda_logo.png (convert to SVG for animation)
+```
+
+**Wave Logo Animation:**
+- Convert wave to SVG with path
+- Use Framer Motion `pathLength` animation
+- Duration: 1.5-2 seconds
+- Ease: ease-out
+
+**Text Animation:**
+- Headline: fade in + slide up
+- Subtitle: delay 0.3s, fade in + slide up
+- Use staggered children pattern
+
+**Keyword Badges:**
+- "Qualità", "Velocità", "Sicurezza", "Controllo"
+- Stagger entrance after text
+- Hover: slight scale + glow effect
+- Use the Badge component from TASK-002
+
+**Background:**
+- Gradient: #1a365d (dark blue) → #00bcd4 (cyan)
+- Consider: subtle grid pattern, geometric shapes
+- Keep it elegant, NOT busy
+- Performance: use CSS gradients, not images
+
+**Copy (Italian, professional placeholder):**
+```
+Headline: "Trasformo idee in soluzioni AI che funzionano"
+Subtitle: "Consulenza e sviluppo per aziende che vogliono crescere con l'intelligenza artificiale"
+CTA: "Scopri come posso aiutarti"
+```
+
+---
+
+#### SECURITY CHECKLIST
+
+- [ ] No user input in hero section
+- [ ] Images optimized and served via Next/Image
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+1. Run all tests: `make test`
+2. Run security check: `make security-check`
+3. Run linter: `make lint`
+4. Create `DOCS/reports/TASK-004-report.md`
+5. Update WORKPLAN.md status to `[x] Completed`
+6. **ASK FOR CONFIRMATION** before committing
+7. Commit: `feat(hero): add Hero section with logo animation [TASK-004]`
+
+---
+
+---
+
+### TASK-005: About Section
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 2 hours
+**Dependencies**: TASK-002
+
+---
+
+#### CONTEXT
+
+You are continuing work on "The AI and Beyond" website. This is the chat for TASK-005.
+
+**Completed so far:**
+- TASK-000 through TASK-004
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+1. `RULES.md` - Follow ALL rules strictly
+2. `DOCS/PRD.md` - Section 3.3 (About Section)
+3. Previous task reports
+
+---
+
+#### TASK OBJECTIVE
+
+Create the About/Chi Sono section with:
+1. Professional bio text
+2. Photo placeholder with elegant styling
+3. Scroll-triggered animations
+4. Credibility elements (approach, methodology)
+
+**Key Note from Client:**
+> "Non voglio il solito sito con i riquadri" - Avoid typical boxy layouts
+> Focus on value delivered, not years of experience
+
+**Acceptance Criteria:**
+- [ ] Unique, non-boxy layout
+- [ ] Scroll-triggered fade-in animation
+- [ ] Photo placeholder with frame/effect
+- [ ] Professional but accessible tone
+- [ ] Mobile responsive
+- [ ] Reduced motion support
+
+---
+
+#### DETAILED INSTRUCTIONS
+
+**Copy (Professional placeholder in Italian):**
+```
+"Mi chiamo Leonardo e aiuto aziende e professionisti a trasformare
+le loro sfide in opportunità attraverso l'intelligenza artificiale.
+
+Non vendo promesse irrealizzabili: analizzo il tuo contesto,
+identifico dove l'AI può fare davvero la differenza,
+e costruisco soluzioni che funzionano.
+
+Ogni progetto parte dall'ascolto. Perché la tecnologia migliore
+è quella che risolve problemi reali."
+```
+
+**Design Approach:**
+- Consider asymmetric layout
+- Text on one side, image offset
+- Decorative elements (gradient blurs, lines)
+- Avoid typical "photo + text side by side" box
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+1. Run all tests: `make test`
+2. Run security check: `make security-check`
+3. Run linter: `make lint`
+4. Create `DOCS/reports/TASK-005-report.md`
+5. Update WORKPLAN.md status to `[x] Completed`
+6. **ASK FOR CONFIRMATION** before committing
+7. Commit: `feat(about): add About section with animations [TASK-005]`
+
+---
+
+---
+
+### TASK-006: Services Section with Cards
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-002
+
+---
+
+#### CONTEXT
+
+You are continuing work on "The AI and Beyond" website. This is the chat for TASK-006.
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+1. `RULES.md` - Follow ALL rules strictly
+2. `DOCS/PRD.md` - Section 3.4 (Services Section)
+3. Previous task reports
+
+---
+
+#### TASK OBJECTIVE
+
+Create the Services section with:
+1. 5 interactive service cards
+2. Unique, non-standard card layout
+3. Hover animations and content expansion
+4. Icons for each service
+5. Staggered scroll animations
+
+**Services:**
+1. **Consulenza AI** - Analisi e strategia per integrare AI nel business
+2. **Sviluppo Web App** - Applicazioni web moderne e performanti
+3. **Agenti AI** - Automazioni intelligenti e assistenti virtuali
+4. **Prototipi Rapidi** - MVP e proof of concept in tempi brevi
+5. **Ottimizzazione PM** - Strumenti AI per project management efficiente
+
+**Key Note from Client:**
+> "Non voglio il solito sito con i riquadri" - Create a unique layout, not typical grid
+
+**Acceptance Criteria:**
+- [ ] Creative, non-standard card arrangement
+- [ ] Each card has icon, title, description
+- [ ] Hover: scale + shadow + detail expansion
+- [ ] Staggered entrance animation
+- [ ] Optional: click for modal with more details
+- [ ] Mobile responsive (stack elegantly)
+
+---
+
+#### DESIGN SUGGESTIONS
+
+Instead of typical 3x2 or 5-column grid, consider:
+- Staggered/offset cards
+- Cards at different sizes
+- Floating/overlapping arrangement
+- Bento-box inspired layout
+- Cards that "fan out" on hover
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+1-7: Same as previous tasks
+Commit: `feat(services): add Services section with interactive cards [TASK-006]`
+
+---
+
+---
+
+### TASK-007: Portfolio Section with Modals
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 4 hours
+**Dependencies**: TASK-002
+
+---
+
+#### CONTEXT
+
+You are continuing work on "The AI and Beyond" website. This is the chat for TASK-007.
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+1. `RULES.md`
+2. `DOCS/PRD.md` - Section 3.5 (Portfolio Section)
+
+---
+
+#### TASK OBJECTIVE
+
+Create the Portfolio section with:
+1. 4-5 project showcases
+2. Responsive grid (2 cols desktop, 1 mobile)
+3. Click to expand with detailed modal
+4. Project details: problem, solution, results
+5. Technology badges
+
+**Projects:**
+1. App ESWBS - Sistema gestione manutenzione navale
+2. Analisi dati manutenzione - Comparazione schedule IT/EN
+3. Web app professionisti - Sito con booking
+4. Automazione email coaching - Sistema follow-up automatico
+5. (Optional) Prototipo assistente AI con RAG
+
+**Acceptance Criteria:**
+- [ ] Grid responsive layout
+- [ ] Cards with placeholder images
+- [ ] Click opens modal with AnimatePresence
+- [ ] Modal has: images, problem, solution, results, tech badges
+- [ ] Close on backdrop click or escape
+- [ ] Focus trap in modal
+- [ ] Keyboard accessible
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+Commit: `feat(portfolio): add Portfolio section with project modals [TASK-007]`
+
+---
+
+---
+
+### TASK-008: Before/After Comparison
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-002
+
+---
+
+#### TASK OBJECTIVE
+
+Create Before/After section showing workflow transformations:
+1. 2-3 comparison examples
+2. Interactive slider OR side-by-side
+3. Visual contrast (manual vs AI-powered)
+4. Numbers where possible
+
+**Examples:**
+1. Report generation: 4 hours → 15 minutes
+2. Email follow-up: Manual tracking → Automated
+3. Data analysis: Spreadsheets → Real-time dashboard
+
+**Acceptance Criteria:**
+- [ ] Interactive comparison (slider or toggle)
+- [ ] Clear visual distinction before/after
+- [ ] Credible, realistic improvements shown
+- [ ] Scroll-triggered animation
+- [ ] Mobile responsive
+
+---
+
+---
+
+### TASK-009: ROI Calculator
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-002
+
+---
+
+#### TASK OBJECTIVE
+
+Create interactive ROI Calculator:
+1. Input: Hours/week on repetitive tasks
+2. Input: Optional hourly rate
+3. Input: Task type dropdown
+4. Animated output showing savings
+
+**Formula (Conservative, 60% efficiency):**
+```
+hours_saved_monthly = hours_per_week × 4 × 0.60
+annual_savings = hours_saved_monthly × 12 × hourly_rate
+
+Task type multipliers:
+- Data entry: ×1.2 (higher automation potential)
+- Reporting: ×1.0 (standard)
+- Communications: ×0.8 (lower automation potential)
+- Other: ×0.9
+```
+
+**Acceptance Criteria:**
+- [ ] Smooth slider or input for hours
+- [ ] Real-time calculation updates
+- [ ] Animated number counting
+- [ ] Currency formatting (Italian: €)
+- [ ] CTA linking to contact form
+- [ ] Mobile responsive
+
+---
+
+---
+
+### TASK-010: Process Timeline Section
+
+**Status**: [ ] Pending
+**Priority**: P2 - Medium
+**Estimated Effort**: 2 hours
+**Dependencies**: TASK-002
+
+---
+
+#### TASK OBJECTIVE
+
+Create "Come Lavoro" timeline section:
+1. Visual stepper/timeline
+2. 5 steps with icons
+3. Sequential scroll animation
+
+**Steps:**
+1. **Ascolto** - Capisco il tuo problema e i tuoi obiettivi
+2. **Analizzo** - Studio la soluzione migliore per il tuo caso
+3. **Progetto** - Definisco architettura e roadmap chiara
+4. **Sviluppo** - Costruisco con metodologia agile e feedback continuo
+5. **Consegno** - Testing, deployment e formazione del team
+
+**Acceptance Criteria:**
+- [ ] Vertical or horizontal timeline
+- [ ] Icons for each step
+- [ ] Sequential reveal on scroll
+- [ ] Mobile: vertical always
+- [ ] Connecting line/path between steps
+
+---
+
+---
+
+### TASK-011: Contact Form with Validation
+
+**Status**: [ ] Pending
+**Priority**: P0 - Critical
+**Estimated Effort**: 4 hours
+**Dependencies**: TASK-002
+
+---
+
+#### CONTEXT
+
+Contact form is critical for lead generation. Must be secure and user-friendly.
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+1. `RULES.md` - Especially Section 7 (Security)
+2. `DOCS/PRD.md` - Section 3.9 (Contact Form)
+3. `DOCS/STACK.md` - React Hook Form + Zod
+
+---
+
+#### TASK OBJECTIVE
+
+Create contact form with:
+1. Fields: Nome*, Email*, Azienda, Messaggio*, Privacy checkbox*
+2. Real-time validation with clear error messages
+3. Zod schema for validation
+4. Loading and success states
+5. Sticky mobile access button
+
+**Acceptance Criteria:**
+- [ ] All required fields validated
+- [ ] Email format validated
+- [ ] Real-time error display (not just on submit)
+- [ ] Loading spinner during submission
+- [ ] Success message (no redirect)
+- [ ] Error handling for API failures
+- [ ] Form disabled during submission
+- [ ] Shake animation on error (subtle)
+- [ ] Check animation on success
+- [ ] Mobile: sticky button to open form
+- [ ] ARIA labels and accessibility
+
+---
+
+#### DETAILED INSTRUCTIONS
+
+**Zod Schema (lib/validations.ts):**
+```typescript
+import { z } from 'zod';
+
+export const contactFormSchema = z.object({
+  name: z.string()
+    .min(2, 'Il nome deve avere almeno 2 caratteri')
+    .max(100, 'Il nome è troppo lungo'),
+  email: z.string()
+    .email('Inserisci un indirizzo email valido'),
+  company: z.string().optional(),
+  message: z.string()
+    .min(10, 'Il messaggio deve avere almeno 10 caratteri')
+    .max(1000, 'Il messaggio è troppo lungo'),
+  privacy: z.literal(true, {
+    errorMap: () => ({ message: 'Devi accettare la privacy policy' }),
+  }),
+});
+
+export type ContactFormData = z.infer<typeof contactFormSchema>;
+```
+
+**Security:**
+- Client validation is for UX only
+- Server MUST validate again (TASK-012)
+- Sanitize all inputs before display
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+Commit: `feat(contact): add contact form with validation [TASK-011]`
+
+---
+
+---
+
+### TASK-012: Contact API with Rate Limiting
+
+**Status**: [ ] Pending
+**Priority**: P0 - Critical
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-011
+
+---
+
+#### CONTEXT
+
+API endpoint for contact form. Security is CRITICAL.
+
+---
+
+#### REQUIRED READING (DO THIS FIRST)
+
+1. `RULES.md` - Section 7 (Security Rules)
+2. `DOCS/STACK.md` - Resend section
+3. `DOCS/PRD.md` - NFR-010 through NFR-017 (Security requirements)
+
+---
+
+#### TASK OBJECTIVE
+
+Create secure contact API endpoint:
+1. POST /api/contact
+2. Server-side validation (Zod)
+3. Rate limiting (3 per IP per 15 min)
+4. Email sending via Resend
+5. Proper error responses
+
+**Acceptance Criteria:**
+- [ ] Validates all input server-side
+- [ ] Rate limits by IP address
+- [ ] Sends email via Resend
+- [ ] Returns appropriate status codes
+- [ ] Error messages don't expose internals
+- [ ] Handles Resend API errors gracefully
+- [ ] Logs errors (console, not to client)
+
+---
+
+#### DETAILED INSTRUCTIONS
+
+**File: app/api/contact/route.ts**
+
+**Rate Limiting Options:**
+1. Simple in-memory (Map with timestamps) - for MVP
+2. Vercel KV - for production scale
+3. Upstash Redis - alternative
+
+For MVP, use in-memory Map. Document that production should use Vercel KV.
+
+**Email Template:**
+```
+Subject: Nuovo contatto dal sito - {name}
+
+Nome: {name}
+Email: {email}
+Azienda: {company || 'Non specificata'}
+
+Messaggio:
+{message}
+
+---
+Inviato dal form di contatto di theaiandbeyond.com
+```
+
+**Security Checklist:**
+- [ ] Input sanitization
+- [ ] No SQL (but validate anyway)
+- [ ] Rate limiting works
+- [ ] API key in environment variable
+- [ ] Error messages don't leak info
+- [ ] Logs don't contain sensitive data
+
+---
+
+#### MANDATORY END-OF-TASK ACTIONS
+
+Commit: `feat(api): add contact API with rate limiting [TASK-012]`
+
+---
+
+---
+
+### TASK-013: Cookie Consent Banner
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 2 hours
+**Dependencies**: TASK-002
+
+---
+
+#### TASK OBJECTIVE
+
+Create simple GDPR-compliant cookie consent banner:
+1. Banner appears on first visit
+2. Accept/Decline options
+3. Persist preference in localStorage
+4. Link to privacy policy
+5. Subtle, non-intrusive design
+
+**Acceptance Criteria:**
+- [ ] Shows on first visit only
+- [ ] Accept loads analytics
+- [ ] Decline skips analytics
+- [ ] Preference persisted
+- [ ] Privacy policy link
+- [ ] Accessible (keyboard, screen reader)
+- [ ] Doesn't block content entirely
+
+---
+
+---
+
+### TASK-014: SEO & Metadata
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 2 hours
+**Dependencies**: TASK-001
+
+---
+
+#### TASK OBJECTIVE
+
+Configure SEO and metadata:
+1. Complete meta tags
+2. Open Graph tags
+3. Structured data (JSON-LD)
+4. sitemap.xml
+5. robots.txt
+6. Favicon and app icons
+
+**Metadata:**
+```
+Title: The AI and Beyond | Consulenza e Sviluppo AI
+Description: Trasformo idee in soluzioni AI che funzionano. Consulenza e sviluppo per aziende italiane che vogliono crescere con l'intelligenza artificiale.
+```
+
+**Acceptance Criteria:**
+- [ ] Title and description configured
+- [ ] Open Graph tags (og:title, og:description, og:image)
+- [ ] Twitter card tags
+- [ ] JSON-LD for Organization
+- [ ] sitemap.xml generated
+- [ ] robots.txt configured
+- [ ] Favicon set
+
+---
+
+---
+
+### TASK-015: Analytics Integration
+
+**Status**: [ ] Pending
+**Priority**: P2 - Medium
+**Estimated Effort**: 1 hour
+**Dependencies**: TASK-001
+
+---
+
+#### TASK OBJECTIVE
+
+Integrate Vercel Analytics:
+1. Install @vercel/analytics
+2. Add Analytics component
+3. Respect cookie consent
+
+**Acceptance Criteria:**
+- [ ] Analytics component added
+- [ ] Only loads if consent given
+- [ ] Works in production (Vercel)
+- [ ] Web Vitals tracked
+
+---
+
+---
+
+### TASK-016: Performance Optimization
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 2 hours
+**Dependencies**: All sections complete
+
+---
+
+#### TASK OBJECTIVE
+
+Optimize for Lighthouse 90+ scores:
+1. Image optimization
+2. Font loading optimization
+3. Lazy loading for below-fold sections
+4. Bundle analysis
+5. Animation performance audit
+
+**Acceptance Criteria:**
+- [ ] Lighthouse Performance ≥ 90
+- [ ] Lighthouse Accessibility ≥ 90
+- [ ] Lighthouse Best Practices ≥ 90
+- [ ] Lighthouse SEO ≥ 90
+- [ ] FCP < 1.5s
+- [ ] LCP < 2.5s
+- [ ] CLS < 0.1
+- [ ] All animations 60fps
+
+---
+
+---
+
+### TASK-017: Accessibility Audit & Fixes
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 2 hours
+**Dependencies**: All sections complete
+
+---
+
+#### TASK OBJECTIVE
+
+Complete accessibility audit:
+1. Color contrast check
+2. Keyboard navigation test
+3. Screen reader test
+4. Focus management
+5. ARIA labels review
+
+**Acceptance Criteria:**
+- [ ] All text meets WCAG AA contrast
+- [ ] Full keyboard navigation
+- [ ] Screen reader announces correctly
+- [ ] Focus visible on all elements
+- [ ] Skip to content link works
+- [ ] No keyboard traps
+- [ ] prefers-reduced-motion respected
+
+---
+
+---
+
+### TASK-018: E2E Tests for Critical Flows
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-012
+
+---
+
+#### TASK OBJECTIVE
+
+Write Playwright E2E tests for:
+1. Navigation and smooth scroll
+2. Mobile menu functionality
+3. Contact form submission flow
+4. ROI calculator interaction
+5. Portfolio modal opening/closing
+
+**Acceptance Criteria:**
+- [ ] Tests run in CI
+- [ ] Tests pass on Chrome, Firefox, Safari
+- [ ] Critical paths covered
+- [ ] Tests are stable (no flakiness)
+
+---
+
+---
+
+### TASK-019: Final Review & Deployment
+
+**Status**: [ ] Pending
+**Priority**: P0 - Critical
+**Estimated Effort**: 2 hours
+**Dependencies**: All tasks
+
+---
+
+#### TASK OBJECTIVE
+
+Final review and production deployment:
+1. Security review
+2. Performance final check
+3. Cross-browser testing
+4. Mobile testing
+5. Vercel deployment
+6. Domain configuration
+
+**Acceptance Criteria:**
+- [ ] All tests pass
+- [ ] Security check passes
+- [ ] Lighthouse 90+ on production
+- [ ] Works on Chrome, Firefox, Safari
+- [ ] Works on iOS Safari, Android Chrome
+- [ ] No console errors
+- [ ] Form sends emails in production
+- [ ] Domain connected and HTTPS working
+
+---
+
+#### CHECKLIST
+
+**Security:**
+- [ ] No secrets in code
+- [ ] .env not committed
+- [ ] Security headers active
+- [ ] Rate limiting working
+- [ ] HTTPS only
+
+**Performance:**
+- [ ] All images optimized
+- [ ] Fonts preloaded
+- [ ] Bundle size reasonable
+- [ ] Animations smooth
+
+**Functionality:**
+- [ ] All links work
+- [ ] Form submits correctly
+- [ ] Mobile menu works
+- [ ] All sections display correctly
+
+---
+
+## Appendix: Report Template
+
+Use this template for task reports in `DOCS/reports/`:
+
+```markdown
+# TASK-XXX Report
+## [Task Title]
+
+**Date**: YYYY-MM-DD
+**Status**: Completed
+
+## Summary
+Brief description of what was accomplished.
+
+## Files Created/Modified
+- `path/to/file.ts` - Description
+- `path/to/other.ts` - Description
+
+## Tests Added
+- `tests/unit/file.test.ts` - X tests added
+- `tests/integration/api.test.ts` - X tests added
+
+## Security Considerations
+- Input validation implemented for X
+- Rate limiting configured as Y
+- No secrets in code (verified)
+
+## Issues Encountered
+1. **Issue**: Description
+   **Resolution**: How it was solved
+
+## Next Steps
+- Recommendations for following tasks
+- Any technical debt to address
+
+## Commit
+`type(scope): description [TASK-XXX]`
+```
