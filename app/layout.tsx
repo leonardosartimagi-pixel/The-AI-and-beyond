@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import { CookieConsentBanner } from '@/components/layout/CookieConsentBanner';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { VercelAnalytics } from '@/components/analytics/VercelAnalytics';
 import './globals.css';
 
 const inter = Inter({
@@ -103,6 +104,7 @@ export default function RootLayout({
         <JsonLd />
         {children}
         <CookieConsentBanner />
+        <VercelAnalytics />
       </body>
     </html>
   );
