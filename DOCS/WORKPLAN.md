@@ -28,7 +28,7 @@
 | TASK-002 | Design system & base UI components | [x] Completed | P0 | 3h | TASK-001 |
 | TASK-003 | Layout components (Header, Footer) | [x] Completed | P0 | 3h | TASK-002 |
 | TASK-004 | Hero section with animations | [x] Completed | P0 | 4h | TASK-003 |
-| TASK-005 | About section | [ ] Pending | P1 | 2h | TASK-002 |
+| TASK-005 | About section | [x] Completed | P1 | 2h | TASK-002 |
 | TASK-006 | Services section with cards | [ ] Pending | P1 | 3h | TASK-002 |
 | TASK-007 | Portfolio section with modals | [ ] Pending | P1 | 4h | TASK-002 |
 | TASK-008 | Before/After comparison | [ ] Pending | P1 | 3h | TASK-002 |
@@ -706,7 +706,7 @@ CTA: "Scopri come posso aiutarti"
 
 ### TASK-005: About Section
 
-**Status**: [ ] Pending
+**Status**: [x] Completed
 **Priority**: P1 - High
 **Estimated Effort**: 2 hours
 **Dependencies**: TASK-002
