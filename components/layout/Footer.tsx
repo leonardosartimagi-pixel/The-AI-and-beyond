@@ -53,7 +53,7 @@ function FooterBrand({ onLogoClick }: FooterBrandProps) {
           className="object-contain brightness-0 invert"
         />
       </button>
-      <p className="mt-4 text-sm text-white/70">
+      <p className="mt-4 text-sm text-white/80">
         Consulenza AI e sviluppo web per aziende italiane.
       </p>
     </div>
@@ -73,7 +73,7 @@ function FooterNav({ onNavClick }: FooterNavProps) {
           <li key={link.href}>
             <button
               onClick={() => onNavClick(link.href)}
-              className="text-white/70 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+              className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
             >
               {link.label}
             </button>
@@ -92,7 +92,7 @@ function FooterContact() {
         <li>
           <a
             href={`mailto:${CONTACT_INFO.email}`}
-            className="text-white/70 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+            className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
           >
             {CONTACT_INFO.email}
           </a>
@@ -102,7 +102,7 @@ function FooterContact() {
             href={CONTACT_INFO.linkedIn}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/70 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+            className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
           >
             LinkedIn
           </a>
@@ -119,12 +119,12 @@ interface FooterBottomProps {
 function FooterBottom({ year }: FooterBottomProps) {
   return (
     <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <p className="text-sm text-white/50">
+      <p className="text-sm text-white/60">
         &copy; {year} The AI and Beyond. Tutti i diritti riservati.
       </p>
       <a
         href="/privacy"
-        className="text-sm text-white/50 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+        className="text-sm text-white/60 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
       >
         Privacy Policy
       </a>

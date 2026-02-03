@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '@/hooks';
 
@@ -330,6 +330,47 @@ function ServiceModal({
   onClose,
   prefersReducedMotion,
 }: ServiceModalProps) {
+  const modalRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+
+      if (event.key === 'Tab' && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement?.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement?.focus();
+        }
+      }
+    },
+    [onClose]
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+      closeButtonRef.current?.focus();
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, handleKeyDown]);
+
   if (!service) return null;
 
   return (
@@ -355,6 +396,7 @@ function ServiceModal({
             exit={{ opacity: 0 }}
           >
             <motion.article
+              ref={modalRef}
               className="relative max-h-[90vh] w-full max-w-lg overflow-auto rounded-3xl bg-white p-8 shadow-2xl"
               initial={{
                 opacity: 0,
@@ -373,10 +415,11 @@ function ServiceModal({
               }}
               role="dialog"
               aria-modal="true"
-              aria-labelledby="modal-title"
+              aria-labelledby="service-modal-title"
             >
               {/* Close button */}
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
                 className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
@@ -405,7 +448,7 @@ function ServiceModal({
 
               {/* Title */}
               <h2
-                id="modal-title"
+                id="service-modal-title"
                 className="mb-4 font-heading text-2xl font-bold text-primary"
               >
                 {service.title}
@@ -456,6 +499,7 @@ export function Services({ className = '' }: ServicesProps) {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   const headingVariants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
@@ -470,11 +514,16 @@ export function Services({ className = '' }: ServicesProps) {
   };
 
   const handleOpenModal = (service: Service) => {
+    triggerRef.current = document.activeElement as HTMLElement;
     setSelectedService(service);
   };
 
   const handleCloseModal = () => {
     setSelectedService(null);
+    // Restore focus to trigger element
+    setTimeout(() => {
+      triggerRef.current?.focus();
+    }, 0);
   };
 
   return (
