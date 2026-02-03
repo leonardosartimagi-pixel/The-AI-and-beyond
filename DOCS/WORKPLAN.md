@@ -26,7 +26,7 @@
 | TASK-000 | Project foundation (docs, structure) | [x] Completed | P0 | 2h | - |
 | TASK-001 | Next.js project setup with security config | [x] Completed | P0 | 2h | TASK-000 |
 | TASK-002 | Design system & base UI components | [x] Completed | P0 | 3h | TASK-001 |
-| TASK-003 | Layout components (Header, Footer) | [ ] Pending | P0 | 3h | TASK-002 |
+| TASK-003 | Layout components (Header, Footer) | [x] Completed | P0 | 3h | TASK-002 |
 | TASK-004 | Hero section with animations | [ ] Pending | P0 | 4h | TASK-003 |
 | TASK-005 | About section | [ ] Pending | P1 | 2h | TASK-002 |
 | TASK-006 | Services section with cards | [ ] Pending | P1 | 3h | TASK-002 |
@@ -458,7 +458,7 @@ export const staggerContainer = {
 
 ### TASK-003: Layout Components (Header, Footer)
 
-**Status**: [ ] Pending
+**Status**: [x] Completed
 **Priority**: P0 - Critical
 **Estimated Effort**: 3 hours
 **Dependencies**: TASK-002
