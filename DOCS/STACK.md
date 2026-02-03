@@ -249,6 +249,93 @@
 
 ---
 
+## Internationalization
+
+### next-intl
+**Version**: 3.x
+
+**Why this choice:**
+1. **App Router native** - Designed for Next.js 14+ App Router
+2. **Simple API** - useTranslations hook is intuitive
+3. **Type safety** - TypeScript support with type-checked keys
+4. **SSR support** - Server-side rendering for SEO
+5. **Middleware** - Built-in locale detection and routing
+
+**Alternatives considered:**
+| Alternative | Why Rejected |
+|-------------|--------------|
+| next-i18next | Pages Router focused, complex setup |
+| react-intl | Less Next.js integration |
+| Custom solution | More maintenance overhead |
+
+**Integration points:**
+- Next.js middleware for locale routing
+- Server Components with getRequestConfig
+- Client Components with NextIntlClientProvider
+
+**Configuration:**
+- `/i18n/request.ts` - Core configuration
+- `/messages/it.json` - Italian translations
+- `/messages/en.json` - English translations
+- `/middleware.ts` - Locale detection
+
+---
+
+## Particle System
+
+### @tsparticles/react + @tsparticles/slim
+**Version**: 3.x
+
+**Why this choice:**
+1. **Lightweight** - Slim bundle (~15kb gzipped)
+2. **Interactive** - Mouse/touch interactions built-in
+3. **Performance** - GPU-accelerated, 60fps
+4. **Customizable** - Neural network style connections
+5. **React native** - Proper React component integration
+
+**Alternatives considered:**
+| Alternative | Why Rejected |
+|-------------|--------------|
+| particles.js | Outdated, no React support |
+| react-particles-js | Deprecated |
+| Three.js | Overkill for particles |
+| CSS animations | Limited interactivity |
+
+**Configuration:**
+- Brand colors: cyan (#00bcd4) and blue (#1a365d)
+- 80-100 particles with connections
+- Interactive "grab" mode on hover
+- Disabled when prefers-reduced-motion
+
+**Known limitations:**
+- Requires dynamic import for SSR
+- Can impact LCP if not lazy loaded
+
+**Mitigation:**
+- Use `dynamic()` with `ssr: false`
+- Only render after engine initialization
+
+---
+
+## Animation (Lottie)
+
+### @lottiefiles/react-lottie-player
+**Version**: 3.x
+
+**Why this choice:**
+1. **Lightweight** - Smaller than alternatives
+2. **React hooks** - useLottie for control
+3. **LottieFiles integration** - Easy asset import
+4. **Performance** - Optimized playback
+
+**Usage:**
+- Floating assistant mascot
+- Micro-interactions
+
+**Note:** Currently using SVG blob animation as fallback since external Lottie files cannot be downloaded during development.
+
+---
+
 ## Analytics
 
 ### Vercel Analytics
@@ -405,6 +492,9 @@ import { Analytics } from '@vercel/analytics/react'
 | Language | TypeScript | 5.x |
 | Styling | Tailwind CSS | 3.x |
 | Animation | Framer Motion | 11.x |
+| Particles | @tsparticles/react + slim | 3.x |
+| Lottie | @lottiefiles/react-lottie-player | 3.x |
+| i18n | next-intl | 3.x |
 | Forms | React Hook Form | 7.x |
 | Validation | Zod | 3.x |
 | Email | Resend | API v1 |

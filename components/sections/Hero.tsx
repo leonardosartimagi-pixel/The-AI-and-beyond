@@ -1,17 +1,32 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollTo } from '@/hooks';
 import { Badge, Button } from '@/components/ui';
 import { AnimatedLogo } from './AnimatedLogo';
 
-const KEYWORDS = ['Qualità', 'Velocità', 'Sicurezza', 'Controllo'] as const;
+// Dynamic import for particle system to avoid impacting initial bundle
+const ParticleBackground = dynamic(
+  () => import('@/components/effects/ParticleBackground').then((mod) => mod.ParticleBackground),
+  { ssr: false }
+);
+
+// Dynamic import for decorative background logo
+const DecorativeLogoBackground = dynamic(
+  () => import('@/components/effects/DecorativeLogoBackground').then((mod) => mod.DecorativeLogoBackground),
+  { ssr: false }
+);
+
+const KEYWORD_KEYS = ['quality', 'speed', 'security', 'control'] as const;
 
 interface HeroProps {
   className?: string;
 }
 
 export function Hero({ className = '' }: HeroProps) {
+  const t = useTranslations('hero');
   const prefersReducedMotion = useReducedMotion();
   const scrollTo = useScrollTo();
 
@@ -75,13 +90,16 @@ export function Hero({ className = '' }: HeroProps) {
     <section
       id="hero"
       className={`relative min-h-screen overflow-hidden ${className}`}
-      aria-label="Sezione principale"
+      aria-label={t('headline')}
     >
       {/* Background gradient */}
       <div
         className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary"
         aria-hidden="true"
       />
+
+      {/* Interactive particle system */}
+      <ParticleBackground />
 
       {/* Tech pattern overlay */}
       <div
@@ -95,6 +113,9 @@ export function Hero({ className = '' }: HeroProps) {
           backgroundSize: '60px 60px',
         }}
       />
+
+      {/* Decorative logo in background with glow effect */}
+      <DecorativeLogoBackground />
 
       {/* Gradient orbs for depth */}
       <div
@@ -131,9 +152,9 @@ export function Hero({ className = '' }: HeroProps) {
             className="font-heading text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
             variants={itemVariants}
           >
-            Trasformo idee in soluzioni AI{' '}
+            {t('headline')}{' '}
             <span className="bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent">
-              che funzionano
+              {t('headlineAccent')}
             </span>
           </motion.h1>
 
@@ -142,8 +163,7 @@ export function Hero({ className = '' }: HeroProps) {
             className="mx-auto mt-6 max-w-2xl text-lg text-white/80 sm:text-xl"
             variants={itemVariants}
           >
-            Consulenza e sviluppo per aziende che vogliono crescere con
-            l&apos;intelligenza artificiale
+            {t('subtitle')}
           </motion.p>
 
           {/* Keyword Badges */}
@@ -152,17 +172,17 @@ export function Hero({ className = '' }: HeroProps) {
             variants={badgeContainerVariants}
             initial="hidden"
             animate="visible"
-            aria-label="Valori principali"
+            aria-label={t('keywords.quality')}
           >
-            {KEYWORDS.map((keyword) => (
-              <motion.div key={keyword} variants={badgeVariants}>
+            {KEYWORD_KEYS.map((key) => (
+              <motion.div key={key} variants={badgeVariants}>
                 <Badge
                   variant="secondary"
                   size="lg"
                   className="cursor-default border border-white/20 backdrop-blur-sm transition-all duration-300 hover:border-accent/50 hover:bg-white/30 hover:shadow-lg hover:shadow-accent/20"
                   animated={!prefersReducedMotion}
                 >
-                  {keyword}
+                  {t(`keywords.${key}`)}
                 </Badge>
               </motion.div>
             ))}
@@ -176,7 +196,7 @@ export function Hero({ className = '' }: HeroProps) {
               onClick={handleCtaClick}
               className="shadow-lg shadow-accent/30 transition-shadow duration-300 hover:shadow-xl hover:shadow-accent/40"
             >
-              Scopri come posso aiutarti
+              {t('cta')}
             </Button>
           </motion.div>
         </motion.div>

@@ -2,13 +2,12 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 
 interface Service {
   id: string;
-  title: string;
-  description: string;
-  expandedDescription: string;
+  key: string;
   icon: React.ReactNode;
   size: 'normal' | 'featured';
   offsetY: number;
@@ -21,10 +20,7 @@ interface ServicesProps {
 const services: Service[] = [
   {
     id: 'consulenza-ai',
-    title: 'Consulenza AI',
-    description: 'Analisi e strategia per integrare AI nel business',
-    expandedDescription:
-      'Valutiamo insieme il tuo contesto aziendale per identificare le opportunità di automazione e ottimizzazione. Definiamo una roadmap chiara e realistica per integrare l\'AI nei tuoi processi.',
+    key: 'consulting',
     icon: (
       <svg
         className="h-7 w-7"
@@ -46,10 +42,7 @@ const services: Service[] = [
   },
   {
     id: 'sviluppo-web',
-    title: 'Sviluppo Web App',
-    description: 'Applicazioni web moderne e performanti',
-    expandedDescription:
-      'Creiamo applicazioni web su misura con le tecnologie più moderne. Dalle dashboard aziendali ai tool interni, ogni progetto è ottimizzato per performance e user experience.',
+    key: 'webdev',
     icon: (
       <svg
         className="h-7 w-7"
@@ -71,10 +64,7 @@ const services: Service[] = [
   },
   {
     id: 'agenti-ai',
-    title: 'Agenti AI',
-    description: 'Automazioni intelligenti e assistenti virtuali',
-    expandedDescription:
-      'Sviluppiamo agenti AI personalizzati che automatizzano task ripetitivi, gestiscono comunicazioni e supportano il tuo team. Integrabili con i tuoi strumenti esistenti.',
+    key: 'agents',
     icon: (
       <svg
         className="h-7 w-7"
@@ -96,10 +86,7 @@ const services: Service[] = [
   },
   {
     id: 'prototipi-rapidi',
-    title: 'Prototipi Rapidi',
-    description: 'MVP e proof of concept in tempi brevi',
-    expandedDescription:
-      'Trasformiamo le tue idee in prototipi funzionanti velocemente. Testiamo le ipotesi con utenti reali prima di investire in sviluppi completi.',
+    key: 'prototypes',
     icon: (
       <svg
         className="h-7 w-7"
@@ -121,10 +108,7 @@ const services: Service[] = [
   },
   {
     id: 'ottimizzazione-pm',
-    title: 'Ottimizzazione PM',
-    description: 'Strumenti AI per project management efficiente',
-    expandedDescription:
-      'Implementiamo soluzioni AI per ottimizzare la gestione dei progetti: report automatici, analisi predittive, workflow intelligenti e molto altro.',
+    key: 'pm',
     icon: (
       <svg
         className="h-7 w-7"
@@ -157,6 +141,7 @@ interface ServiceCardProps {
   isInView: boolean;
   prefersReducedMotion: boolean;
   onOpenModal: (service: Service) => void;
+  t: ReturnType<typeof useTranslations<'services'>>;
 }
 
 function ServiceCard({
@@ -165,6 +150,7 @@ function ServiceCard({
   isInView,
   prefersReducedMotion,
   onOpenModal,
+  t,
 }: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -219,7 +205,7 @@ function ServiceCard({
           duration: 0.3,
           ease: [0.25, 0.46, 0.45, 0.94],
         }}
-        aria-label={`Scopri di più su ${service.title}`}
+        aria-label={`${t('learnMore')} - ${t(`items.${service.key}.title`)}`}
       >
         {/* Decorative gradient background on hover */}
         <motion.div
@@ -256,12 +242,12 @@ function ServiceCard({
 
         {/* Title */}
         <h3 className="relative mb-3 font-heading text-xl font-bold text-primary lg:text-2xl">
-          {service.title}
+          {t(`items.${service.key}.title`)}
         </h3>
 
         {/* Description */}
         <p className="relative mb-4 flex-grow text-base leading-relaxed text-gray-600">
-          {service.description}
+          {t(`items.${service.key}.description`)}
         </p>
 
         {/* Expanded content on hover */}
@@ -274,7 +260,7 @@ function ServiceCard({
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {service.expandedDescription}
+              {t(`items.${service.key}.expanded`)}
             </motion.p>
           )}
         </AnimatePresence>
@@ -287,7 +273,7 @@ function ServiceCard({
           }}
           transition={{ duration: 0.3 }}
         >
-          <span>Scopri di più</span>
+          <span>{t('learnMore')}</span>
           <svg
             className="h-4 w-4"
             fill="none"
@@ -322,6 +308,8 @@ interface ServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
   prefersReducedMotion: boolean;
+  t: ReturnType<typeof useTranslations<'services'>>;
+  tNav: ReturnType<typeof useTranslations<'nav'>>;
 }
 
 function ServiceModal({
@@ -329,6 +317,8 @@ function ServiceModal({
   isOpen,
   onClose,
   prefersReducedMotion,
+  t,
+  tNav,
 }: ServiceModalProps) {
   const modalRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -423,7 +413,7 @@ function ServiceModal({
                 type="button"
                 onClick={onClose}
                 className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                aria-label="Chiudi"
+                aria-label={t('close')}
               >
                 <svg
                   className="h-5 w-5"
@@ -451,17 +441,17 @@ function ServiceModal({
                 id="service-modal-title"
                 className="mb-4 font-heading text-2xl font-bold text-primary"
               >
-                {service.title}
+                {t(`items.${service.key}.title`)}
               </h2>
 
               {/* Short description */}
               <p className="mb-4 text-lg font-medium text-gray-700">
-                {service.description}
+                {t(`items.${service.key}.description`)}
               </p>
 
               {/* Expanded description */}
               <p className="mb-8 leading-relaxed text-gray-600">
-                {service.expandedDescription}
+                {t(`items.${service.key}.expanded`)}
               </p>
 
               {/* CTA button */}
@@ -470,7 +460,7 @@ function ServiceModal({
                 onClick={onClose}
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-light px-6 py-3 font-medium text-white shadow-lg transition-all hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >
-                <span>Parliamone</span>
+                <span>{tNav('cta')}</span>
                 <svg
                   className="h-4 w-4"
                   fill="none"
@@ -495,6 +485,8 @@ function ServiceModal({
 }
 
 export function Services({ className = '' }: ServicesProps) {
+  const t = useTranslations('services');
+  const tNav = useTranslations('nav');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
@@ -532,7 +524,7 @@ export function Services({ className = '' }: ServicesProps) {
         ref={sectionRef}
         id="servizi"
         className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
-        aria-label="Servizi"
+        aria-label={t('label')}
       >
         {/* Decorative gradient blur - top left */}
         <div
@@ -567,14 +559,14 @@ export function Services({ className = '' }: ServicesProps) {
           >
             <span className="mb-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-accent">
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
-              Servizi
+              {t('label')}
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
             </span>
 
             <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
-              Soluzioni AI{' '}
+              {t('title')}{' '}
               <span className="relative inline-block">
-                su misura
+                {t('titleAccent')}
                 <span
                   className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                   aria-hidden="true"
@@ -583,8 +575,7 @@ export function Services({ className = '' }: ServicesProps) {
             </h2>
 
             <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600">
-              Dall&apos;idea alla realizzazione, ti accompagno in ogni fase del
-              percorso di innovazione.
+              {t('description')}
             </p>
           </motion.div>
 
@@ -599,6 +590,7 @@ export function Services({ className = '' }: ServicesProps) {
                   isInView={isInView}
                   prefersReducedMotion={prefersReducedMotion}
                   onOpenModal={handleOpenModal}
+                  t={t}
                 />
               )}
             </div>
@@ -612,6 +604,7 @@ export function Services({ className = '' }: ServicesProps) {
                   isInView={isInView}
                   prefersReducedMotion={prefersReducedMotion}
                   onOpenModal={handleOpenModal}
+                  t={t}
                 />
               )}
               {services[3] && (
@@ -621,6 +614,7 @@ export function Services({ className = '' }: ServicesProps) {
                   isInView={isInView}
                   prefersReducedMotion={prefersReducedMotion}
                   onOpenModal={handleOpenModal}
+                  t={t}
                 />
               )}
             </div>
@@ -634,6 +628,7 @@ export function Services({ className = '' }: ServicesProps) {
                   isInView={isInView}
                   prefersReducedMotion={prefersReducedMotion}
                   onOpenModal={handleOpenModal}
+                  t={t}
                 />
               )}
               {services[4] && (
@@ -643,6 +638,7 @@ export function Services({ className = '' }: ServicesProps) {
                   isInView={isInView}
                   prefersReducedMotion={prefersReducedMotion}
                   onOpenModal={handleOpenModal}
+                  t={t}
                 />
               )}
             </div>
@@ -656,6 +652,8 @@ export function Services({ className = '' }: ServicesProps) {
         isOpen={selectedService !== null}
         onClose={handleCloseModal}
         prefersReducedMotion={prefersReducedMotion}
+        t={t}
+        tNav={tNav}
       />
     </>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui';
 import { useReducedMotion } from '@/hooks';
 import { NAV_ITEMS } from './Header';
@@ -13,6 +14,7 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
+  const t = useTranslations('nav');
   const prefersReducedMotion = useReducedMotion();
   const menuRef = useRef<HTMLDivElement>(null);
   const firstFocusableRef = useRef<HTMLButtonElement>(null);
@@ -35,7 +37,7 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
           aria-modal="true"
           aria-label="Menu di navigazione"
         >
-          <nav aria-label="Menu mobile">
+          <nav aria-label="Mobile menu">
             <ul className="flex flex-col gap-4" role="list">
               {NAV_ITEMS.map((item, index) => (
                 <motion.li
@@ -49,7 +51,7 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
                     onClick={() => onNavClick(item.href)}
                     className="block w-full py-3 text-left text-2xl font-heading font-semibold text-primary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
                   >
-                    {item.label}
+                    {t(item.key)}
                   </button>
                 </motion.li>
               ))}
@@ -62,7 +64,7 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
             transition={{ delay: 0.5 }}
           >
             <Button onClick={() => onNavClick('contatti')} size="lg" className="w-full">
-              Parliamone
+              {t('cta')}
             </Button>
           </motion.div>
         </motion.div>

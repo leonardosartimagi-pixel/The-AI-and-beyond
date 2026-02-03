@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
-import { Header, Footer, MobileContactButton } from '@/components/layout';
+import { useTranslations } from 'next-intl';
+import { Header, Footer, MobileContactButton, FloatingAssistant } from '@/components/layout';
 import { Hero } from '@/components/sections';
 
 // Dynamically import below-fold sections for better initial page load
@@ -39,13 +40,12 @@ const Contact = dynamic(() => import('@/components/sections/Contact').then((mod)
 });
 
 export default function Home() {
+  const t = useTranslations();
+
   return (
     <>
-      <a
-        href="#main-content"
-        className="skip-to-content"
-      >
-        Vai al contenuto principale
+      <a href="#main-content" className="skip-to-content">
+        {t('skipToContent')}
       </a>
       <Header />
       <main id="main-content">
@@ -60,6 +60,7 @@ export default function Home() {
       </main>
       <Footer />
       <MobileContactButton />
+      <FloatingAssistant />
     </>
   );
 }

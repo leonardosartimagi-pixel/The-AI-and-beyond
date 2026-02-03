@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useScrollTo, useReducedMotion } from '@/hooks';
 
 export function MobileContactButton() {
+  const t = useTranslations('mobileContact');
   const [isVisible, setIsVisible] = useState(false);
   const [isNearContact, setIsNearContact] = useState(false);
   const scrollTo = useScrollTo();
@@ -57,10 +59,10 @@ export function MobileContactButton() {
           whileTap={{ scale: prefersReducedMotion ? 1 : 0.95 }}
           onClick={handleClick}
           className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-accent px-5 py-3 font-medium text-primary-dark shadow-lg transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 lg:hidden"
-          aria-label="Vai al form di contatto"
+          aria-label={t('label')}
         >
           <MessageIcon className="h-5 w-5" />
-          <span>Contattami</span>
+          <span>{t('label')}</span>
         </motion.button>
       )}
     </AnimatePresence>

@@ -3,20 +3,22 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui';
 import { useScrollTo, useReducedMotion } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
 
 export const NAV_ITEMS = [
-  { label: 'Chi Sono', href: 'chi-sono' },
-  { label: 'Servizi', href: 'servizi' },
-  { label: 'Portfolio', href: 'portfolio' },
-  { label: 'Come Lavoro', href: 'come-lavoro' },
-  { label: 'Contatti', href: 'contatti' },
+  { key: 'about', href: 'chi-sono' },
+  { key: 'services', href: 'servizi' },
+  { key: 'portfolio', href: 'portfolio' },
+  { key: 'process', href: 'come-lavoro' },
+  { key: 'contact', href: 'contatti' },
 ] as const;
 
 export function Header() {
+  const t = useTranslations('nav');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const scrollTo = useScrollTo();
@@ -55,11 +57,11 @@ export function Header() {
       >
         <nav
           className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
-          aria-label="Navigazione principale"
+          aria-label={t('about')}
         >
-          <Logo onClick={handleLogoClick} />
-          <DesktopNav onNavClick={handleNavClick} />
-          <DesktopCTA onClick={() => handleNavClick('contatti')} />
+          <Logo onClick={handleLogoClick} t={t} />
+          <DesktopNav onNavClick={handleNavClick} t={t} />
+          <DesktopCTA onClick={() => handleNavClick('contatti')} t={t} />
           <HamburgerButton
             isOpen={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -77,30 +79,23 @@ export function Header() {
 
 interface LogoProps {
   onClick: () => void;
+  t: ReturnType<typeof useTranslations<'nav'>>;
 }
 
-function Logo({ onClick }: LogoProps) {
+function Logo({ onClick, t }: LogoProps) {
   return (
     <button
       onClick={onClick}
-      className="relative h-10 w-10 md:h-12 md:w-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
-      aria-label="Torna alla home"
+      className="relative h-10 w-10 md:h-12 md:w-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+      aria-label={t('about')}
     >
+      {/* Wave logo only - on both mobile and desktop */}
       <Image
         src="/images/onda_logo.png"
         alt="The AI and Beyond"
         fill
-        sizes="40px"
-        className="object-contain md:hidden"
-        priority
-        placeholder="empty"
-      />
-      <Image
-        src="/images/logo.png"
-        alt="The AI and Beyond"
-        fill
-        sizes="(min-width: 768px) 160px, 40px"
-        className="hidden object-contain md:block"
+        sizes="48px"
+        className="object-contain"
         priority
         placeholder="empty"
       />
@@ -110,9 +105,10 @@ function Logo({ onClick }: LogoProps) {
 
 interface DesktopNavProps {
   onNavClick: (href: string) => void;
+  t: ReturnType<typeof useTranslations<'nav'>>;
 }
 
-function DesktopNav({ onNavClick }: DesktopNavProps) {
+function DesktopNav({ onNavClick, t }: DesktopNavProps) {
   return (
     <ul className="hidden items-center gap-8 lg:flex" role="list">
       {NAV_ITEMS.map((item) => (
@@ -121,7 +117,7 @@ function DesktopNav({ onNavClick }: DesktopNavProps) {
             onClick={() => onNavClick(item.href)}
             className="text-primary hover:text-accent transition-colors duration-200 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded px-2 py-1"
           >
-            {item.label}
+            {t(item.key)}
           </button>
         </li>
       ))}
@@ -131,13 +127,14 @@ function DesktopNav({ onNavClick }: DesktopNavProps) {
 
 interface DesktopCTAProps {
   onClick: () => void;
+  t: ReturnType<typeof useTranslations<'nav'>>;
 }
 
-function DesktopCTA({ onClick }: DesktopCTAProps) {
+function DesktopCTA({ onClick, t }: DesktopCTAProps) {
   return (
     <div className="hidden lg:block">
       <Button onClick={onClick} size="sm">
-        Parliamone
+        {t('cta')}
       </Button>
     </div>
   );
@@ -153,7 +150,7 @@ function HamburgerButton({ isOpen, onClick }: HamburgerButtonProps) {
     <button
       onClick={onClick}
       className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
-      aria-label={isOpen ? 'Chiudi menu' : 'Apri menu'}
+      aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
     >
       <motion.span
