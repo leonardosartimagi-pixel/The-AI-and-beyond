@@ -6,3 +6,4 @@ export { Portfolio } from './Portfolio';
 export { BeforeAfter } from './BeforeAfter';
 export { ROICalculator } from './ROICalculator';
 export { Process } from './Process';
+export { Contact } from './Contact';

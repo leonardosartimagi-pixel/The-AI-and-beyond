@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
-  label?: string;
+  label?: React.ReactNode;
   error?: string;
 }
 
