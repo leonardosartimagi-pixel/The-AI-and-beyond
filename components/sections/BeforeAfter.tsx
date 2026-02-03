@@ -2,23 +2,12 @@
 
 import { useRef, useState, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 
 interface Comparison {
   id: string;
-  title: string;
-  before: {
-    label: string;
-    description: string;
-    metric?: string;
-    pain: string;
-  };
-  after: {
-    label: string;
-    description: string;
-    metric?: string;
-    benefit: string;
-  };
+  key: string;
   icon: React.ReactNode;
 }
 
@@ -26,22 +15,12 @@ interface BeforeAfterProps {
   className?: string;
 }
 
+const COMPARISON_KEYS = ['reports', 'emails', 'data'] as const;
+
 const comparisons: Comparison[] = [
   {
     id: 'report-generation',
-    title: 'Generazione Report',
-    before: {
-      label: 'Prima',
-      description: 'Raccolta manuale dati, formattazione Excel, revisioni multiple',
-      metric: '4 ore',
-      pain: 'Tempo perso in task ripetitivi',
-    },
-    after: {
-      label: 'Dopo',
-      description: 'Raccolta automatica, template intelligenti, generazione istantanea',
-      metric: '15 min',
-      benefit: '-94% tempo, zero errori',
-    },
+    key: 'reports',
     icon: (
       <svg
         className="h-6 w-6"
@@ -61,19 +40,7 @@ const comparisons: Comparison[] = [
   },
   {
     id: 'email-followup',
-    title: 'Follow-up Email',
-    before: {
-      label: 'Prima',
-      description: 'Tracking su fogli Excel, promemoria manuali, risposte dimenticate',
-      metric: 'Manuale',
-      pain: 'Opportunità perse, clienti trascurati',
-    },
-    after: {
-      label: 'Dopo',
-      description: 'Sequenze automatiche, trigger intelligenti, personalizzazione AI',
-      metric: 'Automatico',
-      benefit: '+40% tasso risposta',
-    },
+    key: 'emails',
     icon: (
       <svg
         className="h-6 w-6"
@@ -93,19 +60,7 @@ const comparisons: Comparison[] = [
   },
   {
     id: 'data-analysis',
-    title: 'Analisi Dati',
-    before: {
-      label: 'Prima',
-      description: 'Spreadsheet complessi, formule manuali, report statici',
-      metric: 'Spreadsheet',
-      pain: 'Decisioni basate su dati obsoleti',
-    },
-    after: {
-      label: 'Dopo',
-      description: 'Dashboard interattive, insight automatici, aggiornamenti real-time',
-      metric: 'Dashboard live',
-      benefit: 'Decisioni data-driven',
-    },
+    key: 'data',
     icon: (
       <svg
         className="h-6 w-6"
@@ -130,6 +85,7 @@ interface ComparisonSliderProps {
   index: number;
   isInView: boolean;
   prefersReducedMotion: boolean;
+  t: ReturnType<typeof useTranslations<'beforeAfter'>>;
 }
 
 function ComparisonSlider({
@@ -137,6 +93,7 @@ function ComparisonSlider({
   index,
   isInView,
   prefersReducedMotion,
+  t,
 }: ComparisonSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -218,7 +175,7 @@ function ComparisonSlider({
             {comparison.icon}
           </div>
           <h3 className="font-heading text-lg font-bold text-primary lg:text-xl">
-            {comparison.title}
+            {t(`items.${comparison.key}.title`)}
           </h3>
         </div>
 
@@ -235,7 +192,7 @@ function ComparisonSlider({
           onTouchMove={handleTouchMove}
           onClick={handleClick}
           role="slider"
-          aria-label={`Confronto ${comparison.title}: trascina per vedere prima e dopo`}
+          aria-label={`${t(`items.${comparison.key}.title`)}: ${t('dragHint')}`}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(sliderPosition)}
@@ -257,21 +214,18 @@ function ComparisonSlider({
               <div>
                 <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-red-100 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-red-700">
                   <span className="h-1.5 w-1.5 rounded-full bg-red-500" aria-hidden="true" />
-                  {comparison.before.label}
+                  {t('before')}
                 </span>
                 <p className="mt-4 text-sm leading-relaxed text-gray-600 sm:text-base">
-                  {comparison.before.description}
+                  {t(`items.${comparison.key}.before.description`)}
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
                   <span className="font-heading text-2xl font-bold text-red-600 sm:text-3xl">
-                    {comparison.before.metric}
+                    {t(`items.${comparison.key}.before.time`)}
                   </span>
                 </div>
-                <p className="text-xs text-red-600/80 sm:text-sm">
-                  {comparison.before.pain}
-                </p>
               </div>
             </div>
           </div>
@@ -285,21 +239,18 @@ function ComparisonSlider({
               <div>
                 <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-accent/20 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-accent-dark">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-                  {comparison.after.label}
+                  {t('after')}
                 </span>
                 <p className="mt-4 text-sm leading-relaxed text-gray-600 sm:text-base">
-                  {comparison.after.description}
+                  {t(`items.${comparison.key}.after.description`)}
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
                   <span className="font-heading text-2xl font-bold text-accent-dark sm:text-3xl">
-                    {comparison.after.metric}
+                    {t(`items.${comparison.key}.after.time`)}
                   </span>
                 </div>
-                <p className="text-xs text-emerald-600/80 sm:text-sm">
-                  {comparison.after.benefit}
-                </p>
               </div>
             </div>
           </div>
@@ -349,7 +300,7 @@ function ComparisonSlider({
                   d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
                 />
               </svg>
-              Trascina per confrontare
+              {t('dragHint')}
             </span>
           </motion.div>
         </div>
@@ -359,6 +310,8 @@ function ComparisonSlider({
 }
 
 export function BeforeAfter({ className = '' }: BeforeAfterProps) {
+  const t = useTranslations('beforeAfter');
+  const tNav = useTranslations('nav');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
@@ -393,7 +346,7 @@ export function BeforeAfter({ className = '' }: BeforeAfterProps) {
       ref={sectionRef}
       id="trasformazioni"
       className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
-      aria-label="Trasformazioni: Prima e Dopo"
+      aria-label={t('label')}
     >
       {/* Decorative gradient blur - top right */}
       <motion.div
@@ -433,14 +386,14 @@ export function BeforeAfter({ className = '' }: BeforeAfterProps) {
         >
           <span className="mb-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-accent">
             <span className="h-px w-8 bg-accent" aria-hidden="true" />
-            Trasformazioni
+            {t('label')}
             <span className="h-px w-8 bg-accent" aria-hidden="true" />
           </span>
 
           <h2 className="mx-auto max-w-3xl font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
-            Dal caos manuale alla{' '}
+            {t('title')}{' '}
             <span className="relative inline-block">
-              precisione AI
+              {t('titleAccent')}
               <span
                 className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                 aria-hidden="true"
@@ -449,8 +402,7 @@ export function BeforeAfter({ className = '' }: BeforeAfterProps) {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
-            Scopri come l&apos;AI trasforma i processi aziendali quotidiani.
-            Trascina lo slider per confrontare il prima e il dopo.
+            {t('description')}
           </p>
         </motion.div>
 
@@ -463,6 +415,7 @@ export function BeforeAfter({ className = '' }: BeforeAfterProps) {
               index={index}
               isInView={isInView}
               prefersReducedMotion={prefersReducedMotion}
+              t={t}
             />
           ))}
         </div>
@@ -474,14 +427,11 @@ export function BeforeAfter({ className = '' }: BeforeAfterProps) {
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
         >
-          <p className="mb-6 text-gray-600">
-            Vuoi vedere come l&apos;AI può trasformare il tuo business?
-          </p>
           <a
             href="#contatti"
             className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-light px-6 py-3 font-medium text-white shadow-lg transition-all hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
-            <span>Parliamone insieme</span>
+            <span>{tNav('cta')}</span>
             <svg
               className="h-4 w-4"
               fill="none"

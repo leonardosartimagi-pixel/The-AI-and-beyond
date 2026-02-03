@@ -31,18 +31,26 @@
 | TASK-005 | About section | [x] Completed | P1 | 2h | TASK-002 |
 | TASK-006 | Services section with cards | [x] Completed | P1 | 3h | TASK-002 |
 | TASK-007 | Portfolio section with modals | [x] Completed | P1 | 4h | TASK-002 |
-| TASK-008 | Before/After comparison | [ ] Pending | P1 | 3h | TASK-002 |
-| TASK-009 | ROI Calculator | [ ] Pending | P1 | 3h | TASK-002 |
-| TASK-010 | Process timeline section | [ ] Pending | P2 | 2h | TASK-002 |
-| TASK-011 | Contact form with validation | [ ] Pending | P0 | 4h | TASK-002 |
-| TASK-012 | Contact API with rate limiting | [ ] Pending | P0 | 3h | TASK-011 |
-| TASK-013 | Cookie consent banner | [ ] Pending | P1 | 2h | TASK-002 |
-| TASK-014 | SEO & metadata | [ ] Pending | P1 | 2h | TASK-001 |
-| TASK-015 | Analytics integration | [ ] Pending | P2 | 1h | TASK-001 |
-| TASK-016 | Performance optimization | [ ] Pending | P1 | 2h | All sections |
-| TASK-017 | Accessibility audit & fixes | [ ] Pending | P1 | 2h | All sections |
-| TASK-018 | E2E tests for critical flows | [ ] Pending | P1 | 3h | TASK-012 |
-| TASK-019 | Final review & deployment | [ ] Pending | P0 | 2h | All tasks |
+| TASK-008 | Before/After comparison | [x] Completed | P1 | 3h | TASK-002 |
+| TASK-009 | ROI Calculator | [x] Completed | P1 | 3h | TASK-002 |
+| TASK-010 | Process timeline section | [x] Completed | P2 | 2h | TASK-002 |
+| TASK-011 | Contact form with validation | [x] Completed | P0 | 4h | TASK-002 |
+| TASK-012 | Contact API with rate limiting | [x] Completed | P0 | 3h | TASK-011 |
+| TASK-013 | Cookie consent banner | [x] Completed | P1 | 2h | TASK-002 |
+| TASK-014 | SEO & metadata | [x] Completed | P1 | 2h | TASK-001 |
+| TASK-015 | Analytics integration | [x] Completed | P2 | 1h | TASK-001 |
+| TASK-016 | Performance optimization | [x] Completed | P1 | 2h | All sections |
+| TASK-017 | Accessibility audit & fixes | [x] Completed | P1 | 2h | All sections |
+| TASK-018 | E2E tests for critical flows | [x] Completed | P1 | 3h | TASK-012 |
+| TASK-019 | Final review & deployment | [x] Completed | P0 | 2h | All tasks |
+| TASK-020 | Internationalization setup (next-intl) | [x] Completed | P0 | 4h | TASK-001 |
+| TASK-021 | Particle system background | [x] Completed | P1 | 3h | TASK-020 |
+| TASK-022 | Logo enhancements (favicon, header, bg) | [x] Completed | P1 | 3h | TASK-020 |
+| TASK-023 | Typography effects (gradient, split, highlight) | [x] Completed | P1 | 4h | TASK-020 |
+| TASK-024 | Floating assistant component | [x] Completed | P2 | 5h | TASK-020, TASK-021 |
+| TASK-025 | AI image prompts for portfolio | [x] Completed | P2 | 1h | - |
+| TASK-026 | Component i18n integration | [ ] Pending | P1 | 4h | TASK-020 |
+| TASK-027 | Documentation update | [x] Completed | P1 | 2h | All previous |
 
 ---
 
@@ -1436,6 +1444,287 @@ Final review and production deployment:
 - [ ] Form submits correctly
 - [ ] Mobile menu works
 - [ ] All sections display correctly
+
+---
+
+---
+
+### TASK-020: Internationalization Setup (next-intl)
+
+**Status**: [x] Completed
+**Priority**: P0 - Critical
+**Estimated Effort**: 4 hours
+**Dependencies**: TASK-001
+
+---
+
+#### TASK OBJECTIVE
+
+Configure next-intl for Italian + English support:
+1. Install and configure next-intl
+2. Restructure app to /app/[locale]
+3. Create middleware for locale detection
+4. Create translation files (it.json, en.json)
+5. Configure hreflang tags for SEO
+
+**Acceptance Criteria:**
+- [ ] /it/ and /en/ routes work correctly
+- [ ] Automatic locale detection from browser
+- [ ] Language switcher in header
+- [ ] All metadata locale-aware
+- [ ] hreflang tags in <head>
+
+---
+
+#### FILES CREATED
+
+- `i18n/request.ts` - Core i18n configuration
+- `middleware.ts` - Locale routing middleware
+- `messages/it.json` - Italian translations (~120 strings)
+- `messages/en.json` - English translations (~120 strings)
+- `app/[locale]/layout.tsx` - Locale-aware root layout
+- `app/[locale]/page.tsx` - Locale-aware home page
+
+---
+
+---
+
+### TASK-021: Particle System Background
+
+**Status**: [x] Completed
+**Priority**: P1 - High
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-020
+
+---
+
+#### TASK OBJECTIVE
+
+Create interactive particle system for Hero section:
+1. Neural network style with connections
+2. 80-100 particles with brand colors
+3. Interactive mouse/touch effects
+4. Respect prefers-reduced-motion
+5. Dynamic import for performance
+
+**Acceptance Criteria:**
+- [ ] Particles render at 60fps
+- [ ] Mouse interaction (grab mode) works
+- [ ] Brand colors (cyan #00bcd4, blue #1a365d)
+- [ ] Disabled for reduced motion users
+- [ ] No impact on LCP (lazy loaded)
+
+---
+
+#### FILES CREATED
+
+- `components/effects/ParticleBackground.tsx` - Main particle component
+- `components/effects/ParticleConfig.ts` - Configuration options
+- `components/effects/index.ts` - Barrel export
+
+---
+
+---
+
+### TASK-022: Logo Enhancements
+
+**Status**: [x] Completed
+**Priority**: P1 - High
+**Estimated Effort**: 3 hours
+**Dependencies**: TASK-020
+
+---
+
+#### TASK OBJECTIVE
+
+Enhance logo usage across the site:
+1. Favicon: wave icon only
+2. Header: wave icon on all breakpoints
+3. Hero background: full logo with animated glow
+
+**Acceptance Criteria:**
+- [ ] Favicon shows wave icon
+- [ ] Header shows wave logo (mobile + desktop)
+- [ ] Hero has decorative logo at 3% opacity
+- [ ] Background logo has pulsing glow effect
+- [ ] Glow respects reduced motion
+
+---
+
+#### FILES CREATED/MODIFIED
+
+- `components/effects/DecorativeLogoBackground.tsx` - New animated background
+- `components/layout/Header.tsx` - Updated to show wave only
+- `components/sections/Hero.tsx` - Integrated decorative logo
+
+---
+
+---
+
+### TASK-023: Typography Effects
+
+**Status**: [x] Completed
+**Priority**: P1 - High
+**Estimated Effort**: 4 hours
+**Dependencies**: TASK-020
+
+---
+
+#### TASK OBJECTIVE
+
+Create typography enhancement components:
+1. AnimatedGradientText - Flowing gradient animation
+2. SplitTextReveal - Character-by-character reveal
+3. DynamicHighlight - Animated underline effect
+
+**Acceptance Criteria:**
+- [ ] Gradient flows smoothly on key text
+- [ ] Split reveal triggers on scroll
+- [ ] Highlight animates on intersection
+- [ ] All effects respect reduced motion
+- [ ] Mobile-friendly performance
+
+---
+
+#### FILES CREATED
+
+- `components/effects/AnimatedGradientText.tsx`
+- `components/effects/SplitTextReveal.tsx`
+- `components/effects/DynamicHighlight.tsx`
+
+---
+
+---
+
+### TASK-024: Floating Assistant Component
+
+**Status**: [x] Completed
+**Priority**: P2 - Medium
+**Estimated Effort**: 5 hours
+**Dependencies**: TASK-020, TASK-021
+
+---
+
+#### TASK OBJECTIVE
+
+Create floating assistant mascot:
+1. Animated blob/mascot in bottom-right
+2. Appears after scroll (>300px)
+3. Speech bubbles with contextual messages
+4. Encourages contact form submission
+5. Dismissible
+
+**Messages:**
+- After scroll: "Hai domande?" / "Have questions?"
+- After 10s: "Posso aiutarti!" / "I can help!"
+- Near form: "Compila il form, ti rispondo entro 24h"
+
+**Acceptance Criteria:**
+- [ ] Appears after scrolling past threshold
+- [ ] Shows appropriate messages based on position
+- [ ] Can be dismissed (hides for session)
+- [ ] Click scrolls to contact section
+- [ ] Reduced motion: static, no bounce
+
+---
+
+#### FILES CREATED
+
+- `components/layout/FloatingAssistant.tsx` - Main assistant component
+- `public/lottie/assistant-idle.json` - (Optional) Lottie animation
+
+**Note:** Using SVG blob animation as fallback for Lottie.
+
+---
+
+---
+
+### TASK-025: AI Image Prompts for Portfolio
+
+**Status**: [x] Completed
+**Priority**: P2 - Medium
+**Estimated Effort**: 1 hour
+**Dependencies**: None
+
+---
+
+#### TASK OBJECTIVE
+
+Create documentation with AI prompts for generating portfolio images:
+1. Detailed prompts for 5 portfolio projects
+2. Thumbnail variants (1:1 format)
+3. Brand color specifications
+4. Tool recommendations
+
+**Projects:**
+1. App ESWBS - Naval maintenance dashboard
+2. Data Analysis - Bilingual comparison tool
+3. Healthcare Booking - Modern booking UI
+4. Email Automation - Workflow visualization
+5. AI Assistant RAG - Knowledge base chatbot
+
+---
+
+#### FILES CREATED
+
+- `DOCS/AI-IMAGE-PROMPTS.md` - Complete prompt documentation
+
+---
+
+---
+
+### TASK-026: Component i18n Integration
+
+**Status**: [ ] Pending
+**Priority**: P1 - High
+**Estimated Effort**: 4 hours
+**Dependencies**: TASK-020
+
+---
+
+#### TASK OBJECTIVE
+
+Update all components to use useTranslations():
+1. Replace hardcoded Italian text
+2. Add translation keys to messages/*.json
+3. Ensure all UI text is translated
+
+**Components to update:**
+- All sections in `/components/sections/`
+- Layout components in `/components/layout/`
+- Form validation messages
+
+**Acceptance Criteria:**
+- [ ] All visible text uses translations
+- [ ] Form errors in both languages
+- [ ] No hardcoded strings remain
+- [ ] Both locales display correctly
+
+---
+
+---
+
+### TASK-027: Documentation Update
+
+**Status**: [x] Completed
+**Priority**: P1 - High
+**Estimated Effort**: 2 hours
+**Dependencies**: All previous tasks
+
+---
+
+#### TASK OBJECTIVE
+
+Update all project documentation:
+1. PRD.md - Add new requirements, remove i18n from out-of-scope
+2. STACK.md - Add new dependencies
+3. WORKPLAN.md - Add TASK-020 through TASK-027
+
+**Acceptance Criteria:**
+- [ ] PRD reflects current feature set
+- [ ] STACK lists all technologies
+- [ ] WORKPLAN has all tasks documented
+- [ ] Version numbers updated
 
 ---
 

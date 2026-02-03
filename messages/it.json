@@ -1,0 +1,296 @@
+{
+  "meta": {
+    "title": "The AI and Beyond | Consulenza e Sviluppo AI",
+    "description": "Trasformo idee in soluzioni AI che funzionano. Consulenza e sviluppo per aziende italiane che vogliono crescere con l'intelligenza artificiale.",
+    "ogTitle": "The AI and Beyond | Consulenza e Sviluppo AI",
+    "ogDescription": "Trasformo idee in soluzioni AI che funzionano. Consulenza e sviluppo per aziende italiane che vogliono crescere con l'intelligenza artificiale.",
+    "ogAlt": "The AI and Beyond - Consulenza e Sviluppo AI"
+  },
+  "nav": {
+    "about": "Chi Sono",
+    "services": "Servizi",
+    "portfolio": "Portfolio",
+    "process": "Come Lavoro",
+    "contact": "Contatti",
+    "cta": "Parliamone"
+  },
+  "skipToContent": "Vai al contenuto principale",
+  "hero": {
+    "headline": "Trasformo idee in soluzioni AI",
+    "headlineAccent": "che funzionano",
+    "subtitle": "Consulenza e sviluppo per aziende che vogliono crescere con l'intelligenza artificiale",
+    "cta": "Scopri come posso aiutarti",
+    "scrollHint": "Scorri per saperne di più",
+    "keywords": {
+      "quality": "Qualità",
+      "speed": "Velocità",
+      "security": "Sicurezza",
+      "control": "Controllo"
+    }
+  },
+  "about": {
+    "label": "Chi Sono",
+    "title": "Trasformo sfide in",
+    "titleAccent": "opportunità",
+    "intro": "Mi chiamo Leonardo e aiuto aziende e professionisti a trasformare le loro sfide in opportunità attraverso l'intelligenza artificiale.",
+    "paragraph1": "Non vendo promesse irrealizzabili: analizzo il tuo contesto, identifico dove l'AI può fare davvero la differenza, e costruisco soluzioni che funzionano.",
+    "paragraph2": "Ogni progetto parte dall'ascolto. Perché la tecnologia migliore è quella che risolve problemi reali.",
+    "credentials": {
+      "practical": {
+        "title": "Approccio Pratico",
+        "description": "Soluzioni concrete, non teoria"
+      },
+      "fast": {
+        "title": "Risultati Rapidi",
+        "description": "Prototipi funzionanti in settimane"
+      },
+      "custom": {
+        "title": "Su Misura",
+        "description": "Adattato al tuo contesto"
+      }
+    },
+    "photoAlt": "Leonardo - AI Consultant"
+  },
+  "services": {
+    "label": "Servizi",
+    "title": "Soluzioni AI",
+    "titleAccent": "su misura",
+    "description": "Dall'idea alla realizzazione, ti accompagno in ogni fase del percorso di innovazione.",
+    "learnMore": "Scopri di più",
+    "close": "Chiudi",
+    "items": {
+      "consulting": {
+        "title": "Consulenza AI",
+        "description": "Analisi e strategia per integrare AI nel business",
+        "expanded": "Valutiamo insieme il tuo contesto aziendale per identificare le opportunità più impattanti. Ti guido nella scelta delle tecnologie giuste e nella definizione di una roadmap realistica."
+      },
+      "webdev": {
+        "title": "Sviluppo Web App",
+        "description": "Applicazioni web moderne e performanti",
+        "expanded": "Creo applicazioni web su misura utilizzando le tecnologie più moderne. Focus su performance, sicurezza e user experience per risultati che fanno la differenza."
+      },
+      "agents": {
+        "title": "Agenti AI",
+        "description": "Automazioni intelligenti e assistenti virtuali",
+        "expanded": "Sviluppo agenti AI che automatizzano compiti ripetitivi e potenziano il tuo team. Dall'email automation agli assistenti virtuali con RAG per la documentazione."
+      },
+      "prototypes": {
+        "title": "Prototipi Rapidi",
+        "description": "MVP e proof of concept in tempi brevi",
+        "expanded": "Trasformo le tue idee in prototipi funzionanti in settimane, non mesi. Perfetto per validare concetti prima di investimenti maggiori."
+      },
+      "pm": {
+        "title": "Ottimizzazione PM",
+        "description": "Strumenti AI per project management efficiente",
+        "expanded": "Integro strumenti AI nei tuoi processi di project management per ottimizzare pianificazione, tracking e comunicazione del team."
+      }
+    }
+  },
+  "portfolio": {
+    "label": "Portfolio",
+    "title": "Progetti",
+    "titleAccent": "realizzati",
+    "description": "Casi reali di trasformazione digitale e automazione AI.",
+    "viewDetails": "Vedi dettagli",
+    "close": "Chiudi",
+    "problem": "Problema",
+    "solution": "Soluzione",
+    "results": "Risultati",
+    "technologies": "Tecnologie",
+    "items": {
+      "eswbs": {
+        "title": "App ESWBS",
+        "category": "Web Application",
+        "problem": "Sistema di gestione manutenzione navale complesso e difficile da navigare",
+        "solution": "Applicazione web moderna per la gestione e ricerca dei componenti ESWBS con interfaccia intuitiva",
+        "results": ["Tempo di ricerca ridotto del 70%", "Interfaccia user-friendly", "Dati sempre aggiornati"],
+        "technologies": ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS"]
+      },
+      "maintenance": {
+        "title": "Analisi Dati Manutenzione",
+        "category": "Data Analysis",
+        "problem": "Comparazione manuale di schedule di manutenzione in lingue diverse (IT/EN)",
+        "solution": "Sistema automatizzato di analisi e matching dei dati con report visivi",
+        "results": ["Processo 10x più veloce", "Errori ridotti del 95%", "Report automatici"],
+        "technologies": ["Python", "Pandas", "AI/ML", "Data Visualization"]
+      },
+      "healthcare": {
+        "title": "Web App Professionisti",
+        "category": "Web Application",
+        "problem": "Gestione appuntamenti manuale e poco efficiente per professionisti sanitari",
+        "solution": "Piattaforma di booking online con gestione calendario e notifiche automatiche",
+        "results": ["No-show ridotti del 40%", "Gestione semplificata", "Clienti più soddisfatti"],
+        "technologies": ["React", "Node.js", "MongoDB", "Twilio"]
+      },
+      "email": {
+        "title": "Automazione Email Coaching",
+        "category": "Automation",
+        "problem": "Follow-up manuali che richiedevano ore di lavoro settimanale",
+        "solution": "Sistema di email automation personalizzato con sequenze intelligenti",
+        "results": ["4 ore risparmiate a settimana", "Engagement aumentato del 60%", "Zero email dimenticate"],
+        "technologies": ["Gmail API", "Python", "AI Personalization"]
+      },
+      "rag": {
+        "title": "Assistente AI con RAG",
+        "category": "AI Development",
+        "problem": "Knowledge base aziendale difficile da consultare e aggiornare",
+        "solution": "Chatbot AI con Retrieval-Augmented Generation per ricerca intelligente",
+        "results": ["Risposte istantanee", "Citazioni alle fonti", "Sempre aggiornato"],
+        "technologies": ["LangChain", "OpenAI", "Vector DB", "Next.js"]
+      }
+    }
+  },
+  "beforeAfter": {
+    "label": "Prima e Dopo",
+    "title": "Il potere della",
+    "titleAccent": "trasformazione",
+    "description": "Guarda come l'AI può rivoluzionare i tuoi processi quotidiani.",
+    "dragHint": "Trascina per confrontare",
+    "before": "Prima",
+    "after": "Dopo",
+    "items": {
+      "reports": {
+        "title": "Generazione Report",
+        "before": {
+          "time": "4 ore",
+          "description": "Raccolta dati manuale, formattazione in Excel, revisioni multiple"
+        },
+        "after": {
+          "time": "15 minuti",
+          "description": "Dati aggregati automaticamente, report generato con un click"
+        }
+      },
+      "emails": {
+        "title": "Follow-up Clienti",
+        "before": {
+          "time": "Tracking manuale",
+          "description": "Foglio Excel con scadenze, email scritte una per una"
+        },
+        "after": {
+          "time": "Completamente automatico",
+          "description": "Sequenze personalizzate, trigger intelligenti, zero dimenticanze"
+        }
+      },
+      "data": {
+        "title": "Analisi Dati",
+        "before": {
+          "time": "Giorni",
+          "description": "Spreadsheet complessi, formule manuali, grafici statici"
+        },
+        "after": {
+          "time": "Real-time",
+          "description": "Dashboard interattive, insight automatici, decisioni rapide"
+        }
+      }
+    }
+  },
+  "roiCalculator": {
+    "label": "Calcola il ROI",
+    "title": "Quanto potresti",
+    "titleAccent": "risparmiare",
+    "description": "Stima il potenziale risparmio automatizzando le attività ripetitive.",
+    "hoursLabel": "Ore settimanali su attività ripetitive",
+    "hourlyRateLabel": "Tariffa oraria (opzionale)",
+    "hourlyRatePlaceholder": "€/ora",
+    "taskTypeLabel": "Tipo di attività principale",
+    "taskTypes": {
+      "dataEntry": "Inserimento dati",
+      "reporting": "Generazione report",
+      "communication": "Comunicazioni/email",
+      "other": "Altro"
+    },
+    "results": {
+      "title": "Risparmio stimato",
+      "monthlyHours": "Ore/mese risparmiate",
+      "annualHours": "Ore/anno risparmiate",
+      "annualSavings": "Risparmio annuale",
+      "disclaimer": "* Stima conservativa basata su un'efficienza del 60%"
+    },
+    "cta": "Scopri come automatizzare"
+  },
+  "process": {
+    "label": "Come Lavoro",
+    "title": "Un processo",
+    "titleAccent": "trasparente",
+    "description": "Dalla prima chiamata alla consegna, ecco come lavoro.",
+    "steps": {
+      "listen": {
+        "title": "Ascolto",
+        "description": "Capisco il tuo problema e i tuoi obiettivi"
+      },
+      "analyze": {
+        "title": "Analizzo",
+        "description": "Studio la soluzione migliore per il tuo caso"
+      },
+      "design": {
+        "title": "Progetto",
+        "description": "Definisco architettura e roadmap chiara"
+      },
+      "develop": {
+        "title": "Sviluppo",
+        "description": "Costruisco con metodologia agile e feedback continuo"
+      },
+      "deliver": {
+        "title": "Consegno",
+        "description": "Testing, deployment e formazione del team"
+      }
+    }
+  },
+  "contact": {
+    "label": "Contatti",
+    "title": "Parliamo del tuo",
+    "titleAccent": "progetto",
+    "description": "Hai un'idea o una sfida? Raccontami come posso aiutarti.",
+    "form": {
+      "name": "Nome",
+      "namePlaceholder": "Il tuo nome",
+      "email": "Email",
+      "emailPlaceholder": "email@esempio.com",
+      "company": "Azienda",
+      "companyPlaceholder": "Nome della tua azienda (opzionale)",
+      "message": "Messaggio",
+      "messagePlaceholder": "Descrivi il tuo progetto o la tua esigenza...",
+      "privacy": "Ho letto e accetto la",
+      "privacyLink": "privacy policy",
+      "submit": "Invia messaggio",
+      "submitting": "Invio in corso..."
+    },
+    "success": {
+      "title": "Messaggio inviato!",
+      "description": "Grazie per avermi contattato. Ti risponderò il prima possibile."
+    },
+    "error": "Si è verificato un errore. Riprova più tardi.",
+    "validation": {
+      "nameMin": "Il nome deve avere almeno 2 caratteri",
+      "nameMax": "Il nome è troppo lungo",
+      "emailInvalid": "Inserisci un indirizzo email valido",
+      "messageMin": "Il messaggio deve avere almeno 10 caratteri",
+      "messageMax": "Il messaggio è troppo lungo",
+      "privacyRequired": "Devi accettare la privacy policy"
+    }
+  },
+  "footer": {
+    "description": "Consulenza e sviluppo AI per aziende che vogliono innovare.",
+    "quickLinks": "Link Rapidi",
+    "contactTitle": "Contatti",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "copyright": "© {year} The AI and Beyond. Tutti i diritti riservati.",
+    "privacy": "Privacy Policy"
+  },
+  "cookieConsent": {
+    "message": "Questo sito utilizza cookie tecnici e di analisi per migliorare l'esperienza utente.",
+    "accept": "Accetta",
+    "decline": "Rifiuta",
+    "learnMore": "Scopri di più"
+  },
+  "assistant": {
+    "greeting": "Hai domande?",
+    "help": "Posso aiutarti!",
+    "nearForm": "Ottimo! Compila il form, ti rispondo entro 24h",
+    "ariaLabel": "Vai al form di contatto"
+  },
+  "mobileContact": {
+    "label": "Contattami"
+  }
+}

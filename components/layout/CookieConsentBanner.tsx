@@ -2,11 +2,13 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useConsentStorage } from '@/hooks/useConsentStorage';
 import { loadAnalytics } from '@/lib/analytics';
 import { Button } from '@/components/ui/Button';
 
 export function CookieConsentBanner() {
+  const t = useTranslations('cookieConsent');
   const { status, isLoaded, acceptAll, declineAll } = useConsentStorage();
   const bannerRef = useRef<HTMLDivElement>(null);
   const acceptButtonRef = useRef<HTMLButtonElement>(null);
@@ -73,13 +75,12 @@ export function CookieConsentBanner() {
                   id="cookie-consent-description"
                   className="text-sm text-primary/80 sm:text-base"
                 >
-                  Utilizziamo i cookie per analizzare il traffico del sito e
-                  migliorare la tua esperienza.{' '}
+                  {t('message')}{' '}
                   <a
                     href="/privacy-policy"
                     className="font-medium text-accent underline underline-offset-2 transition-colors hover:text-accent-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   >
-                    Leggi la Privacy Policy
+                    {t('learnMore')}
                   </a>
                 </p>
               </div>
@@ -89,9 +90,9 @@ export function CookieConsentBanner() {
                   size="sm"
                   onClick={handleDecline}
                   className="order-2 text-primary/70 hover:text-primary sm:order-1"
-                  aria-label="Rifiuta i cookie"
+                  aria-label={t('decline')}
                 >
-                  Rifiuta
+                  {t('decline')}
                 </Button>
                 <Button
                   ref={acceptButtonRef}
@@ -99,9 +100,9 @@ export function CookieConsentBanner() {
                   size="sm"
                   onClick={handleAccept}
                   className="order-1 sm:order-2"
-                  aria-label="Accetta i cookie"
+                  aria-label={t('accept')}
                 >
-                  Accetta
+                  {t('accept')}
                 </Button>
               </div>
             </div>

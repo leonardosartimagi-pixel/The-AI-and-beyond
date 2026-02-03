@@ -1,14 +1,16 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { useScrollTo } from '@/hooks';
 
+const NAV_KEYS = ['about', 'services', 'portfolio', 'process', 'contact'] as const;
 const QUICK_LINKS = [
-  { label: 'Chi Sono', href: 'chi-sono' },
-  { label: 'Servizi', href: 'servizi' },
-  { label: 'Portfolio', href: 'portfolio' },
-  { label: 'Come Lavoro', href: 'come-lavoro' },
-  { label: 'Contatti', href: 'contatti' },
+  { key: 'about', href: 'chi-sono' },
+  { key: 'services', href: 'servizi' },
+  { key: 'portfolio', href: 'portfolio' },
+  { key: 'process', href: 'come-lavoro' },
+  { key: 'contact', href: 'contatti' },
 ] as const;
 
 const CONTACT_INFO = {
@@ -17,6 +19,8 @@ const CONTACT_INFO = {
 };
 
 export function Footer() {
+  const t = useTranslations('footer');
+  const tNav = useTranslations('nav');
   const scrollTo = useScrollTo();
   const currentYear = new Date().getFullYear();
 
@@ -24,11 +28,11 @@ export function Footer() {
     <footer className="bg-primary text-white" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
-          <FooterBrand onLogoClick={() => scrollTo('hero')} />
-          <FooterNav onNavClick={scrollTo} />
-          <FooterContact />
+          <FooterBrand onLogoClick={() => scrollTo('hero')} t={t} />
+          <FooterNav onNavClick={scrollTo} t={t} tNav={tNav} />
+          <FooterContact t={t} />
         </div>
-        <FooterBottom year={currentYear} />
+        <FooterBottom year={currentYear} t={t} />
       </div>
     </footer>
   );
@@ -36,15 +40,16 @@ export function Footer() {
 
 interface FooterBrandProps {
   onLogoClick: () => void;
+  t: ReturnType<typeof useTranslations<'footer'>>;
 }
 
-function FooterBrand({ onLogoClick }: FooterBrandProps) {
+function FooterBrand({ onLogoClick, t }: FooterBrandProps) {
   return (
     <div>
       <button
         onClick={onLogoClick}
         className="relative h-10 w-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
-        aria-label="Torna alla home"
+        aria-label="Home"
       >
         <Image
           src="/images/logo.png"
@@ -54,7 +59,7 @@ function FooterBrand({ onLogoClick }: FooterBrandProps) {
         />
       </button>
       <p className="mt-4 text-sm text-white/80">
-        Consulenza AI e sviluppo web per aziende italiane.
+        {t('description')}
       </p>
     </div>
   );
@@ -62,12 +67,14 @@ function FooterBrand({ onLogoClick }: FooterBrandProps) {
 
 interface FooterNavProps {
   onNavClick: (href: string) => void;
+  t: ReturnType<typeof useTranslations<'footer'>>;
+  tNav: ReturnType<typeof useTranslations<'nav'>>;
 }
 
-function FooterNav({ onNavClick }: FooterNavProps) {
+function FooterNav({ onNavClick, t, tNav }: FooterNavProps) {
   return (
     <div>
-      <h3 className="font-heading text-lg font-semibold mb-4">Link Rapidi</h3>
+      <h3 className="font-heading text-lg font-semibold mb-4">{t('quickLinks')}</h3>
       <ul className="space-y-2" role="list">
         {QUICK_LINKS.map((link) => (
           <li key={link.href}>
@@ -75,7 +82,7 @@ function FooterNav({ onNavClick }: FooterNavProps) {
               onClick={() => onNavClick(link.href)}
               className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
             >
-              {link.label}
+              {tNav(link.key)}
             </button>
           </li>
         ))}
@@ -84,10 +91,14 @@ function FooterNav({ onNavClick }: FooterNavProps) {
   );
 }
 
-function FooterContact() {
+interface FooterContactProps {
+  t: ReturnType<typeof useTranslations<'footer'>>;
+}
+
+function FooterContact({ t }: FooterContactProps) {
   return (
     <div>
-      <h3 className="font-heading text-lg font-semibold mb-4">Contatti</h3>
+      <h3 className="font-heading text-lg font-semibold mb-4">{t('contactTitle')}</h3>
       <ul className="space-y-2" role="list">
         <li>
           <a
@@ -104,7 +115,7 @@ function FooterContact() {
             rel="noopener noreferrer"
             className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
           >
-            LinkedIn
+            {t('linkedin')}
           </a>
         </li>
       </ul>
@@ -114,19 +125,20 @@ function FooterContact() {
 
 interface FooterBottomProps {
   year: number;
+  t: ReturnType<typeof useTranslations<'footer'>>;
 }
 
-function FooterBottom({ year }: FooterBottomProps) {
+function FooterBottom({ year, t }: FooterBottomProps) {
   return (
     <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <p className="text-sm text-white/60">
-        &copy; {year} The AI and Beyond. Tutti i diritti riservati.
+        {t('copyright', { year })}
       </p>
       <a
         href="/privacy"
         className="text-sm text-white/60 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
       >
-        Privacy Policy
+        {t('privacy')}
       </a>
     </div>
   );

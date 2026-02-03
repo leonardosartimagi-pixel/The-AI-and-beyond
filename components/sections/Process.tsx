@@ -2,13 +2,13 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 
 interface ProcessStep {
   id: string;
+  key: string;
   number: number;
-  title: string;
-  description: string;
   icon: React.ReactNode;
 }
 
@@ -16,12 +16,13 @@ interface ProcessProps {
   className?: string;
 }
 
+const STEP_KEYS = ['listen', 'analyze', 'design', 'develop', 'deliver'] as const;
+
 const steps: ProcessStep[] = [
   {
     id: 'ascolto',
+    key: 'listen',
     number: 1,
-    title: 'Ascolto',
-    description: 'Capisco il tuo problema e i tuoi obiettivi',
     icon: (
       <svg
         className="h-6 w-6"
@@ -41,9 +42,8 @@ const steps: ProcessStep[] = [
   },
   {
     id: 'analizzo',
+    key: 'analyze',
     number: 2,
-    title: 'Analizzo',
-    description: 'Studio la soluzione migliore per il tuo caso',
     icon: (
       <svg
         className="h-6 w-6"
@@ -63,9 +63,8 @@ const steps: ProcessStep[] = [
   },
   {
     id: 'progetto',
+    key: 'design',
     number: 3,
-    title: 'Progetto',
-    description: 'Definisco architettura e roadmap chiara',
     icon: (
       <svg
         className="h-6 w-6"
@@ -85,9 +84,8 @@ const steps: ProcessStep[] = [
   },
   {
     id: 'sviluppo',
+    key: 'develop',
     number: 4,
-    title: 'Sviluppo',
-    description: 'Costruisco con metodologia agile e feedback continuo',
     icon: (
       <svg
         className="h-6 w-6"
@@ -107,9 +105,8 @@ const steps: ProcessStep[] = [
   },
   {
     id: 'consegno',
+    key: 'deliver',
     number: 5,
-    title: 'Consegno',
-    description: 'Testing, deployment e formazione del team',
     icon: (
       <svg
         className="h-6 w-6"
@@ -135,6 +132,7 @@ interface StepCardProps {
   isInView: boolean;
   prefersReducedMotion: boolean;
   isLast: boolean;
+  t: ReturnType<typeof useTranslations<'process'>>;
 }
 
 function StepCard({
@@ -143,6 +141,7 @@ function StepCard({
   isInView,
   prefersReducedMotion,
   isLast,
+  t,
 }: StepCardProps) {
   const cardVariants = {
     hidden: {
@@ -206,10 +205,10 @@ function StepCard({
         {/* Right side: Content */}
         <div className="flex-1 pb-8">
           <h3 className="mb-1 font-heading text-lg font-bold text-primary">
-            {step.title}
+            {t(`steps.${step.key}.title`)}
           </h3>
           <p className="text-sm leading-relaxed text-gray-600">
-            {step.description}
+            {t(`steps.${step.key}.description`)}
           </p>
         </div>
       </div>
@@ -227,10 +226,10 @@ function StepCard({
         {/* Content card */}
         <div className="rounded-xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
           <h3 className="mb-2 text-center font-heading text-lg font-bold text-primary">
-            {step.title}
+            {t(`steps.${step.key}.title`)}
           </h3>
           <p className="text-center text-sm leading-relaxed text-gray-600">
-            {step.description}
+            {t(`steps.${step.key}.description`)}
           </p>
         </div>
       </div>
@@ -239,6 +238,8 @@ function StepCard({
 }
 
 export function Process({ className = '' }: ProcessProps) {
+  const t = useTranslations('process');
+  const tNav = useTranslations('nav');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
@@ -272,7 +273,7 @@ export function Process({ className = '' }: ProcessProps) {
       ref={sectionRef}
       id="come-lavoro"
       className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
-      aria-label="Come lavoro"
+      aria-label={t('label')}
     >
       {/* Decorative gradient blur - top right */}
       <div
@@ -296,14 +297,14 @@ export function Process({ className = '' }: ProcessProps) {
         >
           <span className="mb-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-accent">
             <span className="h-px w-8 bg-accent" aria-hidden="true" />
-            Processo
+            {t('label')}
             <span className="h-px w-8 bg-accent" aria-hidden="true" />
           </span>
 
           <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
-            Come{' '}
+            {t('title')}{' '}
             <span className="relative inline-block">
-              lavoro
+              {t('titleAccent')}
               <span
                 className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                 aria-hidden="true"
@@ -312,8 +313,7 @@ export function Process({ className = '' }: ProcessProps) {
           </h2>
 
           <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600">
-            Un approccio strutturato per trasformare le tue idee in soluzioni
-            concrete.
+            {t('description')}
           </p>
         </motion.div>
 
@@ -338,6 +338,7 @@ export function Process({ className = '' }: ProcessProps) {
                 isInView={isInView}
                 prefersReducedMotion={prefersReducedMotion}
                 isLast={index === steps.length - 1}
+                t={t}
               />
             ))}
           </div>
@@ -354,7 +355,7 @@ export function Process({ className = '' }: ProcessProps) {
             href="#contatti"
             className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary-dark px-8 py-4 font-medium text-white shadow-lg transition-all hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            <span>Iniziamo insieme</span>
+            <span>{tNav('cta')}</span>
             <svg
               className="h-5 w-5"
               fill="none"

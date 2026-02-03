@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, useSpring, useTransform } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 
 interface ROICalculatorProps {
@@ -10,35 +11,30 @@ interface ROICalculatorProps {
 
 interface TaskType {
   id: string;
-  label: string;
+  key: string;
   multiplier: number;
-  description: string;
 }
 
 const taskTypes: TaskType[] = [
   {
     id: 'data-entry',
-    label: 'Data Entry',
+    key: 'dataEntry',
     multiplier: 1.2,
-    description: 'Alto potenziale di automazione',
   },
   {
     id: 'reporting',
-    label: 'Reportistica',
+    key: 'reporting',
     multiplier: 1.0,
-    description: 'Potenziale standard',
   },
   {
     id: 'communications',
-    label: 'Comunicazioni',
+    key: 'communication',
     multiplier: 0.8,
-    description: 'Potenziale moderato',
   },
   {
     id: 'other',
-    label: 'Altro',
+    key: 'other',
     multiplier: 0.9,
-    description: 'Stima conservativa',
   },
 ];
 
@@ -73,6 +69,7 @@ function AnimatedNumber({
 }
 
 export function ROICalculator({ className = '' }: ROICalculatorProps) {
+  const t = useTranslations('roiCalculator');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
@@ -173,7 +170,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
       ref={sectionRef}
       id="roi-calculator"
       className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
-      aria-label="Calcolatore ROI"
+      aria-label={t('label')}
     >
       {/* Decorative gradient blur - top left */}
       <motion.div
@@ -213,14 +210,14 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
         >
           <span className="mb-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-accent">
             <span className="h-px w-8 bg-accent" aria-hidden="true" />
-            Calcolatore ROI
+            {t('label')}
             <span className="h-px w-8 bg-accent" aria-hidden="true" />
           </span>
 
           <h2 className="mx-auto max-w-3xl font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
-            Quanto puoi{' '}
+            {t('title')}{' '}
             <span className="relative inline-block">
-              risparmiare
+              {t('titleAccent')}
               <span
                 className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                 aria-hidden="true"
@@ -230,8 +227,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
-            Calcola il potenziale risparmio automatizzando le tue attività ripetitive.
-            Stima conservativa con efficienza del 60%.
+            {t('description')}
           </p>
         </motion.div>
 
@@ -270,7 +266,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   htmlFor="hours-slider"
                   className="mb-2 flex items-center justify-between text-sm font-medium text-gray-700"
                 >
-                  <span>Ore settimanali su task ripetitivi</span>
+                  <span>{t('hoursLabel')}</span>
                   <span className="rounded-lg bg-primary/10 px-3 py-1 font-heading text-lg font-bold text-primary">
                     {hoursPerWeek}h
                   </span>
@@ -288,8 +284,8 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   aria-valuenow={hoursPerWeek}
                 />
                 <div className="mt-1 flex justify-between text-xs text-gray-400">
-                  <span>1 ora</span>
-                  <span>40 ore</span>
+                  <span>1h</span>
+                  <span>40h</span>
                 </div>
               </div>
 
@@ -299,7 +295,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   htmlFor="task-type"
                   className="mb-2 block text-sm font-medium text-gray-700"
                 >
-                  Tipo di attività
+                  {t('taskTypeLabel')}
                 </label>
                 <button
                   id="task-type"
@@ -311,10 +307,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                 >
                   <div>
                     <span className="block font-medium text-gray-900">
-                      {selectedTaskType.label}
-                    </span>
-                    <span className="text-sm text-gray-500">
-                      {selectedTaskType.description}
+                      {t(`taskTypes.${selectedTaskType.key}`)}
                     </span>
                   </div>
                   <svg
@@ -336,7 +329,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   <ul
                     className="absolute z-20 mt-2 w-full overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg"
                     role="listbox"
-                    aria-label="Seleziona tipo di attività"
+                    aria-label={t('taskTypeLabel')}
                   >
                     {taskTypes.map((type) => (
                       <li key={type.id}>
@@ -354,10 +347,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                         >
                           <div>
                             <span className="block font-medium text-gray-900">
-                              {type.label}
-                            </span>
-                            <span className="text-sm text-gray-500">
-                              {type.description}
+                              {t(`taskTypes.${type.key}`)}
                             </span>
                           </div>
                           <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
@@ -377,7 +367,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                     htmlFor="hourly-rate-toggle"
                     className="text-sm font-medium text-gray-700"
                   >
-                    Costo orario (opzionale)
+                    {t('hourlyRateLabel')}
                   </label>
                   <button
                     id="hourly-rate-toggle"
@@ -453,14 +443,14 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   />
                 </svg>
               </span>
-              Il tuo potenziale risparmio
+              {t('results.title')}
             </h3>
 
             <div className="flex-1 space-y-6">
               {/* Hours saved monthly */}
               <div className="rounded-xl bg-white p-5 shadow-sm">
                 <div className="mb-1 text-sm font-medium text-gray-500">
-                  Ore risparmiate al mese
+                  {t('results.monthlyHours')}
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="font-heading text-4xl font-bold text-primary">
@@ -470,14 +460,13 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                       prefersReducedMotion={prefersReducedMotion}
                     />
                   </span>
-                  <span className="text-lg text-gray-400">ore</span>
                 </div>
               </div>
 
               {/* Hours saved annually */}
               <div className="rounded-xl bg-white p-5 shadow-sm">
                 <div className="mb-1 text-sm font-medium text-gray-500">
-                  Ore risparmiate all&apos;anno
+                  {t('results.annualHours')}
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="font-heading text-4xl font-bold text-primary">
@@ -487,7 +476,6 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                       prefersReducedMotion={prefersReducedMotion}
                     />
                   </span>
-                  <span className="text-lg text-gray-400">ore</span>
                 </div>
               </div>
 
@@ -500,7 +488,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
                 >
                   <div className="mb-1 text-sm font-medium text-accent-dark">
-                    Risparmio annuale stimato
+                    {t('results.annualSavings')}
                   </div>
                   <div className="flex items-baseline gap-2">
                     <span className="font-heading text-4xl font-bold text-accent-dark sm:text-5xl">
@@ -516,9 +504,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
 
               {/* Disclaimer */}
               <p className="text-xs text-gray-400">
-                * Stima conservativa basata su efficienza del 60% e moltiplicatore{' '}
-                {selectedTaskType.label.toLowerCase()} (×{selectedTaskType.multiplier}).
-                I risultati effettivi possono variare.
+                {t('results.disclaimer')}
               </p>
             </div>
 
@@ -528,7 +514,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                 href="#contatti"
                 className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-light px-6 py-4 font-medium text-white shadow-lg transition-all hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >
-                <span>Scopri come automatizzare</span>
+                <span>{t('cta')}</span>
                 <svg
                   className="h-4 w-4 transition-transform group-hover:translate-x-1"
                   fill="none"

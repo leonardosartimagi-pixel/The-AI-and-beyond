@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 
 interface AboutProps {
@@ -9,6 +10,7 @@ interface AboutProps {
 }
 
 export function About({ className = '' }: AboutProps) {
+  const t = useTranslations('about');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
@@ -73,7 +75,7 @@ export function About({ className = '' }: AboutProps) {
       ref={sectionRef}
       id="chi-sono"
       className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
-      aria-label="Chi sono"
+      aria-label={t('label')}
     >
       {/* Decorative gradient blur - top right */}
       <motion.div
@@ -120,7 +122,7 @@ export function About({ className = '' }: AboutProps) {
               variants={textVariants}
             >
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
-              Chi Sono
+              {t('label')}
             </motion.span>
 
             {/* Main heading */}
@@ -128,9 +130,9 @@ export function About({ className = '' }: AboutProps) {
               className="mb-8 font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl"
               variants={textVariants}
             >
-              Trasformo sfide in{' '}
+              {t('title')}{' '}
               <span className="relative inline-block">
-                opportunità
+                {t('titleAccent')}
                 <span
                   className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                   aria-hidden="true"
@@ -141,22 +143,18 @@ export function About({ className = '' }: AboutProps) {
             {/* Bio text - three paragraphs with different styling */}
             <div className="space-y-6 text-lg leading-relaxed text-gray-700">
               <motion.p variants={textVariants}>
-                Mi chiamo Leonardo e aiuto aziende e professionisti a trasformare
-                le loro sfide in opportunità attraverso l&apos;intelligenza artificiale.
+                {t('intro')}
               </motion.p>
 
               <motion.p
                 className="border-l-2 border-accent/30 pl-6 italic text-gray-600"
                 variants={textVariants}
               >
-                Non vendo promesse irrealizzabili: analizzo il tuo contesto,
-                identifico dove l&apos;AI può fare davvero la differenza,
-                e costruisco soluzioni che funzionano.
+                {t('paragraph1')}
               </motion.p>
 
               <motion.p variants={textVariants}>
-                Ogni progetto parte dall&apos;ascolto. Perché la tecnologia migliore
-                è quella che risolve problemi reali.
+                {t('paragraph2')}
               </motion.p>
             </div>
 
@@ -183,8 +181,8 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary">Approccio Pratico</p>
-                  <p className="text-xs text-gray-500">Soluzioni concrete</p>
+                  <p className="text-sm font-medium text-primary">{t('credentials.practical.title')}</p>
+                  <p className="text-xs text-gray-500">{t('credentials.practical.description')}</p>
                 </div>
               </div>
 
@@ -206,8 +204,8 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary">Risultati Rapidi</p>
-                  <p className="text-xs text-gray-500">Iterazioni veloci</p>
+                  <p className="text-sm font-medium text-primary">{t('credentials.fast.title')}</p>
+                  <p className="text-xs text-gray-500">{t('credentials.fast.description')}</p>
                 </div>
               </div>
 
@@ -229,8 +227,8 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary">Su Misura</p>
-                  <p className="text-xs text-gray-500">Adattato al contesto</p>
+                  <p className="text-sm font-medium text-primary">{t('credentials.custom.title')}</p>
+                  <p className="text-xs text-gray-500">{t('credentials.custom.description')}</p>
                 </div>
               </div>
             </motion.div>
@@ -273,10 +271,10 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <p className="text-sm font-medium text-white/80">
-                  Foto placeholder
+                  {t('photoAlt')}
                 </p>
                 <p className="mt-1 text-xs text-white/50">
-                  Immagine professionale
+                  Photo
                 </p>
               </div>
 

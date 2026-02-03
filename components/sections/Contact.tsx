@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
@@ -18,6 +19,7 @@ interface ContactProps {
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 export function Contact({ className = '' }: ContactProps) {
+  const t = useTranslations('contact');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
@@ -54,7 +56,7 @@ export function Contact({ className = '' }: ContactProps) {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Errore durante l\'invio');
+        throw new Error(errorData.error || t('error'));
       }
 
       setFormStatus('success');
@@ -64,7 +66,7 @@ export function Contact({ className = '' }: ContactProps) {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : 'Si è verificato un errore. Riprova più tardi.'
+          : t('error')
       );
     }
   };
@@ -106,7 +108,7 @@ export function Contact({ className = '' }: ContactProps) {
       ref={sectionRef}
       id="contatti"
       className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
-      aria-label="Contatti"
+      aria-label={t('label')}
     >
       {/* Decorative gradient blurs */}
       <div
@@ -128,13 +130,13 @@ export function Contact({ className = '' }: ContactProps) {
             className="text-center"
           >
             <span className="inline-block rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent">
-              Contatti
+              {t('label')}
             </span>
             <h2 className="mt-6 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
-              Parliamone
+              {t('title')} <span className="text-accent">{t('titleAccent')}</span>
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Hai un progetto in mente o vuoi saperne di più? Compila il form e ti risponderò entro 24 ore.
+              {t('description')}
             </p>
           </motion.div>
 
@@ -147,7 +149,7 @@ export function Contact({ className = '' }: ContactProps) {
           >
             <AnimatePresence mode="wait">
               {formStatus === 'success' ? (
-                <SuccessMessage key="success" prefersReducedMotion={prefersReducedMotion} />
+                <SuccessMessage key="success" prefersReducedMotion={prefersReducedMotion} t={t} />
               ) : (
                 <motion.form
                   key="form"
@@ -155,12 +157,12 @@ export function Contact({ className = '' }: ContactProps) {
                   className="space-y-6"
                   animate={formStatus === 'error' && !prefersReducedMotion ? shakeAnimation : {}}
                   noValidate
-                  aria-label="Form di contatto"
+                  aria-label={t('label')}
                 >
                   <div className="grid gap-6 sm:grid-cols-2">
                     <Input
-                      label="Nome *"
-                      placeholder="Il tuo nome"
+                      label={`${t('form.name')} *`}
+                      placeholder={t('form.namePlaceholder')}
                       error={errors.name?.message}
                       disabled={isFormDisabled}
                       aria-required="true"
@@ -168,8 +170,8 @@ export function Contact({ className = '' }: ContactProps) {
                     />
                     <Input
                       type="email"
-                      label="Email *"
-                      placeholder="email@esempio.com"
+                      label={`${t('form.email')} *`}
+                      placeholder={t('form.emailPlaceholder')}
                       error={errors.email?.message}
                       disabled={isFormDisabled}
                       aria-required="true"
@@ -178,16 +180,16 @@ export function Contact({ className = '' }: ContactProps) {
                   </div>
 
                   <Input
-                    label="Azienda"
-                    placeholder="Nome della tua azienda (opzionale)"
+                    label={t('form.company')}
+                    placeholder={t('form.companyPlaceholder')}
                     error={errors.company?.message}
                     disabled={isFormDisabled}
                     {...register('company')}
                   />
 
                   <Textarea
-                    label="Messaggio *"
-                    placeholder="Descrivi il tuo progetto o la tua richiesta..."
+                    label={`${t('form.message')} *`}
+                    placeholder={t('form.messagePlaceholder')}
                     error={errors.message?.message}
                     disabled={isFormDisabled}
                     autoResize
@@ -198,14 +200,14 @@ export function Contact({ className = '' }: ContactProps) {
                   <Checkbox
                     label={
                       <>
-                        Ho letto e accetto la{' '}
+                        {t('form.privacy')}{' '}
                         <a
                           href="/privacy"
                           className="text-accent underline hover:text-accent-dark transition-colors"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          privacy policy
+                          {t('form.privacyLink')}
                         </a>{' '}
                         *
                       </>
@@ -238,7 +240,7 @@ export function Contact({ className = '' }: ContactProps) {
                     isLoading={formStatus === 'submitting'}
                     disabled={isFormDisabled || !isValid}
                   >
-                    {formStatus === 'submitting' ? 'Invio in corso...' : 'Invia messaggio'}
+                    {formStatus === 'submitting' ? t('form.submitting') : t('form.submit')}
                   </Button>
                 </motion.form>
               )}
@@ -253,7 +255,6 @@ export function Contact({ className = '' }: ContactProps) {
             className="mt-12 text-center"
           >
             <p className="text-gray-600">
-              Preferisci scrivere direttamente?{' '}
               <a
                 href="mailto:info@theaiandbeyond.com"
                 className="font-medium text-accent hover:text-accent-dark transition-colors"
@@ -270,9 +271,10 @@ export function Contact({ className = '' }: ContactProps) {
 
 interface SuccessMessageProps {
   prefersReducedMotion: boolean;
+  t: ReturnType<typeof useTranslations<'contact'>>;
 }
 
-function SuccessMessage({ prefersReducedMotion }: SuccessMessageProps) {
+function SuccessMessage({ prefersReducedMotion, t }: SuccessMessageProps) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.95 }}
@@ -297,10 +299,10 @@ function SuccessMessage({ prefersReducedMotion }: SuccessMessageProps) {
         <CheckIcon className="h-8 w-8 text-green-600" />
       </motion.div>
       <h3 className="font-heading text-xl font-semibold text-green-800">
-        Messaggio inviato!
+        {t('success.title')}
       </h3>
       <p className="mt-2 text-green-700">
-        Grazie per avermi contattato. Ti risponderò il prima possibile.
+        {t('success.description')}
       </p>
     </motion.div>
   );

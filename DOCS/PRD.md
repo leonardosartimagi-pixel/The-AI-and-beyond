@@ -2,8 +2,8 @@
 # The AI and Beyond - Website
 
 ## Document Info
-- **Version**: 1.0
-- **Last Updated**: 2026-02-02
+- **Version**: 1.1
+- **Last Updated**: 2026-02-03
 - **Author**: Leonardo Sarti Magi
 - **Status**: Active
 
@@ -66,8 +66,9 @@ A modern, high-impact single-page website for "The AI and Beyond" - a profession
 | FR-012 | Four keyword badges with hover micro-animations | HIGH |
 | FR-013 | Primary CTA button with hover effects | HIGH |
 | FR-014 | Gradient background (dark blue to cyan) | HIGH |
-| FR-015 | Subtle tech pattern/grid effect (NOT particles - elegant) | MEDIUM |
-| FR-016 | Parallax scroll effect on background elements | LOW |
+| FR-015 | Interactive particle system (neural network style, 80-100 particles) | HIGH |
+| FR-016 | Decorative logo in background with animated glow effect | MEDIUM |
+| FR-017 | Typography effects: animated gradient text on key phrases | MEDIUM |
 
 ### 3.3 About Section
 | ID | Requirement | Priority |
@@ -174,6 +175,37 @@ A modern, high-impact single-page website for "The AI and Beyond" - a profession
 | FR-101 | Accept/Decline options | HIGH |
 | FR-102 | Preference persistence | HIGH |
 | FR-103 | Link to privacy policy | HIGH |
+
+### 3.12 Internationalization (i18n)
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-110 | Support for Italian (default) and English locales | HIGH |
+| FR-111 | URL-based routing (/it/, /en/) | HIGH |
+| FR-112 | Language switcher in header | HIGH |
+| FR-113 | Automatic locale detection from browser | MEDIUM |
+| FR-114 | hreflang tags for SEO | HIGH |
+| FR-115 | All content translated (~120 strings) | HIGH |
+| FR-116 | Locale-aware metadata (title, description) | HIGH |
+
+### 3.13 Floating Assistant
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-120 | Animated mascot/blob in bottom-right corner | MEDIUM |
+| FR-121 | Appears after scroll (>300px from top) | MEDIUM |
+| FR-122 | Speech bubbles with contextual messages | MEDIUM |
+| FR-123 | Changes message near contact form section | MEDIUM |
+| FR-124 | Click scrolls to contact form | MEDIUM |
+| FR-125 | Dismissible (can be closed) | MEDIUM |
+| FR-126 | Respects prefers-reduced-motion | HIGH |
+
+### 3.14 Visual Effects & Typography
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-130 | AnimatedGradientText component for flowing gradient text | MEDIUM |
+| FR-131 | SplitTextReveal for character-by-character animations | LOW |
+| FR-132 | DynamicHighlight for animated keyword underlines | MEDIUM |
+| FR-133 | DecorativeLogoBackground with glow animation | MEDIUM |
+| FR-134 | ParticleBackground with interactive mouse effects | HIGH |
 
 ---
 
@@ -298,12 +330,11 @@ The following are explicitly **NOT** included in this project:
 2. **Blog/Content management** - No CMS or blog functionality
 3. **User authentication** - No login/registration system
 4. **E-commerce** - No payment processing
-5. **Multi-language** - Italian only (no i18n)
-6. **Backend database** - No persistent data storage (form sends to email only)
-7. **Client portal** - No client dashboard or project tracking
-8. **Chat widget** - No live chat integration
-9. **Booking system** - No calendar/scheduling integration
-10. **Social media feed integration** - No live social feeds
+5. **Backend database** - No persistent data storage (form sends to email only)
+6. **Client portal** - No client dashboard or project tracking
+7. **Chat widget** - No live chat integration (floating assistant is not live chat)
+8. **Booking system** - No calendar/scheduling integration
+9. **Social media feed integration** - No live social feeds
 
 ---
 
