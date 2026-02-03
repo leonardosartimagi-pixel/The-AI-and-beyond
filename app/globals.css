@@ -76,4 +76,32 @@
     transform: translateZ(0);
     will-change: transform, opacity;
   }
+
+  /* Optimize paint for animated elements */
+  .optimize-paint {
+    contain: layout paint;
+  }
+
+  /* Hardware acceleration for fixed/sticky elements */
+  .hardware-accelerated {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  /* Content visibility for below-fold sections */
+  .content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+  }
+}
+
+/* Performance: optimize rendering of decorative elements */
+[aria-hidden='true'] {
+  contain: strict;
+}
+
+/* Optimize blur effects for performance */
+.blur-3xl {
+  will-change: auto;
+  transform: translateZ(0);
 }

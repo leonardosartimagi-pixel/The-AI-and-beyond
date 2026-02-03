@@ -43,6 +43,8 @@ export function Header() {
       <motion.header
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          // Hardware acceleration for fixed positioning (better scroll performance)
+          'transform-gpu will-change-transform',
           isScrolled
             ? 'bg-white/90 backdrop-blur-md shadow-sm'
             : 'bg-transparent'
@@ -88,15 +90,19 @@ function Logo({ onClick }: LogoProps) {
         src="/images/onda_logo.png"
         alt="The AI and Beyond"
         fill
+        sizes="40px"
         className="object-contain md:hidden"
         priority
+        placeholder="empty"
       />
       <Image
         src="/images/logo.png"
         alt="The AI and Beyond"
         fill
+        sizes="(min-width: 768px) 160px, 40px"
         className="hidden object-contain md:block"
         priority
+        placeholder="empty"
       />
     </button>
   );
