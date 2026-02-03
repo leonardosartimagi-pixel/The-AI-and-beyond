@@ -3,7 +3,18 @@ import { Resend } from 'resend';
 import { contactFormSchema } from '@/lib/validations';
 import { isRateLimited, getRemainingRequests } from '@/lib/rate-limiter';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization to avoid build-time errors when API key is not set
+let resend: Resend | null = null;
+
+function getResendClient(): Resend | null {
+  if (!process.env.RESEND_API_KEY) {
+    return null;
+  }
+  if (!resend) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 function getClientIp(request: NextRequest): string {
   const forwardedFor = request.headers.get('x-forwarded-for');
@@ -85,7 +96,8 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!process.env.RESEND_API_KEY) {
+  const resendClient = getResendClient();
+  if (!resendClient) {
     console.error('[Contact API] RESEND_API_KEY not configured');
 
     return NextResponse.json(
@@ -95,7 +107,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { error } = await resend.emails.send({
+    const { error } = await resendClient.emails.send({
       from: 'The AI and Beyond <noreply@theaiandbeyond.com>',
       to: contactEmail,
       reply_to: email,
