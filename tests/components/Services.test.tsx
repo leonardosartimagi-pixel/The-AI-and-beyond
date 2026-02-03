@@ -344,7 +344,7 @@ describe('Services', () => {
 
       const modal = screen.getByRole('dialog');
       expect(modal).toHaveAttribute('aria-modal', 'true');
-      expect(modal).toHaveAttribute('aria-labelledby', 'modal-title');
+      expect(modal).toHaveAttribute('aria-labelledby', 'service-modal-title');
     });
 
     it('cards are keyboard accessible', () => {
@@ -407,7 +407,7 @@ describe('Services', () => {
       fireEvent.click(consulenzaButton);
 
       const modalTitle = screen.getByRole('heading', { level: 2, name: /consulenza ai/i });
-      expect(modalTitle).toHaveAttribute('id', 'modal-title');
+      expect(modalTitle).toHaveAttribute('id', 'service-modal-title');
     });
   });
 });
