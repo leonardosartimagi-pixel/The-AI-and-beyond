@@ -165,8 +165,8 @@ function AnimatedBlob() {
     >
       <defs>
         <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#00bcd4" />
-          <stop offset="100%" stopColor="#4dd0e1" />
+          <stop offset="0%" stopColor="#137dc5" />
+          <stop offset="100%" stopColor="#00aeef" />
         </linearGradient>
       </defs>
       {/* Main blob shape */}
@@ -193,7 +193,7 @@ function AnimatedBlob() {
         cx="18"
         cy="22"
         r="1.5"
-        fill="#1a365d"
+        fill="#1b2f75"
         animate={{ y: [0, -0.5, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       />
@@ -201,7 +201,7 @@ function AnimatedBlob() {
         cx="32"
         cy="22"
         r="1.5"
-        fill="#1a365d"
+        fill="#1b2f75"
         animate={{ y: [0, -0.5, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       />
@@ -209,7 +209,7 @@ function AnimatedBlob() {
       <motion.path
         d="M18 32 Q25 38 32 32"
         fill="none"
-        stroke="#1a365d"
+        stroke="#1b2f75"
         strokeWidth="2"
         strokeLinecap="round"
         animate={{

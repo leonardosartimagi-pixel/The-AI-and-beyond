@@ -302,7 +302,7 @@
 | CSS animations | Limited interactivity |
 
 **Configuration:**
-- Brand colors: cyan (#00bcd4) and blue (#1a365d)
+- Brand colors: primary blue (#1b2f75), accent blue (#137dc5), accent light (#00aeef)
 - 80-100 particles with connections
 - Interactive "grab" mode on hover
 - Disabled when prefers-reduced-motion

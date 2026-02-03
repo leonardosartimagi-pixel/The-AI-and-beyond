@@ -86,16 +86,16 @@ function Logo({ onClick, t }: LogoProps) {
   return (
     <button
       onClick={onClick}
-      className="relative h-10 w-10 md:h-12 md:w-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+      className="relative h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
       aria-label={t('about')}
     >
-      {/* Wave logo only - on both mobile and desktop */}
+      {/* Logo symbol - circular, without white background */}
       <Image
-        src="/images/onda_logo.png"
+        src="/images/logo-symbol.png"
         alt="The AI and Beyond"
         fill
         sizes="48px"
-        className="object-contain"
+        className="object-cover"
         priority
         placeholder="empty"
       />

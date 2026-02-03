@@ -4,3 +4,4 @@ export { DecorativeLogoBackground } from './DecorativeLogoBackground';
 export { AnimatedGradientText } from './AnimatedGradientText';
 export { SplitTextReveal } from './SplitTextReveal';
 export { DynamicHighlight } from './DynamicHighlight';
+export { TechGridOverlay, GradientOrb } from './TechGridOverlay';
