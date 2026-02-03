@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
+import { TechGridOverlay } from '@/components/effects';
 
 interface ProcessStep {
   id: string;
@@ -275,6 +276,9 @@ export function Process({ className = '' }: ProcessProps) {
       className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
+      {/* Tech grid overlay for consistency */}
+      <TechGridOverlay opacity={0.02} />
+
       {/* Decorative gradient blur - top right */}
       <div
         className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent/5 blur-3xl"

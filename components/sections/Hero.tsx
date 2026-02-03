@@ -1,23 +1,12 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollTo } from '@/hooks';
 import { Badge, Button } from '@/components/ui';
-import { AnimatedLogo } from './AnimatedLogo';
+import { ParticleBackground } from '@/components/effects';
 
-// Dynamic import for particle system to avoid impacting initial bundle
-const ParticleBackground = dynamic(
-  () => import('@/components/effects/ParticleBackground').then((mod) => mod.ParticleBackground),
-  { ssr: false }
-);
-
-// Dynamic import for decorative background logo
-const DecorativeLogoBackground = dynamic(
-  () => import('@/components/effects/DecorativeLogoBackground').then((mod) => mod.DecorativeLogoBackground),
-  { ssr: false }
-);
 
 const KEYWORD_KEYS = ['quality', 'speed', 'security', 'control'] as const;
 
@@ -107,15 +96,13 @@ export function Hero({ className = '' }: HeroProps) {
         aria-hidden="true"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(0, 188, 212, 0.3) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(0, 188, 212, 0.3) 1px, transparent 1px)
+            linear-gradient(to right, rgba(19, 125, 197, 0.3) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(19, 125, 197, 0.3) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}
       />
 
-      {/* Decorative logo in background with glow effect */}
-      <DecorativeLogoBackground />
 
       {/* Gradient orbs for depth */}
       <div
@@ -135,16 +122,20 @@ export function Hero({ className = '' }: HeroProps) {
           initial="hidden"
           animate="visible"
         >
-          {/* Animated Logo */}
+          {/* Full Logo - Prominently visible */}
           <motion.div
-            className="mb-8 flex justify-center"
+            className="mb-10 flex justify-center"
             variants={itemVariants}
           >
-            <AnimatedLogo
-              width={240}
-              height={96}
-              className="h-auto w-48 sm:w-60"
-            />
+            <div className="relative h-16 w-72 sm:h-20 sm:w-96 md:h-24 md:w-[28rem]">
+              <Image
+                src="/images/logo-full-white.svg"
+                alt="The AI and Beyond"
+                fill
+                className="object-contain drop-shadow-lg"
+                priority
+              />
+            </div>
           </motion.div>
 
           {/* Headline */}

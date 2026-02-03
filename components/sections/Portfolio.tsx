@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 import { Badge } from '@/components/ui';
+import { TechGridOverlay } from '@/components/effects';
 
 interface Project {
   id: string;
@@ -518,6 +519,9 @@ export function Portfolio({ className = '' }: PortfolioProps) {
         className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
         aria-label={t('label')}
       >
+        {/* Tech grid overlay for consistency */}
+        <TechGridOverlay opacity={0.02} />
+
         {/* Decorative gradient blur - top right */}
         <div
           className="absolute -right-48 -top-48 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl"

@@ -4,13 +4,12 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
+import { TechGridOverlay } from '@/components/effects';
 
 interface Service {
   id: string;
   key: string;
   icon: React.ReactNode;
-  size: 'normal' | 'featured';
-  offsetY: number;
 }
 
 interface ServicesProps {
@@ -37,8 +36,6 @@ const services: Service[] = [
         />
       </svg>
     ),
-    size: 'featured',
-    offsetY: 0,
   },
   {
     id: 'sviluppo-web',
@@ -59,8 +56,6 @@ const services: Service[] = [
         />
       </svg>
     ),
-    size: 'normal',
-    offsetY: 40,
   },
   {
     id: 'agenti-ai',
@@ -81,8 +76,6 @@ const services: Service[] = [
         />
       </svg>
     ),
-    size: 'featured',
-    offsetY: 80,
   },
   {
     id: 'prototipi-rapidi',
@@ -103,8 +96,6 @@ const services: Service[] = [
         />
       </svg>
     ),
-    size: 'normal',
-    offsetY: 20,
   },
   {
     id: 'ottimizzazione-pm',
@@ -130,8 +121,6 @@ const services: Service[] = [
         />
       </svg>
     ),
-    size: 'normal',
-    offsetY: 60,
   },
 ];
 
@@ -157,7 +146,7 @@ function ServiceCard({
   const cardVariants = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 40,
+      y: prefersReducedMotion ? 0 : 30,
       scale: prefersReducedMotion ? 1 : 0.95,
     },
     visible: {
@@ -165,8 +154,8 @@ function ServiceCard({
       y: 0,
       scale: 1,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
-        delay: prefersReducedMotion ? 0 : index * 0.15,
+        duration: prefersReducedMotion ? 0 : 0.5,
+        delay: prefersReducedMotion ? 0 : index * 0.1,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
@@ -174,12 +163,7 @@ function ServiceCard({
 
   return (
     <motion.article
-      className={`group relative ${
-        service.size === 'featured' ? 'lg:row-span-2' : ''
-      }`}
-      style={{
-        marginTop: service.size === 'normal' ? `${service.offsetY}px` : 0,
-      }}
+      className="group relative h-full"
       variants={cardVariants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
@@ -189,16 +173,14 @@ function ServiceCard({
       <motion.button
         type="button"
         onClick={() => onOpenModal(service)}
-        className={`relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 lg:p-8 ${
-          service.size === 'featured' ? 'min-h-[320px]' : 'min-h-[240px]'
-        }`}
+        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 lg:p-8"
         whileHover={
           prefersReducedMotion
             ? {}
             : {
                 scale: 1.02,
                 boxShadow:
-                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(0, 188, 212, 0.15)',
+                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(19, 125, 197, 0.15)',
               }
         }
         transition={{
@@ -228,9 +210,9 @@ function ServiceCard({
           aria-hidden="true"
         />
 
-        {/* Icon container */}
+        {/* Icon container with gradient matching brand */}
         <motion.div
-          className="relative mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-lg"
+          className="relative mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-accent-light text-white shadow-lg"
           animate={{
             y: isHovered && !prefersReducedMotion ? -4 : 0,
             scale: isHovered && !prefersReducedMotion ? 1.05 : 1,
@@ -249,21 +231,6 @@ function ServiceCard({
         <p className="relative mb-4 flex-grow text-base leading-relaxed text-gray-600">
           {t(`items.${service.key}.description`)}
         </p>
-
-        {/* Expanded content on hover */}
-        <AnimatePresence>
-          {isHovered && service.size === 'featured' && (
-            <motion.p
-              className="relative text-sm leading-relaxed text-gray-500"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {t(`items.${service.key}.expanded`)}
-            </motion.p>
-          )}
-        </AnimatePresence>
 
         {/* CTA arrow */}
         <motion.div
@@ -432,7 +399,7 @@ function ServiceModal({
               </button>
 
               {/* Icon */}
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-lg">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent to-accent-light text-white shadow-lg">
                 {service.icon}
               </div>
 
@@ -512,7 +479,6 @@ export function Services({ className = '' }: ServicesProps) {
 
   const handleCloseModal = () => {
     setSelectedService(null);
-    // Restore focus to trigger element
     setTimeout(() => {
       triggerRef.current?.focus();
     }, 0);
@@ -526,6 +492,9 @@ export function Services({ className = '' }: ServicesProps) {
         className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
         aria-label={t('label')}
       >
+        {/* Tech grid overlay for consistency */}
+        <TechGridOverlay opacity={0.02} />
+
         {/* Decorative gradient blur - top left */}
         <div
           className="absolute -left-48 -top-48 h-[500px] w-[500px] rounded-full bg-accent/5 blur-3xl"
@@ -535,17 +504,6 @@ export function Services({ className = '' }: ServicesProps) {
         {/* Decorative gradient blur - bottom right */}
         <div
           className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-primary/5 blur-3xl"
-          aria-hidden="true"
-        />
-
-        {/* Decorative dot pattern */}
-        <div
-          className="absolute left-1/2 top-20 hidden h-48 w-48 -translate-x-1/2 opacity-[0.03] lg:block"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle, currentColor 1px, transparent 1px)',
-            backgroundSize: '20px 20px',
-          }}
           aria-hidden="true"
         />
 
@@ -579,69 +537,35 @@ export function Services({ className = '' }: ServicesProps) {
             </p>
           </motion.div>
 
-          {/* Bento-style grid layout */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {/* First column - Consulenza AI (featured) */}
-            <div className="md:col-span-1">
-              {services[0] && (
-                <ServiceCard
-                  service={services[0]}
-                  index={0}
-                  isInView={isInView}
-                  prefersReducedMotion={prefersReducedMotion}
-                  onOpenModal={handleOpenModal}
-                  t={t}
-                />
-              )}
-            </div>
+          {/* Uniform grid layout - 3 cols on large, 2 on medium, 1 on mobile */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            {/* First row: 3 services */}
+            {services.slice(0, 3).map((service, index) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                index={index}
+                isInView={isInView}
+                prefersReducedMotion={prefersReducedMotion}
+                onOpenModal={handleOpenModal}
+                t={t}
+              />
+            ))}
+          </div>
 
-            {/* Second column - Sviluppo Web + Prototipi */}
-            <div className="flex flex-col gap-6 md:col-span-1 lg:gap-8">
-              {services[1] && (
-                <ServiceCard
-                  service={services[1]}
-                  index={1}
-                  isInView={isInView}
-                  prefersReducedMotion={prefersReducedMotion}
-                  onOpenModal={handleOpenModal}
-                  t={t}
-                />
-              )}
-              {services[3] && (
-                <ServiceCard
-                  service={services[3]}
-                  index={3}
-                  isInView={isInView}
-                  prefersReducedMotion={prefersReducedMotion}
-                  onOpenModal={handleOpenModal}
-                  t={t}
-                />
-              )}
-            </div>
-
-            {/* Third column - Agenti AI (featured) + Ottimizzazione PM */}
-            <div className="flex flex-col gap-6 md:col-span-2 lg:col-span-1 lg:gap-8">
-              {services[2] && (
-                <ServiceCard
-                  service={services[2]}
-                  index={2}
-                  isInView={isInView}
-                  prefersReducedMotion={prefersReducedMotion}
-                  onOpenModal={handleOpenModal}
-                  t={t}
-                />
-              )}
-              {services[4] && (
-                <ServiceCard
-                  service={services[4]}
-                  index={4}
-                  isInView={isInView}
-                  prefersReducedMotion={prefersReducedMotion}
-                  onOpenModal={handleOpenModal}
-                  t={t}
-                />
-              )}
-            </div>
+          {/* Second row: 2 services centered */}
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:mt-8 lg:grid-cols-2 lg:gap-8 lg:px-[16.666%]">
+            {services.slice(3).map((service, index) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                index={index + 3}
+                isInView={isInView}
+                prefersReducedMotion={prefersReducedMotion}
+                onOpenModal={handleOpenModal}
+                t={t}
+              />
+            ))}
           </div>
         </div>
       </section>

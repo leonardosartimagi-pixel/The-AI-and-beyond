@@ -10,14 +10,14 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1a365d',
-          dark: '#0f2744',
-          light: '#2c5282',
+          DEFAULT: '#1b2f75', // Blu scuro del logo ufficiale
+          dark: '#151f4f',
+          light: '#2d388a',
         },
         accent: {
-          DEFAULT: '#00bcd4',
-          dark: '#0097a7',
-          light: '#4dd0e1',
+          DEFAULT: '#137dc5', // Blu primario del logo ufficiale
+          dark: '#0f6ba8',
+          light: '#00aeef', // Cyan dal gradiente logo
         },
       },
       fontFamily: {

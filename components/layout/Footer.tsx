@@ -48,14 +48,14 @@ function FooterBrand({ onLogoClick, t }: FooterBrandProps) {
     <div>
       <button
         onClick={onLogoClick}
-        className="relative h-10 w-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+        className="relative h-12 w-48 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
         aria-label="Home"
       >
         <Image
-          src="/images/logo.png"
+          src="/images/logo-full-white.svg"
           alt="The AI and Beyond"
           fill
-          className="object-contain brightness-0 invert"
+          className="object-contain"
         />
       </button>
       <p className="mt-4 text-sm text-white/80">

@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Button } from '@/components/ui/Button';
 import { contactFormSchema, type ContactFormData } from '@/lib/validations';
+import { TechGridOverlay } from '@/components/effects';
 
 interface ContactProps {
   className?: string;
@@ -110,6 +111,9 @@ export function Contact({ className = '' }: ContactProps) {
       className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
+      {/* Tech grid overlay for consistency */}
+      <TechGridOverlay opacity={0.02} />
+
       {/* Decorative gradient blurs */}
       <div
         className="pointer-events-none absolute left-0 top-1/4 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-accent/5 blur-3xl"
