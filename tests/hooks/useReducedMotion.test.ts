@@ -59,7 +59,9 @@ describe('useReducedMotion', () => {
     expect(result.current).toBe(false);
 
     // Get the handler that was passed to addEventListener
-    const handler = matchMediaMock.addEventListener.mock.calls[0][1];
+    const calls = matchMediaMock.addEventListener.mock.calls;
+    const handler = calls[0]?.[1] as ((e: MediaQueryListEvent) => void) | undefined;
+    if (!handler) throw new Error('Handler not found');
 
     // Simulate preference change
     act(() => {

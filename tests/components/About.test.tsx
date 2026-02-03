@@ -134,7 +134,8 @@ describe('About', () => {
   it('has proper heading hierarchy', () => {
     render(<About />);
     const headings = screen.getAllByRole('heading');
-    expect(headings[0].tagName).toBe('H2');
+    expect(headings.length).toBeGreaterThan(0);
+    expect(headings[0]?.tagName).toBe('H2');
   });
 
   it('renders icons with proper aria-hidden', () => {
