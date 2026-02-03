@@ -1,5 +1,5 @@
 import { Header, Footer } from '@/components/layout';
-import { Hero, About, Services } from '@/components/sections';
+import { Hero, About, Services, Portfolio } from '@/components/sections';
 
 export default function Home() {
   return (
@@ -9,8 +9,8 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
+        <Portfolio />
         {/* Placeholder sections for navigation - to be implemented */}
-        <section id="portfolio" className="min-h-screen bg-white" />
         <section id="come-lavoro" className="min-h-screen bg-gray-50" />
         <section id="contatti" className="min-h-screen bg-white" />
       </main>

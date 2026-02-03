@@ -29,8 +29,8 @@
 | TASK-003 | Layout components (Header, Footer) | [x] Completed | P0 | 3h | TASK-002 |
 | TASK-004 | Hero section with animations | [x] Completed | P0 | 4h | TASK-003 |
 | TASK-005 | About section | [x] Completed | P1 | 2h | TASK-002 |
-| TASK-006 | Services section with cards | [ ] Pending | P1 | 3h | TASK-002 |
-| TASK-007 | Portfolio section with modals | [ ] Pending | P1 | 4h | TASK-002 |
+| TASK-006 | Services section with cards | [x] Completed | P1 | 3h | TASK-002 |
+| TASK-007 | Portfolio section with modals | [x] Completed | P1 | 4h | TASK-002 |
 | TASK-008 | Before/After comparison | [ ] Pending | P1 | 3h | TASK-002 |
 | TASK-009 | ROI Calculator | [ ] Pending | P1 | 3h | TASK-002 |
 | TASK-010 | Process timeline section | [ ] Pending | P2 | 2h | TASK-002 |
@@ -791,7 +791,7 @@ Ogni progetto parte dall'ascolto. Perché la tecnologia migliore
 
 ### TASK-006: Services Section with Cards
 
-**Status**: [ ] Pending
+**Status**: [x] Completed
 **Priority**: P1 - High
 **Estimated Effort**: 3 hours
 **Dependencies**: TASK-002
@@ -863,7 +863,7 @@ Commit: `feat(services): add Services section with interactive cards [TASK-006]`
 
 ### TASK-007: Portfolio Section with Modals
 
-**Status**: [ ] Pending
+**Status**: [x] Completed
 **Priority**: P1 - High
 **Estimated Effort**: 4 hours
 **Dependencies**: TASK-002
