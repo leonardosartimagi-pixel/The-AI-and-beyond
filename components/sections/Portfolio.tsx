@@ -572,6 +572,7 @@ export function Portfolio({ className = '' }: PortfolioProps) {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   const headingVariants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
@@ -586,11 +587,16 @@ export function Portfolio({ className = '' }: PortfolioProps) {
   };
 
   const handleOpenModal = (project: Project) => {
+    triggerRef.current = document.activeElement as HTMLElement;
     setSelectedProject(project);
   };
 
   const handleCloseModal = () => {
     setSelectedProject(null);
+    // Restore focus to trigger element
+    setTimeout(() => {
+      triggerRef.current?.focus();
+    }, 0);
   };
 
   return (

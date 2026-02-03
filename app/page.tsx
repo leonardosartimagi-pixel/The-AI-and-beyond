@@ -41,8 +41,14 @@ const Contact = dynamic(() => import('@/components/sections/Contact').then((mod)
 export default function Home() {
   return (
     <>
+      <a
+        href="#main-content"
+        className="skip-to-content"
+      >
+        Vai al contenuto principale
+      </a>
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <Services />
