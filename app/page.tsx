@@ -1,5 +1,5 @@
-import { Header, Footer } from '@/components/layout';
-import { Hero, About, Services, Portfolio, BeforeAfter, ROICalculator, Process } from '@/components/sections';
+import { Header, Footer, MobileContactButton } from '@/components/layout';
+import { Hero, About, Services, Portfolio, BeforeAfter, ROICalculator, Process, Contact } from '@/components/sections';
 
 export default function Home() {
   return (
@@ -13,10 +13,10 @@ export default function Home() {
         <BeforeAfter />
         <ROICalculator />
         <Process />
-        {/* Placeholder section for navigation - to be implemented */}
-        <section id="contatti" className="min-h-screen bg-white" />
+        <Contact />
       </main>
       <Footer />
+      <MobileContactButton />
     </>
   );
 }
