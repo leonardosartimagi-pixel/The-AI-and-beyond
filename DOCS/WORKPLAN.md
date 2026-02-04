@@ -56,6 +56,7 @@
 | TASK-030 | UX enhancements (language selector, video section, portfolio redesign, effects) | [x] Completed | P0 | 8h | TASK-029 |
 | TASK-031 | AI Core Avatar redesign (replaces FloatingAssistant) | [x] Completed | P1 | 5h | TASK-030 |
 | TASK-032 | AI Chatbot with guided conversation flow | [x] Completed | P0 | 8h | TASK-031 |
+| TASK-033 | AI Audit Express - Trasforma chatbot in consulente WOW | [x] Completed | P0 | 6h | TASK-032 |
 
 ---
 
@@ -2291,3 +2292,115 @@ OPENAI_API_KEY=sk-...
 #### COMMIT
 
 `feat(chat): add AI chatbot with guided conversation flow [TASK-032]`
+
+---
+
+---
+
+### TASK-033: AI Audit Express - Trasforma Chatbot in Consulente WOW
+
+**Status**: [x] Completed
+**Priority**: P0 - Critical
+**Estimated Effort**: 6 hours
+**Dependencies**: TASK-032
+
+---
+
+#### TASK OBJECTIVE
+
+Trasformare il chatbot AI da strumento di lead qualification (inutilizzabile senza backend) in un **consulente che dà valore immediato** attraverso un Audit AI personalizzato.
+
+**Problema risolto**: Il chatbot raccoglieva dati di lead ma non potevano essere inviati da nessuna parte (no database, no email integration). Ora invece genera un report utile per l'utente.
+
+---
+
+#### SOLUTION: AI AUDIT EXPRESS
+
+**Filosofia**: L'utente costruisce il proprio report. Tutti i numeri derivano dai suoi input, non sono imposti.
+
+**Flusso**:
+1. Utente clicca "Scopri il tuo potenziale AI"
+2. Risponde a 4 domande (settore, team, sfida, ore/settimana)
+3. Riceve un report personalizzato con:
+   - Riepilogo dati inseriti
+   - Calcolo trasparente del risparmio ipotetico
+   - Opportunità da esplorare
+   - CTA per contattare
+
+**Garanzie di professionalità**:
+- Zero riferimenti a progetti/clienti passati
+- Tutto etichettato come "ipotesi"
+- Calcoli visibili e verificabili
+- Disclaimer sempre presenti
+- PDF brandizzato con footer legale
+
+---
+
+#### FILES CREATED
+
+```
+lib/audit/
+├── audit-types.ts      # TypeScript interfaces
+├── audit-knowledge.ts  # Settori, sfide, opportunità
+├── audit-generator.ts  # Genera report client-side
+└── index.ts            # Barrel exports
+
+components/effects/AICore/
+└── AuditReportCard.tsx # Componente report brandizzato
+```
+
+---
+
+#### FILES MODIFIED
+
+| File | Modifiche |
+|------|-----------|
+| `chat-types.ts` | +AuditData, AuditReport types, nuovi flussi e azioni |
+| `chat-flows.ts` | +AUDIT_STEPS, getAuditStep() |
+| `useAIChat.ts` | +Logica audit, salvataggio localStorage, remarketing |
+| `AIChatInterface.tsx` | +Slider ore, render AuditReportCard |
+| `AIChatQuickReplies.tsx` | +8 nuove icone per audit |
+| `AICore.tsx` | +Props per audit |
+| `messages/it.json` | +Sezione "audit" completa (~120 stringhe) |
+| `messages/en.json` | +Sezione "audit" completa (~120 stringhe) |
+
+---
+
+#### FEATURES
+
+1. **Audit Flow Guidato**: 4 step con opzioni visuali
+2. **Slider Interattivo**: Per selezionare ore/settimana
+3. **Report Brandizzato**: Con colori e logo del sito
+4. **Calcolo Trasparente**: Formula visibile step-by-step
+5. **Copia Report**: Testo formattato negli appunti
+6. **Download PDF**: Generato client-side con jsPDF + html2canvas
+7. **Remarketing Non Invasivo**: Messaggio di bentornato se audit già fatto
+8. **i18n Completo**: Tutto tradotto IT/EN
+
+---
+
+#### DEPENDENCIES ADDED
+
+```json
+{
+  "html2canvas": "^1.x",
+  "jspdf": "^2.x"
+}
+```
+
+---
+
+#### TESTS
+
+- `npm run build` passes successfully
+- TypeScript compila senza errori (tranne test pre-esistente)
+- Flusso audit funziona end-to-end
+- Report generato correttamente
+- PDF scaricabile
+- Traduzioni IT/EN complete
+
+---
+
+#### COMMIT
+
+`feat(audit): add AI Audit Express with personalized report [TASK-033]`

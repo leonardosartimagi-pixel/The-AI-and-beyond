@@ -2,6 +2,11 @@
  * TypeScript interfaces for AI Chat system
  */
 
+import type { AuditData, AuditReport } from '@/lib/audit';
+
+// Re-export audit types for convenience
+export type { AuditData, AuditReport };
+
 /**
  * Singolo messaggio nella chat
  */
@@ -13,6 +18,7 @@ export interface ChatMessage {
   quickReplies?: QuickReply[];
   isError?: boolean;
   isLoading?: boolean;
+  isAuditReport?: boolean; // Flag per messaggio con report audit
 }
 
 /**
@@ -43,17 +49,30 @@ export type QuickReplyIcon =
   | 'budget'
   | 'goal'
   | 'check'
-  | 'arrow';
+  | 'arrow'
+  // Audit icons
+  | 'audit'
+  | 'tech'
+  | 'healthcare'
+  | 'finance'
+  | 'retail'
+  | 'manufacturing'
+  | 'other'
+  | 'challenge';
 
 /**
  * Azioni possibili per quick replies
  */
 export type QuickReplyAction =
-  | 'send_message'    // Invia come messaggio utente
-  | 'start_qualify'   // Avvia flusso pre-qualifica
-  | 'navigate'        // Naviga a sezione
-  | 'show_services'   // Mostra lista servizi
-  | 'next_step';      // Prossimo step qualifica
+  | 'send_message'      // Invia come messaggio utente
+  | 'start_qualify'     // Avvia flusso pre-qualifica (legacy)
+  | 'navigate'          // Naviga a sezione
+  | 'show_services'     // Mostra lista servizi
+  | 'next_step'         // Prossimo step qualifica (legacy)
+  // Audit actions
+  | 'start_audit'       // Avvia flusso audit
+  | 'audit_next_step'   // Prossimo step audit
+  | 'go_to_contact';    // Vai al form contatti
 
 /**
  * Flussi conversazionali disponibili
@@ -67,7 +86,14 @@ export type ChatFlow =
   | 'qualify_goal'
   | 'qualify_complete'
   | 'faq'
-  | 'freeform';
+  | 'freeform'
+  // Audit flows
+  | 'audit_sector'
+  | 'audit_team'
+  | 'audit_challenge'
+  | 'audit_hours'
+  | 'audit_generating'
+  | 'audit_complete';
 
 /**
  * Dati raccolti durante pre-qualifica
@@ -92,6 +118,9 @@ export interface ChatState {
   messageCount: number;
   remainingMessages: number;
   isLimitReached: boolean;
+  // Audit state
+  auditData: AuditData;
+  auditReport: AuditReport | null;
 }
 
 /**
@@ -107,7 +136,11 @@ export type ChatAction =
   | { type: 'UPDATE_QUALIFY_DATA'; payload: Partial<QualifyData> }
   | { type: 'SET_REMAINING_MESSAGES'; payload: number }
   | { type: 'SET_LIMIT_REACHED'; payload: boolean }
-  | { type: 'RESET_CHAT' };
+  | { type: 'RESET_CHAT' }
+  // Audit actions
+  | { type: 'UPDATE_AUDIT_DATA'; payload: Partial<AuditData> }
+  | { type: 'SET_AUDIT_REPORT'; payload: AuditReport }
+  | { type: 'CLEAR_AUDIT' };
 
 /**
  * Risposta dall'API chat

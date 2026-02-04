@@ -44,13 +44,16 @@ export function AICore() {
     isOpen: isChatOpen,
     messages: chatMessages,
     isTyping,
+    currentFlow,
     remainingMessages,
     isLimitReached,
+    auditReport,
     openChat,
     closeChat,
     sendMessage,
     handleQuickReply,
     resetChat,
+    handleAuditHoursSubmit,
   } = useAIChat();
 
   const [isVisible, setIsVisible] = useState(false);
@@ -162,12 +165,15 @@ export function AICore() {
         isOpen={isChatOpen}
         messages={chatMessages}
         isTyping={isTyping}
+        currentFlow={currentFlow}
         remainingMessages={remainingMessages}
         isLimitReached={isLimitReached}
+        auditReport={auditReport}
         onClose={closeChat}
         onSendMessage={sendMessage}
         onQuickReply={handleQuickReply}
         onReset={resetChat}
+        onAuditHoursSubmit={handleAuditHoursSubmit}
       />
 
       {/* AI Core Button */}

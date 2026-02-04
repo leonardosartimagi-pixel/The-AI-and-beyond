@@ -328,14 +328,17 @@
     "restart": "Ricomincia",
     "close": "Chiudi",
     "welcome": "Ciao! Sono l'assistente AI di Leonardo. Come posso aiutarti oggi?",
+    "welcomeBack": "Bentornato! Ho visto che hai già fatto un audit (codice: {code}). Vuoi fare una nuova analisi o hai bisogno di altro?",
     "servicesIntro": "Ecco cosa posso fare per te:",
     "showAll": "Mostrami tutto",
     "messagesRemaining": "messaggi rimanenti",
     "quickReplies": {
+      "audit": "Scopri il tuo potenziale AI",
       "services": "Scopri i servizi",
       "project": "Ho un progetto in mente",
       "question": "Domanda veloce"
     },
+    "goToContact": "Fantastico! Sarò felice di ascoltare la tua idea. Ti porto al form di contatto dove potrai raccontarmi tutto nel dettaglio.",
     "qualify": {
       "sector": "In che settore opera la tua azienda?",
       "sectorOptions": {
@@ -377,6 +380,163 @@
     "limitReached": "Hai raggiunto il limite di messaggi. Per continuare, compila il form di contatto.",
     "error": "Ops, qualcosa è andato storto. Riprova tra poco.",
     "errorRetry": "Riprova"
+  },
+  "audit": {
+    "perWeek": "settimana",
+    "questions": {
+      "sector": "In che settore opera la tua azienda?",
+      "teamSize": "Quante persone ci sono nel tuo team?",
+      "challenge": "Qual è la sfida principale che affronti oggi?",
+      "hours": "Quante ore a settimana dedicate a task ripetitivi?"
+    },
+    "sectors": {
+      "tech": "Tech / Software",
+      "healthcare": "Sanità",
+      "finance": "Finanza",
+      "retail": "Retail",
+      "manufacturing": "Manifattura",
+      "other": "Altro"
+    },
+    "teamSizes": {
+      "small": "1-5 persone",
+      "medium": "6-20 persone",
+      "large": "21-50 persone",
+      "enterprise": "50+ persone"
+    },
+    "challenges": {
+      "manual": "Task manuali ripetitivi",
+      "reporting": "Report e analisi lenti",
+      "data": "Qualità dei dati",
+      "communication": "Comunicazione con clienti",
+      "other": "Altro"
+    },
+    "hoursSlider": {
+      "label": "Ore a settimana su task ripetitivi",
+      "submit": "Genera il mio report"
+    },
+    "loading": {
+      "analyzing": "Analizzo il tuo profilo...",
+      "calculating": "Calcolo il potenziale risparmio...",
+      "generating": "Preparo il tuo report personalizzato..."
+    },
+    "report": {
+      "header": "Il tuo Report AI Personalizzato",
+      "code": "Codice Audit",
+      "yourData": "I tuoi dati",
+      "sector": "Settore",
+      "teamSize": "Dimensione team",
+      "challenge": "Sfida principale",
+      "hoursWeek": "Ore/settimana",
+      "people": "persone",
+      "calculation": "Calcolo trasparente",
+      "saved": "risparmiate",
+      "efficiencyNote": "Stima basata su efficienza 60% (ipotesi conservativa di settore)",
+      "hypotheticalSavings": "Risparmio ipotetico",
+      "atRate": "A €{rate}/h (media settore {sector})",
+      "hypotheticalWarning": "Questi numeri sono ipotesi basate sui dati che hai inserito. I risultati reali dipendono dal tuo contesto specifico.",
+      "opportunities": "Opportunità da esplorare",
+      "nextStepTitle": "E adesso?",
+      "disclaimerShort": "Analisi ipotetica. Per informazioni certe, contattami.",
+      "disclaimer": "Questo report contiene esclusivamente ipotesi e stime indicative basate sui parametri che hai inserito. Non costituisce un preventivo, una promessa di risultati né un impegno contrattuale. Per informazioni certe e una valutazione personalizzata, contattami direttamente."
+    },
+    "nextStep": {
+      "small": "Per un team come il tuo, iniziare è semplice: parliamo delle tue esigenze specifiche e vediamo insieme cosa è davvero fattibile.",
+      "medium": "Con un team di queste dimensioni, l'impatto dell'automazione può essere significativo. Contattami per capire da dove iniziare nel tuo caso specifico.",
+      "enterprise": "Per realtà strutturate come la tua, l'AI può fare la differenza su più fronti. Parliamone per definire le priorità giuste."
+    },
+    "opportunities": {
+      "automation": {
+        "title": "Automazione task ripetitivi",
+        "description": "Automatizza le attività che richiedono tempo ma non valore aggiunto"
+      },
+      "documentation": {
+        "title": "Documentazione intelligente",
+        "description": "Assistenti AI per gestire e consultare la documentazione aziendale"
+      },
+      "workflow": {
+        "title": "Ottimizzazione flussi di lavoro",
+        "description": "Snellisci i processi e riduci i colli di bottiglia"
+      },
+      "scheduling": {
+        "title": "Gestione appuntamenti smart",
+        "description": "Ottimizza la pianificazione e riduci i no-show"
+      },
+      "patientComm": {
+        "title": "Comunicazione automatizzata",
+        "description": "Reminder e follow-up automatici per pazienti/clienti"
+      },
+      "records": {
+        "title": "Gestione documentale",
+        "description": "Organizzazione e ricerca intelligente dei documenti"
+      },
+      "reporting": {
+        "title": "Reportistica automatizzata",
+        "description": "Report generati automaticamente dai tuoi dati"
+      },
+      "compliance": {
+        "title": "Supporto compliance",
+        "description": "Strumenti per monitorare e garantire la conformità"
+      },
+      "dataAnalysis": {
+        "title": "Analisi dati avanzata",
+        "description": "Estrai insights dai tuoi dati in modo automatico"
+      },
+      "inventory": {
+        "title": "Gestione inventario intelligente",
+        "description": "Previsioni e ottimizzazione delle scorte"
+      },
+      "customerService": {
+        "title": "Assistenza clienti AI",
+        "description": "Rispondi alle domande frequenti 24/7"
+      },
+      "orderProcessing": {
+        "title": "Elaborazione ordini",
+        "description": "Automatizza la gestione degli ordini"
+      },
+      "qualityControl": {
+        "title": "Controllo qualità",
+        "description": "Monitoraggio automatizzato della qualità"
+      },
+      "maintenance": {
+        "title": "Manutenzione predittiva",
+        "description": "Prevedi i guasti prima che accadano"
+      },
+      "supplyChain": {
+        "title": "Ottimizzazione supply chain",
+        "description": "Migliora la catena di approvvigionamento"
+      },
+      "communication": {
+        "title": "Comunicazione automatizzata",
+        "description": "Email, notifiche e follow-up automatici"
+      },
+      "taskAutomation": {
+        "title": "Automazione compiti ripetitivi",
+        "description": "Libera tempo per attività a maggior valore"
+      },
+      "autoReporting": {
+        "title": "Report automatici",
+        "description": "Genera report senza intervento manuale"
+      },
+      "dataQuality": {
+        "title": "Qualità dei dati",
+        "description": "Pulisci e valida i dati automaticamente"
+      },
+      "autoComm": {
+        "title": "Comunicazioni smart",
+        "description": "Risposte e follow-up intelligenti"
+      },
+      "processOptimization": {
+        "title": "Ottimizzazione processi",
+        "description": "Analizza e migliora i tuoi flussi di lavoro"
+      }
+    },
+    "actions": {
+      "copy": "Copia Report",
+      "copied": "Copiato!",
+      "downloadPDF": "Scarica PDF",
+      "generating": "Generando...",
+      "contact": "Parliamone insieme"
+    }
   },
   "mobileContact": {
     "label": "Contattami"
