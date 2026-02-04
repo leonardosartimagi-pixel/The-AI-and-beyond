@@ -10,6 +10,7 @@ import type {
   QualifyData,
   ChatApiResponse,
   QuickReply,
+  AuditData,
 } from './chat-types';
 import {
   WELCOME_QUICK_REPLIES,
@@ -17,12 +18,17 @@ import {
   FAQ_QUICK_REPLIES,
   getQualifyStep,
   generateMessageId,
+  getAuditStep,
+  AUDIT_STEPS,
 } from './chat-flows';
 import { generateSessionId } from '@/lib/security';
+import { generateAuditReport } from '@/lib/audit';
+import type { AuditSector, AuditTeamSize, AuditChallenge } from '@/lib/audit';
 
 // Costanti
 const MAX_MESSAGES = 50;
 const SESSION_STORAGE_KEY = 'ai_chat_session';
+const AUDIT_STORAGE_KEY = 'ai_audit_report';
 
 /**
  * Stato iniziale della chat
@@ -38,6 +44,9 @@ function createInitialState(): ChatState {
     messageCount: 0,
     remainingMessages: MAX_MESSAGES,
     isLimitReached: false,
+    // Audit state
+    auditData: {},
+    auditReport: null,
   };
 }
 
@@ -93,6 +102,26 @@ function chatReducer(state: ChatState, action: ChatAction): ChatState {
         isOpen: state.isOpen,
       };
 
+    // Audit actions
+    case 'UPDATE_AUDIT_DATA':
+      return {
+        ...state,
+        auditData: { ...state.auditData, ...action.payload },
+      };
+
+    case 'SET_AUDIT_REPORT':
+      return {
+        ...state,
+        auditReport: action.payload,
+      };
+
+    case 'CLEAR_AUDIT':
+      return {
+        ...state,
+        auditData: {},
+        auditReport: null,
+      };
+
     default:
       return state;
   }
@@ -108,6 +137,7 @@ export function useAIChat() {
   const [state, dispatch] = useReducer(chatReducer, null, createInitialState);
   const abortControllerRef = useRef<AbortController | null>(null);
   const hasShownWelcomeRef = useRef(false);
+  const hasCheckedSavedAuditRef = useRef(false);
 
   // Recupera sessione da sessionStorage
   useEffect(() => {
@@ -209,11 +239,37 @@ export function useAIChat() {
     // Mostra welcome solo la prima volta
     if (!hasShownWelcomeRef.current && state.messages.length === 0) {
       hasShownWelcomeRef.current = true;
+
+      // Controlla se esiste un audit salvato (remarketing non invasivo)
+      let savedAudit: { auditCode: string; sector: string; timestamp: string } | null = null;
+      if (!hasCheckedSavedAuditRef.current) {
+        hasCheckedSavedAuditRef.current = true;
+        try {
+          const saved = localStorage.getItem(AUDIT_STORAGE_KEY);
+          if (saved) {
+            savedAudit = JSON.parse(saved);
+          }
+        } catch {
+          // Ignora errori
+        }
+      }
+
       setTimeout(() => {
-        addAssistantMessage(
-          translate('chat.welcome'),
-          WELCOME_QUICK_REPLIES
-        );
+        if (savedAudit) {
+          // Messaggio personalizzato per utenti di ritorno
+          // La traduzione con parametri viene gestita direttamente qui
+          const welcomeBackMessage = translate('chat.welcomeBack').replace(
+            '{code}',
+            savedAudit.auditCode
+          );
+          addAssistantMessage(welcomeBackMessage, WELCOME_QUICK_REPLIES);
+        } else {
+          // Messaggio di benvenuto standard
+          addAssistantMessage(
+            translate('chat.welcome'),
+            WELCOME_QUICK_REPLIES
+          );
+        }
       }, 300);
     }
   }, [state.messages.length, addAssistantMessage, translate]);
@@ -417,6 +473,79 @@ export function useAIChat() {
           const element = document.getElementById(reply.value);
           element?.scrollIntoView({ behavior: 'smooth' });
           break;
+
+        // ===== AUDIT ACTIONS =====
+        case 'start_audit':
+          // Avvia flusso audit
+          addUserMessage(translate('chat.quickReplies.audit'));
+          dispatch({ type: 'CLEAR_AUDIT' });
+          dispatch({ type: 'SET_FLOW', payload: 'audit_sector' });
+          setTimeout(() => {
+            const step = getAuditStep('audit_sector');
+            if (step) {
+              addAssistantMessage(
+                translate(step.messageKey),
+                step.options
+              );
+            }
+          }, 300);
+          break;
+
+        case 'audit_next_step':
+          // Salva risposta audit e passa al prossimo step
+          const currentAuditStep = getAuditStep(state.currentFlow);
+          if (currentAuditStep) {
+            // Salva il dato
+            const dataUpdate: Partial<AuditData> = {};
+            if (currentAuditStep.key === 'sector') {
+              dataUpdate.sector = reply.value as AuditSector;
+            } else if (currentAuditStep.key === 'teamSize') {
+              dataUpdate.teamSize = reply.value as AuditTeamSize;
+            } else if (currentAuditStep.key === 'challenge') {
+              dataUpdate.challenge = reply.value as AuditChallenge;
+            }
+            dispatch({ type: 'UPDATE_AUDIT_DATA', payload: dataUpdate });
+            addUserMessage(translate(reply.label) || reply.value);
+
+            // Passa al prossimo step
+            const nextFlow = currentAuditStep.nextFlow;
+            dispatch({ type: 'SET_FLOW', payload: nextFlow });
+
+            setTimeout(() => {
+              if (nextFlow === 'audit_generating') {
+                // Genera il report
+                handleGenerateAuditReport();
+              } else {
+                const nextStep = getAuditStep(nextFlow);
+                if (nextStep) {
+                  if (nextStep.type === 'slider') {
+                    // Per lo slider, mostra messaggio con istruzioni
+                    addAssistantMessage(translate(nextStep.messageKey));
+                    // Il componente slider verrà mostrato dall'interfaccia
+                  } else {
+                    addAssistantMessage(
+                      translate(nextStep.messageKey),
+                      nextStep.options
+                    );
+                  }
+                }
+              }
+            }, 300);
+          }
+          break;
+
+        case 'go_to_contact':
+          // Mostra messaggio cordiale e vai al form contatti
+          addUserMessage(translate('chat.quickReplies.project'));
+          setTimeout(() => {
+            addAssistantMessage(translate('chat.goToContact'));
+            setTimeout(() => {
+              closeChat();
+              const contactSection = document.getElementById('contatti');
+              contactSection?.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+          }, 300);
+          break;
       }
     },
     [
@@ -425,8 +554,89 @@ export function useAIChat() {
       addAssistantMessage,
       translate,
       state.currentFlow,
+      state.auditData,
       closeChat,
     ]
+  );
+
+  /**
+   * Gestisce invio ore dallo slider audit
+   */
+  const handleAuditHoursSubmit = useCallback(
+    (hours: number) => {
+      dispatch({ type: 'UPDATE_AUDIT_DATA', payload: { hoursPerWeek: hours } });
+      addUserMessage(`${hours}h/${translate('audit.perWeek')}`);
+      dispatch({ type: 'SET_FLOW', payload: 'audit_generating' });
+
+      setTimeout(() => {
+        handleGenerateAuditReport(hours);
+      }, 300);
+    },
+    [addUserMessage, translate]
+  );
+
+  /**
+   * Genera e mostra il report audit
+   */
+  const handleGenerateAuditReport = useCallback(
+    (hoursOverride?: number) => {
+      dispatch({ type: 'SET_TYPING', payload: true });
+
+      // Simula generazione con messaggi di loading
+      const loadingMessages = [
+        'audit.loading.analyzing',
+        'audit.loading.calculating',
+        'audit.loading.generating',
+      ];
+
+      let messageIndex = 0;
+      const loadingInterval = setInterval(() => {
+        if (messageIndex < loadingMessages.length) {
+          // Aggiorna messaggio di loading (opzionale, per ora solo typing)
+          messageIndex++;
+        }
+      }, 800);
+
+      // Genera report dopo animazione
+      setTimeout(() => {
+        clearInterval(loadingInterval);
+        dispatch({ type: 'SET_TYPING', payload: false });
+
+        const finalAuditData: AuditData = {
+          ...state.auditData,
+          hoursPerWeek: hoursOverride ?? state.auditData.hoursPerWeek ?? 15,
+        };
+
+        const report = generateAuditReport(finalAuditData, locale);
+        dispatch({ type: 'SET_AUDIT_REPORT', payload: report });
+        dispatch({ type: 'SET_FLOW', payload: 'audit_complete' });
+
+        // Salva audit in localStorage per remarketing
+        try {
+          localStorage.setItem(
+            AUDIT_STORAGE_KEY,
+            JSON.stringify({
+              auditCode: report.auditCode,
+              sector: report.userData.sector,
+              timestamp: report.generatedAt.toISOString(),
+            })
+          );
+        } catch {
+          // Ignora errori localStorage
+        }
+
+        // Aggiungi messaggio speciale per il report
+        const reportMessage: ChatMessage = {
+          id: generateMessageId(),
+          role: 'assistant',
+          content: '', // Il contenuto è il report stesso
+          timestamp: new Date(),
+          isAuditReport: true,
+        };
+        dispatch({ type: 'ADD_MESSAGE', payload: reportMessage });
+      }, 2500);
+    },
+    [state.auditData, locale]
   );
 
   /**
@@ -459,6 +669,9 @@ export function useAIChat() {
     qualifyData: state.qualifyData,
     remainingMessages: state.remainingMessages,
     isLimitReached: state.isLimitReached,
+    // Audit state
+    auditData: state.auditData,
+    auditReport: state.auditReport,
 
     // Actions
     openChat,
@@ -466,5 +679,7 @@ export function useAIChat() {
     sendMessage,
     handleQuickReply,
     resetChat,
+    // Audit actions
+    handleAuditHoursSubmit,
   };
 }

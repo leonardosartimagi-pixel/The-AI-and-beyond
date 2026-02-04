@@ -357,14 +357,17 @@
     "restart": "Restart",
     "close": "Close",
     "welcome": "Hi! I'm Leonardo's AI assistant. How can I help you today?",
+    "welcomeBack": "Welcome back! I see you already completed an audit (code: {code}). Would you like a new analysis or something else?",
     "servicesIntro": "Here's what I can do for you:",
     "showAll": "Show me everything",
     "messagesRemaining": "messages remaining",
     "quickReplies": {
+      "audit": "Discover your AI potential",
       "services": "Discover services",
       "project": "I have a project in mind",
       "question": "Quick question"
     },
+    "goToContact": "Great! I'd love to hear about your idea. Let me take you to the contact form where you can tell me all about it.",
     "qualify": {
       "sector": "What sector does your company operate in?",
       "sectorOptions": {
@@ -406,6 +409,163 @@
     "limitReached": "You've reached the message limit. Please use the contact form to continue.",
     "error": "Oops, something went wrong. Please try again.",
     "errorRetry": "Retry"
+  },
+  "audit": {
+    "perWeek": "week",
+    "questions": {
+      "sector": "What sector does your company operate in?",
+      "teamSize": "How many people are on your team?",
+      "challenge": "What's the main challenge you face today?",
+      "hours": "How many hours per week do you spend on repetitive tasks?"
+    },
+    "sectors": {
+      "tech": "Tech / Software",
+      "healthcare": "Healthcare",
+      "finance": "Finance",
+      "retail": "Retail",
+      "manufacturing": "Manufacturing",
+      "other": "Other"
+    },
+    "teamSizes": {
+      "small": "1-5 people",
+      "medium": "6-20 people",
+      "large": "21-50 people",
+      "enterprise": "50+ people"
+    },
+    "challenges": {
+      "manual": "Manual repetitive tasks",
+      "reporting": "Slow reports and analysis",
+      "data": "Data quality issues",
+      "communication": "Customer communication",
+      "other": "Other"
+    },
+    "hoursSlider": {
+      "label": "Hours per week on repetitive tasks",
+      "submit": "Generate my report"
+    },
+    "loading": {
+      "analyzing": "Analyzing your profile...",
+      "calculating": "Calculating potential savings...",
+      "generating": "Preparing your personalized report..."
+    },
+    "report": {
+      "header": "Your Personalized AI Report",
+      "code": "Audit Code",
+      "yourData": "Your data",
+      "sector": "Sector",
+      "teamSize": "Team size",
+      "challenge": "Main challenge",
+      "hoursWeek": "Hours/week",
+      "people": "people",
+      "calculation": "Transparent calculation",
+      "saved": "saved",
+      "efficiencyNote": "Estimate based on 60% efficiency (conservative industry assumption)",
+      "hypotheticalSavings": "Hypothetical savings",
+      "atRate": "At €{rate}/h ({sector} sector average)",
+      "hypotheticalWarning": "These numbers are hypothetical based on the data you entered. Actual results depend on your specific context.",
+      "opportunities": "Opportunities to explore",
+      "nextStepTitle": "What's next?",
+      "disclaimerShort": "Hypothetical analysis. Contact me for accurate information.",
+      "disclaimer": "This report contains only hypothetical estimates based on the parameters you entered. It does not constitute a quote, a promise of results, or a contractual commitment. For accurate information and a personalized assessment, please contact me directly."
+    },
+    "nextStep": {
+      "small": "For a team like yours, getting started is simple: let's talk about your specific needs and see what's actually feasible together.",
+      "medium": "With a team this size, the impact of automation can be significant. Contact me to understand where to start in your specific case.",
+      "enterprise": "For structured organizations like yours, AI can make a difference on multiple fronts. Let's talk to define the right priorities."
+    },
+    "opportunities": {
+      "automation": {
+        "title": "Repetitive task automation",
+        "description": "Automate activities that take time but add no value"
+      },
+      "documentation": {
+        "title": "Smart documentation",
+        "description": "AI assistants to manage and search company documentation"
+      },
+      "workflow": {
+        "title": "Workflow optimization",
+        "description": "Streamline processes and reduce bottlenecks"
+      },
+      "scheduling": {
+        "title": "Smart appointment management",
+        "description": "Optimize scheduling and reduce no-shows"
+      },
+      "patientComm": {
+        "title": "Automated communication",
+        "description": "Automatic reminders and follow-ups for patients/clients"
+      },
+      "records": {
+        "title": "Document management",
+        "description": "Intelligent organization and search of documents"
+      },
+      "reporting": {
+        "title": "Automated reporting",
+        "description": "Reports automatically generated from your data"
+      },
+      "compliance": {
+        "title": "Compliance support",
+        "description": "Tools to monitor and ensure compliance"
+      },
+      "dataAnalysis": {
+        "title": "Advanced data analysis",
+        "description": "Extract insights from your data automatically"
+      },
+      "inventory": {
+        "title": "Smart inventory management",
+        "description": "Forecasting and stock optimization"
+      },
+      "customerService": {
+        "title": "AI customer support",
+        "description": "Answer frequently asked questions 24/7"
+      },
+      "orderProcessing": {
+        "title": "Order processing",
+        "description": "Automate order management"
+      },
+      "qualityControl": {
+        "title": "Quality control",
+        "description": "Automated quality monitoring"
+      },
+      "maintenance": {
+        "title": "Predictive maintenance",
+        "description": "Predict failures before they happen"
+      },
+      "supplyChain": {
+        "title": "Supply chain optimization",
+        "description": "Improve the supply chain"
+      },
+      "communication": {
+        "title": "Automated communication",
+        "description": "Automatic emails, notifications and follow-ups"
+      },
+      "taskAutomation": {
+        "title": "Repetitive task automation",
+        "description": "Free up time for higher-value activities"
+      },
+      "autoReporting": {
+        "title": "Automatic reports",
+        "description": "Generate reports without manual intervention"
+      },
+      "dataQuality": {
+        "title": "Data quality",
+        "description": "Automatically clean and validate data"
+      },
+      "autoComm": {
+        "title": "Smart communications",
+        "description": "Intelligent responses and follow-ups"
+      },
+      "processOptimization": {
+        "title": "Process optimization",
+        "description": "Analyze and improve your workflows"
+      }
+    },
+    "actions": {
+      "copy": "Copy Report",
+      "copied": "Copied!",
+      "downloadPDF": "Download PDF",
+      "generating": "Generating...",
+      "contact": "Let's talk"
+    }
   },
   "mobileContact": {
     "label": "Contact me"
