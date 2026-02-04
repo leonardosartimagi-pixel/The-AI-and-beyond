@@ -6,6 +6,7 @@ import { getMessages } from 'next-intl/server';
 import { CookieConsentBanner } from '@/components/layout/CookieConsentBanner';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { VercelAnalytics } from '@/components/analytics/VercelAnalytics';
+import { GlobalParticles, SmoothScroll, CustomCursor } from '@/components/effects';
 import { locales, type Locale } from '@/i18n/request';
 import '../globals.css';
 
@@ -26,7 +27,7 @@ const siteName = 'The AI and Beyond';
 
 type Props = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 export function generateStaticParams() {
@@ -34,10 +35,11 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
+  const { locale } = await params;
   // Load messages for metadata
   const messages = (await import(`@/messages/${locale}.json`)).default;
   const meta = messages.meta;
@@ -130,7 +132,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
+export default async function LocaleLayout({ children, params }: Props) {
+  const { locale } = await params;
+
   // Validate locale
   if (!locales.includes(locale as Locale)) {
     notFound();
@@ -143,9 +147,13 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
     <html lang={locale} className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="font-sans antialiased">
         <NextIntlClientProvider messages={messages}>
-          <JsonLd />
-          {children}
-          <CookieConsentBanner />
+          <SmoothScroll>
+            <JsonLd />
+            <GlobalParticles />
+            <CustomCursor />
+            {children}
+            <CookieConsentBanner />
+          </SmoothScroll>
         </NextIntlClientProvider>
         <VercelAnalytics />
       </body>

@@ -141,13 +141,35 @@
     }
   },
   "beforeAfter": {
-    "label": "Prima e Dopo",
+    "label": "Trasformazione",
     "title": "Il potere della",
     "titleAccent": "trasformazione",
     "description": "Guarda come l'AI può rivoluzionare i tuoi processi quotidiani.",
-    "dragHint": "Trascina per confrontare",
+    "scrollHint": "Scorri per continuare",
     "before": "Prima",
     "after": "Dopo",
+    "phase1": {
+      "label": "Il Problema",
+      "title": "Quanto tempo perdi ogni giorno?"
+    },
+    "phase2": {
+      "label": "La Domanda",
+      "title": "E se potessi automatizzare tutto questo?",
+      "description": "L'intelligenza artificiale può trasformare ore di lavoro manuale in minuti di supervisione.",
+      "hint": "Continua a scorrere"
+    },
+    "phase3": {
+      "label": "La Soluzione",
+      "title": "Con l'AI, tutto cambia"
+    },
+    "phase4": {
+      "label": "I Risultati",
+      "title": "Numeri che parlano chiaro",
+      "metric1": "Tempo risparmiato",
+      "metric2": "Accuratezza dati",
+      "metric3": "Disponibilità",
+      "cta": "Inizia la trasformazione"
+    },
     "items": {
       "reports": {
         "title": "Generazione Report",

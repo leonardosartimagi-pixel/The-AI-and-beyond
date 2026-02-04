@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useReducedMotion } from '@/hooks';
+import { useReducedMotion, useActiveStep } from '@/hooks';
 import { TechGridOverlay } from '@/components/effects';
 
 interface ProcessStep {
@@ -133,6 +133,8 @@ interface StepCardProps {
   isInView: boolean;
   prefersReducedMotion: boolean;
   isLast: boolean;
+  isActive: boolean;
+  isPassed: boolean;
   t: ReturnType<typeof useTranslations<'process'>>;
 }
 
@@ -142,8 +144,12 @@ function StepCard({
   isInView,
   prefersReducedMotion,
   isLast,
+  isActive,
+  isPassed,
   t,
 }: StepCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const cardVariants = {
     hidden: {
       opacity: 0,
@@ -154,7 +160,7 @@ function StepCard({
       y: 0,
       transition: {
         duration: prefersReducedMotion ? 0 : 0.5,
-        delay: prefersReducedMotion ? 0 : index * 0.2,
+        delay: prefersReducedMotion ? 0 : index * 0.15,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
@@ -167,10 +173,23 @@ function StepCard({
       scaleX: 1,
       transition: {
         duration: prefersReducedMotion ? 0 : 0.4,
-        delay: prefersReducedMotion ? 0 : index * 0.2 + 0.3,
+        delay: prefersReducedMotion ? 0 : index * 0.15 + 0.3,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
+  };
+
+  const iconVariants = {
+    idle: { scale: 1, rotate: 0 },
+    hover: { scale: 1.1, rotate: 5 },
+    active: { scale: 1.15 },
+  };
+
+  // Determine icon state
+  const getIconState = () => {
+    if (isHovered && !prefersReducedMotion) return 'hover';
+    if (isActive && !prefersReducedMotion) return 'active';
+    return 'idle';
   };
 
   return (
@@ -179,22 +198,53 @@ function StepCard({
       variants={cardVariants}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Mobile: Vertical layout with connector */}
       <div className="flex w-full items-start gap-4 lg:hidden">
         {/* Left side: Icon and line */}
         <div className="flex flex-col items-center">
-          {/* Icon circle */}
-          <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent-light text-white shadow-lg">
+          {/* Icon circle with dynamic state */}
+          <motion.div
+            className={`relative z-10 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-colors duration-300 ${
+              isActive || isPassed
+                ? 'bg-gradient-to-br from-accent to-accent-light text-white'
+                : 'bg-gradient-to-br from-gray-300 to-gray-400 text-gray-600'
+            }`}
+            variants={prefersReducedMotion ? {} : iconVariants}
+            animate={getIconState()}
+            transition={{ duration: 0.3 }}
+          >
             {step.icon}
-            <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
+            <span
+              className={`absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white transition-colors duration-300 ${
+                isActive || isPassed ? 'bg-primary' : 'bg-gray-500'
+              }`}
+            >
               {step.number}
             </span>
-          </div>
+
+            {/* Pulse effect when active */}
+            {isActive && !prefersReducedMotion && (
+              <motion.div
+                className="absolute inset-0 rounded-full bg-accent"
+                initial={{ scale: 1, opacity: 0.6 }}
+                animate={{ scale: 1.8, opacity: 0 }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                aria-hidden="true"
+              />
+            )}
+          </motion.div>
+
           {/* Vertical connector line (not on last item) */}
           {!isLast && (
             <motion.div
-              className="mt-2 h-16 w-0.5 origin-top bg-gradient-to-b from-accent to-accent-light/30"
+              className={`mt-2 h-16 w-0.5 origin-top transition-colors duration-300 ${
+                isPassed
+                  ? 'bg-gradient-to-b from-accent to-accent-light'
+                  : 'bg-gradient-to-b from-gray-300 to-gray-300/30'
+              }`}
               variants={lineVariants}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
@@ -205,7 +255,11 @@ function StepCard({
 
         {/* Right side: Content */}
         <div className="flex-1 pb-8">
-          <h3 className="mb-1 font-heading text-lg font-bold text-primary">
+          <h3
+            className={`mb-1 font-heading text-lg font-bold transition-colors duration-300 ${
+              isActive || isPassed ? 'text-primary' : 'text-gray-500'
+            }`}
+          >
             {t(`steps.${step.key}.title`)}
           </h3>
           <p className="text-sm leading-relaxed text-gray-600">
@@ -216,23 +270,63 @@ function StepCard({
 
       {/* Desktop: Card layout */}
       <div className="hidden lg:block">
-        {/* Icon circle */}
-        <div className="relative z-10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent-light text-white shadow-lg">
+        {/* Icon circle with dynamic state */}
+        <motion.div
+          className={`relative z-10 mx-auto mb-4 flex h-16 w-16 cursor-pointer items-center justify-center rounded-full shadow-lg transition-all duration-300 ${
+            isActive || isPassed
+              ? 'bg-gradient-to-br from-accent to-accent-light text-white shadow-accent/30'
+              : 'bg-gradient-to-br from-gray-300 to-gray-400 text-gray-600'
+          }`}
+          variants={prefersReducedMotion ? {} : iconVariants}
+          animate={getIconState()}
+          transition={{ duration: 0.3 }}
+        >
           {step.icon}
-          <span className="absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+          <span
+            className={`absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full text-sm font-bold text-white transition-colors duration-300 ${
+              isActive || isPassed ? 'bg-primary' : 'bg-gray-500'
+            }`}
+          >
             {step.number}
           </span>
-        </div>
 
-        {/* Content card */}
-        <div className="rounded-xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
-          <h3 className="mb-2 text-center font-heading text-lg font-bold text-primary">
+          {/* Pulse effect when active */}
+          {isActive && !prefersReducedMotion && (
+            <motion.div
+              className="absolute inset-0 rounded-full bg-accent"
+              initial={{ scale: 1, opacity: 0.6 }}
+              animate={{ scale: 2, opacity: 0 }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              aria-hidden="true"
+            />
+          )}
+        </motion.div>
+
+        {/* Content card with active state */}
+        <motion.div
+          className={`rounded-xl p-5 transition-all duration-300 ${
+            isActive
+              ? 'bg-white shadow-lg ring-2 ring-accent/20'
+              : isPassed
+                ? 'bg-white shadow-md'
+                : 'bg-white/80 shadow-sm'
+          }`}
+          animate={{
+            y: isActive && !prefersReducedMotion ? -5 : 0,
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          <h3
+            className={`mb-2 text-center font-heading text-lg font-bold transition-colors duration-300 ${
+              isActive || isPassed ? 'text-primary' : 'text-gray-500'
+            }`}
+          >
             {t(`steps.${step.key}.title`)}
           </h3>
           <p className="text-center text-sm leading-relaxed text-gray-600">
             {t(`steps.${step.key}.description`)}
           </p>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );
@@ -245,6 +339,9 @@ export function Process({ className = '' }: ProcessProps) {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
 
+  // Use scroll-based active step
+  const { activeStep, progress } = useActiveStep(sectionRef, steps.length);
+
   const headingVariants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
     visible: {
@@ -252,18 +349,6 @@ export function Process({ className = '' }: ProcessProps) {
       y: 0,
       transition: {
         duration: prefersReducedMotion ? 0 : 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
-  const lineVariants = {
-    hidden: { scaleX: 0 },
-    visible: {
-      scaleX: 1,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 1.2,
-        delay: prefersReducedMotion ? 0 : 0.3,
         ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
@@ -316,21 +401,24 @@ export function Process({ className = '' }: ProcessProps) {
             </span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600">
-            {t('description')}
-          </p>
+          <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600">{t('description')}</p>
         </motion.div>
 
         {/* Timeline container */}
         <div className="relative">
-          {/* Desktop horizontal connecting line */}
-          <motion.div
-            className="absolute left-0 right-0 top-8 hidden h-0.5 origin-left bg-gradient-to-r from-accent/20 via-accent to-accent/20 lg:block"
-            variants={lineVariants}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            aria-hidden="true"
-          />
+          {/* Desktop horizontal connecting line - animated with scroll progress */}
+          <div className="absolute left-0 right-0 top-8 hidden h-0.5 lg:block" aria-hidden="true">
+            {/* Background line */}
+            <div className="absolute inset-0 bg-gray-200" />
+
+            {/* Animated progress line */}
+            <motion.div
+              className="absolute left-0 top-0 h-full origin-left bg-gradient-to-r from-accent via-accent-light to-accent"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: isInView ? progress : 0 }}
+              transition={{ duration: 0.1 }}
+            />
+          </div>
 
           {/* Steps grid */}
           <div className="grid gap-0 lg:grid-cols-5 lg:gap-6">
@@ -342,6 +430,8 @@ export function Process({ className = '' }: ProcessProps) {
                 isInView={isInView}
                 prefersReducedMotion={prefersReducedMotion}
                 isLast={index === steps.length - 1}
+                isActive={index === activeStep}
+                isPassed={index < activeStep}
                 t={t}
               />
             ))}

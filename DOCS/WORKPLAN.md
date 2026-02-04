@@ -52,6 +52,7 @@
 | TASK-026 | Component i18n integration | [ ] Pending | P1 | 4h | TASK-020 |
 | TASK-027 | Documentation update | [x] Completed | P1 | 2h | All previous |
 | TASK-028 | Brand redesign (logos, colors, services layout) | [x] Completed | P0 | 4h | TASK-027 |
+| TASK-029 | WOW effects (video logo, storytelling scroll, cursor, smooth scroll) | [x] Completed | P1 | 6h | TASK-028 |
 
 ---
 
@@ -1767,3 +1768,122 @@ Brief description of what was accomplished.
 ## Commit
 `type(scope): description [TASK-XXX]`
 ```
+
+---
+
+---
+
+### TASK-029: WOW Effects (Video Logo, Storytelling Scroll, Cursor, Smooth Scroll)
+
+**Status**: [x] Completed
+**Priority**: P1 - High
+**Estimated Effort**: 6 hours
+**Dependencies**: TASK-028
+
+---
+
+#### TASK OBJECTIVE
+
+Add premium WOW effects to elevate the user experience:
+1. Animated video logo in Hero section
+2. Scroll-driven storytelling for BeforeAfter section
+3. Custom animated cursor
+4. Smooth scroll (Lenis)
+5. Global particles on light backgrounds
+
+---
+
+#### FILES CREATED
+
+- `public/videos/hero-logo.webm` - WebM video logo (4.3MB)
+- `public/videos/hero-logo.mp4` - MP4 fallback (6.5MB)
+- `components/effects/HeroVideoLogo.tsx` - Video logo with fallback
+- `components/effects/SmoothScroll.tsx` - Lenis smooth scroll wrapper
+- `components/effects/GlobalParticles.tsx` - Particles for light sections
+- `components/effects/CustomCursor.tsx` - Animated dot+ring cursor
+- `hooks/useScrollProgress.ts` - Scroll progress tracking hooks
+
+#### FILES MODIFIED
+
+- `components/sections/Hero.tsx` - Integrated HeroVideoLogo
+- `components/sections/BeforeAfter.tsx` - Complete rewrite with 4-phase storytelling
+- `components/sections/Process.tsx` - Scroll-driven active step + progress line
+- `components/effects/ParticleConfig.ts` - Added light background configs
+- `components/effects/index.ts` - Exported new components
+- `hooks/index.ts` - Exported useScrollProgress
+- `app/[locale]/layout.tsx` - Integrated SmoothScroll, GlobalParticles, CustomCursor
+- `messages/it.json` - Added phase translations for BeforeAfter
+- `messages/en.json` - Added phase translations for BeforeAfter
+
+---
+
+#### IMPLEMENTATION DETAILS
+
+**1. Video Logo (HeroVideoLogo.tsx)**
+- Client component with WebM priority, MP4 fallback
+- SVG static fallback for reduced-motion or errors
+- Autoplay, muted, playsInline for mobile
+- Shows static logo after video ends
+
+**2. Storytelling BeforeAfter (BeforeAfter.tsx)**
+- 400vh sticky container with 4 phases
+- Phase 1: Problem (red/orange bg)
+- Phase 2: Transition question (blue gradient)
+- Phase 3: Solution (green bg)
+- Phase 4: Results with animated counters
+- AnimatePresence for smooth phase transitions
+- Scroll progress indicator
+
+**3. Dynamic Process (Process.tsx)**
+- useActiveStep hook tracks scroll position
+- Active step highlights with accent color + pulse
+- Progress line fills based on scroll
+- GPU-accelerated animations
+
+**4. Custom Cursor (CustomCursor.tsx)**
+- Inner dot (8x8px) follows exactly
+- Outer ring (40x40px) with spring delay
+- Expands on hover over interactive elements
+- Hidden on touch devices
+- mix-blend-mode: difference
+
+**5. Smooth Scroll (SmoothScroll.tsx)**
+- Lenis with 1.2s duration
+- Custom easing function
+- Respects prefers-reduced-motion
+- Exposed globally for component access
+
+**6. Global Particles (GlobalParticles.tsx)**
+- particleConfigLight: 30 blue particles, 0.12 link opacity
+- Hidden in Hero section (has own particles)
+- pointer-events: none for click-through
+
+---
+
+#### ACCESSIBILITY
+
+- All components respect `prefers-reduced-motion`
+- Video has static SVG fallback
+- BeforeAfter shows all phases for reduced-motion
+- Custom cursor hidden for touch/reduced-motion
+
+---
+
+#### DEPENDENCIES ADDED
+
+- `lenis` - Smooth scroll library
+
+---
+
+#### TESTS
+
+- Build passes without errors
+- TypeScript compiles successfully
+- ESLint passes with no warnings
+- Dev server runs correctly
+
+---
+
+#### COMMIT
+
+`feat(effects): add WOW effects - video logo, scroll storytelling, cursor, smooth scroll [TASK-029]`
