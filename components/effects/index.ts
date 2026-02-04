@@ -13,3 +13,4 @@ export { FloatingVideo } from './FloatingVideo';
 export { TiltCard } from './TiltCard';
 export { CountUpNumber } from './CountUpNumber';
 export { DecorativeConnections, SectionDecorations } from './DecorativeConnections';
+export { AICore } from './AICore';

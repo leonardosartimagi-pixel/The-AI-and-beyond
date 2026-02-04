@@ -316,7 +316,8 @@
     "greeting": "Hai domande?",
     "help": "Posso aiutarti!",
     "nearForm": "Ottimo! Compila il form, ti rispondo entro 24h",
-    "ariaLabel": "Vai al form di contatto"
+    "ariaLabel": "Assistente AI - Clicca per contattarmi",
+    "dismiss": "Chiudi assistente"
   },
   "mobileContact": {
     "label": "Contattami"

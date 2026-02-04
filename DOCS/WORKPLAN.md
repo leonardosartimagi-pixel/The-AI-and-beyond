@@ -54,6 +54,7 @@
 | TASK-028 | Brand redesign (logos, colors, services layout) | [x] Completed | P0 | 4h | TASK-027 |
 | TASK-029 | WOW effects (video logo, storytelling scroll, cursor, smooth scroll) | [x] Completed | P1 | 6h | TASK-028 |
 | TASK-030 | UX enhancements (language selector, video section, portfolio redesign, effects) | [x] Completed | P0 | 8h | TASK-029 |
+| TASK-031 | AI Core Avatar redesign (replaces FloatingAssistant) | [x] Completed | P1 | 5h | TASK-030 |
 
 ---
 
@@ -2020,3 +2021,124 @@ Major UX enhancements based on user feedback:
 #### COMMIT
 
 `feat(ux): add language selector, video section, portfolio redesign, WOW effects [TASK-030]`
+
+---
+
+---
+
+### TASK-031: AI Core Avatar Redesign
+
+**Status**: [x] Completed
+**Priority**: P1 - High
+**Estimated Effort**: 5 hours
+**Dependencies**: TASK-030
+
+---
+
+#### TASK OBJECTIVE
+
+Replace the cartoonish FloatingAssistant blob with a professional, tech-focused "AI Core" design:
+1. Animated nucleus with orbiting particles and glow effects
+2. Contextual morphing based on current page section
+3. Glitch reveal effect for speech bubbles
+4. Mouse-reactive magnetic attraction
+5. Brand-consistent color scheme with animated glow
+
+---
+
+#### FILES CREATED (8)
+
+| File | Purpose |
+|------|---------|
+| `components/effects/AICore/AICore.tsx` | Main component orchestrating all sub-components |
+| `components/effects/AICore/AICoreNucleus.tsx` | Central nucleus with pulse and glow animations |
+| `components/effects/AICore/AICoreOrbits.tsx` | Elliptical orbits with rotating dots |
+| `components/effects/AICore/AICoreParticles.tsx` | Orbiting particles with varying opacity |
+| `components/effects/AICore/GlitchText.tsx` | Text with digital glitch reveal effect |
+| `components/effects/AICore/useAICoreState.ts` | Hook for section detection and intensity config |
+| `components/effects/AICore/index.ts` | Barrel exports |
+| `DOCS/PLAN-AI-CORE-AVATAR.md` | Detailed implementation plan |
+
+#### FILES MODIFIED (4)
+
+| File | Changes |
+|------|---------|
+| `app/[locale]/page.tsx` | Replaced FloatingAssistant with AICore import |
+| `components/effects/index.ts` | Added AICore export |
+| `messages/it.json` | Updated assistant translations, added dismiss key |
+| `messages/en.json` | Updated assistant translations, added dismiss key |
+
+---
+
+#### IMPLEMENTATION DETAILS
+
+**1. AI Core Visual Design**
+- Central nucleus (35% of total size) with radial gradient
+- 2-3 elliptical orbits at different angles and speeds
+- 6-8 orbiting particles with random timing
+- Outer glow layer with variable opacity
+- Size: 64px base, 72px on hover
+
+**2. Morphing by Section**
+```typescript
+const INTENSITY_CONFIG = {
+  hero: { orbitSpeed: 12, glowOpacity: 0.3, pulseScale: 1.03 },
+  about: { orbitSpeed: 10, glowOpacity: 0.35, pulseScale: 1.04 },
+  services: { orbitSpeed: 7, glowOpacity: 0.45, pulseScale: 1.05 },
+  portfolio: { orbitSpeed: 5, glowOpacity: 0.55, pulseScale: 1.06 },
+  contact: { orbitSpeed: 6, glowOpacity: 0.7, pulseScale: 1.08 },
+};
+```
+
+**3. Glitch Text Effect**
+- Initial burst of random characters (50ms × 3 iterations)
+- Character-by-character reveal (30ms per char)
+- Blinking cursor during reveal
+- Occasional micro-glitch on stable text (30% chance every 2s)
+- RGB color separation effect during glitch
+
+**4. Mouse Interaction**
+- Magnetic attraction within 150px range
+- Maximum offset: 4px toward cursor
+- Spring animation for smooth movement
+- Throttled to 60fps for performance
+
+**5. Color Palette**
+- Nucleus: #137dc5 → #1b2f75 (radial gradient)
+- Orbits: #00aeef with 0.3-0.6 opacity
+- Particles: #ffffff, #00aeef, #137dc5
+- Glow: rgba(0, 174, 239, 0.3-0.7)
+
+---
+
+#### ACCESSIBILITY
+
+- `prefers-reduced-motion`: Shows static gradient circle only
+- Focus visible ring for keyboard navigation
+- ARIA labels for screen readers
+- Touch devices: No mouse effects, click still works
+
+---
+
+#### PERFORMANCE
+
+- All animations use GPU-accelerated transforms
+- Mouse tracking throttled to 16ms (~60fps)
+- Memoized particle generation
+- RequestAnimationFrame for smooth updates
+- IntersectionObserver for section detection
+
+---
+
+#### TESTS
+
+- `npm run build` passes successfully
+- TypeScript strict mode: no errors
+- ESLint: no warnings
+- Static pages generate correctly
+
+---
+
+#### COMMIT
+
+`feat(avatar): replace FloatingAssistant with AI Core design [TASK-031]`

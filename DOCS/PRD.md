@@ -187,16 +187,38 @@ A modern, high-impact single-page website for "The AI and Beyond" - a profession
 | FR-115 | All content translated (~120 strings) | HIGH |
 | FR-116 | Locale-aware metadata (title, description) | HIGH |
 
-### 3.13 Floating Assistant
+### 3.13 AI Core Assistant
 | ID | Requirement | Priority |
 |----|-------------|----------|
-| FR-120 | Animated mascot/blob in bottom-right corner | MEDIUM |
-| FR-121 | Appears after scroll (>300px from top) | MEDIUM |
-| FR-122 | Speech bubbles with contextual messages | MEDIUM |
-| FR-123 | Changes message near contact form section | MEDIUM |
+| FR-120 | AI Core design: nucleus with orbiting particles and glow | HIGH |
+| FR-121 | Appears after scroll (>400px from top) | MEDIUM |
+| FR-122 | Speech bubbles with glitch reveal effect | HIGH |
+| FR-123 | Morphing intensity based on current section | HIGH |
 | FR-124 | Click scrolls to contact form | MEDIUM |
 | FR-125 | Dismissible (can be closed) | MEDIUM |
 | FR-126 | Respects prefers-reduced-motion | HIGH |
+| FR-127 | Magnetic cursor attraction effect | MEDIUM |
+| FR-128 | Brand colors with animated glow (primary #1b2f75, accent #00aeef) | HIGH |
+
+**AI Core Visual Design:**
+- Central nucleus with radial gradient and pulse animation
+- 2-3 elliptical orbits rotating at different speeds
+- 6-8 particles orbiting with varying opacity/size
+- Glow intensity varies by section (calm→inviting)
+- Size: 64px base, 72px on hover
+
+**Morphing Behavior by Section:**
+- Hero: calm, slow pulse
+- About: slightly more active
+- Services: faster orbits, medium glow
+- Portfolio: decisive rotation
+- Contact: intense glow, inviting animation
+
+**Message Glitch Effect:**
+- Initial random character burst (100ms)
+- Character-by-character reveal with cursor
+- Occasional micro-glitch on stable text
+- Cyan color flash during reveal
 
 ### 3.14 Visual Effects & Typography
 | ID | Requirement | Priority |
