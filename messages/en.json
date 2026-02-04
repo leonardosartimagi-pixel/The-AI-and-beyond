@@ -345,7 +345,8 @@
     "greeting": "Have questions?",
     "help": "I can help!",
     "nearForm": "Great! Fill out the form, I'll reply within 24h",
-    "ariaLabel": "Go to contact form"
+    "ariaLabel": "AI Assistant - Click to contact",
+    "dismiss": "Close assistant"
   },
   "mobileContact": {
     "label": "Contact me"
