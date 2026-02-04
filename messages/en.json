@@ -28,6 +28,12 @@
       "control": "Control"
     }
   },
+  "brandShowcase": {
+    "label": "Welcome",
+    "tagline": "Artificial Intelligence at the service of your business",
+    "subtitle": "Let's transform today's challenges into tomorrow's opportunities",
+    "scrollHint": "Keep discovering"
+  },
   "about": {
     "label": "About",
     "title": "I turn challenges into",

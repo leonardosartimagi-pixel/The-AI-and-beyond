@@ -53,6 +53,7 @@
 | TASK-027 | Documentation update | [x] Completed | P1 | 2h | All previous |
 | TASK-028 | Brand redesign (logos, colors, services layout) | [x] Completed | P0 | 4h | TASK-027 |
 | TASK-029 | WOW effects (video logo, storytelling scroll, cursor, smooth scroll) | [x] Completed | P1 | 6h | TASK-028 |
+| TASK-030 | UX enhancements (language selector, video section, portfolio redesign, effects) | [x] Completed | P0 | 8h | TASK-029 |
 
 ---
 
@@ -1887,3 +1888,135 @@ Add premium WOW effects to elevate the user experience:
 #### COMMIT
 
 `feat(effects): add WOW effects - video logo, scroll storytelling, cursor, smooth scroll [TASK-029]`
+
+---
+
+---
+
+### TASK-030: UX Enhancements (Language Selector, Video Section, Portfolio Redesign, Effects)
+
+**Status**: [x] Completed
+**Priority**: P0 - Critical
+**Estimated Effort**: 8 hours
+**Dependencies**: TASK-029
+
+---
+
+#### TASK OBJECTIVE
+
+Major UX enhancements based on user feedback:
+1. Fix modal scroll bug (Lenis not stopping when modal open)
+2. Language selector modal on first visit
+3. New dedicated video section between Hero and About
+4. Floating corner video after scrolling past section
+5. Blue particles on specific sections (Portfolio, Services, Contact)
+6. Portfolio redesign with Featured + Grid swap animation
+7. WOW effect components (MagneticButton, TiltCard, CountUpNumber)
+
+---
+
+#### FILES CREATED (12)
+
+| File | Purpose |
+|------|---------|
+| `components/layout/LanguageSelectorModal.tsx` | First-visit language selection modal |
+| `components/sections/BrandShowcase.tsx` | Dedicated video section between Hero and About |
+| `components/sections/HomeContent.tsx` | Client wrapper managing scroll state |
+| `components/effects/FloatingVideo.tsx` | Floating corner video after scroll |
+| `components/ui/MagneticButton.tsx` | Button with magnetic cursor attraction |
+| `components/effects/TiltCard.tsx` | 3D tilt effect wrapper component |
+| `components/effects/CountUpNumber.tsx` | Animated number counter on scroll |
+| `hooks/useScrollProgress.ts` | Scroll progress tracking hook |
+
+#### FILES MODIFIED (15+)
+
+| File | Changes |
+|------|---------|
+| `components/sections/Portfolio.tsx` | Complete redesign: Featured + Grid with animated swap |
+| `components/sections/Services.tsx` | Added Lenis scroll lock fix for modal |
+| `components/sections/Hero.tsx` | Removed video, using static logo |
+| `components/effects/GlobalParticles.tsx` | Section-specific visibility (Portfolio, Services, Contact) |
+| `components/effects/ParticleConfig.ts` | Enhanced blue particle config for light backgrounds |
+| `app/[locale]/layout.tsx` | Added LanguageSelectorModal integration |
+| `app/[locale]/page.tsx` | Using HomeContent client wrapper |
+| `messages/it.json` | Added brandShowcase, languageSelector strings |
+| `messages/en.json` | Added brandShowcase, languageSelector strings |
+| `components/layout/index.ts` | Exported LanguageSelectorModal |
+| `components/sections/index.ts` | Exported BrandShowcase, HomeContent |
+| `components/effects/index.ts` | Exported FloatingVideo, TiltCard, CountUpNumber |
+| `components/ui/index.ts` | Exported MagneticButton |
+| `hooks/index.ts` | Exported useScrollProgress |
+
+---
+
+#### IMPLEMENTATION DETAILS
+
+**1. Modal Scroll Fix**
+- Added `window.lenis?.stop()` on modal open
+- Added `window.lenis?.start()` on modal close
+- Applied to Portfolio and Services modals
+
+**2. Language Selector Modal (LanguageSelectorModal.tsx)**
+- Checks `localStorage.getItem('preferred-locale')` on mount
+- Shows elegant modal with IT/EN flags if no preference saved
+- Backdrop blur with dark overlay
+- Framer Motion animations (fade + scale)
+- Saves preference and redirects to chosen locale
+- Stops Lenis scroll when modal is open
+
+**3. BrandShowcase Section (BrandShowcase.tsx)**
+- Positioned between Hero and About
+- Full-screen video loop at center
+- Neural network particles in background
+- Scroll progress tracking for parallax
+- Callback `onScrollPastSection` triggers floating video
+
+**4. FloatingVideo Component (FloatingVideo.tsx)**
+- Fixed position bottom-right corner
+- Appears when scrolled past BrandShowcase
+- Video plays once, then fades out permanently
+- Uses `hasPlayedRef` to prevent reappearance
+- Smooth entrance/exit animations
+
+**5. Section-Specific Particles (GlobalParticles.tsx)**
+- Only visible on: Portfolio, Services, Contact sections
+- Checks section visibility (20% threshold)
+- Blue colors for contrast on white backgrounds
+- Interactive grab mode on hover
+
+**6. Portfolio Redesign (Portfolio.tsx)**
+- FeaturedCard: Large full-width card with details
+- GridCard: 2x2 grid of smaller cards
+- Animated swap using LayoutGroup + layoutId
+- Click grid card → swaps with featured
+- Smooth Framer Motion transitions
+
+**7. WOW Effect Components**
+- **MagneticButton**: Attracts cursor when nearby, spring animation
+- **TiltCard**: 3D rotation following mouse position
+- **CountUpNumber**: Animated counting from 0 to value on scroll
+
+---
+
+#### ACCESSIBILITY
+
+- All effects respect `prefers-reduced-motion`
+- Modal focus trap and keyboard navigation
+- ARIA labels on all interactive elements
+- Touch device fallbacks (no cursor effects)
+- Video has appropriate accessibility attributes
+
+---
+
+#### TESTS
+
+- `npm run build` passes successfully
+- TypeScript strict mode: no errors
+- ESLint: no warnings
+- Static pages generate correctly
+
+---
+
+#### COMMIT
+
+`feat(ux): add language selector, video section, portfolio redesign, WOW effects [TASK-030]`

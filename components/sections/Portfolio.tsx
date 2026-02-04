@@ -5,22 +5,18 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 import { Badge } from '@/components/ui';
-import { TechGridOverlay } from '@/components/effects';
-
-interface Project {
-  id: string;
-  key: string;
-  imageUrl: string;
-}
+import { TechGridOverlay, SectionDecorations } from '@/components/effects';
 
 interface PortfolioProps {
   className?: string;
 }
 
 const PROJECT_KEYS = ['eswbs', 'maintenance', 'healthcare', 'email', 'rag'] as const;
+type ProjectKey = (typeof PROJECT_KEYS)[number];
 
-interface PortfolioCardProps {
-  projectKey: string;
+// Project Card Component
+interface ProjectCardProps {
+  projectKey: ProjectKey;
   index: number;
   isInView: boolean;
   prefersReducedMotion: boolean;
@@ -28,48 +24,36 @@ interface PortfolioCardProps {
   t: ReturnType<typeof useTranslations<'portfolio'>>;
 }
 
-function PortfolioCard({
+function ProjectCard({
   projectKey,
   index,
   isInView,
   prefersReducedMotion,
   onOpenModal,
   t,
-}: PortfolioCardProps) {
+}: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const technologies = t.raw(`items.${projectKey}.technologies`) as string[];
-
-  const cardVariants = {
-    hidden: {
-      opacity: 0,
-      y: prefersReducedMotion ? 0 : 40,
-      scale: prefersReducedMotion ? 1 : 0.95,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
-        delay: prefersReducedMotion ? 0 : index * 0.15,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
 
   return (
     <motion.article
       className="group relative"
-      variants={cardVariants}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 40 }}
+      animate={{
+        opacity: isInView ? 1 : 0,
+        y: isInView ? 0 : 40,
+      }}
+      transition={{
+        duration: prefersReducedMotion ? 0 : 0.5,
+        delay: prefersReducedMotion ? 0 : index * 0.1,
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.button
         type="button"
         onClick={() => onOpenModal(projectKey)}
-        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white text-left shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         whileHover={
           prefersReducedMotion
             ? {}
@@ -79,15 +63,11 @@ function PortfolioCard({
                   '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(0, 188, 212, 0.15)',
               }
         }
-        transition={{
-          duration: 0.3,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
+        transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
         aria-label={`${t('viewDetails')}: ${t(`items.${projectKey}.title`)}`}
       >
         {/* Image placeholder */}
         <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10">
-          {/* Placeholder pattern */}
           <div
             className="absolute inset-0 opacity-30"
             style={{
@@ -98,7 +78,7 @@ function PortfolioCard({
             aria-hidden="true"
           />
 
-          {/* Category badge overlay */}
+          {/* Category badge */}
           <div className="absolute left-4 top-4">
             <Badge variant="solid" size="sm" animated={false}>
               {t(`items.${projectKey}.category`)}
@@ -107,7 +87,7 @@ function PortfolioCard({
 
           {/* Hover overlay */}
           <motion.div
-            className="absolute inset-0 flex items-center justify-center bg-primary/80"
+            className="absolute inset-0 flex items-center justify-center bg-primary/85"
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}
@@ -119,46 +99,28 @@ function PortfolioCard({
               animate={{ y: isHovered ? 0 : 10, opacity: isHovered ? 1 : 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <span className="text-sm font-medium">{t('viewDetails')}</span>
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                />
+              <span className="text-lg font-medium">{t('viewDetails')}</span>
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
             </motion.div>
           </motion.div>
         </div>
 
         {/* Content */}
-        <div className="flex flex-1 flex-col p-6">
-          {/* Title */}
-          <h3 className="mb-2 font-heading text-xl font-bold text-primary">
+        <div className="flex flex-1 flex-col p-5">
+          <h3 className="mb-2 font-heading text-lg font-bold text-primary">
             {t(`items.${projectKey}.title`)}
           </h3>
 
-          {/* Description */}
           <p className="mb-4 flex-grow text-sm leading-relaxed text-gray-600">
             {t(`items.${projectKey}.problem`)}
           </p>
 
-          {/* Technology badges preview */}
-          <div className="flex flex-wrap gap-2">
+          {/* Technology badges */}
+          <div className="flex flex-wrap gap-1.5">
             {technologies.slice(0, 3).map((tech) => (
-              <Badge
-                key={tech}
-                variant="default"
-                size="sm"
-                animated={false}
-              >
+              <Badge key={tech} variant="default" size="sm" animated={false}>
                 {tech}
               </Badge>
             ))}
@@ -183,6 +145,7 @@ function PortfolioCard({
   );
 }
 
+// Modal Component
 interface PortfolioModalProps {
   projectKey: string | null;
   isOpen: boolean;
@@ -232,12 +195,18 @@ function PortfolioModal({
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
+      if (typeof window !== 'undefined') {
+        (window as Window & { lenis?: { stop: () => void; start: () => void } }).lenis?.stop();
+      }
       closeButtonRef.current?.focus();
     }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
+      if (typeof window !== 'undefined') {
+        (window as Window & { lenis?: { stop: () => void; start: () => void } }).lenis?.start();
+      }
     };
   }, [isOpen, handleKeyDown]);
 
@@ -250,7 +219,6 @@ function PortfolioModal({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             className="fixed inset-0 z-50 bg-primary/60 backdrop-blur-sm"
             initial={{ opacity: 0 }}
@@ -261,7 +229,6 @@ function PortfolioModal({
             aria-hidden="true"
           />
 
-          {/* Modal */}
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
@@ -290,7 +257,6 @@ function PortfolioModal({
               aria-modal="true"
               aria-labelledby="modal-title"
             >
-              {/* Close button */}
               <button
                 ref={closeButtonRef}
                 type="button"
@@ -298,23 +264,11 @@ function PortfolioModal({
                 className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-gray-500 shadow-md backdrop-blur-sm transition-colors hover:bg-white hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 aria-label={t('close')}
               >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
 
-              {/* Image header */}
               <div className="relative aspect-video w-full overflow-hidden rounded-t-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10">
                 <div
                   className="absolute inset-0 opacity-30"
@@ -332,99 +286,43 @@ function PortfolioModal({
                 </div>
               </div>
 
-              {/* Content */}
               <div className="p-8">
-                {/* Title */}
-                <h2
-                  id="modal-title"
-                  className="mb-2 font-heading text-2xl font-bold text-primary sm:text-3xl"
-                >
+                <h2 id="modal-title" className="mb-2 font-heading text-2xl font-bold text-primary sm:text-3xl">
                   {t(`items.${projectKey}.title`)}
                 </h2>
 
-                {/* Problem section */}
                 <div className="mb-6">
                   <h3 className="mb-2 flex items-center gap-2 font-heading text-lg font-semibold text-primary">
-                    <svg
-                      className="h-5 w-5 text-accent"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
-                      />
+                    <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
                     </svg>
                     {t('problem')}
                   </h3>
-                  <p className="leading-relaxed text-gray-600">
-                    {t(`items.${projectKey}.problem`)}
-                  </p>
+                  <p className="leading-relaxed text-gray-600">{t(`items.${projectKey}.problem`)}</p>
                 </div>
 
-                {/* Solution section */}
                 <div className="mb-6">
                   <h3 className="mb-2 flex items-center gap-2 font-heading text-lg font-semibold text-primary">
-                    <svg
-                      className="h-5 w-5 text-accent"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
-                      />
+                    <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                     </svg>
                     {t('solution')}
                   </h3>
-                  <p className="leading-relaxed text-gray-600">
-                    {t(`items.${projectKey}.solution`)}
-                  </p>
+                  <p className="leading-relaxed text-gray-600">{t(`items.${projectKey}.solution`)}</p>
                 </div>
 
-                {/* Results section */}
                 <div className="mb-8">
                   <h3 className="mb-3 flex items-center gap-2 font-heading text-lg font-semibold text-primary">
-                    <svg
-                      className="h-5 w-5 text-accent"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"
-                      />
+                    <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
                     </svg>
                     {t('results')}
                   </h3>
                   <ul className="space-y-2">
                     {results.map((result, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <svg
-                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-accent"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          aria-hidden="true"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
+                        <svg className="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span className="text-gray-600">{result}</span>
                       </li>
@@ -432,7 +330,6 @@ function PortfolioModal({
                   </ul>
                 </div>
 
-                {/* Technologies */}
                 <div className="mb-8">
                   <h3 className="mb-3 font-heading text-sm font-semibold uppercase tracking-wider text-gray-500">
                     {t('technologies')}
@@ -446,26 +343,14 @@ function PortfolioModal({
                   </div>
                 </div>
 
-                {/* CTA */}
                 <a
                   href="#contatti"
                   onClick={onClose}
                   className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-light px-6 py-3 font-medium text-white shadow-lg transition-all hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
                   <span>{tNav('cta')}</span>
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                    />
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
                 </a>
               </div>
@@ -477,6 +362,7 @@ function PortfolioModal({
   );
 }
 
+// Main Portfolio Component
 export function Portfolio({ className = '' }: PortfolioProps) {
   const t = useTranslations('portfolio');
   const tNav = useTranslations('nav');
@@ -505,7 +391,6 @@ export function Portfolio({ className = '' }: PortfolioProps) {
 
   const handleCloseModal = () => {
     setSelectedProjectKey(null);
-    // Restore focus to trigger element
     setTimeout(() => {
       triggerRef.current?.focus();
     }, 0);
@@ -519,16 +404,15 @@ export function Portfolio({ className = '' }: PortfolioProps) {
         className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
         aria-label={t('label')}
       >
-        {/* Tech grid overlay for consistency */}
         <TechGridOverlay opacity={0.02} />
 
-        {/* Decorative gradient blur - top right */}
+        {/* Decorative neural connections */}
+        <SectionDecorations decorations={['rightSide']} opacity={0.4} />
+
         <div
           className="absolute -right-48 -top-48 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl"
           aria-hidden="true"
         />
-
-        {/* Decorative gradient blur - bottom left */}
         <div
           className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-accent/5 blur-3xl"
           aria-hidden="true"
@@ -564,10 +448,10 @@ export function Portfolio({ className = '' }: PortfolioProps) {
             </p>
           </motion.div>
 
-          {/* Responsive grid - 2 cols desktop, 1 mobile */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
+          {/* Projects Grid */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {PROJECT_KEYS.map((key, index) => (
-              <PortfolioCard
+              <ProjectCard
                 key={key}
                 projectKey={key}
                 index={index}
@@ -581,7 +465,6 @@ export function Portfolio({ className = '' }: PortfolioProps) {
         </div>
       </section>
 
-      {/* Portfolio detail modal */}
       <PortfolioModal
         projectKey={selectedProjectKey}
         isOpen={selectedProjectKey !== null}

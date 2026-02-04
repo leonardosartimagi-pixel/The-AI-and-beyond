@@ -7,3 +7,5 @@ export { BeforeAfter } from './BeforeAfter';
 export { ROICalculator } from './ROICalculator';
 export { Process } from './Process';
 export { Contact } from './Contact';
+export { BrandShowcase } from './BrandShowcase';
+export { HomeContent } from './HomeContent';

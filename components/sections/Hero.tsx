@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollTo } from '@/hooks';
 import { Badge, Button } from '@/components/ui';
-import { ParticleBackground, HeroVideoLogo } from '@/components/effects';
+import { ParticleBackground } from '@/components/effects';
+import Image from 'next/image';
 
 
 const KEYWORD_KEYS = ['quality', 'speed', 'security', 'control'] as const;
@@ -121,12 +122,25 @@ export function Hero({ className = '' }: HeroProps) {
           initial="hidden"
           animate="visible"
         >
-          {/* Animated Video Logo */}
+          {/* Static Logo */}
           <motion.div
             className="mb-10 flex justify-center"
             variants={itemVariants}
           >
-            <HeroVideoLogo />
+            <div className="relative h-20 w-80 sm:h-24 sm:w-96 md:h-28 md:w-[30rem] lg:h-32 lg:w-[34rem]">
+              <Image
+                src="/logos/logo-white.png"
+                alt="The AI and Beyond"
+                fill
+                className="object-contain drop-shadow-2xl"
+                priority
+              />
+              {/* Subtle glow effect */}
+              <div
+                className="pointer-events-none absolute inset-0 -z-10 scale-125 bg-gradient-radial from-accent/20 via-transparent to-transparent blur-xl"
+                aria-hidden="true"
+              />
+            </div>
           </motion.div>
 
           {/* Headline */}

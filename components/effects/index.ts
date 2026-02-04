@@ -9,3 +9,7 @@ export { AnimatedGradientText } from './AnimatedGradientText';
 export { SplitTextReveal } from './SplitTextReveal';
 export { DynamicHighlight } from './DynamicHighlight';
 export { TechGridOverlay, GradientOrb } from './TechGridOverlay';
+export { FloatingVideo } from './FloatingVideo';
+export { TiltCard } from './TiltCard';
+export { CountUpNumber } from './CountUpNumber';
+export { DecorativeConnections, SectionDecorations } from './DecorativeConnections';

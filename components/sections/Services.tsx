@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { TechGridOverlay } from '@/components/effects';
+import { TechGridOverlay, SectionDecorations } from '@/components/effects';
 
 interface Service {
   id: string;
@@ -319,12 +319,20 @@ function ServiceModal({
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
+      // Stop Lenis smooth scroll to prevent background scrolling
+      if (typeof window !== 'undefined') {
+        (window as Window & { lenis?: { stop: () => void; start: () => void } }).lenis?.stop();
+      }
       closeButtonRef.current?.focus();
     }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
+      // Restart Lenis smooth scroll
+      if (typeof window !== 'undefined') {
+        (window as Window & { lenis?: { stop: () => void; start: () => void } }).lenis?.start();
+      }
     };
   }, [isOpen, handleKeyDown]);
 
@@ -494,6 +502,9 @@ export function Services({ className = '' }: ServicesProps) {
       >
         {/* Tech grid overlay for consistency */}
         <TechGridOverlay opacity={0.02} />
+
+        {/* Decorative neural connections */}
+        <SectionDecorations decorations={['flowing1']} opacity={0.4} />
 
         {/* Decorative gradient blur - top left */}
         <div
