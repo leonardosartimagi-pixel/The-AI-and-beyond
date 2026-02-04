@@ -1,0 +1,246 @@
+'use client';
+
+import { useRef, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { useReducedMotion } from '@/hooks';
+import { AIChatMessage } from './AIChatMessage';
+import { AIChatQuickReplies } from './AIChatQuickReplies';
+import { AIChatInput } from './AIChatInput';
+import { AIChatTyping } from './AIChatTyping';
+import type { ChatMessage, QuickReply } from './chat-types';
+
+interface AIChatInterfaceProps {
+  isOpen: boolean;
+  messages: ChatMessage[];
+  isTyping: boolean;
+  remainingMessages: number;
+  isLimitReached: boolean;
+  onClose: () => void;
+  onSendMessage: (message: string) => void;
+  onQuickReply: (reply: QuickReply) => void;
+  onReset: () => void;
+}
+
+export function AIChatInterface({
+  isOpen,
+  messages,
+  isTyping,
+  remainingMessages,
+  isLimitReached,
+  onClose,
+  onSendMessage,
+  onQuickReply,
+  onReset,
+}: AIChatInterfaceProps) {
+  const t = useTranslations('chat');
+  const prefersReducedMotion = useReducedMotion();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    }
+  }, [messages, isTyping, prefersReducedMotion]);
+
+  // Focus trap e keyboard handlers
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    // Stop Lenis smooth scroll quando chat è aperta
+    if (typeof window !== 'undefined' && window.lenis) {
+      window.lenis.stop();
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      // Riattiva Lenis quando chat si chiude
+      if (typeof window !== 'undefined' && window.lenis) {
+        window.lenis.start();
+      }
+    };
+  }, [isOpen, onClose]);
+
+  // Ottieni ultimo messaggio con quick replies
+  const lastMessage = messages[messages.length - 1];
+  const showQuickReplies =
+    lastMessage?.role === 'assistant' &&
+    lastMessage?.quickReplies &&
+    lastMessage.quickReplies.length > 0 &&
+    !isTyping;
+
+  const panelVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: prefersReducedMotion ? 0.1 : 0.25,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: 20,
+      scale: 0.95,
+      transition: {
+        duration: prefersReducedMotion ? 0.1 : 0.2,
+      },
+    },
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          ref={panelRef}
+          className="fixed bottom-24 right-4 z-50 flex w-[calc(100%-2rem)] max-w-[380px] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl sm:bottom-28 sm:right-6"
+          style={{ maxHeight: 'min(500px, 70vh)' }}
+          variants={panelVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('title')}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-primary to-accent px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+                <svg
+                  className="h-4 w-4 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                  />
+                </svg>
+              </div>
+              <span className="font-medium text-white">{t('title')}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Reset button */}
+              <button
+                onClick={onReset}
+                className="rounded-full p-1.5 text-white/70 transition-colors hover:bg-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                aria-label={t('restart')}
+                title={t('restart')}
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+              </button>
+
+              {/* Close button */}
+              <button
+                onClick={onClose}
+                className="rounded-full p-1.5 text-white/70 transition-colors hover:bg-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                aria-label={t('close')}
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Messages area */}
+          <div
+            className="flex-1 space-y-3 overflow-y-auto p-4"
+            aria-live="polite"
+            aria-atomic="false"
+          >
+            {messages.map((message) => (
+              <div key={message.id}>
+                <AIChatMessage message={message} />
+              </div>
+            ))}
+
+            {/* Typing indicator */}
+            <AnimatePresence>
+              {isTyping && <AIChatTyping />}
+            </AnimatePresence>
+
+            {/* Quick replies */}
+            {showQuickReplies && (
+              <AIChatQuickReplies
+                replies={lastMessage.quickReplies!}
+                onSelect={onQuickReply}
+                disabled={isTyping || isLimitReached}
+              />
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Remaining messages indicator */}
+          {remainingMessages <= 10 && remainingMessages > 0 && (
+            <div className="border-t border-gray-100 bg-amber-50 px-4 py-2 text-center text-xs text-amber-700">
+              {remainingMessages} {t('messagesRemaining', { count: remainingMessages })}
+            </div>
+          )}
+
+          {/* Input area */}
+          <AIChatInput
+            onSend={onSendMessage}
+            disabled={isTyping || isLimitReached}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// Extend Window interface per Lenis
+declare global {
+  interface Window {
+    lenis?: {
+      stop: () => void;
+      start: () => void;
+    };
+  }
+}

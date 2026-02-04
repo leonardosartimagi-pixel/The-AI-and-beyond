@@ -316,8 +316,67 @@
     "greeting": "Hai domande?",
     "help": "Posso aiutarti!",
     "nearForm": "Ottimo! Compila il form, ti rispondo entro 24h",
-    "ariaLabel": "Assistente AI - Clicca per contattarmi",
-    "dismiss": "Chiudi assistente"
+    "ariaLabel": "Assistente AI - Clicca per chattare",
+    "dismiss": "Chiudi assistente",
+    "closeChat": "Chiudi chat"
+  },
+  "chat": {
+    "title": "Chat con AI",
+    "placeholder": "Oppure scrivi qui...",
+    "send": "Invia",
+    "typing": "Sto scrivendo...",
+    "restart": "Ricomincia",
+    "close": "Chiudi",
+    "welcome": "Ciao! Sono l'assistente AI di Leonardo. Come posso aiutarti oggi?",
+    "servicesIntro": "Ecco cosa posso fare per te:",
+    "showAll": "Mostrami tutto",
+    "messagesRemaining": "messaggi rimanenti",
+    "quickReplies": {
+      "services": "Scopri i servizi",
+      "project": "Ho un progetto in mente",
+      "question": "Domanda veloce"
+    },
+    "qualify": {
+      "sector": "In che settore opera la tua azienda?",
+      "sectorOptions": {
+        "tech": "Tech/Software",
+        "healthcare": "Healthcare",
+        "finance": "Finance",
+        "retail": "Retail",
+        "other": "Altro"
+      },
+      "teamSize": "Quante persone nel team?",
+      "teamSizeOptions": {
+        "small": "1-5",
+        "medium": "6-20",
+        "large": "21-50",
+        "enterprise": "50+"
+      },
+      "budget": "Hai un budget indicativo?",
+      "budgetOptions": {
+        "low": "< €5k",
+        "medium": "€5k-15k",
+        "high": "€15k-50k",
+        "enterprise": "> €50k",
+        "tbd": "Da definire"
+      },
+      "goal": "Cosa vorresti ottenere?",
+      "goalOptions": {
+        "automate": "Automatizzare processi",
+        "newProduct": "Nuovo prodotto AI",
+        "improve": "Migliorare esistente",
+        "other": "Altro"
+      },
+      "complete": "Grazie! Ho raccolto tutte le informazioni. Leonardo ti contatterà presto per discutere del tuo progetto."
+    },
+    "faq": {
+      "pricing": "Quanto costa?",
+      "timeline": "Quanto tempo ci vuole?",
+      "process": "Come funziona?"
+    },
+    "limitReached": "Hai raggiunto il limite di messaggi. Per continuare, compila il form di contatto.",
+    "error": "Ops, qualcosa è andato storto. Riprova tra poco.",
+    "errorRetry": "Riprova"
   },
   "mobileContact": {
     "label": "Contattami"
