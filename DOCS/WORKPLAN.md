@@ -55,6 +55,7 @@
 | TASK-029 | WOW effects (video logo, storytelling scroll, cursor, smooth scroll) | [x] Completed | P1 | 6h | TASK-028 |
 | TASK-030 | UX enhancements (language selector, video section, portfolio redesign, effects) | [x] Completed | P0 | 8h | TASK-029 |
 | TASK-031 | AI Core Avatar redesign (replaces FloatingAssistant) | [x] Completed | P1 | 5h | TASK-030 |
+| TASK-032 | AI Chatbot with guided conversation flow | [x] Completed | P0 | 8h | TASK-031 |
 
 ---
 
@@ -2142,3 +2143,151 @@ const INTENSITY_CONFIG = {
 #### COMMIT
 
 `feat(avatar): replace FloatingAssistant with AI Core design [TASK-031]`
+
+---
+
+---
+
+### TASK-032: AI Chatbot with Guided Conversation Flow
+
+**Status**: [x] Completed
+**Priority**: P0 - Critical
+**Estimated Effort**: 8 hours
+**Dependencies**: TASK-031
+
+---
+
+#### TASK OBJECTIVE
+
+Transform the AICore avatar into a complete AI chatbot with:
+1. Pre-qualify leads (sector, team size, budget, goal)
+2. Automatic FAQ answers about services, pricing, process
+3. Guided UX with quick replies (not just text input)
+4. Full security implementation (prompt injection protection, rate limiting)
+
+---
+
+#### FILES CREATED (15)
+
+| File | Purpose |
+|------|---------|
+| `lib/security/prompt-guard.ts` | Prompt injection detection and blocking |
+| `lib/security/content-filter.ts` | AI response sanitization and validation |
+| `lib/security/rate-limiter-chat.ts` | Chat-specific rate limiting (10/min, 50/session) |
+| `lib/security/chat-security.ts` | Main security orchestration module |
+| `lib/security/index.ts` | Barrel exports for security module |
+| `app/api/chat/route.ts` | OpenAI GPT-4o-mini API endpoint |
+| `components/effects/AICore/chat-types.ts` | TypeScript interfaces for chat system |
+| `components/effects/AICore/chat-flows.ts` | Conversation flow configurations |
+| `components/effects/AICore/useAIChat.ts` | React hook for chat state management |
+| `components/effects/AICore/AIChatInterface.tsx` | Main chat panel UI |
+| `components/effects/AICore/AIChatMessage.tsx` | Individual message component |
+| `components/effects/AICore/AIChatQuickReplies.tsx` | Quick reply buttons |
+| `components/effects/AICore/AIChatInput.tsx` | Text input component |
+| `components/effects/AICore/AIChatTyping.tsx` | Typing indicator animation |
+| `DOCS/PLAN-CHATBOT-AI.md` | Detailed implementation plan |
+
+#### FILES MODIFIED (5)
+
+| File | Changes |
+|------|---------|
+| `lib/validations.ts` | Added chatRequestSchema for API validation |
+| `components/effects/AICore/AICore.tsx` | Integrated chat interface |
+| `components/effects/AICore/index.ts` | Exported new chat components |
+| `messages/it.json` | Added chat translations (60+ keys) |
+| `messages/en.json` | Added chat translations (60+ keys) |
+| `.env.example` | Added OPENAI_API_KEY documentation |
+
+---
+
+#### IMPLEMENTATION DETAILS
+
+**1. Security Architecture**
+
+```
+lib/security/
+├── prompt-guard.ts      # 20+ injection patterns detected
+├── content-filter.ts    # Response sanitization
+├── rate-limiter-chat.ts # 10/min per IP, 50/session
+└── chat-security.ts     # Orchestration
+```
+
+**2. Prompt Injection Protection**
+- Detection of 20+ injection patterns (ignore instructions, roleplay, jailbreak)
+- Blocked content patterns (hacking, credentials, illegal activities)
+- Input sanitization (HTML escape, length limits)
+- Risk score calculation for monitoring
+
+**3. System Prompt Blindato**
+- Identity lock (AI cannot be convinced to change role)
+- Response rules (max 3 sentences, on-topic only)
+- Service information source of truth
+- Graceful handling of uncertain questions
+
+**4. Rate Limiting**
+- 10 messages per minute per IP
+- 50 messages per session total
+- Session timeout after 30 minutes
+- Automatic cleanup of expired records
+
+**5. Chat UI**
+- Responsive panel (380px desktop, bottom sheet mobile)
+- Smooth Framer Motion animations
+- Quick replies with icons
+- Typing indicator
+- Message history with timestamps
+- Remaining messages counter
+
+**6. Conversation Flows**
+- Welcome flow with 3 quick replies
+- Services discovery flow
+- Lead qualification flow (4 steps)
+- FAQ flow
+- Freeform conversation
+
+---
+
+#### ACCESSIBILITY
+
+- Focus trap when chat is open
+- `aria-live="polite"` for new messages
+- Keyboard navigation for quick replies
+- Escape closes panel
+- `prefers-reduced-motion` respected
+
+---
+
+#### SECURITY CHECKLIST
+
+- [x] Prompt injection detection and blocking
+- [x] Input sanitization (HTML escape, length limits)
+- [x] Output sanitization (remove HTML, limit length)
+- [x] Rate limiting (10/min, 50/session)
+- [x] OPENAI_API_KEY server-side only
+- [x] No sensitive data in logs
+- [x] Session ID validation (UUID format)
+- [x] Conversation history limited (max 20 messages)
+
+---
+
+#### ENVIRONMENT VARIABLES
+
+```env
+# Required for AI Chat
+OPENAI_API_KEY=sk-...
+```
+
+---
+
+#### TESTS
+
+- `npm run lint` passes without errors
+- `npm run build` passes successfully
+- TypeScript strict mode: no errors
+- Static pages generate correctly
+
+---
+
+#### COMMIT
+
+`feat(chat): add AI chatbot with guided conversation flow [TASK-032]`

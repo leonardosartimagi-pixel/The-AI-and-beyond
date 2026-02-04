@@ -345,8 +345,67 @@
     "greeting": "Have questions?",
     "help": "I can help!",
     "nearForm": "Great! Fill out the form, I'll reply within 24h",
-    "ariaLabel": "AI Assistant - Click to contact",
-    "dismiss": "Close assistant"
+    "ariaLabel": "AI Assistant - Click to chat",
+    "dismiss": "Close assistant",
+    "closeChat": "Close chat"
+  },
+  "chat": {
+    "title": "AI Chat",
+    "placeholder": "Or type here...",
+    "send": "Send",
+    "typing": "Typing...",
+    "restart": "Restart",
+    "close": "Close",
+    "welcome": "Hi! I'm Leonardo's AI assistant. How can I help you today?",
+    "servicesIntro": "Here's what I can do for you:",
+    "showAll": "Show me everything",
+    "messagesRemaining": "messages remaining",
+    "quickReplies": {
+      "services": "Discover services",
+      "project": "I have a project in mind",
+      "question": "Quick question"
+    },
+    "qualify": {
+      "sector": "What sector does your company operate in?",
+      "sectorOptions": {
+        "tech": "Tech/Software",
+        "healthcare": "Healthcare",
+        "finance": "Finance",
+        "retail": "Retail",
+        "other": "Other"
+      },
+      "teamSize": "How many people on the team?",
+      "teamSizeOptions": {
+        "small": "1-5",
+        "medium": "6-20",
+        "large": "21-50",
+        "enterprise": "50+"
+      },
+      "budget": "Do you have an indicative budget?",
+      "budgetOptions": {
+        "low": "< €5k",
+        "medium": "€5k-15k",
+        "high": "€15k-50k",
+        "enterprise": "> €50k",
+        "tbd": "To be defined"
+      },
+      "goal": "What would you like to achieve?",
+      "goalOptions": {
+        "automate": "Automate processes",
+        "newProduct": "New AI product",
+        "improve": "Improve existing",
+        "other": "Other"
+      },
+      "complete": "Thank you! I've collected all the information. Leonardo will contact you soon to discuss your project."
+    },
+    "faq": {
+      "pricing": "How much does it cost?",
+      "timeline": "How long does it take?",
+      "process": "How does it work?"
+    },
+    "limitReached": "You've reached the message limit. Please use the contact form to continue.",
+    "error": "Oops, something went wrong. Please try again.",
+    "errorRetry": "Retry"
   },
   "mobileContact": {
     "label": "Contact me"
