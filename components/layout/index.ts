@@ -3,3 +3,4 @@ export { MobileMenu } from './MobileMenu';
 export { Footer } from './Footer';
 export { MobileContactButton } from './MobileContactButton';
 export { FloatingAssistant } from './FloatingAssistant';
+export { LanguageSelectorModal } from './LanguageSelectorModal';

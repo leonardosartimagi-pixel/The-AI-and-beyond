@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { CookieConsentBanner } from '@/components/layout/CookieConsentBanner';
+import { LanguageSelectorModal } from '@/components/layout/LanguageSelectorModal';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { VercelAnalytics } from '@/components/analytics/VercelAnalytics';
 import { GlobalParticles, SmoothScroll, CustomCursor } from '@/components/effects';
@@ -144,9 +145,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="font-sans antialiased">
+    <html lang={locale} className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
+          <LanguageSelectorModal />
           <SmoothScroll>
             <JsonLd />
             <GlobalParticles />

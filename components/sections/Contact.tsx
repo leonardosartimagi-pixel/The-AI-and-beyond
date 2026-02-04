@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Button } from '@/components/ui/Button';
 import { contactFormSchema, type ContactFormData } from '@/lib/validations';
-import { TechGridOverlay } from '@/components/effects';
+import { TechGridOverlay, SectionDecorations } from '@/components/effects';
 
 interface ContactProps {
   className?: string;
@@ -113,6 +113,9 @@ export function Contact({ className = '' }: ContactProps) {
     >
       {/* Tech grid overlay for consistency */}
       <TechGridOverlay opacity={0.02} />
+
+      {/* Decorative neural connections */}
+      <SectionDecorations decorations={['flowing2']} opacity={0.4} />
 
       {/* Decorative gradient blurs */}
       <div

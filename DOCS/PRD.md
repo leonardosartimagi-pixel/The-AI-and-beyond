@@ -2,8 +2,8 @@
 # The AI and Beyond - Website
 
 ## Document Info
-- **Version**: 1.1
-- **Last Updated**: 2026-02-03
+- **Version**: 1.2
+- **Last Updated**: 2026-02-04
 - **Author**: Leonardo Sarti Magi
 - **Status**: Active
 
@@ -206,6 +206,59 @@ A modern, high-impact single-page website for "The AI and Beyond" - a profession
 | FR-132 | DynamicHighlight for animated keyword underlines | MEDIUM |
 | FR-133 | DecorativeLogoBackground with glow animation | MEDIUM |
 | FR-134 | ParticleBackground with interactive mouse effects | HIGH |
+
+### 3.15 Language Selector Modal
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-140 | Modal appears on first visit (no locale preference saved) | HIGH |
+| FR-141 | Centered modal with elegant backdrop blur | HIGH |
+| FR-142 | IT/EN flag buttons for language selection | HIGH |
+| FR-143 | Saves preference to localStorage | HIGH |
+| FR-144 | Redirects to chosen locale after selection | HIGH |
+| FR-145 | Stops smooth scroll while modal is open | HIGH |
+| FR-146 | Fade + scale animation for modal entrance | MEDIUM |
+
+### 3.16 Brand Showcase Section (Video)
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-150 | Dedicated video section between Hero and About | HIGH |
+| FR-151 | Full-screen height with dark gradient background | HIGH |
+| FR-152 | Video plays in seamless loop at center | HIGH |
+| FR-153 | Neural network particles in background | HIGH |
+| FR-154 | Tagline text below video with animation | MEDIUM |
+| FR-155 | Scroll progress indicator | LOW |
+| FR-156 | Parallax effects on scroll | MEDIUM |
+
+### 3.17 Floating Video
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-160 | Video appears in bottom-right corner after scrolling past BrandShowcase | HIGH |
+| FR-161 | Video plays once from start, then fades out | HIGH |
+| FR-162 | Video does not reappear after fading out | HIGH |
+| FR-163 | Smooth entrance/exit animations | HIGH |
+| FR-164 | Close button to dismiss manually | MEDIUM |
+| FR-165 | Does not block interaction with page content | HIGH |
+
+### 3.18 Portfolio Redesign
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-170 | Featured project card (full-width, more details) | HIGH |
+| FR-171 | Grid layout (2x2) for other projects | HIGH |
+| FR-172 | Animated swap: click grid card to make it featured | HIGH |
+| FR-173 | LayoutGroup animation for smooth transitions | HIGH |
+| FR-174 | Previous featured moves to freed grid position | HIGH |
+| FR-175 | Hover effects on grid cards | HIGH |
+
+### 3.19 WOW Effect Components
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-180 | MagneticButton: attracts cursor when nearby | MEDIUM |
+| FR-181 | TiltCard: 3D rotation following mouse position | MEDIUM |
+| FR-182 | CountUpNumber: animated counting on scroll | MEDIUM |
+| FR-183 | All effects respect prefers-reduced-motion | HIGH |
+| FR-184 | All effects disabled on touch devices | HIGH |
+| FR-185 | Smooth scroll with Lenis library | HIGH |
+| FR-186 | Custom animated cursor (desktop only) | LOW |
 
 ---
 

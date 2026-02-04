@@ -28,6 +28,12 @@
       "control": "Controllo"
     }
   },
+  "brandShowcase": {
+    "label": "Benvenuto",
+    "tagline": "L'intelligenza artificiale al servizio del tuo business",
+    "subtitle": "Trasformiamo insieme le sfide di oggi nelle opportunità di domani",
+    "scrollHint": "Continua a scoprire"
+  },
   "about": {
     "label": "Chi Sono",
     "title": "Trasformo sfide in",

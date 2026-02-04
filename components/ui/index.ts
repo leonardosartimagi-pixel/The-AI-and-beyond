@@ -14,3 +14,4 @@ export { Input, type InputProps } from './Input';
 export { Textarea, type TextareaProps } from './Textarea';
 export { Checkbox, type CheckboxProps } from './Checkbox';
 export { Badge, badgeVariants, type BadgeProps } from './Badge';
+export { MagneticButton } from './MagneticButton';

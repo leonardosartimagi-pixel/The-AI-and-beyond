@@ -114,7 +114,7 @@ export const particleConfigMobile: ISourceOptions = {
   },
 };
 
-// Configuration for light background sections (sparse blue particles)
+// Configuration for light background sections (interactive blue particles)
 export const particleConfigLight: ISourceOptions = {
   fullScreen: false,
   background: {
@@ -126,19 +126,19 @@ export const particleConfigLight: ISourceOptions = {
   interactivity: {
     events: {
       onHover: {
-        enable: true,
+        enable: false, // Disabled since particles are pointer-events: none
         mode: 'grab',
       },
       onClick: {
-        enable: true,
+        enable: false,
         mode: 'push',
       },
     },
     modes: {
       grab: {
-        distance: 140,
+        distance: 180,
         links: {
-          opacity: 0.4,
+          opacity: 0.5,
           color: '#137dc5',
         },
       },
@@ -149,21 +149,21 @@ export const particleConfigLight: ISourceOptions = {
   },
   particles: {
     color: {
-      value: ['#137dc5', '#1b2f75'], // Blue tones only, no cyan (too light on white)
+      value: ['#137dc5', '#1b2f75'], // Blue tones for contrast on white
     },
     links: {
       enable: true,
       color: '#137dc5',
       distance: 200,
-      opacity: 0.12, // Very subtle for light background
-      width: 0.8,
+      opacity: 0.25, // More visible on light background
+      width: 1,
       triangles: {
         enable: false,
       },
     },
     move: {
       enable: true,
-      speed: 0.5, // Slower for subtle effect
+      speed: 0.8,
       direction: 'none',
       random: true,
       straight: false,
@@ -175,7 +175,7 @@ export const particleConfigLight: ISourceOptions = {
       },
     },
     number: {
-      value: 30, // Sparse
+      value: 50, // Slightly more particles
       density: {
         enable: true,
         width: 1920,
@@ -184,8 +184,8 @@ export const particleConfigLight: ISourceOptions = {
     },
     opacity: {
       value: {
-        min: 0.15,
-        max: 0.4,
+        min: 0.4,
+        max: 0.7,
       },
       animation: {
         enable: true,
@@ -198,8 +198,8 @@ export const particleConfigLight: ISourceOptions = {
     },
     size: {
       value: {
-        min: 1,
-        max: 2.5,
+        min: 2,
+        max: 4,
       },
       animation: {
         enable: false,
@@ -215,7 +215,7 @@ export const particleConfigLightMobile: ISourceOptions = {
   particles: {
     ...particleConfigLight.particles,
     number: {
-      value: 15, // Even sparser on mobile
+      value: 25, // Fewer on mobile but still visible
       density: {
         enable: true,
         width: 1920,

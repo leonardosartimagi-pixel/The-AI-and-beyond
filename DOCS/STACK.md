@@ -317,6 +317,37 @@
 
 ---
 
+## Smooth Scroll
+
+### Lenis
+**Version**: 1.x
+
+**Why this choice:**
+1. **Smooth scrolling** - Native-like smooth scrolling
+2. **Performance** - GPU-accelerated, 60fps
+3. **Customizable** - Duration, easing, and more
+4. **Framework agnostic** - Works with React/Next.js
+5. **Lightweight** - Minimal bundle impact
+
+**Alternatives considered:**
+| Alternative | Why Rejected |
+|-------------|--------------|
+| Locomotive Scroll | Heavier, more complex |
+| GSAP ScrollSmoother | Premium feature, larger bundle |
+| Native scroll-behavior | Less control, browser inconsistencies |
+
+**Configuration:**
+- Duration: 1.2s
+- Custom easing function
+- Respects prefers-reduced-motion
+- Exposed globally via `window.lenis` for modal control
+
+**Usage:**
+- Wraps entire app in SmoothScroll component
+- `window.lenis.stop()` / `window.lenis.start()` for modal control
+
+---
+
 ## Animation (Lottie)
 
 ### @lottiefiles/react-lottie-player
@@ -492,6 +523,7 @@ import { Analytics } from '@vercel/analytics/react'
 | Language | TypeScript | 5.x |
 | Styling | Tailwind CSS | 3.x |
 | Animation | Framer Motion | 11.x |
+| Smooth Scroll | Lenis | 1.x |
 | Particles | @tsparticles/react + slim | 3.x |
 | Lottie | @lottiefiles/react-lottie-player | 3.x |
 | i18n | next-intl | 3.x |

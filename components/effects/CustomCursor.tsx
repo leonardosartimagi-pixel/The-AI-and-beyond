@@ -9,6 +9,7 @@ export function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Use motion values for smoother performance
   const cursorX = useMotionValue(0);
@@ -19,8 +20,10 @@ export function CustomCursor() {
   const ringX = useSpring(cursorX, springConfig);
   const ringY = useSpring(cursorY, springConfig);
 
-  // Detect touch device
+  // Mark as mounted and detect touch device
   useEffect(() => {
+    setIsMounted(true);
+
     const checkTouchDevice = () => {
       setIsTouchDevice(
         'ontouchstart' in window ||
@@ -121,8 +124,8 @@ export function CustomCursor() {
     return () => observer.disconnect();
   }, [isTouchDevice, prefersReducedMotion]);
 
-  // Don't render on touch devices or if reduced motion is preferred
-  if (isTouchDevice || prefersReducedMotion) {
+  // Don't render until mounted, on touch devices, or if reduced motion is preferred
+  if (!isMounted || isTouchDevice || prefersReducedMotion) {
     return null;
   }
 
