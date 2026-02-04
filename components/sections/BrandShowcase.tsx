@@ -16,7 +16,7 @@ export function BrandShowcase({ className = '', onScrollPastSection }: BrandShow
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const isInView = useInView(sectionRef, { margin: '100px 0px', once: true });
+  const isInView = useInView(sectionRef, { margin: '200% 0px', once: true });
 
   const [hasVideoError, setHasVideoError] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
