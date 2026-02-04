@@ -1,11 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollTo } from '@/hooks';
 import { Badge, Button } from '@/components/ui';
-import { ParticleBackground } from '@/components/effects';
+import { ParticleBackground, HeroVideoLogo } from '@/components/effects';
 
 
 const KEYWORD_KEYS = ['quality', 'speed', 'security', 'control'] as const;
@@ -122,20 +121,12 @@ export function Hero({ className = '' }: HeroProps) {
           initial="hidden"
           animate="visible"
         >
-          {/* Full Logo - Prominently visible */}
+          {/* Animated Video Logo */}
           <motion.div
             className="mb-10 flex justify-center"
             variants={itemVariants}
           >
-            <div className="relative h-16 w-72 sm:h-20 sm:w-96 md:h-24 md:w-[28rem]">
-              <Image
-                src="/images/logo-full-white.svg"
-                alt="The AI and Beyond"
-                fill
-                className="object-contain drop-shadow-lg"
-                priority
-              />
-            </div>
+            <HeroVideoLogo />
           </motion.div>
 
           {/* Headline */}

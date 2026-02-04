@@ -1,6 +1,10 @@
 export { ParticleBackground } from './ParticleBackground';
-export { particleConfig, particleConfigMobile } from './ParticleConfig';
+export { particleConfig, particleConfigMobile, particleConfigLight, particleConfigLightMobile } from './ParticleConfig';
+export { GlobalParticles } from './GlobalParticles';
 export { DecorativeLogoBackground } from './DecorativeLogoBackground';
+export { HeroVideoLogo } from './HeroVideoLogo';
+export { SmoothScroll } from './SmoothScroll';
+export { CustomCursor } from './CustomCursor';
 export { AnimatedGradientText } from './AnimatedGradientText';
 export { SplitTextReveal } from './SplitTextReveal';
 export { DynamicHighlight } from './DynamicHighlight';

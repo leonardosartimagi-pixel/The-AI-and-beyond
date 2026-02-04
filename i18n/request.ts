@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { getRequestConfig } from 'next-intl/server';
 
 // Can be imported from a shared config
@@ -7,14 +6,17 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'it';
 
-export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid
+export default getRequestConfig(async ({ requestLocale }) => {
+  // This typically corresponds to the `[locale]` segment
+  let locale = await requestLocale;
+
+  // Ensure that a valid locale is used
   if (!locale || !locales.includes(locale as Locale)) {
-    notFound();
+    locale = defaultLocale;
   }
 
   return {
-    locale: locale as string,
+    locale,
     messages: (await import(`../messages/${locale}.json`)).default,
   };
 });

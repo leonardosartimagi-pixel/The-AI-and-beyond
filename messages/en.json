@@ -145,9 +145,60 @@
     "title": "The power of",
     "titleAccent": "transformation",
     "description": "See how AI can revolutionize your daily processes.",
+    "scrollHint": "Scroll to discover the transformation",
     "dragHint": "Drag to compare",
     "before": "Before",
     "after": "After",
+    "phase1": {
+      "label": "The Problem",
+      "title": "How much time do you waste every day?",
+      "items": {
+        "reports": {
+          "title": "2 hours for a report",
+          "description": "Manual data collection, formatting, endless revisions"
+        },
+        "emails": {
+          "title": "Forgotten follow-ups",
+          "description": "Emails get lost, clients wait, opportunities fade"
+        },
+        "data": {
+          "title": "Errors in data",
+          "description": "Copy-paste between spreadsheets, typos, inconsistencies"
+        }
+      }
+    },
+    "phase2": {
+      "label": "The Question",
+      "title": "What if you could automate all this?",
+      "description": "Artificial intelligence can turn hours of manual work into minutes of supervision.",
+      "hint": "Keep scrolling"
+    },
+    "phase3": {
+      "label": "The Solution",
+      "title": "With AI, everything changes",
+      "items": {
+        "reports": {
+          "title": "Report in 5 minutes",
+          "description": "Automatic aggregation, perfect formatting, one click"
+        },
+        "emails": {
+          "title": "Automatic follow-ups",
+          "description": "Intelligent sequences, perfect timing, zero forgotten"
+        },
+        "data": {
+          "title": "Zero errors",
+          "description": "Validated data, automatic consistency, reliable insights"
+        }
+      }
+    },
+    "phase4": {
+      "label": "The Results",
+      "title": "Numbers speak clearly",
+      "metric1": "Time saved",
+      "metric2": "Data accuracy",
+      "metric3": "Availability",
+      "cta": "Start the transformation"
+    },
     "items": {
       "reports": {
         "title": "Report Generation",

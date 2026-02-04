@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Header, Footer, MobileContactButton, FloatingAssistant } from '@/components/layout';
 import { Hero } from '@/components/sections';
 
@@ -39,8 +39,8 @@ const Contact = dynamic(() => import('@/components/sections/Contact').then((mod)
   loading: () => <section className="py-24 lg:py-32" aria-hidden="true" />,
 });
 
-export default function Home() {
-  const t = useTranslations();
+export default async function Home() {
+  const t = await getTranslations();
 
   return (
     <>
