@@ -54,14 +54,19 @@ export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
+  /** Enable subtle pulse animation for CTA emphasis */
+  animated?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, isLoading, children, disabled, ...props }, ref) => {
+  ({ className, variant, size, isLoading, animated, children, disabled, ...props }, ref) => {
     return (
       <motion.button
         ref={ref}
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          animated && !disabled && !isLoading && 'animate-cta-pulse'
+        )}
         disabled={disabled || isLoading}
         whileHover={{ scale: disabled || isLoading ? 1 : 1.02 }}
         whileTap={{ scale: disabled || isLoading ? 1 : 0.98 }}

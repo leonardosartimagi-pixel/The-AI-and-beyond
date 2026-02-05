@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, useSpring, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
+import { SectionTitleGlitch } from '@/components/effects';
 
 interface ROICalculatorProps {
   className?: string;
@@ -217,7 +218,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
           <h2 className="mx-auto max-w-3xl font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
             {t('title')}{' '}
             <span className="relative inline-block">
-              {t('titleAccent')}
+              <SectionTitleGlitch>{t('titleAccent')}</SectionTitleGlitch>
               <span
                 className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                 aria-hidden="true"

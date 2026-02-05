@@ -21,3 +21,4 @@ export { AnimatedIcon, ServiceIcons, ProcessIcons } from './AnimatedIcon';
 export { ScrollProgress } from './ScrollProgress';
 export { GradientMesh } from './GradientMesh';
 export { NavGlitch } from './NavGlitch';
+export { SectionTitleGlitch } from './SectionTitleGlitch';

@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { TechGridOverlay, PremiumProfilePlaceholder } from '@/components/effects';
+import { TechGridOverlay, PremiumProfilePlaceholder, SectionTitleGlitch } from '@/components/effects';
 
 interface AboutProps {
   className?: string;
@@ -136,7 +136,7 @@ export function About({ className = '' }: AboutProps) {
             >
               {t('title')}{' '}
               <span className="relative inline-block">
-                {t('titleAccent')}
+                <SectionTitleGlitch>{t('titleAccent')}</SectionTitleGlitch>
                 <span
                   className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                   aria-hidden="true"

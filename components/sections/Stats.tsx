@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { CountUpNumber, TechGridOverlay } from '@/components/effects';
+import { CountUpNumber, TechGridOverlay, SectionTitleGlitch } from '@/components/effects';
 
 interface StatsProps {
   className?: string;
@@ -194,7 +194,7 @@ export function Stats({ className = '' }: StatsProps) {
           <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary dark:text-gray-100 sm:text-4xl lg:text-5xl">
             {t('title')}{' '}
             <span className="relative inline-block">
-              {t('titleAccent')}
+              <SectionTitleGlitch>{t('titleAccent')}</SectionTitleGlitch>
               <span
                 className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
                 aria-hidden="true"
