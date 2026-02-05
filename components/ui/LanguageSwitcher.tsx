@@ -107,8 +107,9 @@ export function LanguageSwitcher({
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           'relative flex items-center justify-center rounded-full',
-          'bg-gray-100 transition-colors hover:bg-gray-200',
-          'dark:bg-gray-800 dark:hover:bg-gray-700',
+          'bg-white/90 backdrop-blur-sm border border-gray-200/50',
+          'transition-colors hover:bg-gray-100 hover:border-gray-300',
+          'dark:bg-gray-800/90 dark:border-gray-600/50 dark:hover:bg-gray-700 dark:hover:border-gray-500',
           'focus-visible:outline-none focus-visible:ring-2',
           'focus-visible:ring-accent focus-visible:ring-offset-2',
           'dark:focus-visible:ring-offset-gray-950',
@@ -120,8 +121,8 @@ export function LanguageSwitcher({
         whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
         whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
       >
-        <span className="text-lg" role="img" aria-hidden="true">
-          {currentLanguage.flag}
+        <span className="text-xs font-bold text-primary dark:text-gray-100 uppercase">
+          {currentLanguage.code}
         </span>
         {variant === 'full' && (
           <span className="text-sm font-medium text-primary dark:text-gray-100">
