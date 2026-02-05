@@ -25,7 +25,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary text-white" role="contentinfo">
+    <footer className="bg-primary dark:bg-gray-900 text-white border-t border-transparent dark:border-gray-800" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           <FooterBrand onLogoClick={() => scrollTo('hero')} t={t} />

@@ -108,7 +108,7 @@ export function Contact({ className = '' }: ContactProps) {
     <section
       ref={sectionRef}
       id="contatti"
-      className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden bg-white dark:bg-gray-950 py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
       {/* Tech grid overlay for consistency */}

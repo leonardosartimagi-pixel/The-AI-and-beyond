@@ -53,7 +53,7 @@ function ProjectCard({
       <motion.button
         type="button"
         onClick={() => onOpenModal(projectKey)}
-        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white text-left shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 text-left shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
         whileHover={
           prefersReducedMotion
             ? {}
@@ -237,7 +237,7 @@ function PortfolioModal({
           >
             <motion.div
               ref={modalRef}
-              className="relative max-h-[90vh] w-full max-w-2xl overflow-auto rounded-3xl bg-white shadow-2xl"
+              className="relative max-h-[90vh] w-full max-w-2xl overflow-auto rounded-3xl bg-white dark:bg-gray-950 shadow-2xl dark:shadow-black/30"
               initial={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.9,
@@ -261,7 +261,7 @@ function PortfolioModal({
                 ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
-                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-gray-500 shadow-md backdrop-blur-sm transition-colors hover:bg-white hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-500 dark:text-gray-400 shadow-md backdrop-blur-sm transition-colors hover:bg-white dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 aria-label={t('close')}
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -401,7 +401,7 @@ export function Portfolio({ className = '' }: PortfolioProps) {
       <section
         ref={sectionRef}
         id="portfolio"
-        className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
+        className={`relative overflow-hidden bg-white dark:bg-gray-950 py-24 lg:py-32 ${className}`}
         aria-label={t('label')}
       >
         <TechGridOverlay opacity={0.02} />

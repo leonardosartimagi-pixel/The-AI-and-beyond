@@ -8,8 +8,9 @@ import { cn } from '@/lib/utils';
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-2',
-    'font-medium transition-colors duration-200',
+    'font-medium transition-all duration-300',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+    'dark:focus-visible:ring-offset-gray-950',
     'disabled:pointer-events-none disabled:opacity-50',
   ],
   {
@@ -17,22 +18,22 @@ const buttonVariants = cva(
       variant: {
         primary: [
           'bg-accent text-primary-dark',
-          'hover:bg-accent-dark',
+          'hover:bg-accent-dark hover:shadow-lg hover:shadow-accent/30',
           'focus-visible:ring-accent',
         ],
         secondary: [
-          'bg-primary text-white',
-          'hover:bg-primary-dark',
+          'bg-primary dark:bg-gray-800 text-white',
+          'hover:bg-primary-dark dark:hover:bg-gray-700 hover:shadow-lg hover:shadow-primary/20',
           'focus-visible:ring-primary',
         ],
         outline: [
-          'border-2 border-accent text-accent bg-transparent',
-          'hover:bg-accent hover:text-primary-dark',
+          'border-2 border-accent text-accent dark:text-accent-light bg-transparent',
+          'hover:bg-accent hover:text-primary-dark hover:shadow-lg hover:shadow-accent/20',
           'focus-visible:ring-accent',
         ],
         ghost: [
-          'text-primary bg-transparent',
-          'hover:bg-primary/10',
+          'text-primary dark:text-gray-100 bg-transparent',
+          'hover:bg-primary/10 dark:hover:bg-white/10',
           'focus-visible:ring-primary',
         ],
       },

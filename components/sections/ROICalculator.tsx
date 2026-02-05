@@ -169,7 +169,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
     <section
       ref={sectionRef}
       id="roi-calculator"
-      className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden bg-gray-50 dark:bg-gray-900 py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
       {/* Decorative gradient blur - top left */}

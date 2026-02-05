@@ -75,7 +75,7 @@ export function About({ className = '' }: AboutProps) {
     <section
       ref={sectionRef}
       id="chi-sono"
-      className={`relative overflow-hidden bg-white py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden bg-white dark:bg-gray-950 py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
       {/* Tech grid overlay for consistency */}
@@ -167,7 +167,7 @@ export function About({ className = '' }: AboutProps) {
               className="mt-10 flex flex-wrap gap-4"
               variants={textVariants}
             >
-              <div className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-3">
+              <div className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-900 px-4 py-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
                   <svg
                     className="h-5 w-5 text-accent"
@@ -190,7 +190,7 @@ export function About({ className = '' }: AboutProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-3">
+              <div className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-900 px-4 py-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
                   <svg
                     className="h-5 w-5 text-accent"
@@ -213,7 +213,7 @@ export function About({ className = '' }: AboutProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-3">
+              <div className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-900 px-4 py-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
                   <svg
                     className="h-5 w-5 text-accent"

@@ -6,15 +6,22 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const cardVariants = cva(
-  ['rounded-2xl bg-white', 'transition-shadow duration-300'],
+  ['rounded-2xl', 'transition-all duration-300'],
   {
     variants: {
       variant: {
-        default: 'shadow-md',
+        default: 'bg-white dark:bg-gray-950 shadow-md dark:shadow-gray-900/20',
         interactive: [
-          'shadow-md cursor-pointer',
+          'bg-white dark:bg-gray-950 shadow-md dark:shadow-gray-900/20 cursor-pointer',
+          'hover:shadow-xl hover:shadow-accent/10 dark:hover:shadow-accent/5',
+        ],
+        glass: [
+          'glass',
           'hover:shadow-xl hover:shadow-accent/10',
         ],
+        glassSubtle: 'glass-subtle',
+        glassStrong: 'glass-strong',
+        glassGradient: 'glass-gradient-border',
       },
       padding: {
         none: '',
@@ -79,7 +86,7 @@ const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('mb-4 border-b border-gray-100 pb-4', className)}
+      className={cn('mb-4 border-b border-gray-100 dark:border-gray-800 pb-4', className)}
       {...props}
     />
   )
@@ -103,7 +110,7 @@ const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('mt-4 border-t border-gray-100 pt-4', className)}
+      className={cn('mt-4 border-t border-gray-100 dark:border-gray-800 pt-4', className)}
       {...props}
     />
   )
