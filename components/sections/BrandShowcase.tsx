@@ -4,6 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
+import { DecorativeConnections } from '@/components/effects';
 import Image from 'next/image';
 
 interface BrandShowcaseProps {
@@ -118,6 +119,9 @@ export function BrandShowcase({ className = '', onScrollPastSection }: BrandShow
           backgroundSize: '80px 80px',
         }}
       />
+
+      {/* Neural connections behind video */}
+      <DecorativeConnections variant="horizontal" opacity={0.35} />
 
       {/* Content container */}
       <motion.div

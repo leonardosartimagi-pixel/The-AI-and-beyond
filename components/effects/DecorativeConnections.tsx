@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 interface DecorativeConnectionsProps {
   /** Preset pattern variant */
-  variant?: 'flowing1' | 'flowing2' | 'flowing3' | 'rightSide';
+  variant?: 'flowing1' | 'flowing2' | 'flowing3' | 'rightSide' | 'horizontal';
   /** Base opacity (0-1) */
   opacity?: number;
   /** Additional CSS classes */
@@ -81,6 +81,24 @@ const patterns: Record<
       { from: { x: 82, y: 45 }, to: { x: 92, y: 65 } },
       { from: { x: 92, y: 65 }, to: { x: 78, y: 85 } },
       { from: { x: 78, y: 85 }, to: { x: 95, y: 95 } },
+    ],
+  },
+  // Horizontal flow from left to right - for crossing behind video
+  horizontal: {
+    points: [
+      { x: -3, y: 48, size: 4 },
+      { x: 18, y: 52, size: 3 },
+      { x: 38, y: 46, size: 3.5 },
+      { x: 58, y: 54, size: 4 },
+      { x: 78, y: 50, size: 3 },
+      { x: 103, y: 52, size: 3.5 },
+    ],
+    lines: [
+      { from: { x: -3, y: 48 }, to: { x: 18, y: 52 } },
+      { from: { x: 18, y: 52 }, to: { x: 38, y: 46 } },
+      { from: { x: 38, y: 46 }, to: { x: 58, y: 54 } },
+      { from: { x: 58, y: 54 }, to: { x: 78, y: 50 } },
+      { from: { x: 78, y: 50 }, to: { x: 103, y: 52 } },
     ],
   },
 };
@@ -167,7 +185,7 @@ export const DecorativeConnections = memo(function DecorativeConnections({
 
 // For sections - combines multiple flowing patterns
 interface SectionDecorationsProps {
-  decorations?: Array<'flowing1' | 'flowing2' | 'flowing3' | 'rightSide'>;
+  decorations?: Array<'flowing1' | 'flowing2' | 'flowing3' | 'rightSide' | 'horizontal'>;
   opacity?: number;
 }
 
