@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { TechGridOverlay } from '@/components/effects';
+import { TechGridOverlay, PremiumProfilePlaceholder } from '@/components/effects';
 
 interface AboutProps {
   className?: string;
@@ -131,7 +131,7 @@ export function About({ className = '' }: AboutProps) {
 
             {/* Main heading */}
             <motion.h2
-              className="mb-8 font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl"
+              className="mb-8 font-heading text-3xl font-bold leading-tight text-primary dark:text-gray-100 sm:text-4xl lg:text-5xl"
               variants={textVariants}
             >
               {t('title')}{' '}
@@ -145,13 +145,13 @@ export function About({ className = '' }: AboutProps) {
             </motion.h2>
 
             {/* Bio text - three paragraphs with different styling */}
-            <div className="space-y-6 text-lg leading-relaxed text-gray-700">
+            <div className="space-y-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
               <motion.p variants={textVariants}>
                 {t('intro')}
               </motion.p>
 
               <motion.p
-                className="border-l-2 border-accent/30 pl-6 italic text-gray-600"
+                className="border-l-2 border-accent/30 pl-6 italic text-gray-600 dark:text-gray-400"
                 variants={textVariants}
               >
                 {t('paragraph1')}
@@ -185,8 +185,8 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary">{t('credentials.practical.title')}</p>
-                  <p className="text-xs text-gray-500">{t('credentials.practical.description')}</p>
+                  <p className="text-sm font-medium text-primary dark:text-gray-100">{t('credentials.practical.title')}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('credentials.practical.description')}</p>
                 </div>
               </div>
 
@@ -208,8 +208,8 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary">{t('credentials.fast.title')}</p>
-                  <p className="text-xs text-gray-500">{t('credentials.fast.description')}</p>
+                  <p className="text-sm font-medium text-primary dark:text-gray-100">{t('credentials.fast.title')}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('credentials.fast.description')}</p>
                 </div>
               </div>
 
@@ -231,8 +231,8 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary">{t('credentials.custom.title')}</p>
-                  <p className="text-xs text-gray-500">{t('credentials.custom.description')}</p>
+                  <p className="text-sm font-medium text-primary dark:text-gray-100">{t('credentials.custom.title')}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('credentials.custom.description')}</p>
                 </div>
               </div>
             </motion.div>
@@ -253,46 +253,9 @@ export function About({ className = '' }: AboutProps) {
               aria-hidden="true"
             />
 
-            {/* Main photo container */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-primary-dark shadow-2xl">
-              {/* Placeholder content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                {/* Placeholder icon */}
-                <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
-                  <svg
-                    className="h-12 w-12 text-white/60"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                    />
-                  </svg>
-                </div>
-                <p className="text-sm font-medium text-white/80">
-                  {t('photoAlt')}
-                </p>
-                <p className="mt-1 text-xs text-white/50">
-                  Photo
-                </p>
-              </div>
-
-              {/* Decorative gradient overlay */}
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-primary-dark/50 via-transparent to-transparent"
-                aria-hidden="true"
-              />
-
-              {/* Corner accent */}
-              <div
-                className="absolute -bottom-2 -right-2 h-24 w-24 rounded-tl-3xl bg-accent/20 blur-xl"
-                aria-hidden="true"
-              />
+            {/* Main photo container with premium placeholder */}
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
+              <PremiumProfilePlaceholder initials="LA" />
             </div>
 
             {/* Floating accent element */}
