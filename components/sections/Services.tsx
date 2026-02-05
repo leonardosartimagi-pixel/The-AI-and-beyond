@@ -173,7 +173,7 @@ function ServiceCard({
       <motion.button
         type="button"
         onClick={() => onOpenModal(service)}
-        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 lg:p-8"
+        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 lg:p-8"
         whileHover={
           prefersReducedMotion
             ? {}
@@ -362,7 +362,7 @@ function ServiceModal({
           >
             <motion.article
               ref={modalRef}
-              className="relative max-h-[90vh] w-full max-w-lg overflow-auto rounded-3xl bg-white p-8 shadow-2xl"
+              className="relative max-h-[90vh] w-full max-w-lg overflow-auto rounded-3xl bg-white dark:bg-gray-950 p-8 shadow-2xl dark:shadow-black/30"
               initial={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.9,
@@ -387,7 +387,7 @@ function ServiceModal({
                 ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
-                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 aria-label={t('close')}
               >
                 <svg
@@ -497,7 +497,7 @@ export function Services({ className = '' }: ServicesProps) {
       <section
         ref={sectionRef}
         id="servizi"
-        className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
+        className={`relative overflow-hidden bg-gray-50 dark:bg-gray-900 py-24 lg:py-32 ${className}`}
         aria-label={t('label')}
       >
         {/* Tech grid overlay for consistency */}

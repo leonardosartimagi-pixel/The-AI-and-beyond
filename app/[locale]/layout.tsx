@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { ThemeProvider } from '@/lib/theme-provider';
 import { CookieConsentBanner } from '@/components/layout/CookieConsentBanner';
 import { LanguageSelectorModal } from '@/components/layout/LanguageSelectorModal';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -146,17 +147,19 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
-      <body className="font-sans antialiased" suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
-          <LanguageSelectorModal />
-          <SmoothScroll>
-            <JsonLd />
-            <GlobalParticles />
-            <CustomCursor />
-            {children}
-            <CookieConsentBanner />
-          </SmoothScroll>
-        </NextIntlClientProvider>
+      <body className="font-sans antialiased bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300" suppressHydrationWarning>
+        <ThemeProvider>
+          <NextIntlClientProvider messages={messages}>
+            <LanguageSelectorModal />
+            <SmoothScroll>
+              <JsonLd />
+              <GlobalParticles />
+              <CustomCursor />
+              {children}
+              <CookieConsentBanner />
+            </SmoothScroll>
+          </NextIntlClientProvider>
+        </ThemeProvider>
         <VercelAnalytics />
       </body>
     </html>

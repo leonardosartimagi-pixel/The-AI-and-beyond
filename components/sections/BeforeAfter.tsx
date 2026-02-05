@@ -265,7 +265,7 @@ function ResultsPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'b
         {metrics.map((metric, index) => (
           <motion.div
             key={index}
-            className="rounded-2xl bg-white p-8 shadow-xl"
+            className="rounded-2xl bg-white dark:bg-gray-950 p-8 shadow-xl dark:shadow-black/20"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.15 }}

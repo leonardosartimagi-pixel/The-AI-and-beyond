@@ -358,7 +358,7 @@ export function Process({ className = '' }: ProcessProps) {
     <section
       ref={sectionRef}
       id="come-lavoro"
-      className={`relative overflow-hidden bg-gray-50 py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden bg-gray-50 dark:bg-gray-900 py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
       {/* Tech grid overlay for consistency */}

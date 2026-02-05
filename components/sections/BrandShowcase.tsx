@@ -103,7 +103,7 @@ export function BrandShowcase({ className = '', onScrollPastSection }: BrandShow
     <section
       ref={sectionRef}
       id="brand-showcase"
-      className={`relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-white py-16 md:py-24 ${className}`}
+      className={`relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-white dark:bg-gray-950 py-16 md:py-24 ${className}`}
       aria-label={t('label')}
     >
       {/* Subtle background pattern */}

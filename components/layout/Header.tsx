@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useScrollTo, useReducedMotion } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
@@ -48,7 +49,7 @@ export function Header() {
           // Hardware acceleration for fixed positioning (better scroll performance)
           'transform-gpu will-change-transform',
           isScrolled
-            ? 'bg-white/90 backdrop-blur-md shadow-sm'
+            ? 'bg-white/90 dark:bg-gray-950/90 backdrop-blur-md shadow-sm dark:shadow-gray-900/20'
             : 'bg-transparent'
         )}
         initial={prefersReducedMotion ? false : { y: -100 }}
@@ -61,11 +62,17 @@ export function Header() {
         >
           <Logo onClick={handleLogoClick} t={t} />
           <DesktopNav onNavClick={handleNavClick} t={t} />
-          <DesktopCTA onClick={() => handleNavClick('contatti')} t={t} />
-          <HamburgerButton
-            isOpen={isMobileMenuOpen}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          />
+          <div className="hidden lg:flex items-center gap-4">
+            <ThemeToggle />
+            <DesktopCTA onClick={() => handleNavClick('contatti')} t={t} />
+          </div>
+          <div className="flex items-center gap-2 lg:hidden">
+            <ThemeToggle />
+            <HamburgerButton
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </div>
         </nav>
       </motion.header>
       <MobileMenu
@@ -115,7 +122,7 @@ function DesktopNav({ onNavClick, t }: DesktopNavProps) {
         <li key={item.href}>
           <button
             onClick={() => onNavClick(item.href)}
-            className="text-primary hover:text-accent transition-colors duration-200 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded px-2 py-1"
+            className="text-primary dark:text-gray-100 hover:text-accent dark:hover:text-accent-light transition-colors duration-200 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 rounded px-2 py-1"
           >
             {t(item.key)}
           </button>
@@ -132,11 +139,9 @@ interface DesktopCTAProps {
 
 function DesktopCTA({ onClick, t }: DesktopCTAProps) {
   return (
-    <div className="hidden lg:block">
-      <Button onClick={onClick} size="sm">
-        {t('cta')}
-      </Button>
-    </div>
+    <Button onClick={onClick} size="sm">
+      {t('cta')}
+    </Button>
   );
 }
 
@@ -149,22 +154,22 @@ function HamburgerButton({ isOpen, onClick }: HamburgerButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+      className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 rounded"
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
     >
       <motion.span
-        className="block h-0.5 w-6 bg-primary"
+        className="block h-0.5 w-6 bg-primary dark:bg-gray-100"
         animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
         transition={{ duration: 0.2 }}
       />
       <motion.span
-        className="block h-0.5 w-6 bg-primary"
+        className="block h-0.5 w-6 bg-primary dark:bg-gray-100"
         animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
         transition={{ duration: 0.2 }}
       />
       <motion.span
-        className="block h-0.5 w-6 bg-primary"
+        className="block h-0.5 w-6 bg-primary dark:bg-gray-100"
         animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
         transition={{ duration: 0.2 }}
       />
