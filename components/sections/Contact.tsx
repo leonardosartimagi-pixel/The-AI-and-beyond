@@ -147,111 +147,115 @@ export function Contact({ className = '' }: ContactProps) {
             </p>
           </motion.div>
 
-          {/* Form */}
+          {/* Form with glassmorphism container */}
           <motion.div
             variants={formVariants}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             className="mt-12"
           >
-            <AnimatePresence mode="wait">
-              {formStatus === 'success' ? (
-                <SuccessMessage key="success" prefersReducedMotion={prefersReducedMotion} t={t} />
-              ) : (
-                <motion.form
-                  key="form"
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="space-y-6"
-                  animate={formStatus === 'error' && !prefersReducedMotion ? shakeAnimation : {}}
-                  noValidate
-                  aria-label={t('label')}
-                >
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <Input
-                      label={`${t('form.name')} *`}
-                      placeholder={t('form.namePlaceholder')}
-                      error={errors.name?.message}
-                      disabled={isFormDisabled}
-                      aria-required="true"
-                      {...register('name')}
-                    />
-                    <Input
-                      type="email"
-                      label={`${t('form.email')} *`}
-                      placeholder={t('form.emailPlaceholder')}
-                      error={errors.email?.message}
-                      disabled={isFormDisabled}
-                      aria-required="true"
-                      {...register('email')}
-                    />
-                  </div>
-
-                  <Input
-                    label={t('form.company')}
-                    placeholder={t('form.companyPlaceholder')}
-                    error={errors.company?.message}
-                    disabled={isFormDisabled}
-                    {...register('company')}
-                  />
-
-                  <Textarea
-                    label={`${t('form.message')} *`}
-                    placeholder={t('form.messagePlaceholder')}
-                    error={errors.message?.message}
-                    disabled={isFormDisabled}
-                    autoResize
-                    aria-required="true"
-                    {...register('message')}
-                  />
-
-                  <Checkbox
-                    label={
-                      <>
-                        {t('form.privacy')}{' '}
-                        <a
-                          href="/privacy"
-                          className="text-accent underline hover:text-accent-dark transition-colors"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {t('form.privacyLink')}
-                        </a>{' '}
-                        *
-                      </>
-                    }
-                    error={errors.privacy?.message}
-                    disabled={isFormDisabled}
-                    aria-required="true"
-                    {...register('privacy')}
-                  />
-
-                  {/* Error message */}
-                  <AnimatePresence>
-                    {formStatus === 'error' && errorMessage && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="rounded-lg border border-red-200 bg-red-50 p-4"
-                        role="alert"
-                      >
-                        <p className="text-sm text-red-600">{errorMessage}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full"
-                    isLoading={formStatus === 'submitting'}
-                    disabled={isFormDisabled || !isValid}
+            <div className="contact-form-glass">
+              <AnimatePresence mode="wait">
+                {formStatus === 'success' ? (
+                  <SuccessMessage key="success" prefersReducedMotion={prefersReducedMotion} t={t} />
+                ) : (
+                  <motion.form
+                    key="form"
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="space-y-7"
+                    animate={formStatus === 'error' && !prefersReducedMotion ? shakeAnimation : {}}
+                    noValidate
+                    aria-label={t('label')}
                   >
-                    {formStatus === 'submitting' ? t('form.submitting') : t('form.submit')}
-                  </Button>
-                </motion.form>
-              )}
-            </AnimatePresence>
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <Input
+                        label={`${t('form.name')} *`}
+                        placeholder={t('form.namePlaceholder')}
+                        error={errors.name?.message}
+                        disabled={isFormDisabled}
+                        aria-required="true"
+                        {...register('name')}
+                      />
+                      <Input
+                        type="email"
+                        label={`${t('form.email')} *`}
+                        placeholder={t('form.emailPlaceholder')}
+                        error={errors.email?.message}
+                        disabled={isFormDisabled}
+                        aria-required="true"
+                        {...register('email')}
+                      />
+                    </div>
+
+                    <Input
+                      label={t('form.company')}
+                      placeholder={t('form.companyPlaceholder')}
+                      error={errors.company?.message}
+                      disabled={isFormDisabled}
+                      {...register('company')}
+                    />
+
+                    <Textarea
+                      label={`${t('form.message')} *`}
+                      placeholder={t('form.messagePlaceholder')}
+                      error={errors.message?.message}
+                      disabled={isFormDisabled}
+                      autoResize
+                      aria-required="true"
+                      {...register('message')}
+                    />
+
+                    <Checkbox
+                      label={
+                        <>
+                          {t('form.privacy')}{' '}
+                          <a
+                            href="/privacy"
+                            className="text-accent underline hover:text-accent-dark transition-colors"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {t('form.privacyLink')}
+                          </a>{' '}
+                          *
+                        </>
+                      }
+                      error={errors.privacy?.message}
+                      disabled={isFormDisabled}
+                      aria-required="true"
+                      {...register('privacy')}
+                    />
+
+                    {/* Error message */}
+                    <AnimatePresence>
+                      {formStatus === 'error' && errorMessage && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className="rounded-lg border border-red-200/80 bg-red-50/90 dark:bg-red-900/20 dark:border-red-800/50 p-4 backdrop-blur-sm"
+                          role="alert"
+                        >
+                          <p className="text-sm text-red-600 dark:text-red-400">{errorMessage}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <div className="pt-2">
+                      <Button
+                        type="submit"
+                        size="lg"
+                        className="w-full"
+                        isLoading={formStatus === 'submitting'}
+                        disabled={isFormDisabled || !isValid}
+                      >
+                        {formStatus === 'submitting' ? t('form.submitting') : t('form.submit')}
+                      </Button>
+                    </div>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
 
           {/* Alternative contact */}
@@ -288,7 +292,7 @@ function SuccessMessage({ prefersReducedMotion, t }: SuccessMessageProps) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.95 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
-      className="flex flex-col items-center justify-center rounded-2xl border border-green-200 bg-green-50 p-8 text-center"
+      className="flex flex-col items-center justify-center rounded-2xl border border-green-200/80 bg-green-50/90 dark:bg-green-900/20 dark:border-green-800/50 p-8 text-center backdrop-blur-sm"
       role="status"
       aria-live="polite"
     >
@@ -301,14 +305,14 @@ function SuccessMessage({ prefersReducedMotion, t }: SuccessMessageProps) {
           damping: 15,
           delay: prefersReducedMotion ? 0 : 0.2,
         }}
-        className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100"
+        className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-800/50"
       >
-        <CheckIcon className="h-8 w-8 text-green-600" />
+        <CheckIcon className="h-8 w-8 text-green-600 dark:text-green-400" />
       </motion.div>
-      <h3 className="font-heading text-xl font-semibold text-green-800">
+      <h3 className="font-heading text-xl font-semibold text-green-800 dark:text-green-300">
         {t('success.title')}
       </h3>
-      <p className="mt-2 text-green-700">
+      <p className="mt-2 text-green-700 dark:text-green-400">
         {t('success.description')}
       </p>
     </motion.div>
