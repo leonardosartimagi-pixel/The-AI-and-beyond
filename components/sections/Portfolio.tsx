@@ -1,11 +1,11 @@
 'use client';
 
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 import { Badge } from '@/components/ui';
-import { TechGridOverlay, SectionDecorations } from '@/components/effects';
+import { TechGridOverlay, SectionDecorations, ProjectMockup } from '@/components/effects';
 
 interface PortfolioProps {
   className?: string;
@@ -14,130 +14,167 @@ interface PortfolioProps {
 const PROJECT_KEYS = ['eswbs', 'maintenance', 'healthcare', 'email', 'rag'] as const;
 type ProjectKey = (typeof PROJECT_KEYS)[number];
 
-// Project Card Component
-interface ProjectCardProps {
+// Bento grid position configurations
+const BENTO_POSITIONS = {
+  featured: 'col-span-2 row-span-2',
+  tall: 'col-span-1 row-span-2',
+  wide: 'col-span-2 row-span-1',
+  standard: 'col-span-1 row-span-1',
+} as const;
+
+// Bento Project Card Component
+interface BentoCardProps {
   projectKey: ProjectKey;
-  index: number;
+  isFeatured: boolean;
   isInView: boolean;
   prefersReducedMotion: boolean;
   onOpenModal: (projectKey: string) => void;
+  onSetFeatured: (projectKey: ProjectKey) => void;
   t: ReturnType<typeof useTranslations<'portfolio'>>;
 }
 
-function ProjectCard({
+function BentoCard({
   projectKey,
-  index,
+  isFeatured,
   isInView,
   prefersReducedMotion,
   onOpenModal,
+  onSetFeatured,
   t,
-}: ProjectCardProps) {
+}: BentoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const technologies = t.raw(`items.${projectKey}.technologies`) as string[];
 
+  const handleClick = () => {
+    if (isFeatured) {
+      onOpenModal(projectKey);
+    } else {
+      onSetFeatured(projectKey);
+    }
+  };
+
   return (
     <motion.article
-      className="group relative"
-      initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 40 }}
-      animate={{
-        opacity: isInView ? 1 : 0,
-        y: isInView ? 0 : 40,
-      }}
+      layout
+      layoutId={`bento-card-${projectKey}`}
+      className={`group relative ${isFeatured ? BENTO_POSITIONS.featured : BENTO_POSITIONS.standard}`}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.9 }}
       transition={{
         duration: prefersReducedMotion ? 0 : 0.5,
-        delay: prefersReducedMotion ? 0 : index * 0.1,
+        layout: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.button
         type="button"
-        onClick={() => onOpenModal(projectKey)}
+        onClick={handleClick}
         className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 text-left shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900"
         whileHover={
           prefersReducedMotion
             ? {}
             : {
-                scale: 1.02,
                 boxShadow:
-                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(0, 188, 212, 0.15)',
+                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(19, 125, 197, 0.2)',
               }
         }
         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-        aria-label={`${t('viewDetails')}: ${t(`items.${projectKey}.title`)}`}
+        aria-label={isFeatured ? `${t('viewDetails')}: ${t(`items.${projectKey}.title`)}` : `${t(`items.${projectKey}.title`)} - Click to expand`}
       >
-        {/* Image placeholder */}
-        <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10">
-          <div
-            className="absolute inset-0 opacity-30"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 1px)',
-              backgroundSize: '24px 24px',
-            }}
-            aria-hidden="true"
+        {/* Project Mockup */}
+        <div className={`relative w-full overflow-hidden ${isFeatured ? 'aspect-[16/9] lg:aspect-[2/1]' : 'aspect-video'}`}>
+          <ProjectMockup
+            category={t(`items.${projectKey}.category`)}
+            projectKey={projectKey}
+            isFeatured={isFeatured}
           />
 
           {/* Category badge */}
-          <div className="absolute left-4 top-4">
-            <Badge variant="solid" size="sm" animated={false}>
+          <div className="absolute left-4 top-4 z-10">
+            <Badge variant="solid" size={isFeatured ? 'md' : 'sm'} animated={false}>
               {t(`items.${projectKey}.category`)}
             </Badge>
           </div>
 
+          {/* Featured indicator */}
+          {isFeatured && (
+            <div className="absolute right-4 top-4 z-10">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/90 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                Featured
+              </span>
+            </div>
+          )}
+
           {/* Hover overlay */}
           <motion.div
-            className="absolute inset-0 flex items-center justify-center bg-primary/85"
+            className="absolute inset-0 z-10 flex items-center justify-center bg-primary/80 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ duration: 0.3 }}
             aria-hidden="true"
           >
             <motion.div
-              className="flex items-center gap-2 text-white"
+              className="flex flex-col items-center gap-2 text-white"
               initial={{ y: 10, opacity: 0 }}
               animate={{ y: isHovered ? 0 : 10, opacity: isHovered ? 1 : 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <span className="text-lg font-medium">{t('viewDetails')}</span>
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              <span className={`font-medium ${isFeatured ? 'text-xl' : 'text-base'}`}>
+                {isFeatured ? t('viewDetails') : 'Click to expand'}
+              </span>
+              <svg className={`${isFeatured ? 'h-6 w-6' : 'h-5 w-5'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                {isFeatured ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                )}
               </svg>
             </motion.div>
           </motion.div>
         </div>
 
         {/* Content */}
-        <div className="flex flex-1 flex-col p-5">
-          <h3 className="mb-2 font-heading text-lg font-bold text-primary">
+        <div className={`flex flex-1 flex-col ${isFeatured ? 'p-6 lg:p-8' : 'p-4'}`}>
+          <h3 className={`mb-2 font-heading font-bold text-primary dark:text-gray-100 ${isFeatured ? 'text-xl lg:text-2xl' : 'text-base'}`}>
             {t(`items.${projectKey}.title`)}
           </h3>
 
-          <p className="mb-4 flex-grow text-sm leading-relaxed text-gray-600">
+          <p className={`mb-4 flex-grow leading-relaxed text-gray-600 dark:text-gray-400 ${isFeatured ? 'text-base lg:text-lg line-clamp-3' : 'text-sm line-clamp-2'}`}>
             {t(`items.${projectKey}.problem`)}
           </p>
 
           {/* Technology badges */}
           <div className="flex flex-wrap gap-1.5">
-            {technologies.slice(0, 3).map((tech) => (
+            {technologies.slice(0, isFeatured ? 5 : 2).map((tech) => (
               <Badge key={tech} variant="default" size="sm" animated={false}>
                 {tech}
               </Badge>
             ))}
-            {technologies.length > 3 && (
+            {technologies.length > (isFeatured ? 5 : 2) && (
               <Badge variant="outline" size="sm" animated={false}>
-                +{technologies.length - 3}
+                +{technologies.length - (isFeatured ? 5 : 2)}
               </Badge>
             )}
           </div>
         </div>
 
-        {/* Bottom accent line on hover */}
+        {/* Gradient border on hover */}
         <motion.div
-          className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-accent to-accent-light"
-          initial={{ width: 0 }}
-          animate={{ width: isHovered ? '100%' : 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className="absolute inset-0 rounded-2xl pointer-events-none"
+          style={{
+            background: 'linear-gradient(135deg, rgba(19,125,197,0.5), rgba(0,174,239,0.3), rgba(19,125,197,0.5))',
+            padding: '2px',
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
           aria-hidden="true"
         />
       </motion.button>
@@ -237,7 +274,8 @@ function PortfolioModal({
           >
             <motion.div
               ref={modalRef}
-              className="relative max-h-[90vh] w-full max-w-2xl overflow-auto rounded-3xl bg-white dark:bg-gray-950 shadow-2xl dark:shadow-black/30"
+              data-lenis-prevent
+              className="relative max-h-[90vh] w-full max-w-2xl overflow-auto overscroll-contain rounded-3xl bg-white dark:bg-gray-950 shadow-2xl dark:shadow-black/30"
               initial={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.9,
@@ -269,17 +307,13 @@ function PortfolioModal({
                 </svg>
               </button>
 
-              <div className="relative aspect-video w-full overflow-hidden rounded-t-3xl bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10">
-                <div
-                  className="absolute inset-0 opacity-30"
-                  style={{
-                    backgroundImage:
-                      'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 1px)',
-                    backgroundSize: '24px 24px',
-                  }}
-                  aria-hidden="true"
+              <div className="relative aspect-video w-full overflow-hidden rounded-t-3xl">
+                <ProjectMockup
+                  category={t(`items.${projectKey}.category`)}
+                  projectKey={projectKey}
+                  isFeatured={true}
                 />
-                <div className="absolute left-6 top-6">
+                <div className="absolute left-6 top-6 z-10">
                   <Badge variant="solid" size="md" animated={false}>
                     {t(`items.${projectKey}.category`)}
                   </Badge>
@@ -362,7 +396,7 @@ function PortfolioModal({
   );
 }
 
-// Main Portfolio Component
+// Main Portfolio Component with Bento Grid Layout
 export function Portfolio({ className = '' }: PortfolioProps) {
   const t = useTranslations('portfolio');
   const tNav = useTranslations('nav');
@@ -370,6 +404,7 @@ export function Portfolio({ className = '' }: PortfolioProps) {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
   const [selectedProjectKey, setSelectedProjectKey] = useState<string | null>(null);
+  const [featuredProject, setFeaturedProject] = useState<ProjectKey>(PROJECT_KEYS[0]);
   const triggerRef = useRef<HTMLElement | null>(null);
 
   const headingVariants = {
@@ -395,6 +430,16 @@ export function Portfolio({ className = '' }: PortfolioProps) {
       triggerRef.current?.focus();
     }, 0);
   };
+
+  const handleSetFeatured = (projectKey: ProjectKey) => {
+    setFeaturedProject(projectKey);
+  };
+
+  // Reorder projects: featured first, then others
+  const orderedProjects = [
+    featuredProject,
+    ...PROJECT_KEYS.filter((key) => key !== featuredProject),
+  ];
 
   return (
     <>
@@ -432,7 +477,7 @@ export function Portfolio({ className = '' }: PortfolioProps) {
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
             </span>
 
-            <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
+            <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary dark:text-gray-100 sm:text-4xl lg:text-5xl">
               {t('title')}{' '}
               <span className="relative inline-block">
                 {t('titleAccent')}
@@ -443,25 +488,38 @@ export function Portfolio({ className = '' }: PortfolioProps) {
               </span>
             </h2>
 
-            <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600">
+            <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600 dark:text-gray-400">
               {t('description')}
             </p>
           </motion.div>
 
-          {/* Projects Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {PROJECT_KEYS.map((key, index) => (
-              <ProjectCard
-                key={key}
-                projectKey={key}
-                index={index}
-                isInView={isInView}
-                prefersReducedMotion={prefersReducedMotion}
-                onOpenModal={handleOpenModal}
-                t={t}
-              />
-            ))}
-          </div>
+          {/* Bento Grid Layout */}
+          <LayoutGroup>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 lg:gap-6">
+              {orderedProjects.map((key) => (
+                <BentoCard
+                  key={key}
+                  projectKey={key}
+                  isFeatured={key === featuredProject}
+                  isInView={isInView}
+                  prefersReducedMotion={prefersReducedMotion}
+                  onOpenModal={handleOpenModal}
+                  onSetFeatured={handleSetFeatured}
+                  t={t}
+                />
+              ))}
+            </div>
+          </LayoutGroup>
+
+          {/* Interaction hint */}
+          <motion.p
+            className="mt-8 text-center text-sm text-gray-500 dark:text-gray-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 1 : 0 }}
+            transition={{ delay: 0.8 }}
+          >
+            {t('hint') || 'Click on a project to expand it'}
+          </motion.p>
         </div>
       </section>
 

@@ -236,3 +236,113 @@
 .no-transition {
   transition: none !important;
 }
+
+/* Animated SVG Icon - Draw effect */
+.animated-svg-icon path,
+.animated-svg-icon line,
+.animated-svg-icon circle,
+.animated-svg-icon rect,
+.animated-svg-icon polyline {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0s;
+}
+
+.animate-draw .animated-svg-icon path,
+.animate-draw .animated-svg-icon line,
+.animate-draw .animated-svg-icon circle,
+.animate-draw .animated-svg-icon rect,
+.animate-draw .animated-svg-icon polyline {
+  animation: drawSvg var(--draw-duration, 0.8s) ease-out forwards;
+  animation-delay: var(--draw-delay, 0s);
+}
+
+@keyframes drawSvg {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated-svg-icon path,
+  .animated-svg-icon line,
+  .animated-svg-icon circle,
+  .animated-svg-icon rect,
+  .animated-svg-icon polyline {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+}
+
+/* Contact form glassmorphism styles */
+.contact-form-glass {
+  @apply relative rounded-2xl p-8 lg:p-10;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(19, 125, 197, 0.05);
+}
+
+.dark .contact-form-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(17, 24, 39, 0.8) 0%,
+    rgba(31, 41, 55, 0.6) 100%
+  );
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(0, 174, 239, 0.1);
+}
+
+/* Animated gradient border for contact form */
+.contact-form-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(19, 125, 197, 0.4),
+    rgba(0, 174, 239, 0.2),
+    rgba(19, 125, 197, 0.4)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contact-form-glass:hover::before {
+  opacity: 1;
+}
+
+/* Input focus glow effect */
+.contact-form-glass input:focus,
+.contact-form-glass textarea:focus {
+  box-shadow:
+    0 0 0 2px rgb(19 125 197 / 0.3),
+    0 0 20px -5px rgba(0, 174, 239, 0.25);
+}
+
+.dark .contact-form-glass input:focus,
+.dark .contact-form-glass textarea:focus {
+  box-shadow:
+    0 0 0 2px rgb(0 174 239 / 0.4),
+    0 0 25px -5px rgba(0, 174, 239, 0.35);
+}

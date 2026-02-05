@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { NavGlitch } from '@/components/effects';
 import { useScrollTo, useReducedMotion } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
@@ -124,7 +125,7 @@ function DesktopNav({ onNavClick, t }: DesktopNavProps) {
             onClick={() => onNavClick(item.href)}
             className="text-primary dark:text-gray-100 hover:text-accent dark:hover:text-accent-light transition-colors duration-200 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 rounded px-2 py-1"
           >
-            {t(item.key)}
+            <NavGlitch>{t(item.key)}</NavGlitch>
           </button>
         </li>
       ))}

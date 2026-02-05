@@ -29,6 +29,10 @@ const Process = dynamic(() => import('./Process').then((mod) => mod.Process), {
   loading: () => <section className="py-24 lg:py-32" aria-hidden="true" />,
 });
 
+const FAQ = dynamic(() => import('./FAQ').then((mod) => mod.FAQ), {
+  loading: () => <section className="py-24 lg:py-32" aria-hidden="true" />,
+});
+
 const Contact = dynamic(() => import('./Contact').then((mod) => mod.Contact), {
   loading: () => <section className="py-24 lg:py-32" aria-hidden="true" />,
 });
@@ -44,6 +48,7 @@ export function HomeContent() {
       <BeforeAfter />
       <ROICalculator />
       <Process />
+      <FAQ />
       <Contact />
     </>
   );

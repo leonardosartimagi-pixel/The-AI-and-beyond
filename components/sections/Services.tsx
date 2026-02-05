@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { TechGridOverlay, SectionDecorations } from '@/components/effects';
+import { TechGridOverlay, SectionDecorations, AnimatedIcon, ServiceIcons } from '@/components/effects';
 
 interface Service {
   id: string;
@@ -20,107 +20,27 @@ const services: Service[] = [
   {
     id: 'consulenza-ai',
     key: 'consulting',
-    icon: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
-        />
-      </svg>
-    ),
+    icon: <div className="h-7 w-7">{ServiceIcons.consulting}</div>,
   },
   {
     id: 'sviluppo-web',
     key: 'webdev',
-    icon: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
-        />
-      </svg>
-    ),
+    icon: <div className="h-7 w-7">{ServiceIcons.webdev}</div>,
   },
   {
     id: 'agenti-ai',
     key: 'agents',
-    icon: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z"
-        />
-      </svg>
-    ),
+    icon: <div className="h-7 w-7">{ServiceIcons.agents}</div>,
   },
   {
     id: 'prototipi-rapidi',
     key: 'prototypes',
-    icon: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
-        />
-      </svg>
-    ),
+    icon: <div className="h-7 w-7">{ServiceIcons.prototypes}</div>,
   },
   {
     id: 'ottimizzazione-pm',
     key: 'pm',
-    icon: (
-      <svg
-        className="h-7 w-7"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"
-        />
-      </svg>
-    ),
+    icon: <div className="h-7 w-7">{ServiceIcons.pm}</div>,
   },
 ];
 
@@ -142,6 +62,20 @@ function ServiceCard({
   t,
 }: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLButtonElement>(null);
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!cardRef.current || prefersReducedMotion) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    },
+    [prefersReducedMotion]
+  );
 
   const cardVariants = {
     hidden: {
@@ -171,8 +105,10 @@ function ServiceCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.button
+        ref={cardRef}
         type="button"
         onClick={() => onOpenModal(service)}
+        onMouseMove={handleMouseMove}
         className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 lg:p-8"
         whileHover={
           prefersReducedMotion
@@ -189,6 +125,17 @@ function ServiceCard({
         }}
         aria-label={`${t('learnMore')} - ${t(`items.${service.key}.title`)}`}
       >
+        {/* Mouse-following glow effect */}
+        {!prefersReducedMotion && (
+          <div
+            className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            style={{
+              background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(0, 174, 239, 0.12), transparent 40%)`,
+            }}
+            aria-hidden="true"
+          />
+        )}
+
         {/* Decorative gradient background on hover */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5"
@@ -219,16 +166,18 @@ function ServiceCard({
           }}
           transition={{ duration: 0.3 }}
         >
-          {service.icon}
+          <AnimatedIcon delay={index * 0.15} duration={0.8}>
+            {service.icon}
+          </AnimatedIcon>
         </motion.div>
 
         {/* Title */}
-        <h3 className="relative mb-3 font-heading text-xl font-bold text-primary lg:text-2xl">
+        <h3 className="relative mb-3 font-heading text-xl font-bold text-primary dark:text-gray-100 lg:text-2xl">
           {t(`items.${service.key}.title`)}
         </h3>
 
         {/* Description */}
-        <p className="relative mb-4 flex-grow text-base leading-relaxed text-gray-600">
+        <p className="relative mb-4 flex-grow text-base leading-relaxed text-gray-600 dark:text-gray-400">
           {t(`items.${service.key}.description`)}
         </p>
 
@@ -362,7 +311,8 @@ function ServiceModal({
           >
             <motion.article
               ref={modalRef}
-              className="relative max-h-[90vh] w-full max-w-lg overflow-auto rounded-3xl bg-white dark:bg-gray-950 p-8 shadow-2xl dark:shadow-black/30"
+              data-lenis-prevent
+              className="relative max-h-[90vh] w-full max-w-lg overflow-auto overscroll-contain rounded-3xl bg-white dark:bg-gray-950 p-8 shadow-2xl dark:shadow-black/30"
               initial={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.9,
@@ -414,18 +364,18 @@ function ServiceModal({
               {/* Title */}
               <h2
                 id="service-modal-title"
-                className="mb-4 font-heading text-2xl font-bold text-primary"
+                className="mb-4 font-heading text-2xl font-bold text-primary dark:text-gray-100"
               >
                 {t(`items.${service.key}.title`)}
               </h2>
 
               {/* Short description */}
-              <p className="mb-4 text-lg font-medium text-gray-700">
+              <p className="mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
                 {t(`items.${service.key}.description`)}
               </p>
 
               {/* Expanded description */}
-              <p className="mb-8 leading-relaxed text-gray-600">
+              <p className="mb-8 leading-relaxed text-gray-600 dark:text-gray-400">
                 {t(`items.${service.key}.expanded`)}
               </p>
 
@@ -532,7 +482,7 @@ export function Services({ className = '' }: ServicesProps) {
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
             </span>
 
-            <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary sm:text-4xl lg:text-5xl">
+            <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary dark:text-gray-100 sm:text-4xl lg:text-5xl">
               {t('title')}{' '}
               <span className="relative inline-block">
                 {t('titleAccent')}
@@ -543,7 +493,7 @@ export function Services({ className = '' }: ServicesProps) {
               </span>
             </h2>
 
-            <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600">
+            <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600 dark:text-gray-400">
               {t('description')}
             </p>
           </motion.div>
