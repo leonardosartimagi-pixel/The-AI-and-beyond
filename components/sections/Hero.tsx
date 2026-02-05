@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollTo } from '@/hooks';
 import { Badge, Button } from '@/components/ui';
-import { ParticleBackground } from '@/components/effects';
+import { ParticleBackground, GradientMesh } from '@/components/effects';
 import Image from 'next/image';
 
 
@@ -81,11 +81,8 @@ export function Hero({ className = '' }: HeroProps) {
       className={`relative min-h-screen overflow-hidden ${className}`}
       aria-label={t('headline')}
     >
-      {/* Background gradient */}
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary"
-        aria-hidden="true"
-      />
+      {/* Animated gradient mesh background */}
+      <GradientMesh />
 
       {/* Interactive particle system */}
       <ParticleBackground />

@@ -103,6 +103,7 @@
     "solution": "Soluzione",
     "results": "Risultati",
     "technologies": "Tecnologie",
+    "hint": "Clicca su un progetto per espanderlo",
     "items": {
       "eswbs": {
         "title": "App ESWBS",
@@ -295,6 +296,60 @@
       "messageMin": "Il messaggio deve avere almeno 10 caratteri",
       "messageMax": "Il messaggio è troppo lungo",
       "privacyRequired": "Devi accettare la privacy policy"
+    }
+  },
+  "stats": {
+    "label": "Numeri",
+    "title": "Risultati che",
+    "titleAccent": "parlano",
+    "description": "Dati concreti che testimoniano l'impatto del mio lavoro.",
+    "items": {
+      "projects": {
+        "label": "Progetti completati",
+        "description": "Soluzioni AI e web consegnate"
+      },
+      "hours": {
+        "label": "Ore risparmiate",
+        "description": "Ai clienti grazie all'automazione"
+      },
+      "satisfaction": {
+        "label": "Soddisfazione clienti",
+        "description": "Feedback positivi ricevuti"
+      },
+      "technologies": {
+        "label": "Tecnologie padroneggiate",
+        "description": "Framework e strumenti moderni"
+      }
+    }
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Domande",
+    "titleAccent": "frequenti",
+    "description": "Le risposte alle domande che mi vengono poste più spesso.",
+    "cta": "Non hai trovato la risposta che cercavi?",
+    "ctaLink": "Contattami direttamente",
+    "items": {
+      "ai-fit": {
+        "question": "L'AI è adatta alla mia azienda?",
+        "answer": "L'AI può portare benefici a quasi ogni tipo di azienda. Durante la consulenza iniziale, analizzo il tuo contesto specifico per identificare dove l'intelligenza artificiale può fare davvero la differenza: automazione di processi ripetitivi, analisi dati, assistenza clienti, ottimizzazione delle operazioni. Non propongo soluzioni preconfezionate, ma costruisco insieme a te un percorso su misura."
+      },
+      "timeline": {
+        "question": "Quanto tempo richiede un progetto AI?",
+        "answer": "I tempi variano in base alla complessità. Un proof-of-concept o MVP può essere pronto in 2-4 settimane. Progetti più complessi richiedono 2-3 mesi. Lavoro con metodologia agile, quindi avrai visibilità sui progressi e risultati tangibili già dalle prime settimane."
+      },
+      "cost": {
+        "question": "Quanto costa un progetto di consulenza AI?",
+        "answer": "Ogni progetto è diverso, quindi i costi dipendono dalla complessità e dagli obiettivi. Offro pacchetti che partono da una consulenza strategica iniziale fino allo sviluppo completo di soluzioni. Dopo la prima call gratuita, preparo sempre un preventivo dettagliato e trasparente."
+      },
+      "process": {
+        "question": "Come funziona il processo di lavoro?",
+        "answer": "Tutto parte da una call conoscitiva gratuita dove ascolto le tue esigenze. Poi analizzo il contesto, propongo una soluzione e, se decidiamo di procedere, lavoriamo insieme con metodologia agile: sprint settimanali, feedback continuo e demo regolari per assicurarci che il risultato sia esattamente ciò di cui hai bisogno."
+      },
+      "support": {
+        "question": "Offri supporto dopo la consegna del progetto?",
+        "answer": "Assolutamente sì. Ogni progetto include un periodo di supporto post-lancio per garantire che tutto funzioni perfettamente. Offro anche piani di manutenzione e aggiornamento per chi vuole far evolvere la propria soluzione nel tempo."
+      }
     }
   },
   "footer": {

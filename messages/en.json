@@ -103,6 +103,7 @@
     "solution": "Solution",
     "results": "Results",
     "technologies": "Technologies",
+    "hint": "Click on a project to expand it",
     "items": {
       "eswbs": {
         "title": "ESWBS App",
@@ -324,6 +325,60 @@
       "messageMin": "Message must be at least 10 characters",
       "messageMax": "Message is too long",
       "privacyRequired": "You must accept the privacy policy"
+    }
+  },
+  "stats": {
+    "label": "Numbers",
+    "title": "Results that",
+    "titleAccent": "speak",
+    "description": "Concrete data that testifies the impact of my work.",
+    "items": {
+      "projects": {
+        "label": "Projects completed",
+        "description": "AI and web solutions delivered"
+      },
+      "hours": {
+        "label": "Hours saved",
+        "description": "For clients through automation"
+      },
+      "satisfaction": {
+        "label": "Client satisfaction",
+        "description": "Positive feedback received"
+      },
+      "technologies": {
+        "label": "Technologies mastered",
+        "description": "Modern frameworks and tools"
+      }
+    }
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently asked",
+    "titleAccent": "questions",
+    "description": "Answers to the questions I get asked most often.",
+    "cta": "Didn't find the answer you were looking for?",
+    "ctaLink": "Contact me directly",
+    "items": {
+      "ai-fit": {
+        "question": "Is AI right for my business?",
+        "answer": "AI can bring benefits to almost any type of business. During the initial consultation, I analyze your specific context to identify where artificial intelligence can really make a difference: automating repetitive processes, data analysis, customer support, operations optimization. I don't propose pre-packaged solutions, but build a custom path together with you."
+      },
+      "timeline": {
+        "question": "How long does an AI project take?",
+        "answer": "Timing varies based on complexity. A proof-of-concept or MVP can be ready in 2-4 weeks. More complex projects require 2-3 months. I work with agile methodology, so you'll have visibility on progress and tangible results from the first weeks."
+      },
+      "cost": {
+        "question": "How much does an AI consulting project cost?",
+        "answer": "Every project is different, so costs depend on complexity and objectives. I offer packages ranging from an initial strategic consultation to full solution development. After the free introductory call, I always prepare a detailed and transparent quote."
+      },
+      "process": {
+        "question": "How does the work process work?",
+        "answer": "Everything starts with a free introductory call where I listen to your needs. Then I analyze the context, propose a solution and, if we decide to proceed, we work together with agile methodology: weekly sprints, continuous feedback and regular demos to ensure the result is exactly what you need."
+      },
+      "support": {
+        "question": "Do you offer support after project delivery?",
+        "answer": "Absolutely yes. Every project includes a post-launch support period to ensure everything works perfectly. I also offer maintenance and update plans for those who want to evolve their solution over time."
+      }
     }
   },
   "footer": {

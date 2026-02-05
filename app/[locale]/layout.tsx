@@ -8,7 +8,7 @@ import { CookieConsentBanner } from '@/components/layout/CookieConsentBanner';
 import { LanguageSelectorModal } from '@/components/layout/LanguageSelectorModal';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { VercelAnalytics } from '@/components/analytics/VercelAnalytics';
-import { GlobalParticles, SmoothScroll, CustomCursor } from '@/components/effects';
+import { GlobalParticles, SmoothScroll, CustomCursor, ScrollProgress } from '@/components/effects';
 import { locales, type Locale } from '@/i18n/request';
 import '../globals.css';
 
@@ -153,6 +153,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <LanguageSelectorModal />
             <SmoothScroll>
               <JsonLd />
+              <ScrollProgress />
               <GlobalParticles />
               <CustomCursor />
               {children}
