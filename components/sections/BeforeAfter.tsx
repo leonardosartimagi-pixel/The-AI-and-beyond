@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollProgress } from '@/hooks';
 import { Button } from '@/components/ui';
+import { SectionTitleGlitch } from '@/components/effects';
 
 interface BeforeAfterProps {
   className?: string;
@@ -353,7 +354,7 @@ export function BeforeAfter({ className = '' }: BeforeAfterProps) {
               <span className="h-px w-8 bg-accent" />
             </span>
             <h2 className="font-heading text-3xl font-bold text-primary sm:text-4xl lg:text-5xl">
-              {t('title')} <span className="text-accent">{t('titleAccent')}</span>
+              {t('title')} <SectionTitleGlitch className="text-accent">{t('titleAccent')}</SectionTitleGlitch>
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600">{t('description')}</p>
           </div>

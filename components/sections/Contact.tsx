@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/Textarea';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Button } from '@/components/ui/Button';
 import { contactFormSchema, type ContactFormData } from '@/lib/validations';
-import { TechGridOverlay, SectionDecorations } from '@/components/effects';
+import { TechGridOverlay, SectionDecorations, SectionTitleGlitch } from '@/components/effects';
 
 interface ContactProps {
   className?: string;
@@ -140,7 +140,7 @@ export function Contact({ className = '' }: ContactProps) {
               {t('label')}
             </span>
             <h2 className="mt-6 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
-              {t('title')} <span className="text-accent">{t('titleAccent')}</span>
+              {t('title')} <SectionTitleGlitch className="text-accent">{t('titleAccent')}</SectionTitleGlitch>
             </h2>
             <p className="mt-4 text-lg text-gray-600">
               {t('description')}

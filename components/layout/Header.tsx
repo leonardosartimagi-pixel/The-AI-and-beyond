@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui';
+import { Button, LanguageSwitcher } from '@/components/ui';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { NavGlitch } from '@/components/effects';
 import { useScrollTo, useReducedMotion } from '@/hooks';
@@ -64,10 +64,12 @@ export function Header() {
           <Logo onClick={handleLogoClick} t={t} />
           <DesktopNav onNavClick={handleNavClick} t={t} />
           <div className="hidden lg:flex items-center gap-4">
+            <LanguageSwitcher />
             <ThemeToggle />
             <DesktopCTA onClick={() => handleNavClick('contatti')} t={t} />
           </div>
           <div className="flex items-center gap-2 lg:hidden">
+            <LanguageSwitcher />
             <ThemeToggle />
             <HamburgerButton
               isOpen={isMobileMenuOpen}

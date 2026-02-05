@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui';
+import { Button, LanguageSwitcher } from '@/components/ui';
 import { useReducedMotion } from '@/hooks';
 import { NAV_ITEMS } from './Header';
 
@@ -57,11 +57,25 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
               ))}
             </ul>
           </nav>
+          {/* Language selector */}
           <motion.div
-            className="mt-8"
+            className="mt-8 flex items-center justify-between border-t border-gray-100 pt-6"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
+          >
+            <span className="text-sm font-medium text-gray-500">
+              {t('language')}
+            </span>
+            <LanguageSwitcher variant="full" />
+          </motion.div>
+
+          {/* CTA Button */}
+          <motion.div
+            className="mt-6"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
           >
             <Button onClick={() => onNavClick('contatti')} size="lg" className="w-full">
               {t('cta')}
