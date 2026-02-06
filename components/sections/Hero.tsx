@@ -228,14 +228,6 @@ export function Hero({ className = '' }: HeroProps) {
           </svg>
         </motion.div>
       </div>
-
-      {/* Avatar GIF - bottom right, feet on edge */}
-      <img
-        src="/images/avatar-hero.gif"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 right-4 z-20 h-[120px] w-[80px] sm:right-6 sm:h-[160px] sm:w-[107px] md:right-8 md:h-[200px] md:w-[133px] lg:right-12 lg:h-[280px] lg:w-[187px]"
-      />
     </section>
   );
 }

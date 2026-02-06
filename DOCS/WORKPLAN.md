@@ -57,7 +57,7 @@
 | TASK-031 | AI Core Avatar redesign (replaces FloatingAssistant) | [x] Completed | P1 | 5h | TASK-030 |
 | TASK-032 | AI Chatbot with guided conversation flow | [x] Completed | P0 | 8h | TASK-031 |
 | TASK-033 | AI Audit Express - Trasforma chatbot in consulente WOW | [x] Completed | P0 | 6h | TASK-032 |
-| TASK-038 | Neural connections + Avatar video in Hero | [x] Completed | P1 | 2h | - |
+| TASK-038 | Neural connections in BrandShowcase (Avatar removed) | [x] Completed | P1 | 2h | - |
 
 ---
 
