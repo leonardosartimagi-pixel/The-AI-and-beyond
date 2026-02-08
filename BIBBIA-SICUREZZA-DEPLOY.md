@@ -489,19 +489,11 @@ Tipi: `feat`, `fix`, `refactor`, `test`, `docs`, `security`, `chore`, `perf`
 - Rollback plan:
 ```
 
-### CODEOWNERS (da aggiungere)
+### CODEOWNERS — ✅ IMPLEMENTATO (PR #1)
 
-```
-# Security-critical files
-/app/api/                @owner
-/lib/security/           @owner
-/lib/rate-limiter.ts     @owner
-/lib/validations.ts      @owner
-/next.config.mjs         @owner
-/.github/                @owner
-/.env.example            @owner
-/middleware.ts            @owner
-```
+File: `.github/CODEOWNERS` — owner: `@leonardosartimagi-pixel`
+
+Percorsi coperti: `/app/api/`, `/lib/security/`, `/lib/rate-limiter.ts`, `/lib/validations.ts`, `/next.config.mjs`, `/middleware.ts`, `/.github/`, `/.env.example`, `/BIBBIA-SICUREZZA-DEPLOY.md`
 
 ---
 
@@ -548,15 +540,18 @@ Tipi: `feat`, `fix`, `refactor`, `test`, `docs`, `security`, `chore`, `perf`
 | E2E Tests | `playwright` | Funzionalità end-to-end | Sì |
 | Bundle Size Check | `@next/bundle-analyzer` | Performance regression | No (warning) |
 
-### Branch Protection (da configurare su GitHub)
+### Branch Protection — ✅ CONFIGURATA
 
-- [x] **ASSUNZIONE: da configurare**
-- Require PR before merging
-- Require status checks to pass (tutti i job CI)
-- Require branches to be up to date
-- Require review (quando team > 1)
-- Do not allow bypassing above settings
-- Restrict who can push to matching branches
+**Repository**: `github.com/leonardosartimagi-pixel/the-ai-and-beyond` (pubblico)
+
+Regole attive su `main`:
+- [x] Force push vietato
+- [x] Deletion branch vietata
+- [x] Enforce admins: sì (nessuna eccezione)
+- [x] Secret scanning attivo con push protection
+- [x] Auto-delete branch dopo merge PR
+- [ ] Required status checks (da aggiungere con CI pipeline — PR #2)
+- [ ] Required reviews (da attivare quando team > 1)
 
 ---
 
@@ -619,14 +614,18 @@ form-action 'self';
 | Custom domain | ✅ | theaiandbeyond.it |
 | DNSSEC | **ASSUNZIONE: da verificare** | Dipende dal registrar |
 
-### GitHub
+### GitHub — ✅ CONFIGURATO
 
 | Controllo | Stato | Note |
 |-----------|-------|------|
-| 2FA | **ASSUNZIONE: da verificare** | Obbligatorio per account owner |
-| Branch protection | **ASSUNZIONE: non configurato** | Da configurare |
-| Secret scanning | ⚠️ | Disponibile free per public repos. Se privato: GitHub Advanced Security |
-| Dependabot | ❌ Non configurato | Da attivare |
+| 2FA | ✅ Confermato attivo | Verificato dal proprietario |
+| Repository | ✅ Pubblico | `leonardosartimagi-pixel/the-ai-and-beyond` |
+| Branch protection | ✅ Attivo | No force push, no delete, enforce admins |
+| Secret scanning | ✅ Attivo | Con push protection |
+| PR template | ✅ Attivo | Security checklist obbligatoria |
+| CODEOWNERS | ✅ Attivo | Review richiesta su file critici |
+| Auto-delete branch | ✅ Attivo | Branch eliminati dopo merge |
+| Dependabot | ❌ Non configurato | Da attivare (PR #3) |
 
 ---
 
@@ -721,7 +720,8 @@ Azioni **VIETATE** in qualsiasi circostanza:
 | 2026-02-06 | ~~ASSUNZIONE: 2FA GitHub non verificato~~ | **CONFERMATO dal proprietario**: 2FA attivo. | Nessuno | Nessuno |
 | 2026-02-06 | Rimossa API key OpenAI da .env.local | Chatbot disabilitato (import commentato in page.tsx). API route /api/chat restituisce 503 se key mancante. Key da revocare su dashboard OpenAI. | Positivo — riduce superficie d'attacco | Key potenzialmente compromessa: revocare su platform.openai.com |
 | 2026-02-06 | Chatbot mantenuto disabilitato per decisione proprietario | Feature non necessaria in questa fase. Tutto il codice AICore resta ma non è istanziato. | Positivo — riduce rischio | Codice chat presente ma inerte |
-| 2026-02-06 | Repository GitHub da creare ex-novo | Il codice esiste solo in locale. Primo push pianificato con tutte le protezioni. | Critico — nessun backup remoto attuale | Perdita dati se disco locale fallisce |
+| 2026-02-06 | ~~Repository GitHub da creare ex-novo~~ | ✅ Creato: `leonardosartimagi-pixel/the-ai-and-beyond` (pubblico). Branch protection, secret scanning, CODEOWNERS, PR template attivi. | Risolto | Nessuno |
+| 2026-02-06 | Repository reso pubblico | Branch protection e secret scanning richiedono Pro per repo privati. Analisi: il codice non contiene segreti, il sito è già esposto. Security-through-obscurity non è sicurezza. Vantaggi tecnici (branch protection, secret scanning gratis) superano il rischio. | Positivo — più protezioni tecniche | Codice visibile (rischio accettabile) |
 
 ---
 
