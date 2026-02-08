@@ -1,0 +1,30 @@
+# =============================================================================
+# CODEOWNERS - The AI and Beyond
+# =============================================================================
+# These owners will be automatically requested for review on PRs
+# that modify the corresponding paths.
+#
+# Reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# =============================================================================
+
+# Security-critical: API routes (input handling, external service calls)
+/app/api/ @leonardosartimagi-pixel
+
+# Security-critical: validation, rate limiting, security modules
+/lib/security/ @leonardosartimagi-pixel
+/lib/rate-limiter.ts @leonardosartimagi-pixel
+/lib/validations.ts @leonardosartimagi-pixel
+
+# Configuration: build, deploy, headers
+/next.config.mjs @leonardosartimagi-pixel
+/middleware.ts @leonardosartimagi-pixel
+
+# CI/CD and repository governance
+/.github/ @leonardosartimagi-pixel
+
+# Environment and secrets template
+/.env.example @leonardosartimagi-pixel
+/.gitignore @leonardosartimagi-pixel
+
+# Security documentation
+/BIBBIA-SICUREZZA-DEPLOY.md @leonardosartimagi-pixel
