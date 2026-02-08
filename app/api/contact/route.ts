@@ -132,7 +132,7 @@ Inviato dal form di contatto di theaiandbeyond.com`,
       );
     }
 
-    console.log(`[Contact API] Email sent successfully from: ${email}`);
+    console.log('[Contact API] Email sent successfully');
 
     return NextResponse.json(
       { success: true, message: 'Messaggio inviato con successo!' },
