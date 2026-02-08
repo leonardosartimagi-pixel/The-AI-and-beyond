@@ -499,46 +499,39 @@ Percorsi coperti: `/app/api/`, `/lib/security/`, `/lib/rate-limiter.ts`, `/lib/v
 
 ## 9. CI/CD — REQUISITI MINIMI E PIPELINE
 
-### Pipeline attuale
+### Pipeline — ✅ IMPLEMENTATA (PR #3)
 
-```
-[Push/PR to main] → [E2E Tests (3 browser)] → [Vercel auto-deploy]
-```
-
-### Pipeline target (da implementare)
+**Workflow**: `.github/workflows/security-ci.yml` + `.github/workflows/e2e-tests.yml`
 
 ```
 [Push/PR to main]
     │
-    ├── Job 1: Lint + TypeCheck + Unit Tests
+    ├── Job 1: Lint + TypeCheck (ESLint + tsc --noEmit)
     │
-    ├── Job 2: SAST (ESLint security rules)
+    ├── Job 2: Unit & Component Tests (vitest)
     │
-    ├── Job 3: Dependency Vulnerability Scan (npm audit)
+    ├── Job 3: Dependency Scan (npm audit --audit-level=high)
     │
-    ├── Job 4: Secret Scanning (trufflehog/gitleaks)
+    ├── Job 4: Secret Scanning (gitleaks)
     │
-    ├── Job 5: E2E Tests (matrix: 3 browser)
+    ├── Job 5: E2E Tests (matrix: chromium, firefox, webkit)
     │
-    └── [Tutti verdi?]
+    └── Job 6: Production Build (dopo job 1, 3, 4)
           │
-          ├── YES → Vercel Preview Deploy (auto)
-          │           └── [Merge to main] → Vercel Production Deploy
-          │
-          └── NO → ❌ Block merge
+          └── [Merge to main] → Vercel Production Deploy (auto)
 ```
 
-### Job da aggiungere
+**Dependabot**: `.github/dependabot.yml` — scansione settimanale (npm + GitHub Actions)
 
-| Job | Tool | Scopo | Bloccante |
+| Job | Tool | Stato | Bloccante |
 |-----|------|-------|-----------|
-| Lint + TypeCheck | `eslint` + `tsc --noEmit` | Qualità codice | Sì |
-| Unit/Component Tests | `vitest` | Regressioni | Sì |
-| SAST | `eslint-plugin-security` | Vulnerability patterns | Sì |
-| Dependency Scan | `npm audit --audit-level=high` | CVE note | Sì (high/critical) |
-| Secret Scanning | `trufflehog` o `gitleaks` | Segreti nel codice | Sì |
-| E2E Tests | `playwright` | Funzionalità end-to-end | Sì |
-| Bundle Size Check | `@next/bundle-analyzer` | Performance regression | No (warning) |
+| Lint + TypeCheck | `eslint` + `tsc --noEmit` | ✅ Attivo | Sì |
+| Unit/Component Tests | `vitest` | ✅ Attivo | Sì |
+| Dependency Scan | `npm audit --audit-level=high` | ✅ Attivo | Sì (high/critical) |
+| Secret Scanning | `gitleaks` | ✅ Attivo | Sì |
+| E2E Tests | `playwright` | ✅ Attivo (pre-esistente) | Sì |
+| Production Build | `next build` | ✅ Attivo | Sì |
+| Dependabot | GitHub native | ✅ Configurato | No (PR automatiche) |
 
 ### Branch Protection — ✅ CONFIGURATA
 
@@ -557,27 +550,28 @@ Regole attive su `main`:
 
 ## 10. HARDENING APPLICATIVO
 
-### 10.1 Content Security Policy (DA IMPLEMENTARE)
+### 10.1 Content Security Policy — ✅ IMPLEMENTATA (PR #2)
 
-CSP proposta per `next.config.mjs`:
+CSP configurata in `next.config.mjs`:
 
 ```
 default-src 'self';
 script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;
-style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-font-src 'self' https://fonts.gstatic.com;
-img-src 'self' data: blob: https:;
+style-src 'self' 'unsafe-inline';
+font-src 'self';
+img-src 'self' data: blob:;
+media-src 'self';
 connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com;
 frame-ancestors 'self';
 base-uri 'self';
 form-action 'self';
+object-src 'none';
+upgrade-insecure-requests;
 ```
 
-**Nota**: `unsafe-inline` e `unsafe-eval` necessari per Next.js. In futuro valutare nonce-based CSP.
+**Nota**: `unsafe-inline` e `unsafe-eval` necessari per Next.js. `font-src 'self'` perché `next/font/google` self-hosta i font al build time. `object-src 'none'` blocca plugin/Flash. `upgrade-insecure-requests` forza HTTPS.
 
-**Perché**: CSP è l'ultima linea di difesa contro XSS. Anche se React previene la maggior parte degli XSS, un CSP riduce l'impatto di eventuali bypass.
-
-**Rischio se non implementato**: Un XSS (anche da dipendenza compromessa) potrebbe esfiltrare dati o eseguire codice arbitrario senza restrizioni.
+**Header aggiuntivo**: `X-Permitted-Cross-Domain-Policies: none` (PR #2).
 
 ### 10.2 Rate Limiting (DA MIGLIORARE)
 
@@ -591,7 +585,7 @@ form-action 'self';
 
 **Regola**: Usare SEMPRE `secureLog()` da `lib/security/` invece di `console.log` diretto nelle API routes.
 
-**Fix necessario**: `app/api/contact/route.ts:135` — sostituire `console.log` con log senza email.
+**Fix applicato (PR #2)**: `app/api/contact/route.ts:135` — rimossa email dal log, ora logga solo `[Contact API] Email sent successfully`.
 
 ### 10.4 Error handling
 
@@ -625,7 +619,7 @@ form-action 'self';
 | PR template | ✅ Attivo | Security checklist obbligatoria |
 | CODEOWNERS | ✅ Attivo | Review richiesta su file critici |
 | Auto-delete branch | ✅ Attivo | Branch eliminati dopo merge |
-| Dependabot | ❌ Non configurato | Da attivare (PR #3) |
+| Dependabot | ✅ Attivo | Scan settimanale npm + GitHub Actions (PR #3) |
 
 ---
 
@@ -733,15 +727,15 @@ Azioni **VIETATE** in qualsiasi circostanza:
 |---|--------|-------|-------|
 | 1 | ~~Ruotare API key OpenAI~~ | ✅ Key rimossa da .env.local. **Revocare su platform.openai.com** | Proprietario |
 | 2 | ~~Verificare/abilitare 2FA su GitHub~~ | ✅ Confermato attivo | Proprietario |
-| 3 | Creare repository GitHub + configurare branch protection | **IN CORSO** | Proprietario + Dev |
+| 3 | ~~Creare repository GitHub + configurare branch protection~~ | ✅ Completato | Proprietario + Dev |
 
 ### Priorità P1 — PR critiche (prime 3)
 
 | # | PR | Contenuto | Rischio mitigato |
 |---|-----|-----------|-----------------|
-| 1 | Hardening headers + logging | CSP header, fix email logging, secureLog everywhere | T1 (XSS), T12 (log leak) |
-| 2 | CI/CD pipeline security | SAST, npm audit, secret scan, lint+typecheck in CI | T5 (CVE), T3 (secret leak), T10 (supply chain) |
-| 3 | Git workflow + PR template + CODEOWNERS | Branch protection, PR template, CODEOWNERS | T10 (supply chain), governance |
+| 1 | ~~Hardening headers + logging~~ | ✅ PR #2 mergiata. CSP, X-Permitted-Cross-Domain-Policies, PII log fix | T1 (XSS), T12 (log leak) |
+| 2 | ~~CI/CD pipeline security~~ | ✅ PR #3 mergiata. Lint, typecheck, npm audit, gitleaks, build, Dependabot | T5 (CVE), T3 (secret leak), T10 (supply chain) |
+| 3 | ~~Git workflow + PR template + CODEOWNERS~~ | ✅ PR #1 mergiata. Branch protection, PR template, CODEOWNERS | T10 (supply chain), governance |
 
 ### Priorità P2 — Miglioramenti
 
