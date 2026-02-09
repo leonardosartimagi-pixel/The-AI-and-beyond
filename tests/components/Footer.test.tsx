@@ -2,14 +2,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Footer } from '@/components/layout/Footer';
 
-// Mock next/image
-vi.mock('next/image', () => ({
-  default: ({ alt, ...props }: { alt: string; [key: string]: unknown }) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img alt={alt} {...props} />
-  ),
-}));
-
 describe('Footer', () => {
   it('renders the logo', () => {
     render(<Footer />);

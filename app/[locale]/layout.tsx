@@ -120,7 +120,7 @@ export async function generateMetadata({
         { url: '/favicon.ico', sizes: 'any' },
         { url: '/icon.svg', type: 'image/svg+xml' },
       ],
-      apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+      apple: [{ url: '/apple-icon.png', sizes: '180x180' }],
     },
     manifest: '/site.webmanifest',
     alternates: {

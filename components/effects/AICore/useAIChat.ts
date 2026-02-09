@@ -402,6 +402,70 @@ export function useAIChat() {
   );
 
   /**
+   * Genera e mostra il report audit
+   */
+  const handleGenerateAuditReport = useCallback(
+    (hoursOverride?: number) => {
+      dispatch({ type: 'SET_TYPING', payload: true });
+
+      // Simula generazione con messaggi di loading
+      const loadingMessages = [
+        'audit.loading.analyzing',
+        'audit.loading.calculating',
+        'audit.loading.generating',
+      ];
+
+      let messageIndex = 0;
+      const loadingInterval = setInterval(() => {
+        if (messageIndex < loadingMessages.length) {
+          // Aggiorna messaggio di loading (opzionale, per ora solo typing)
+          messageIndex++;
+        }
+      }, 800);
+
+      // Genera report dopo animazione
+      setTimeout(() => {
+        clearInterval(loadingInterval);
+        dispatch({ type: 'SET_TYPING', payload: false });
+
+        const finalAuditData: AuditData = {
+          ...state.auditData,
+          hoursPerWeek: hoursOverride ?? state.auditData.hoursPerWeek ?? 15,
+        };
+
+        const report = generateAuditReport(finalAuditData, locale);
+        dispatch({ type: 'SET_AUDIT_REPORT', payload: report });
+        dispatch({ type: 'SET_FLOW', payload: 'audit_complete' });
+
+        // Salva audit in localStorage per remarketing
+        try {
+          localStorage.setItem(
+            AUDIT_STORAGE_KEY,
+            JSON.stringify({
+              auditCode: report.auditCode,
+              sector: report.userData.sector,
+              timestamp: report.generatedAt.toISOString(),
+            })
+          );
+        } catch {
+          // Ignora errori localStorage
+        }
+
+        // Aggiungi messaggio speciale per il report
+        const reportMessage: ChatMessage = {
+          id: generateMessageId(),
+          role: 'assistant',
+          content: '', // Il contenuto è il report stesso
+          timestamp: new Date(),
+          isAuditReport: true,
+        };
+        dispatch({ type: 'ADD_MESSAGE', payload: reportMessage });
+      }, 2500);
+    },
+    [state.auditData, locale]
+  );
+
+  /**
    * Gestisce click su quick reply
    */
   const handleQuickReply = useCallback(
@@ -554,8 +618,8 @@ export function useAIChat() {
       addAssistantMessage,
       translate,
       state.currentFlow,
-      state.auditData,
       closeChat,
+      handleGenerateAuditReport,
     ]
   );
 
@@ -572,71 +636,7 @@ export function useAIChat() {
         handleGenerateAuditReport(hours);
       }, 300);
     },
-    [addUserMessage, translate]
-  );
-
-  /**
-   * Genera e mostra il report audit
-   */
-  const handleGenerateAuditReport = useCallback(
-    (hoursOverride?: number) => {
-      dispatch({ type: 'SET_TYPING', payload: true });
-
-      // Simula generazione con messaggi di loading
-      const loadingMessages = [
-        'audit.loading.analyzing',
-        'audit.loading.calculating',
-        'audit.loading.generating',
-      ];
-
-      let messageIndex = 0;
-      const loadingInterval = setInterval(() => {
-        if (messageIndex < loadingMessages.length) {
-          // Aggiorna messaggio di loading (opzionale, per ora solo typing)
-          messageIndex++;
-        }
-      }, 800);
-
-      // Genera report dopo animazione
-      setTimeout(() => {
-        clearInterval(loadingInterval);
-        dispatch({ type: 'SET_TYPING', payload: false });
-
-        const finalAuditData: AuditData = {
-          ...state.auditData,
-          hoursPerWeek: hoursOverride ?? state.auditData.hoursPerWeek ?? 15,
-        };
-
-        const report = generateAuditReport(finalAuditData, locale);
-        dispatch({ type: 'SET_AUDIT_REPORT', payload: report });
-        dispatch({ type: 'SET_FLOW', payload: 'audit_complete' });
-
-        // Salva audit in localStorage per remarketing
-        try {
-          localStorage.setItem(
-            AUDIT_STORAGE_KEY,
-            JSON.stringify({
-              auditCode: report.auditCode,
-              sector: report.userData.sector,
-              timestamp: report.generatedAt.toISOString(),
-            })
-          );
-        } catch {
-          // Ignora errori localStorage
-        }
-
-        // Aggiungi messaggio speciale per il report
-        const reportMessage: ChatMessage = {
-          id: generateMessageId(),
-          role: 'assistant',
-          content: '', // Il contenuto è il report stesso
-          timestamp: new Date(),
-          isAuditReport: true,
-        };
-        dispatch({ type: 'ADD_MESSAGE', payload: reportMessage });
-      }, 2500);
-    },
-    [state.auditData, locale]
+    [addUserMessage, translate, handleGenerateAuditReport]
   );
 
   /**
