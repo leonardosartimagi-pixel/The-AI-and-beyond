@@ -59,7 +59,7 @@ export function Header() {
       >
         <nav
           className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
-          aria-label={t('about')}
+          aria-label={t('mainNav')}
         >
           <Logo onClick={handleLogoClick} t={t} />
           <DesktopNav onNavClick={handleNavClick} t={t} />
@@ -74,6 +74,8 @@ export function Header() {
             <HamburgerButton
               isOpen={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              openLabel={t('openMenu')}
+              closeLabel={t('closeMenu')}
             />
           </div>
         </nav>
@@ -97,7 +99,7 @@ function Logo({ onClick, t }: LogoProps) {
     <button
       onClick={onClick}
       className="relative h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-      aria-label={t('about')}
+      aria-label={t('home')}
     >
       {/* Logo symbol - circular, without white background */}
       <Image
@@ -151,14 +153,16 @@ function DesktopCTA({ onClick, t }: DesktopCTAProps) {
 interface HamburgerButtonProps {
   isOpen: boolean;
   onClick: () => void;
+  openLabel: string;
+  closeLabel: string;
 }
 
-function HamburgerButton({ isOpen, onClick }: HamburgerButtonProps) {
+function HamburgerButton({ isOpen, onClick, openLabel, closeLabel }: HamburgerButtonProps) {
   return (
     <button
       onClick={onClick}
       className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 rounded"
-      aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      aria-label={isOpen ? closeLabel : openLabel}
       aria-expanded={isOpen}
     >
       <motion.span

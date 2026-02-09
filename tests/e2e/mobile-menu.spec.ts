@@ -5,8 +5,11 @@ test.use({ viewport: { width: 375, height: 812 } });
 
 test.describe('Mobile Menu', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.addInitScript(() => {
+      localStorage.setItem('preferred-locale', 'it');
+      localStorage.setItem('cookie-consent', JSON.stringify({ analytics: true, timestamp: Date.now() }));
+    });
+    await page.goto('/it', { waitUntil: 'domcontentloaded' });
   });
 
   test('hamburger button is visible on mobile', async ({ page }) => {
@@ -18,9 +21,6 @@ test.describe('Mobile Menu', () => {
   test('mobile menu opens when hamburger is clicked', async ({ page }) => {
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-
-    // Wait for animation
-    await page.waitForTimeout(300);
 
     // Menu should be visible
     const mobileMenu = page.locator('[role="dialog"]');
@@ -36,12 +36,11 @@ test.describe('Mobile Menu', () => {
     // Open menu
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-    await page.waitForTimeout(300);
+    await expect(page.locator('[role="dialog"]')).toBeVisible();
 
     // Close menu
     const closeButton = page.locator('button[aria-label="Chiudi menu"]');
     await closeButton.click();
-    await page.waitForTimeout(300);
 
     // Menu should be hidden
     const mobileMenu = page.locator('[role="dialog"]');
@@ -51,7 +50,7 @@ test.describe('Mobile Menu', () => {
   test('mobile menu displays all navigation items', async ({ page }) => {
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-    await page.waitForTimeout(300);
+    await expect(page.locator('[role="dialog"]')).toBeVisible();
 
     const navItems = ['Chi Sono', 'Servizi', 'Portfolio', 'Come Lavoro', 'Contatti'];
 
@@ -65,14 +64,11 @@ test.describe('Mobile Menu', () => {
     // Open menu
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-    await page.waitForTimeout(300);
+    await expect(page.locator('[role="dialog"]')).toBeVisible();
 
     // Click on "Servizi"
     const serviziButton = page.locator('[role="dialog"] button:has-text("Servizi")');
     await serviziButton.click();
-
-    // Wait for menu close and scroll
-    await page.waitForTimeout(1000);
 
     // Menu should be closed
     const mobileMenu = page.locator('[role="dialog"]');
@@ -80,21 +76,19 @@ test.describe('Mobile Menu', () => {
 
     // Should have scrolled to Servizi section
     const serviziSection = page.locator('#servizi');
-    await expect(serviziSection).toBeVisible();
+    await expect(serviziSection).toBeInViewport({ timeout: 5000 });
   });
 
   test('mobile menu closes on Escape key', async ({ page }) => {
     // Open menu
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-    await page.waitForTimeout(300);
 
     const mobileMenu = page.locator('[role="dialog"]');
     await expect(mobileMenu).toBeVisible();
 
     // Press Escape
     await page.keyboard.press('Escape');
-    await page.waitForTimeout(300);
 
     // Menu should be closed
     await expect(mobileMenu).not.toBeVisible();
@@ -103,9 +97,9 @@ test.describe('Mobile Menu', () => {
   test('mobile menu has proper ARIA attributes', async ({ page }) => {
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-    await page.waitForTimeout(300);
 
     const mobileMenu = page.locator('[role="dialog"]');
+    await expect(mobileMenu).toBeVisible();
     await expect(mobileMenu).toHaveAttribute('aria-modal', 'true');
   });
 
@@ -113,17 +107,13 @@ test.describe('Mobile Menu', () => {
     // Open menu
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-    await page.waitForTimeout(300);
 
-    // Get all focusable elements in the menu
     const dialog = page.locator('[role="dialog"]');
     await expect(dialog).toBeVisible();
 
     // Tab through elements - focus should stay within dialog
-    // First focusable should be the first nav item or close button
     await page.keyboard.press('Tab');
 
-    // Keep tabbing and verify focus stays in dialog
     for (let i = 0; i < 10; i++) {
       await page.keyboard.press('Tab');
       const activeElement = await page.evaluate(() => {
@@ -143,7 +133,7 @@ test.describe('Mobile Menu', () => {
     // Open menu
     const hamburger = page.locator('button[aria-label="Apri menu"]');
     await hamburger.click();
-    await page.waitForTimeout(300);
+    await expect(page.locator('[role="dialog"]')).toBeVisible();
 
     // Check body overflow
     const overflow = await page.evaluate(() => document.body.style.overflow);
@@ -152,7 +142,7 @@ test.describe('Mobile Menu', () => {
     // Close menu
     const closeButton = page.locator('button[aria-label="Chiudi menu"]');
     await closeButton.click();
-    await page.waitForTimeout(300);
+    await expect(page.locator('[role="dialog"]')).not.toBeVisible();
 
     // Body should be scrollable again
     const overflowAfter = await page.evaluate(() => document.body.style.overflow);

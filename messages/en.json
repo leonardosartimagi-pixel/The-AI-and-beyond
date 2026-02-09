@@ -13,7 +13,11 @@
     "process": "How I Work",
     "contact": "Contact",
     "cta": "Let's Talk",
-    "language": "Language"
+    "language": "Language",
+    "mainNav": "Main navigation",
+    "home": "Go to home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "skipToContent": "Skip to main content",
   "hero": {
