@@ -529,7 +529,7 @@ Percorsi coperti: `/app/api/`, `/lib/security/`, `/lib/rate-limiter.ts`, `/lib/v
 | Unit/Component Tests | `vitest` | ✅ Attivo | Sì |
 | Dependency Scan | `npm audit --audit-level=high` | ✅ Attivo | Sì (high/critical) |
 | Secret Scanning | `gitleaks` | ✅ Attivo | Sì |
-| E2E Tests | `playwright` | ✅ Attivo (pre-esistente) | Sì |
+| E2E Tests | `playwright` | ✅ Attivo e funzionante | Sì |
 | Production Build | `next build` | ✅ Attivo | Sì |
 | Dependabot | GitHub native | ✅ Configurato | No (PR automatiche) |
 

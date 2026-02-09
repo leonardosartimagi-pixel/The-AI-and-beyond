@@ -13,7 +13,11 @@
     "process": "Come Lavoro",
     "contact": "Contatti",
     "cta": "Parliamone",
-    "language": "Lingua"
+    "language": "Lingua",
+    "mainNav": "Navigazione principale",
+    "home": "Torna alla home",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu"
   },
   "skipToContent": "Vai al contenuto principale",
   "hero": {
