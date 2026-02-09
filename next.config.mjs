@@ -38,18 +38,18 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self'",
       "img-src 'self' data: blob:",
       "media-src 'self'",
-      "connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com https://vercel.live",
+      "connect-src 'self' https://vitals.vercel-insights.com https://vercel.live",
       "frame-src 'self' https://vercel.live",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",
       "object-src 'none'",
-      "upgrade-insecure-requests",
+      'upgrade-insecure-requests',
     ].join('; '),
   },
   {
@@ -86,7 +86,11 @@ const nextConfig = {
   // Experimental features for better performance
   experimental: {
     // Optimize package imports for better tree-shaking
-    optimizePackageImports: ['framer-motion', 'react-hook-form', '@hookform/resolvers'],
+    optimizePackageImports: [
+      'framer-motion',
+      'react-hook-form',
+      '@hookform/resolvers',
+    ],
   },
 
   async headers() {

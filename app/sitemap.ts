@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next';
 import { locales } from '@/i18n/request';
+import { SITE_URL } from '@/lib/constants';
 
 const LEGAL_PAGES = ['privacy', 'cookie-policy', 'terms'] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://theaiandbeyond.it';
+  const baseUrl = SITE_URL;
 
   const entries: MetadataRoute.Sitemap = [];
 

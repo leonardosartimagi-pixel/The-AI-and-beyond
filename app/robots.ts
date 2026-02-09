@@ -1,14 +1,15 @@
 import { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/constants';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://theaiandbeyond.it';
+  const baseUrl = SITE_URL;
 
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/preview/'],
+        disallow: ['/api/', '/preview/', '/it/preview', '/en/preview'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

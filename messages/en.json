@@ -21,9 +21,11 @@
   },
   "skipToContent": "Skip to main content",
   "hero": {
-    "headline": "Your business can do more.",
-    "headlineAccent": "We automate it, improve it, or build it from scratch.",
-    "subtitle": "We optimize your business with artificial intelligence. Consulting, automation, development — what's needed, where it's needed.",
+    "headline": "Thanks to AI",
+    "headlineAccent": "your business can do more.",
+    "subtitleLine1": "We optimize your business with artificial intelligence.",
+    "subtitleLine2": "Consulting, automation, development.",
+    "subtitleLine3": "What's needed, where it's needed.",
     "cta": "Let's Talk",
     "microCopy": "No automated quotes. Just the right diagnosis.",
     "scrollHint": "Scroll to learn more",
@@ -133,23 +135,47 @@
         "category": "Web App Development",
         "problem": "The company managed KPIs spread across 4 different Excel sheets. Every Monday, the manager spent 2 hours compiling an aggregated report.",
         "solution": "Custom web dashboard, powered by business APIs and Google Sheets. Real-time data updates, with interactive charts and automatic alerts when a KPI drops below threshold.",
-        "results": ["Reporting time: from 2 hours to 0", "KPIs visible in real time", "Zero transcription errors"],
-        "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "REST API", "Chart.js"]
+        "results": [
+          "Reporting time: from 2 hours to 0",
+          "KPIs visible in real time",
+          "Zero transcription errors"
+        ],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "REST API",
+          "Chart.js"
+        ]
       },
       "nis2": {
         "title": "NIS2 Compliance Dashboard",
         "category": "Web App Development + AI",
         "problem": "A company subject to the NIS2 directive had no visibility on the compliance status of its departments. Every audit was a manual exercise.",
         "solution": "Interactive dashboard with modules for each NIS2 requirement, department compliance status, timelines, attached documentation. An AI layer suggests priorities and critical gaps.",
-        "results": ["Compliance mapped at 100%", "Audit preparation time: −60%", "AI-suggested priorities"],
-        "technologies": ["Next.js", "TypeScript", "PostgreSQL", "OpenAI API", "Tailwind CSS"]
+        "results": [
+          "Compliance mapped at 100%",
+          "Audit preparation time: −60%",
+          "AI-suggested priorities"
+        ],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "PostgreSQL",
+          "OpenAI API",
+          "Tailwind CSS"
+        ]
       },
       "rituale": {
         "title": "Rituale — Brand Website",
         "category": "Website",
         "problem": "A wellness brand needed an online presence that communicated quality, care, identity — not a generic template.",
         "solution": "Custom website with emotional design, curated copy, structure optimized for conversion and SEO.",
-        "results": ["Unique design, zero templates", "Built-in structural SEO", "Conversion rate above industry average"],
+        "results": [
+          "Unique design, zero templates",
+          "Built-in structural SEO",
+          "Conversion rate above industry average"
+        ],
         "technologies": []
       },
       "placeholder1": {
