@@ -604,8 +604,10 @@ upgrade-insecure-requests;
 | TLS/HTTPS | ✅ Auto | Vercel gestisce certificati |
 | DDoS protection | ✅ Base | Vercel Edge Network |
 | Serverless isolation | ✅ Auto | Ogni function in sandbox |
-| Environment separation | ⚠️ | Production + Preview. Verificare che Preview non usi segreti prod |
-| Custom domain | ✅ | theaiandbeyond.it |
+| Environment separation | ✅ | Production + Preview (deploy automatico da GitHub) |
+| Auto-deploy da GitHub | ✅ | Collegato a `leonardosartimagi-pixel/The-AI-and-beyond` |
+| URL produzione | ✅ | `https://the-ai-and-beyond.vercel.app` |
+| Custom domain | Da configurare | `theaiandbeyond.it` — quando pronto |
 | DNSSEC | **ASSUNZIONE: da verificare** | Dipende dal registrar |
 
 ### GitHub — ✅ CONFIGURATO
@@ -712,7 +714,7 @@ Azioni **VIETATE** in qualsiasi circostanza:
 | 2026-02-06 | AI Chatbot (AICore) mantenuto disabilitato | Superficie d'attacco significativa. Da riabilitare solo dopo audit dedicato. | Positivo (riduce rischio) | Nessuno |
 | 2026-02-06 | ASSUNZIONE: Branch protection non configurata | Repository GitHub non ancora creato. Sarà configurata alla creazione. | Da creare | Push diretto su main possibile fino a configurazione |
 | 2026-02-06 | ~~ASSUNZIONE: 2FA GitHub non verificato~~ | **CONFERMATO dal proprietario**: 2FA attivo. | Nessuno | Nessuno |
-| 2026-02-06 | Rimossa API key OpenAI da .env.local | Chatbot disabilitato (import commentato in page.tsx). API route /api/chat restituisce 503 se key mancante. Key da revocare su dashboard OpenAI. | Positivo — riduce superficie d'attacco | Key potenzialmente compromessa: revocare su platform.openai.com |
+| 2026-02-06 | Rimossa e revocata API key OpenAI | Key rimossa da .env.local e revocata su platform.openai.com. Chatbot disabilitato. API route /api/chat restituisce 503 se key mancante. | Positivo — superficie d'attacco ridotta | Nessuno — key revocata |
 | 2026-02-06 | Chatbot mantenuto disabilitato per decisione proprietario | Feature non necessaria in questa fase. Tutto il codice AICore resta ma non è istanziato. | Positivo — riduce rischio | Codice chat presente ma inerte |
 | 2026-02-06 | ~~Repository GitHub da creare ex-novo~~ | ✅ Creato: `leonardosartimagi-pixel/the-ai-and-beyond` (pubblico). Branch protection, secret scanning, CODEOWNERS, PR template attivi. | Risolto | Nessuno |
 | 2026-02-06 | Repository reso pubblico | Branch protection e secret scanning richiedono Pro per repo privati. Analisi: il codice non contiene segreti, il sito è già esposto. Security-through-obscurity non è sicurezza. Vantaggi tecnici (branch protection, secret scanning gratis) superano il rischio. | Positivo — più protezioni tecniche | Codice visibile (rischio accettabile) |
@@ -725,7 +727,7 @@ Azioni **VIETATE** in qualsiasi circostanza:
 
 | # | Azione | Stato | Owner |
 |---|--------|-------|-------|
-| 1 | ~~Ruotare API key OpenAI~~ | ✅ Key rimossa da .env.local. **Revocare su platform.openai.com** | Proprietario |
+| 1 | ~~Ruotare API key OpenAI~~ | ✅ Key rimossa da .env.local e revocata su platform.openai.com (2026-02-06) | Proprietario |
 | 2 | ~~Verificare/abilitare 2FA su GitHub~~ | ✅ Confermato attivo | Proprietario |
 | 3 | ~~Creare repository GitHub + configurare branch protection~~ | ✅ Completato | Proprietario + Dev |
 
