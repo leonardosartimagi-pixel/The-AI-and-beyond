@@ -46,7 +46,7 @@ describe('Header', () => {
   // TODO: Fix - click event doesn't trigger state update in test env with mocked framer-motion
   it.skip('hamburger button toggles aria-expanded', () => {
     render(<Header />);
-    const hamburger = screen.getAllByRole('button', { name: /open menu/i })[0];
+    const hamburger = screen.getAllByRole('button', { name: /open menu/i })[0]!;
 
     expect(hamburger).toHaveAttribute('aria-expanded', 'false');
     fireEvent.click(hamburger);
