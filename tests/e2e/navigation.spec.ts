@@ -39,10 +39,10 @@ test.describe('Navigation and Smooth Scroll', () => {
     }
 
     const navItems = [
-      { label: 'Chi Sono', section: '#chi-sono' },
+      { label: 'Chi Siamo', section: '#chi-siamo' },
       { label: 'Servizi', section: '#servizi' },
       { label: 'Portfolio', section: '#portfolio' },
-      { label: 'Come Lavoro', section: '#come-lavoro' },
+      { label: 'Come Lavoriamo', section: '#come-lavoriamo' },
       { label: 'Contatti', section: '#contatti' },
     ];
 
@@ -83,7 +83,7 @@ test.describe('Navigation and Smooth Scroll', () => {
   });
 
   test('all section IDs exist on the page', async ({ page }) => {
-    const sections = ['hero', 'chi-sono', 'servizi', 'portfolio', 'come-lavoro', 'contatti'];
+    const sections = ['hero', 'chi-siamo', 'servizi', 'portfolio', 'come-lavoriamo', 'contatti'];
 
     for (const sectionId of sections) {
       const section = page.locator(`#${sectionId}`);
@@ -105,7 +105,7 @@ test.describe('Navigation and Smooth Scroll', () => {
 
     // Tab to first nav item
     await page.keyboard.press('Tab');
-    const firstNavItem = page.locator('nav button:has-text("Chi Sono")');
+    const firstNavItem = page.locator('nav button:has-text("Chi Siamo")');
     await expect(firstNavItem).toBeFocused();
 
     // Press Enter to activate navigation (scroll behavior tested in separate test)

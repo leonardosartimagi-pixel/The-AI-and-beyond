@@ -16,7 +16,7 @@ describe('MobileMenu', () => {
 
   it('renders navigation items when open', () => {
     render(<MobileMenu {...defaultProps} />);
-    expect(screen.getByRole('button', { name: 'Chi Sono' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Chi Siamo' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Servizi' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Portfolio' })).toBeInTheDocument();
   });
@@ -30,8 +30,8 @@ describe('MobileMenu', () => {
     const onNavClick = vi.fn();
     render(<MobileMenu {...defaultProps} onNavClick={onNavClick} />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Chi Sono' }));
-    expect(onNavClick).toHaveBeenCalledWith('chi-sono');
+    fireEvent.click(screen.getByRole('button', { name: 'Chi Siamo' }));
+    expect(onNavClick).toHaveBeenCalledWith('chi-siamo');
   });
 
   it('calls onClose when Escape key is pressed', () => {
