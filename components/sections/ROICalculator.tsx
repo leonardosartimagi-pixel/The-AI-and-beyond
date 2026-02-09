@@ -210,7 +210,6 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                 aria-hidden="true"
               />
             </span>
-            ?
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
