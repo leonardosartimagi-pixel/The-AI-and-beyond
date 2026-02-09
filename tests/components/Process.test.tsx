@@ -16,14 +16,14 @@ describe('Process', () => {
   describe('Section Structure', () => {
     it.skip('renders the process section', () => {
       render(<Process />);
-      const section = screen.getByRole('region', { name: /come lavoro/i });
+      const section = screen.getByRole('region', { name: /come lavoriamo/i });
       expect(section).toBeInTheDocument();
     });
 
     it.skip('has the correct section id', () => {
       render(<Process />);
-      const section = screen.getByRole('region', { name: /come lavoro/i });
-      expect(section).toHaveAttribute('id', 'come-lavoro');
+      const section = screen.getByRole('region', { name: /come lavoriamo/i });
+      expect(section).toHaveAttribute('id', 'come-lavoriamo');
     });
 
     it.skip('displays the section label', () => {
@@ -47,7 +47,7 @@ describe('Process', () => {
 
     it.skip('accepts custom className', () => {
       render(<Process className="custom-class" />);
-      const section = screen.getByRole('region', { name: /come lavoro/i });
+      const section = screen.getByRole('region', { name: /come lavoriamo/i });
       expect(section).toHaveClass('custom-class');
     });
   });
@@ -214,8 +214,8 @@ describe('Process', () => {
   describe('Accessibility', () => {
     it.skip('section has proper aria-label', () => {
       render(<Process />);
-      const section = screen.getByRole('region', { name: /come lavoro/i });
-      expect(section).toHaveAttribute('aria-label', 'Come lavoro');
+      const section = screen.getByRole('region', { name: /come lavoriamo/i });
+      expect(section).toHaveAttribute('aria-label', 'Come lavoriamo');
     });
 
     it.skip('decorative elements have aria-hidden', () => {
@@ -250,7 +250,7 @@ describe('Process', () => {
 
     it.skip('has responsive section padding', () => {
       render(<Process />);
-      const section = screen.getByRole('region', { name: /come lavoro/i });
+      const section = screen.getByRole('region', { name: /come lavoriamo/i });
       expect(section).toHaveClass('py-24', 'lg:py-32');
     });
   });

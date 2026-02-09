@@ -17,13 +17,13 @@ describe('About', () => {
 
   it.skip('has the correct section id', () => {
     render(<About />);
-    const section = screen.getByRole('region', { name: /chi sono/i });
-    expect(section).toHaveAttribute('id', 'chi-sono');
+    const section = screen.getByRole('region', { name: /chi siamo/i });
+    expect(section).toHaveAttribute('id', 'chi-siamo');
   });
 
   it.skip('displays the section label', () => {
     render(<About />);
-    expect(screen.getByText('Chi Sono')).toBeInTheDocument();
+    expect(screen.getByText('Chi Siamo')).toBeInTheDocument();
   });
 
   it.skip('displays the main heading', () => {
