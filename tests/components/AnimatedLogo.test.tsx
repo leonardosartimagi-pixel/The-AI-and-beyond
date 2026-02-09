@@ -2,16 +2,6 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { AnimatedLogo } from '@/components/sections/AnimatedLogo';
 
-// Mock framer-motion to avoid animation complexities in tests
-vi.mock('framer-motion', () => ({
-  motion: {
-    svg: ({ children, ...props }: React.PropsWithChildren<object>) => (
-      <svg {...props}>{children}</svg>
-    ),
-    path: (props: object) => <path {...props} />,
-  },
-}));
-
 // Mock the useReducedMotion hook
 vi.mock('@/hooks', () => ({
   useReducedMotion: () => false,
