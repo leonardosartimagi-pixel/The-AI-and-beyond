@@ -10,7 +10,7 @@ interface FAQProps {
   className?: string;
 }
 
-const FAQ_KEYS = ['ai-fit', 'timeline', 'cost', 'process', 'support'] as const;
+const FAQ_KEYS = ['ai-fit', 'timeline', 'cost', 'process'] as const;
 
 interface FAQItemProps {
   faqKey: string;
@@ -91,7 +91,7 @@ export function FAQ({ className = '' }: FAQProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const headingVariants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
