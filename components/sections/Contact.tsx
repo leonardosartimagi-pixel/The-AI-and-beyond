@@ -10,8 +10,15 @@ import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Button } from '@/components/ui/Button';
-import { contactFormSchema, type ContactFormData } from '@/lib/validations';
-import { TechGridOverlay, SectionDecorations, SectionTitleGlitch } from '@/components/effects';
+import {
+  createContactFormSchema,
+  type ContactFormData,
+} from '@/lib/validations';
+import {
+  TechGridOverlay,
+  SectionDecorations,
+  SectionTitleGlitch,
+} from '@/components/effects';
 
 interface ContactProps {
   className?: string;
@@ -28,13 +35,15 @@ export function Contact({ className = '' }: ContactProps) {
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
 
+  const localizedSchema = createContactFormSchema(locale);
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
     reset,
   } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
+    resolver: zodResolver(localizedSchema),
     mode: 'onChange',
     defaultValues: {
       name: '',
@@ -65,11 +74,7 @@ export function Contact({ className = '' }: ContactProps) {
       reset();
     } catch (error) {
       setFormStatus('error');
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : t('error')
-      );
+      setErrorMessage(error instanceof Error ? error.message : t('error'));
     }
   };
 
@@ -103,13 +108,14 @@ export function Contact({ className = '' }: ContactProps) {
     transition: { duration: 0.4 },
   };
 
-  const isFormDisabled = formStatus === 'submitting' || formStatus === 'success';
+  const isFormDisabled =
+    formStatus === 'submitting' || formStatus === 'success';
 
   return (
     <section
       ref={sectionRef}
       id="contatti"
-      className={`relative overflow-hidden bg-white dark:bg-gray-950 py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden bg-white py-24 dark:bg-gray-950 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
       {/* Tech grid overlay for consistency */}
@@ -120,11 +126,11 @@ export function Contact({ className = '' }: ContactProps) {
 
       {/* Decorative gradient blurs */}
       <div
-        className="pointer-events-none absolute left-0 top-1/4 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-accent/5 blur-3xl"
+        className="pointer-events-none absolute left-0 top-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-accent/5 blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-0 bottom-1/4 translate-x-1/2 h-[400px] w-[400px] rounded-full bg-primary/5 blur-3xl"
+        className="pointer-events-none absolute bottom-1/4 right-0 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
         aria-hidden="true"
       />
 
@@ -141,11 +147,12 @@ export function Contact({ className = '' }: ContactProps) {
               {t('label')}
             </span>
             <h2 className="mt-6 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
-              {t('title')} <SectionTitleGlitch className="text-accent">{t('titleAccent')}</SectionTitleGlitch>
+              {t('title')}{' '}
+              <SectionTitleGlitch className="text-accent">
+                {t('titleAccent')}
+              </SectionTitleGlitch>
             </h2>
-            <p className="mt-4 text-lg text-gray-600">
-              {t('description')}
-            </p>
+            <p className="mt-4 text-lg text-gray-600">{t('description')}</p>
           </motion.div>
 
           {/* Form with glassmorphism container */}
@@ -161,7 +168,7 @@ export function Contact({ className = '' }: ContactProps) {
                 {t('informativa')}{' '}
                 <a
                   href={`/${locale}/privacy`}
-                  className="text-accent underline hover:text-accent-dark transition-colors"
+                  className="text-accent underline transition-colors hover:text-accent-dark"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -172,13 +179,21 @@ export function Contact({ className = '' }: ContactProps) {
 
               <AnimatePresence mode="wait">
                 {formStatus === 'success' ? (
-                  <SuccessMessage key="success" prefersReducedMotion={prefersReducedMotion} t={t} />
+                  <SuccessMessage
+                    key="success"
+                    prefersReducedMotion={prefersReducedMotion}
+                    t={t}
+                  />
                 ) : (
                   <motion.form
                     key="form"
                     onSubmit={handleSubmit(onSubmit)}
                     className="space-y-7"
-                    animate={formStatus === 'error' && !prefersReducedMotion ? shakeAnimation : {}}
+                    animate={
+                      formStatus === 'error' && !prefersReducedMotion
+                        ? shakeAnimation
+                        : {}
+                    }
                     noValidate
                     aria-label={t('label')}
                   >
@@ -226,7 +241,7 @@ export function Contact({ className = '' }: ContactProps) {
                           {t('form.privacy')}{' '}
                           <a
                             href={`/${locale}/privacy`}
-                            className="text-accent underline hover:text-accent-dark transition-colors"
+                            className="text-accent underline transition-colors hover:text-accent-dark"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -248,10 +263,12 @@ export function Contact({ className = '' }: ContactProps) {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className="rounded-lg border border-red-200/80 bg-red-50/90 dark:bg-red-900/20 dark:border-red-800/50 p-4 backdrop-blur-sm"
+                          className="rounded-lg border border-red-200/80 bg-red-50/90 p-4 backdrop-blur-sm dark:border-red-800/50 dark:bg-red-900/20"
                           role="alert"
                         >
-                          <p className="text-sm text-red-600 dark:text-red-400">{errorMessage}</p>
+                          <p className="text-sm text-red-600 dark:text-red-400">
+                            {errorMessage}
+                          </p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -264,7 +281,9 @@ export function Contact({ className = '' }: ContactProps) {
                         isLoading={formStatus === 'submitting'}
                         disabled={isFormDisabled || !isValid}
                       >
-                        {formStatus === 'submitting' ? t('form.submitting') : t('form.submit')}
+                        {formStatus === 'submitting'
+                          ? t('form.submitting')
+                          : t('form.submit')}
                       </Button>
                       <p className="mt-3 text-center text-sm text-gray-400">
                         {t('microCopy')}
@@ -296,7 +315,7 @@ export function Contact({ className = '' }: ContactProps) {
             <p className="text-gray-600">
               <a
                 href="mailto:info@theaiandbeyond.it"
-                className="font-medium text-accent hover:text-accent-dark transition-colors"
+                className="font-medium text-accent transition-colors hover:text-accent-dark"
               >
                 info@theaiandbeyond.it
               </a>
@@ -320,7 +339,7 @@ function SuccessMessage({ prefersReducedMotion, t }: SuccessMessageProps) {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.95 }}
       transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
-      className="flex flex-col items-center justify-center rounded-2xl border border-green-200/80 bg-green-50/90 dark:bg-green-900/20 dark:border-green-800/50 p-8 text-center backdrop-blur-sm"
+      className="flex flex-col items-center justify-center rounded-2xl border border-green-200/80 bg-green-50/90 p-8 text-center backdrop-blur-sm dark:border-green-800/50 dark:bg-green-900/20"
       role="status"
       aria-live="polite"
     >

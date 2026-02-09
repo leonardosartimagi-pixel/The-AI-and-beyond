@@ -4,7 +4,10 @@ test.describe('ROI Calculator', () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem('preferred-locale', 'it');
-      localStorage.setItem('cookie-consent', JSON.stringify({ analytics: true, timestamp: Date.now() }));
+      localStorage.setItem(
+        'cookie-consent',
+        JSON.stringify({ analytics: true, timestamp: Date.now() })
+      );
     });
     await page.goto('/it', { waitUntil: 'domcontentloaded' });
     await page.locator('#roi-calculator').scrollIntoViewIfNeeded();
@@ -25,13 +28,16 @@ test.describe('ROI Calculator', () => {
     await slider.fill('20');
 
     const hoursDisplay = page.locator('text=20h').first();
-    await expect(hoursDisplay).toBeVisible();
+    await expect(hoursDisplay).toBeVisible({ timeout: 5000 });
   });
 
   test('hours slider updates results dynamically', async ({ page }) => {
     const slider = page.locator('#hours-slider');
 
-    const monthlyHoursElement = page.locator('text=Ore/mese risparmiate').locator('..').locator('span.font-heading');
+    const monthlyHoursElement = page
+      .locator('text=Ore/mese risparmiate')
+      .locator('..')
+      .locator('span.font-heading');
 
     await slider.fill('10');
     await expect(monthlyHoursElement).toBeVisible();
@@ -48,9 +54,16 @@ test.describe('ROI Calculator', () => {
     const listbox = page.locator('[role="listbox"]');
     await expect(listbox).toBeVisible();
 
-    const taskTypes = ['Inserimento dati', 'Generazione report', 'Comunicazioni/email', 'Altro'];
+    const taskTypes = [
+      'Inserimento dati',
+      'Generazione report',
+      'Comunicazioni/email',
+      'Altro',
+    ];
     for (const type of taskTypes) {
-      await expect(page.locator(`[role="option"]:has-text("${type}")`)).toBeVisible();
+      await expect(
+        page.locator(`[role="option"]:has-text("${type}")`)
+      ).toBeVisible();
     }
   });
 
@@ -100,7 +113,9 @@ test.describe('ROI Calculator', () => {
   });
 
   test('hourly rate input accepts valid values', async ({ page }) => {
-    const hourlyRateInput = page.locator('input[aria-label="Costo orario in euro"]');
+    const hourlyRateInput = page.locator(
+      'input[aria-label="Costo orario in euro"]'
+    );
     await expect(hourlyRateInput).toBeVisible();
 
     await hourlyRateInput.fill('75');
@@ -108,7 +123,9 @@ test.describe('ROI Calculator', () => {
   });
 
   test('hourly rate input clamps values to valid range', async ({ page }) => {
-    const hourlyRateInput = page.locator('input[aria-label="Costo orario in euro"]');
+    const hourlyRateInput = page.locator(
+      'input[aria-label="Costo orario in euro"]'
+    );
 
     await hourlyRateInput.fill('600');
     await hourlyRateInput.blur();
@@ -121,7 +138,7 @@ test.describe('ROI Calculator', () => {
 
   test('results cards display correct labels', async ({ page }) => {
     await expect(page.locator('text=Ore/mese risparmiate')).toBeVisible();
-    await expect(page.locator("text=Ore/anno risparmiate")).toBeVisible();
+    await expect(page.locator('text=Ore/anno risparmiate')).toBeVisible();
     await expect(page.locator('text=Risparmio annuale')).toBeVisible();
   });
 

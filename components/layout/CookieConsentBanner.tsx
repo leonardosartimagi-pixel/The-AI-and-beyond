@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { useConsentStorage } from '@/hooks/useConsentStorage';
-import { loadAnalytics } from '@/lib/analytics';
 import { Button } from '@/components/ui/Button';
 
 export function CookieConsentBanner() {
@@ -13,13 +12,6 @@ export function CookieConsentBanner() {
   const { status, isLoaded, acceptAll, declineAll } = useConsentStorage();
   const bannerRef = useRef<HTMLDivElement>(null);
   const acceptButtonRef = useRef<HTMLButtonElement>(null);
-
-  // Load analytics if user previously accepted
-  useEffect(() => {
-    if (status === 'accepted') {
-      loadAnalytics();
-    }
-  }, [status]);
 
   // Focus management - focus the banner when it appears
   useEffect(() => {
@@ -34,7 +26,6 @@ export function CookieConsentBanner() {
 
   const handleAccept = () => {
     acceptAll();
-    loadAnalytics();
   };
 
   const handleDecline = () => {

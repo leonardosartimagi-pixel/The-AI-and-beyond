@@ -1,23 +1,43 @@
 import { z } from 'zod';
 
-// Contact Form Schema
-export const contactFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, 'Il nome deve avere almeno 2 caratteri')
-    .max(100, 'Il nome è troppo lungo'),
-  email: z
-    .string()
-    .email('Inserisci un indirizzo email valido'),
-  company: z.string().optional(),
-  message: z
-    .string()
-    .min(10, 'Il messaggio deve avere almeno 10 caratteri')
-    .max(1000, 'Il messaggio è troppo lungo'),
-  privacy: z.literal(true, {
-    errorMap: () => ({ message: 'Devi accettare la privacy policy' }),
-  }),
-});
+const validationMessages = {
+  it: {
+    nameMin: 'Il nome deve avere almeno 2 caratteri',
+    nameMax: 'Il nome è troppo lungo',
+    emailInvalid: 'Inserisci un indirizzo email valido',
+    messageMin: 'Il messaggio deve avere almeno 10 caratteri',
+    messageMax: 'Il messaggio è troppo lungo',
+    privacyRequired: 'Devi accettare la privacy policy',
+  },
+  en: {
+    nameMin: 'Name must be at least 2 characters',
+    nameMax: 'Name is too long',
+    emailInvalid: 'Please enter a valid email address',
+    messageMin: 'Message must be at least 10 characters',
+    messageMax: 'Message is too long',
+    privacyRequired: 'You must accept the privacy policy',
+  },
+} as const;
+
+type SupportedLocale = keyof typeof validationMessages;
+
+export function createContactFormSchema(locale: string = 'it') {
+  const m =
+    validationMessages[locale as SupportedLocale] ?? validationMessages.it;
+
+  return z.object({
+    name: z.string().min(2, m.nameMin).max(100, m.nameMax),
+    email: z.string().email(m.emailInvalid),
+    company: z.string().optional(),
+    message: z.string().min(10, m.messageMin).max(1000, m.messageMax),
+    privacy: z.literal(true, {
+      errorMap: () => ({ message: m.privacyRequired }),
+    }),
+  });
+}
+
+// Default schema (Italian) for server-side API validation
+export const contactFormSchema = createContactFormSchema('it');
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
