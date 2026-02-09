@@ -5,6 +5,10 @@ test.use({ viewport: { width: 375, height: 812 } });
 
 test.describe('Mobile Menu', () => {
   test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('preferred-locale', 'it');
+      localStorage.setItem('cookie-consent', JSON.stringify({ analytics: true, timestamp: Date.now() }));
+    });
     await page.goto('/it', { waitUntil: 'domcontentloaded' });
   });
 
