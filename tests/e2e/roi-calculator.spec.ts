@@ -2,8 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('ROI Calculator', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/it');
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/it', { waitUntil: 'domcontentloaded' });
     await page.locator('#roi-calculator').scrollIntoViewIfNeeded();
   });
 

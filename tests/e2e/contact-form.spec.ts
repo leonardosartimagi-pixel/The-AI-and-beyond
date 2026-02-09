@@ -2,8 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Contact Form', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/it');
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/it', { waitUntil: 'domcontentloaded' });
     // Scroll to contact section
     await page.locator('#contatti').scrollIntoViewIfNeeded();
   });

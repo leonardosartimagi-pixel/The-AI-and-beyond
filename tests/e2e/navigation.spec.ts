@@ -2,8 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Navigation and Smooth Scroll', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/it');
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/it', { waitUntil: 'domcontentloaded' });
   });
 
   test('header is visible and contains navigation items', async ({ page }) => {
