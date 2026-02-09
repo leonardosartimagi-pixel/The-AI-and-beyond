@@ -713,6 +713,7 @@ Azioni **VIETATE** in qualsiasi circostanza:
 | 2026-02-06 | CSP con unsafe-inline/unsafe-eval | Next.js richiede inline scripts per hydration. Nonce-based CSP richiede custom server. | Medio | CSP meno efficace contro XSS avanzato |
 | 2026-02-06 | No WAF dedicato | Vercel fornisce protezione DDoS base. WAF dedicato (Cloudflare) eccessivo per il traffico attuale. | Basso | Attacchi application-layer sofisticati non filtrati |
 | 2026-02-06 | AI Chatbot (AICore) mantenuto disabilitato | Superficie d'attacco significativa. Da riabilitare solo dopo audit dedicato. | Positivo (riduce rischio) | Nessuno |
+| 2026-02-09 | npm audit: critical-only + omit dev | Vuln. high in next@14 (GHSA-9g9p-9gw9, GHSA-h25m-26qc) sono DoS per self-hosted, non applicabili su Vercel. Vuln. dev (esbuild, glob) non in produzione. Upgrade a Next.js 16 da pianificare come task separato. | Basso | DoS non mitigato se si passa a self-hosted |
 | 2026-02-06 | ASSUNZIONE: Branch protection non configurata | Repository GitHub non ancora creato. Sarà configurata alla creazione. | Da creare | Push diretto su main possibile fino a configurazione |
 | 2026-02-06 | ~~ASSUNZIONE: 2FA GitHub non verificato~~ | **CONFERMATO dal proprietario**: 2FA attivo. | Nessuno | Nessuno |
 | 2026-02-06 | Rimossa e revocata API key OpenAI | Key rimossa da .env.local e revocata su platform.openai.com. Chatbot disabilitato. API route /api/chat restituisce 503 se key mancante. | Positivo — superficie d'attacco ridotta | Nessuno — key revocata |
