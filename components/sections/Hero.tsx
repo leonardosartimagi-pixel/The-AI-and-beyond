@@ -7,8 +7,12 @@ import { Badge, Button } from '@/components/ui';
 import { ParticleBackground, GradientMesh } from '@/components/effects';
 import Image from 'next/image';
 
-
-const KEYWORD_KEYS = ['strategy', 'automation', 'development', 'optimization'] as const;
+const KEYWORD_KEYS = [
+  'strategy',
+  'automation',
+  'development',
+  'optimization',
+] as const;
 
 interface HeroProps {
   className?: string;
@@ -100,7 +104,6 @@ export function Hero({ className = '' }: HeroProps) {
         }}
       />
 
-
       {/* Gradient orbs for depth */}
       <div
         className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-accent/10 blur-3xl"
@@ -130,6 +133,7 @@ export function Hero({ className = '' }: HeroProps) {
                 alt="The AI and Beyond"
                 fill
                 className="object-contain drop-shadow-2xl"
+                sizes="(min-width: 1024px) 34rem, (min-width: 768px) 30rem, (min-width: 640px) 24rem, 20rem"
                 priority
               />
               {/* Subtle glow effect */}
@@ -153,12 +157,14 @@ export function Hero({ className = '' }: HeroProps) {
           </motion.h1>
 
           {/* Support text */}
-          <motion.p
-            className="mx-auto mt-6 max-w-2xl text-lg text-white/80 sm:text-xl"
+          <motion.div
+            className="mx-auto mt-6 max-w-2xl text-center text-lg text-white/80 sm:text-xl"
             variants={itemVariants}
           >
-            {t('subtitle')}
-          </motion.p>
+            <p>{t('subtitleLine1')}</p>
+            <p>{t('subtitleLine2')}</p>
+            <p>{t('subtitleLine3')}</p>
+          </motion.div>
 
           {/* Keyword Badges */}
           <motion.div
@@ -192,9 +198,7 @@ export function Hero({ className = '' }: HeroProps) {
             >
               {t('cta')}
             </Button>
-            <p className="mt-4 text-sm text-white/60">
-              {t('microCopy')}
-            </p>
+            <p className="mt-4 text-sm text-white/60">{t('microCopy')}</p>
           </motion.div>
         </motion.div>
 

@@ -10,7 +10,10 @@ interface HeroVideoLogoProps {
   onVideoEnd?: () => void;
 }
 
-export function HeroVideoLogo({ className = '', onVideoEnd }: HeroVideoLogoProps) {
+export function HeroVideoLogo({
+  className = '',
+  onVideoEnd,
+}: HeroVideoLogoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -65,10 +68,17 @@ export function HeroVideoLogo({ className = '', onVideoEnd }: HeroVideoLogoProps
       video.removeEventListener('ended', handleEnded);
       video.removeEventListener('play', handlePlay);
     };
-  }, [prefersReducedMotion, handleCanPlay, handleError, handleEnded, handlePlay]);
+  }, [
+    prefersReducedMotion,
+    handleCanPlay,
+    handleError,
+    handleEnded,
+    handlePlay,
+  ]);
 
   // Dimensioni responsive del logo
-  const logoSizeClasses = 'h-20 w-80 sm:h-24 sm:w-96 md:h-28 md:w-[30rem] lg:h-32 lg:w-[34rem]';
+  const logoSizeClasses =
+    'h-20 w-80 sm:h-24 sm:w-96 md:h-28 md:w-[30rem] lg:h-32 lg:w-[34rem]';
 
   // Fallback statico per reduced motion, errori, o dopo che il video finisce
   if (prefersReducedMotion || hasVideoError) {
@@ -103,7 +113,7 @@ export function HeroVideoLogo({ className = '', onVideoEnd }: HeroVideoLogoProps
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{
               opacity: isVideoLoaded ? 1 : 0,
-              scale: isVideoLoaded ? 1 : 0.9
+              scale: isVideoLoaded ? 1 : 0.9,
             }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -151,6 +161,7 @@ export function HeroVideoLogo({ className = '', onVideoEnd }: HeroVideoLogoProps
                 alt="The AI and Beyond"
                 fill
                 className="object-contain drop-shadow-lg"
+                sizes="(min-width: 1024px) 34rem, (min-width: 768px) 30rem, (min-width: 640px) 24rem, 20rem"
                 priority
               />
             </div>

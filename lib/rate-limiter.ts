@@ -1,79 +1,82 @@
 /**
- * In-memory rate limiter for MVP
+ * Distributed rate limiter using Upstash Redis
  *
- * NOTE: For production at scale, use Vercel KV or Upstash Redis.
- * In-memory storage resets on server restart and doesn't work
- * across multiple serverless instances.
+ * Uses fixed-window counter with TTL-based expiration.
+ * Works across all serverless instances on Vercel.
  */
 
-interface RateLimitRecord {
-  count: number;
-  firstRequest: number;
+import { Redis } from '@upstash/redis';
+
+const WINDOW_SECONDS = 15 * 60; // 15 minutes
+const MAX_REQUESTS = 3;
+const KEY_PREFIX = 'rate_limit:contact:';
+
+let redis: Redis | null = null;
+
+function getRedis(): Redis | null {
+  if (redis) return redis;
+
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+
+  if (!url || !token) {
+    console.warn('[Rate Limiter] KV_REST_API_URL or KV_REST_API_TOKEN not set');
+    return null;
+  }
+
+  redis = new Redis({ url, token });
+  return redis;
 }
 
-const rateLimitStore = new Map<string, RateLimitRecord>();
-
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-const MAX_REQUESTS = 3;
-
 /**
- * Checks if an IP has exceeded the rate limit
+ * Checks if an IP has exceeded the rate limit.
+ * Falls back to allowing the request if Redis is unavailable.
  * @returns true if rate limited, false if allowed
  */
-export function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitStore.get(ip);
+export async function isRateLimited(ip: string): Promise<boolean> {
+  const client = getRedis();
 
-  if (!record) {
-    rateLimitStore.set(ip, { count: 1, firstRequest: now });
+  if (!client) {
     return false;
   }
 
-  const windowExpired = now - record.firstRequest > WINDOW_MS;
+  const key = `${KEY_PREFIX}${ip}`;
 
-  if (windowExpired) {
-    rateLimitStore.set(ip, { count: 1, firstRequest: now });
+  try {
+    const count = await client.incr(key);
+
+    // Set TTL only on first request (when count becomes 1)
+    if (count === 1) {
+      await client.expire(key, WINDOW_SECONDS);
+    }
+
+    return count > MAX_REQUESTS;
+  } catch (error) {
+    console.error(
+      '[Rate Limiter] Redis error:',
+      error instanceof Error ? error.message : 'Unknown error'
+    );
+    // Fail open: allow request if Redis is down
     return false;
   }
-
-  if (record.count >= MAX_REQUESTS) {
-    return true;
-  }
-
-  record.count += 1;
-  rateLimitStore.set(ip, record);
-  return false;
 }
 
 /**
  * Gets remaining requests for an IP
  */
-export function getRemainingRequests(ip: string): number {
-  const record = rateLimitStore.get(ip);
+export async function getRemainingRequests(ip: string): Promise<number> {
+  const client = getRedis();
 
-  if (!record) {
+  if (!client) {
     return MAX_REQUESTS;
   }
 
-  const windowExpired = Date.now() - record.firstRequest > WINDOW_MS;
+  const key = `${KEY_PREFIX}${ip}`;
 
-  if (windowExpired) {
+  try {
+    const count = (await client.get<number>(key)) ?? 0;
+    return Math.max(0, MAX_REQUESTS - count);
+  } catch {
     return MAX_REQUESTS;
-  }
-
-  return Math.max(0, MAX_REQUESTS - record.count);
-}
-
-/**
- * Cleanup expired entries (call periodically to prevent memory leaks)
- */
-export function cleanupExpiredEntries(): void {
-  const now = Date.now();
-  const entries = Array.from(rateLimitStore.entries());
-
-  for (const [ip, record] of entries) {
-    if (now - record.firstRequest > WINDOW_MS) {
-      rateLimitStore.delete(ip);
-    }
   }
 }
