@@ -2,22 +2,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MobileMenu } from '@/components/layout/MobileMenu';
 
-// Mock framer-motion
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, initial, animate, exit, transition, ...props }: { children: React.ReactNode; initial?: unknown; animate?: unknown; exit?: unknown; transition?: unknown }) => (
-      <div {...props}>{children}</div>
-    ),
-    li: ({ children, initial, animate, transition, ...props }: { children: React.ReactNode; initial?: unknown; animate?: unknown; transition?: unknown }) => (
-      <li {...props}>{children}</li>
-    ),
-    button: ({ children, whileHover, whileTap, ...props }: { children: React.ReactNode; whileHover?: unknown; whileTap?: unknown }) => (
-      <button {...props}>{children}</button>
-    ),
-  },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
-
 describe('MobileMenu', () => {
   const defaultProps = {
     isOpen: true,
@@ -66,7 +50,8 @@ describe('MobileMenu', () => {
 
   it('has accessible navigation landmark', () => {
     render(<MobileMenu {...defaultProps} />);
-    expect(screen.getByRole('navigation', { name: /menu mobile/i })).toBeInTheDocument();
+    // Component uses English aria-label: 'Mobile menu'
+    expect(screen.getByRole('navigation', { name: /mobile menu/i })).toBeInTheDocument();
   });
 
   it('renders Parliamone CTA button', () => {
