@@ -1,5 +1,10 @@
 export { ParticleBackground } from './ParticleBackground';
-export { particleConfig, particleConfigMobile, particleConfigLight, particleConfigLightMobile } from './ParticleConfig';
+export {
+  particleConfig,
+  particleConfigMobile,
+  particleConfigLight,
+  particleConfigLightMobile,
+} from './ParticleConfig';
 export { GlobalParticles } from './GlobalParticles';
 export { DecorativeLogoBackground } from './DecorativeLogoBackground';
 export { HeroVideoLogo } from './HeroVideoLogo';
@@ -12,8 +17,10 @@ export { TechGridOverlay, GradientOrb } from './TechGridOverlay';
 export { FloatingVideo } from './FloatingVideo';
 export { TiltCard } from './TiltCard';
 export { CountUpNumber } from './CountUpNumber';
-export { DecorativeConnections, SectionDecorations } from './DecorativeConnections';
-export { AICore } from './AICore';
+export {
+  DecorativeConnections,
+  SectionDecorations,
+} from './DecorativeConnections';
 export { GlassmorphismCard } from './GlassmorphismCard';
 export { ProjectMockup } from './ProjectMockup';
 export { PremiumProfilePlaceholder } from './PremiumProfilePlaceholder';

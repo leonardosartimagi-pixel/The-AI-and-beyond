@@ -33,6 +33,7 @@ Il nostro sito web utilizza solo cookie e strumenti di tracciamento strettamente
 I cookie tecnici sono essenziali per il corretto funzionamento del sito web. Secondo la normativa, non richiedono il consenso preventivo in quanto sono strettamente necessari per fornire i servizi esplicitamente richiesti dall'utente.
 
 #### Cookie di consenso
+
 - **Nome:** `cookie-consent`
 - **Tipo:** localStorage
 - **Durata:** persistente (fino al reset da parte dell'utente)
@@ -41,6 +42,7 @@ I cookie tecnici sono essenziali per il corretto funzionamento del sito web. Sec
 - **Gestore:** The AI and Beyond
 
 #### Preferenze di lingua
+
 - **Nome:** `next-intl locale` (e varianti correlate)
 - **Tipo:** cookie/localStorage gestito dal middleware Next.js
 - **Durata:** sessione o persistente secondo le impostazioni del browser
@@ -48,6 +50,7 @@ I cookie tecnici sono essenziali per il corretto funzionamento del sito web. Sec
 - **Gestore:** The AI and Beyond
 
 #### Token di sviluppo Vercel (solo in preview)
+
 - **Nome:** `__vercel_live_token`
 - **Tipo:** cookie
 - **Durata:** sessione
@@ -59,6 +62,7 @@ I cookie tecnici sono essenziali per il corretto funzionamento del sito web. Sec
 I cookie analitici consentono al gestore del sito di raccogliere informazioni sul comportamento dei visitatori, al fine di migliorare l'esperienza utente e ottimizzare il sito web. Questi cookie non identificano direttamente l'utente, ma memorizzano un identificativo univoco per tracciare sessioni e visualizzazioni di pagina.
 
 #### Vercel Analytics e Web Vitals
+
 - **Nome:** variabili di tracciamento gestite da Vercel (non è un cookie nel senso tradizionale, ma una tecnologia di analisi)
 - **Tipo:** beacons e localStorage
 - **Durata:** i dati sono elaborati e non permanentemente memorizzati
@@ -70,41 +74,16 @@ I cookie analitici consentono al gestore del sito di raccogliere informazioni su
 - **Attivazione:** solo dopo consenso esplicito dell'utente
 - **Conformità:** Vercel Analytics è progettato per essere conforme al RGPD senza necessità di IP anonymization aggiuntiva
 
-#### Google Analytics 4
-- **Note preliminari:** Google Analytics 4 è attualmente configurato ma disattivato fino a quando non implementato nel codice del sito. Quando attivato, sarà caricato SOLO dopo il consenso esplicito dell'utente.
-- **Cookie utilizzati:**
-  - `_ga` - Memorizza un ID cliente casuale per distinguere i visitatori. Durata: 2 anni
-  - `_ga_<container-id>` - Memorizza lo stato della sessione. Durata: 2 anni
-  - `_gid` - Memorizza un ID anonimo per distinguere i visitatori per pagina. Durata: 24 ore
-  - `_gat` - Utilizzato per limitare la velocità di richiesta. Durata: 1 minuto
-- **Scopo:**
-  - Analizzare il comportamento dei visitatori
-  - Generare statistiche sul traffico del sito
-  - Identificare percorsi di navigazione comuni
-  - Migliorare i contenuti in base al comportamento dell'utente
-- **Gestore:**
-  - Principale: Google Ireland Limited, Gordon House, Barrow Street, Dublino 4, Irlanda
-  - Secondario: Google LLC, USA
-- **Privacy Policy:** https://policies.google.com/privacy
-- **Cookie Policy:** https://policies.google.com/technologies/cookies
-- **Configurazione:** `anonymize_ip: true` (anonimizzazione dell'indirizzo IP)
-- **Opt-out:** https://tools.google.com/dlpage/gaoptout
-- **Attivazione:** solo dopo consenso esplicito dell'utente
-
 ---
 
 ## 4. Tabella riepilogativa dei cookie
 
-| Nome Cookie | Gestore | Tipo | Durata | Scopo | Consenso Richiesto |
-|---|---|---|---|---|---|
-| `cookie-consent` | The AI and Beyond | localStorage | Persistente | Memorizzare preferenze di consenso | No |
-| `next-intl locale` | The AI and Beyond | cookie/localStorage | Sessione/Persistente | Preferenza lingua | No |
-| `__vercel_live_token` | Vercel | cookie | Sessione | Token sviluppo (solo preview) | No |
-| Vercel Analytics | Vercel Inc. | beacon/localStorage | Non persistente | Analisi performance e pagine viste | Sì |
-| `_ga` | Google LLC | cookie | 2 anni | Identificazione utente anonimo | Sì |
-| `_ga_<container-id>` | Google LLC | cookie | 2 anni | Stato sessione | Sì |
-| `_gid` | Google LLC | cookie | 24 ore | Identificazione pagina | Sì |
-| `_gat` | Google LLC | cookie | 1 minuto | Throttling richieste | Sì |
+| Nome Cookie           | Gestore           | Tipo                | Durata               | Scopo                              | Consenso Richiesto |
+| --------------------- | ----------------- | ------------------- | -------------------- | ---------------------------------- | ------------------ |
+| `cookie-consent`      | The AI and Beyond | localStorage        | Persistente          | Memorizzare preferenze di consenso | No                 |
+| `next-intl locale`    | The AI and Beyond | cookie/localStorage | Sessione/Persistente | Preferenza lingua                  | No                 |
+| `__vercel_live_token` | Vercel            | cookie              | Sessione             | Token sviluppo (solo preview)      | No                 |
+| Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non persistente      | Analisi performance e pagine viste | Sì                 |
 
 ---
 
@@ -128,6 +107,7 @@ Quando l'utente modifica le preferenze tramite il banner, la scelta viene memori
 L'utente può gestire i cookie anche tramite le impostazioni del proprio browser web. Qui di seguito le istruzioni per i browser più comuni:
 
 #### Google Chrome
+
 1. Aprire Chrome
 2. In alto a destra, cliccare su **Altro** (tre puntini) → **Impostazioni**
 3. Selezionare **Privacy e sicurezza** → **Cookie e altri dati dei siti**
@@ -139,6 +119,7 @@ L'utente può gestire i cookie anche tramite le impostazioni del proprio browser
 **Link diretto:** https://support.google.com/accounts/answer/61050
 
 #### Mozilla Firefox
+
 1. Aprire Firefox
 2. In alto a destra, cliccare sul menu (tre righe) → **Impostazioni**
 3. Selezionare **Privacy e sicurezza**
@@ -148,6 +129,7 @@ L'utente può gestire i cookie anche tramite le impostazioni del proprio browser
 **Link diretto:** https://support.mozilla.org/it/kb/Attivare-disattivare-cookie
 
 #### Apple Safari (macOS)
+
 1. Aprire Safari
 2. Cliccare su **Safari** nel menu in alto → **Preferenze**
 3. Selezionare il tab **Privacy**
@@ -156,6 +138,7 @@ L'utente può gestire i cookie anche tramite le impostazioni del proprio browser
 **Link diretto:** https://support.apple.com/it-it/guide/safari/sfri11471/mac
 
 #### Microsoft Edge
+
 1. Aprire Edge
 2. In alto a destra, cliccare su **Impostazioni** (tre puntini) → **Impostazioni**
 3. Selezionare **Privacy, ricerca e servizi**
@@ -167,19 +150,12 @@ L'utente può gestire i cookie anche tramite le impostazioni del proprio browser
 ### 5.3 Opt-out dai servizi di analytics specifici
 
 #### Opt-out da Vercel Analytics
+
 Vercel Analytics non fornisce un meccanismo di opt-out esplicito perché è progettato per essere privacy-preserving per default. Tuttavia, è possibile:
+
 - Rifiutare il cookie di analytics tramite il banner del nostro sito
 - Disabilitare i beacon nel browser se disponibile
 - Contattarci per richiedere l'esclusione
-
-#### Opt-out da Google Analytics 4
-Google fornisce un'estensione del browser ufficiale per disattivare Google Analytics:
-
-**Browser Add-on Google Analytics Opt-out:** https://tools.google.com/dlpage/gaoptout
-
-Questa estensione segnala a Google che non desiderate essere tracciati da Google Analytics su alcun sito web. Dopo l'installazione, i vostri dati non saranno inviati a Google Analytics.
-
-**Modalità di configurazione:** È anche possibile disabilitare Google Analytics dalle impostazioni del browser o rifiutando il consenso tramite il nostro banner di consenso ai cookie.
 
 ### 5.4 Modalità "Non tracciare" (DNT)
 
@@ -197,6 +173,7 @@ Se il vostro browser supporta la funzione "Non tracciare", potete attivarla:
 Il nostro sito utilizza servizi forniti da terze parti per l'analisi e il funzionamento. Le terze parti utilizzate sono:
 
 ### 6.1 Vercel Inc.
+
 - **Servizio:** Vercel Analytics, Web Vitals
 - **Sito web:** https://vercel.com
 - **Privacy Policy:** https://vercel.com/legal/privacy-policy
@@ -204,21 +181,11 @@ Il nostro sito utilizza servizi forniti da terze parti per l'analisi e il funzio
 - **Sede:** San Francisco, USA
 - **Conformità:** GDPR-compliant
 
-### 6.2 Google LLC / Google Ireland Limited
-- **Servizio:** Google Analytics 4
-- **Sito web:** https://analytics.google.com
-- **Privacy Policy:** https://policies.google.com/privacy
-- **Cookie Policy:** https://policies.google.com/technologies/cookies
-- **Utilizzo:** Analisi del traffico e comportamento degli utenti
-- **Sede:** Dublin (Google Ireland Limited) e USA (Google LLC)
-- **Conformità:** GDPR-compliant con anonimizzazione IP abilitata
-
 ### Informazioni sulla trasferimento dati verso paesi terzi
 
-I servizi analitici di Vercel e Google comportano il trasferimento di dati verso gli Stati Uniti. Per la trasferimento dati verso i paesi terzi, il Titolare si affida ai seguenti meccanismi:
+I servizi analitici di Vercel comportano il trasferimento di dati verso gli Stati Uniti. Per la trasferimento dati verso i paesi terzi, il Titolare si affida ai seguenti meccanismi:
 
-- **Per Vercel:** Vercel ha implementato misure di sicurezza appropriate secondo il GDPR. Per i dettagli, consultare la loro Privacy Policy.
-- **Per Google:** Google utilizza clausole contrattuali standard (Standard Contractual Clauses) e altre misure di salvaguardia. Per i dettagli, consultare https://policies.google.com/privacy/frameworks
+- **Per Vercel:** Vercel ha implementato misure di sicurezza appropriate secondo il GDPR ed è certificato EU-US Data Privacy Framework. Per i dettagli, consultare la loro Privacy Policy.
 
 ---
 
@@ -229,11 +196,13 @@ I servizi analitici di Vercel e Google comportano il trasferimento di dati verso
 Secondo il Regolamento generale sulla protezione dei dati (RGPD) e la Direttiva ePrivacy, il nostro sito richiede il **consenso esplicito e informato** prima di installare cookie non essenziali.
 
 **Il consenso è ottenuto tramite:**
+
 1. Banner di consenso ai cookie che appare al primo caricamento del sito
 2. Informazioni chiare sul tipo di cookie e il loro scopo
 3. Possibilità di accettare o rifiutare selettivamente i cookie
 
 **Il consenso è:**
+
 - Libero (non è un prerequisito per accedere ai contenuti del sito)
 - Specifico (per ogni categoria di cookie)
 - Informato (con link a questa informativa)
@@ -253,6 +222,7 @@ Una volta revocato il consenso, i cookie analitici saranno rimossi dal browser e
 ### 7.3 Conservazione del consenso
 
 Il consenso è memorizzato nel cookie `cookie-consent` con un timestamp. Questo permette al sito di:
+
 - Ricordare la preferenza dell'utente nelle visite successive
 - Ricaricare i cookie analitici se l'utente li ha autorizzati
 - Richiedere un nuovo consenso se il cookie viene eliminato o scade
@@ -270,11 +240,12 @@ Questa informativa è redatta in conformità a:
 - **Decreto Legislativo 1° dicembre 2018, n. 145** (Attuazione della Direttiva ePrivacy)
 
 Il nostro sito è stato configurato per:
+
 - Richiedere il consenso esplicito prima di caricare i cookie analitici
 - Fornire informazioni complete e trasparenti sull'utilizzo dei cookie
 - Permettere all'utente di gestire e revocare il consenso in qualsiasi momento
 - Non utilizzare cookie di profiling, marketing, o advertising
-- Non tracciare l'utente attraverso cookie di terze parti (ad eccezione di Google Analytics e Vercel Analytics, caricati solo con consenso)
+- Non tracciare l'utente attraverso cookie di terze parti (ad eccezione di Vercel Analytics, caricato solo con consenso)
 
 ---
 
@@ -288,6 +259,7 @@ Il Titolare si riserva il diritto di aggiornare questa informativa in qualsiasi 
 - Se cambiano i processori di dati o le loro politiche privacy
 
 Gli aggiornamenti saranno comunicati tramite:
+
 - Pubblicazione della versione aggiornata sul sito (con data "Ultima modifica")
 - Richiesta di nuovo consenso, se necessario
 
@@ -308,6 +280,7 @@ In conformità al RGPD, l'utente ha i seguenti diritti:
 - **Diritto di non essere sottoposto a decisioni interamente automatizzate** (Art. 22 RGPD)
 
 Per esercitare questi diritti, contattare:
+
 - **Email:** privacy@theaiandbeyond.it
 - **Indirizzo:** Via Genova 9, 55049 Viareggio (LU), Italia
 
@@ -327,6 +300,7 @@ Per domande, chiarimenti, o per esercitare i vostri diritti riguardanti i cookie
 Per segnalare violazioni della privacy o reclami riguardanti il trattamento dei dati, è possibile contattare anche l'Autorità Garante per la protezione dei dati personali (Garante Privacy):
 
 **Garante per la protezione dei dati personali**
+
 - **Sito:** https://www.garanteprivacy.it
 - **Centralino:** +39 06 696771
 - **Indirizzo:** Piazza di Monte Citorio, 121 - 00186 Roma, Italia

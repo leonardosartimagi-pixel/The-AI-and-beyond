@@ -75,7 +75,9 @@ export function AuditReportCard({
     try {
       // Dynamic import per ridurre bundle size
       const [html2canvasModule, jsPDFModule] = await Promise.all([
+        // @ts-expect-error - html2canvas removed while AICore is disabled
         import('html2canvas'),
+        // @ts-expect-error - jspdf removed while AICore is disabled
         import('jspdf'),
       ]);
 
@@ -241,11 +243,15 @@ export function AuditReportCard({
               {userData.teamSize} {t('audit.report.people')}
             </li>
             <li>
-              <span className="font-medium">{t('audit.report.challenge')}:</span>{' '}
+              <span className="font-medium">
+                {t('audit.report.challenge')}:
+              </span>{' '}
               {t(`audit.challenges.${userData.challenge}`)}
             </li>
             <li>
-              <span className="font-medium">{t('audit.report.hoursWeek')}:</span>{' '}
+              <span className="font-medium">
+                {t('audit.report.hoursWeek')}:
+              </span>{' '}
               {userData.hoursPerWeek}h
             </li>
           </ul>
@@ -270,9 +276,11 @@ export function AuditReportCard({
               </span>
             </p>
             <p>
-              {roiCalculation.hoursPerMonth}h × {formatPercentage(roiCalculation.efficiencyRate)} ={' '}
+              {roiCalculation.hoursPerMonth}h ×{' '}
+              {formatPercentage(roiCalculation.efficiencyRate)} ={' '}
               <span className="font-semibold text-accent-dark">
-                {roiCalculation.hoursSavedPerMonth}h {t('audit.report.saved')}/mese
+                {roiCalculation.hoursSavedPerMonth}h {t('audit.report.saved')}
+                /mese
               </span>
             </p>
             <p>
@@ -302,7 +310,8 @@ export function AuditReportCard({
             {t('audit.report.atRate', {
               rate: roiCalculation.hourlyRate,
               sector: t(`audit.sectors.${userData.sector}`),
-            })}:
+            })}
+            :
           </p>
           <div className="flex items-baseline gap-3">
             <span className="font-heading text-2xl font-bold text-emerald-700">

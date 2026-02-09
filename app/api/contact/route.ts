@@ -45,7 +45,7 @@ function sanitizeString(value: string): string {
 export async function POST(request: NextRequest) {
   const clientIp = getClientIp(request);
 
-  if (isRateLimited(clientIp)) {
+  if (await isRateLimited(clientIp)) {
     console.log(`[Contact API] Rate limited: ${clientIp}`);
 
     return NextResponse.json(
@@ -82,7 +82,9 @@ export async function POST(request: NextRequest) {
   const { name, email, company, message } = validation.data;
 
   const sanitizedName = sanitizeString(name);
-  const sanitizedCompany = company ? sanitizeString(company) : 'Non specificata';
+  const sanitizedCompany = company
+    ? sanitizeString(company)
+    : 'Non specificata';
   const sanitizedMessage = sanitizeString(message);
 
   const contactEmail = process.env.CONTACT_EMAIL;
@@ -139,7 +141,7 @@ Inviato dal form di contatto di theaiandbeyond.it`,
       {
         status: 200,
         headers: {
-          'X-RateLimit-Remaining': String(getRemainingRequests(clientIp)),
+          'X-RateLimit-Remaining': String(await getRemainingRequests(clientIp)),
         },
       }
     );

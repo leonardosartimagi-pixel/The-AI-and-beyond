@@ -21,9 +21,11 @@
   },
   "skipToContent": "Vai al contenuto principale",
   "hero": {
-    "headline": "Il tuo business può fare di più.",
-    "headlineAccent": "Lo automatizziamo, lo miglioriamo, o lo costruiamo da zero.",
-    "subtitle": "Ottimizziamo il tuo business con l'intelligenza artificiale. Consulenza, automazione, sviluppo — quello che serve, dove serve.",
+    "headline": "Grazie all'AI",
+    "headlineAccent": "il tuo business può fare di più.",
+    "subtitleLine1": "Ottimizziamo il tuo business con l'intelligenza artificiale.",
+    "subtitleLine2": "Consulenza, automazione, sviluppo.",
+    "subtitleLine3": "Quello che serve, dove serve.",
     "cta": "Parliamone",
     "microCopy": "Nessun preventivo automatico. Solo una diagnosi corretta.",
     "scrollHint": "Scorri per saperne di più",
@@ -133,23 +135,47 @@
         "category": "Sviluppo Web App",
         "problem": "L'azienda gestiva KPI sparsi su 4 fogli Excel diversi. Ogni lunedì, il responsabile passava 2 ore a compilare un report aggregato.",
         "solution": "Dashboard web personalizzata, alimentata da API aziendali e Google Sheets. Dati aggiornati in tempo reale, con grafici interattivi e alert automatici quando un KPI scende sotto soglia.",
-        "results": ["Tempo di reportistica: da 2 ore a 0", "KPI visibili in tempo reale", "Zero errori di trascrizione"],
-        "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "REST API", "Chart.js"]
+        "results": [
+          "Tempo di reportistica: da 2 ore a 0",
+          "KPI visibili in tempo reale",
+          "Zero errori di trascrizione"
+        ],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind CSS",
+          "REST API",
+          "Chart.js"
+        ]
       },
       "nis2": {
         "title": "NIS2 Compliance Dashboard",
         "category": "Sviluppo Web App + AI",
         "problem": "Un'azienda soggetta alla direttiva NIS2 non aveva visibilità sullo stato di conformità dei propri reparti. Ogni audit era un esercizio manuale.",
         "solution": "Dashboard interattiva con moduli per ogni requisito NIS2, stato di conformità per reparto, timeline, documentazione allegata. Un layer AI suggerisce priorità e gap critici.",
-        "results": ["Conformità mappata al 100%", "Tempo di preparazione audit: −60%", "Priorità suggerite dall'AI"],
-        "technologies": ["Next.js", "TypeScript", "PostgreSQL", "OpenAI API", "Tailwind CSS"]
+        "results": [
+          "Conformità mappata al 100%",
+          "Tempo di preparazione audit: −60%",
+          "Priorità suggerite dall'AI"
+        ],
+        "technologies": [
+          "Next.js",
+          "TypeScript",
+          "PostgreSQL",
+          "OpenAI API",
+          "Tailwind CSS"
+        ]
       },
       "rituale": {
         "title": "Rituale — Sito Brand",
         "category": "Sito Web",
         "problem": "Un brand di benessere aveva bisogno di una presenza online che comunicasse qualità, cura, identità — non un template generico.",
         "solution": "Sito web su misura con design emozionale, copy curato, struttura ottimizzata per conversione e SEO.",
-        "results": ["Design unico, zero template", "SEO strutturale integrato", "Tasso di conversione sopra media settore"],
+        "results": [
+          "Design unico, zero template",
+          "SEO strutturale integrato",
+          "Tasso di conversione sopra media settore"
+        ],
         "technologies": []
       },
       "placeholder1": {

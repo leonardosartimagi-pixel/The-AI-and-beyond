@@ -6,7 +6,13 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useScrollTo } from '@/hooks';
 import { useConsentStorage } from '@/hooks/useConsentStorage';
 
-const NAV_KEYS = ['about', 'services', 'portfolio', 'process', 'contact'] as const;
+const NAV_KEYS = [
+  'about',
+  'services',
+  'portfolio',
+  'process',
+  'contact',
+] as const;
 const QUICK_LINKS = [
   { key: 'about', href: 'chi-siamo' },
   { key: 'services', href: 'servizi' },
@@ -29,7 +35,10 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-primary dark:bg-gray-900 text-white border-t border-transparent dark:border-gray-800" role="contentinfo">
+    <footer
+      className="border-t border-transparent bg-primary text-white dark:border-gray-800 dark:bg-gray-900"
+      role="contentinfo"
+    >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <FooterBrand onLogoClick={() => scrollTo('hero')} t={t} />
@@ -37,7 +46,12 @@ export function Footer() {
           <FooterContact t={t} />
           <FooterLegal t={t} />
         </div>
-        <FooterBottom year={currentYear} t={t} locale={locale} onManageCookies={resetConsent} />
+        <FooterBottom
+          year={currentYear}
+          t={t}
+          locale={locale}
+          onManageCookies={resetConsent}
+        />
       </div>
     </footer>
   );
@@ -53,19 +67,18 @@ function FooterBrand({ onLogoClick, t }: FooterBrandProps) {
     <div>
       <button
         onClick={onLogoClick}
-        className="relative h-12 w-48 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+        className="relative h-12 w-48 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         aria-label="Home"
       >
         <Image
           src="/images/logo-full-white.svg"
           alt="The AI and Beyond"
           fill
+          sizes="192px"
           className="object-contain"
         />
       </button>
-      <p className="mt-4 text-sm text-white/80">
-        {t('description')}
-      </p>
+      <p className="mt-4 text-sm text-white/80">{t('description')}</p>
     </div>
   );
 }
@@ -79,13 +92,15 @@ interface FooterNavProps {
 function FooterNav({ onNavClick, t, tNav }: FooterNavProps) {
   return (
     <div>
-      <h3 className="font-heading text-lg font-semibold mb-4">{t('quickLinks')}</h3>
+      <h3 className="mb-4 font-heading text-lg font-semibold">
+        {t('quickLinks')}
+      </h3>
       <ul className="space-y-2" role="list">
         {QUICK_LINKS.map((link) => (
           <li key={link.href}>
             <button
               onClick={() => onNavClick(link.href)}
-              className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+              className="rounded text-white/80 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             >
               {tNav(link.key)}
             </button>
@@ -103,12 +118,14 @@ interface FooterContactProps {
 function FooterContact({ t }: FooterContactProps) {
   return (
     <div>
-      <h3 className="font-heading text-lg font-semibold mb-4">{t('contactTitle')}</h3>
+      <h3 className="mb-4 font-heading text-lg font-semibold">
+        {t('contactTitle')}
+      </h3>
       <ul className="space-y-2" role="list">
         <li>
           <a
             href={`mailto:${CONTACT_INFO.email}`}
-            className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+            className="rounded text-white/80 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             {CONTACT_INFO.email}
           </a>
@@ -118,7 +135,7 @@ function FooterContact({ t }: FooterContactProps) {
             href={CONTACT_INFO.linkedIn}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/80 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+            className="rounded text-white/80 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             {t('linkedin')}
           </a>
@@ -135,7 +152,9 @@ interface FooterLegalProps {
 function FooterLegal({ t }: FooterLegalProps) {
   return (
     <div>
-      <h3 className="font-heading text-lg font-semibold mb-4">{t('legalTitle')}</h3>
+      <h3 className="mb-4 font-heading text-lg font-semibold">
+        {t('legalTitle')}
+      </h3>
       <ul className="space-y-2 text-sm text-white/80" role="list">
         <li>{t('address')}</li>
         <li>{t('piva')}</li>
@@ -152,13 +171,12 @@ interface FooterBottomProps {
 }
 
 function FooterBottom({ year, t, locale, onManageCookies }: FooterBottomProps) {
-  const linkClass = "text-sm text-white/60 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded";
+  const linkClass =
+    'text-sm text-white/60 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded';
 
   return (
-    <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <p className="text-sm text-white/60">
-        {t('copyright', { year })}
-      </p>
+    <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <p className="text-sm text-white/60">{t('copyright', { year })}</p>
       <div className="flex flex-wrap items-center gap-4">
         <Link href={`/${locale}/privacy`} className={linkClass}>
           {t('privacy')}
@@ -169,11 +187,7 @@ function FooterBottom({ year, t, locale, onManageCookies }: FooterBottomProps) {
         <Link href={`/${locale}/terms`} className={linkClass}>
           {t('terms')}
         </Link>
-        <button
-          type="button"
-          onClick={onManageCookies}
-          className={linkClass}
-        >
+        <button type="button" onClick={onManageCookies} className={linkClass}>
           {t('manageCookies')}
         </button>
       </div>

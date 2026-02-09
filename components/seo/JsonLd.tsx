@@ -1,12 +1,21 @@
-export function JsonLd() {
+import { SITE_URL, SITE_NAME } from '@/lib/constants';
+
+interface JsonLdProps {
+  locale: string;
+}
+
+export function JsonLd({ locale }: JsonLdProps) {
+  const isItalian = locale === 'it';
+
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'The AI and Beyond',
-    url: 'https://theaiandbeyond.it',
-    logo: 'https://theaiandbeyond.it/logo.png',
-    description:
-      "Trasformo idee in soluzioni AI che funzionano. Consulenza e sviluppo per aziende italiane che vogliono crescere con l'intelligenza artificiale.",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo.png`,
+    description: isItalian
+      ? "Trasformiamo idee in soluzioni AI che funzionano. Consulenza e sviluppo per aziende che vogliono crescere con l'intelligenza artificiale."
+      : 'We turn ideas into AI solutions that work. Consulting and development for businesses looking to grow with artificial intelligence.',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'IT',
@@ -22,37 +31,48 @@ export function JsonLd() {
   const websiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'The AI and Beyond',
-    url: 'https://theaiandbeyond.it',
-    description:
-      "Consulenza e sviluppo AI per aziende italiane che vogliono crescere con l'intelligenza artificiale.",
+    name: SITE_NAME,
+    url: `${SITE_URL}/${locale}`,
+    description: isItalian
+      ? "Consulenza e sviluppo AI per aziende che vogliono crescere con l'intelligenza artificiale."
+      : 'AI consulting and development for businesses looking to grow with artificial intelligence.',
     publisher: {
       '@type': 'Organization',
-      name: 'The AI and Beyond',
+      name: SITE_NAME,
     },
-    inLanguage: 'it-IT',
+    inLanguage: isItalian ? 'it-IT' : 'en-US',
   };
 
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Consulenza e Sviluppo AI',
+    name: isItalian
+      ? 'Consulenza e Sviluppo AI'
+      : 'AI Consulting & Development',
     provider: {
       '@type': 'Organization',
-      name: 'The AI and Beyond',
+      name: SITE_NAME,
     },
-    description:
-      'Servizi di consulenza e sviluppo di soluzioni basate su intelligenza artificiale per aziende italiane.',
+    description: isItalian
+      ? 'Servizi di consulenza e sviluppo di soluzioni basate su intelligenza artificiale per aziende.'
+      : 'Consulting services and development of artificial intelligence solutions for businesses.',
     areaServed: {
       '@type': 'Country',
-      name: 'Italia',
+      name: isItalian ? 'Italia' : 'Italy',
     },
-    serviceType: [
-      'Consulenza AI',
-      'Sviluppo AI',
-      'Automazione Processi',
-      'Machine Learning',
-    ],
+    serviceType: isItalian
+      ? [
+          'Consulenza AI',
+          'Sviluppo AI',
+          'Automazione Processi',
+          'Machine Learning',
+        ]
+      : [
+          'AI Consulting',
+          'AI Development',
+          'Process Automation',
+          'Machine Learning',
+        ],
   };
 
   return (
