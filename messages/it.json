@@ -21,8 +21,8 @@
   },
   "skipToContent": "Vai al contenuto principale",
   "hero": {
-    "headline": "Non tutto ha bisogno di AI.",
-    "headlineAccent": "Ma dove serve, cambia tutto.",
+    "headline": "Il tuo business può fare di più.",
+    "headlineAccent": "Lo automatizziamo, lo miglioriamo, o lo costruiamo da zero.",
     "subtitle": "Ottimizziamo il tuo business con l'intelligenza artificiale. Consulenza, automazione, sviluppo — quello che serve, dove serve.",
     "cta": "Parliamone",
     "microCopy": "Nessun preventivo automatico. Solo una diagnosi corretta.",
@@ -237,7 +237,7 @@
   "roiCalculator": {
     "label": "Calcola il ROI",
     "title": "Quanto ti costa",
-    "titleAccent": "non automatizzare",
+    "titleAccent": "non automatizzare?",
     "description": "Inserisci i tuoi dati e scopri quanto tempo e denaro potresti recuperare ogni anno.",
     "inputTitle": "Inserisci i tuoi dati",
     "hoursLabel": "Ore settimanali su attività ripetitive",
