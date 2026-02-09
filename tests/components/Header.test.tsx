@@ -27,26 +27,26 @@ describe('Header', () => {
 
   it('renders hamburger menu button', () => {
     render(<Header />);
-    // Component uses English aria-label: 'Open menu'
-    expect(screen.getByRole('button', { name: /open menu/i })).toBeInTheDocument();
+    // Now uses translated aria-label: 'Apri menu' (from t('openMenu'))
+    expect(screen.getByRole('button', { name: /apri menu/i })).toBeInTheDocument();
   });
 
-  it('has navigation element', () => {
+  it('has navigation element with proper label', () => {
     render(<Header />);
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
+    // Now uses t('mainNav') = 'Navigazione principale'
+    expect(screen.getByRole('navigation', { name: /navigazione principale/i })).toBeInTheDocument();
   });
 
-  it('logo has accessible label', () => {
+  it('logo has accessible home label', () => {
     render(<Header />);
-    // Logo button and nav button both match "Chi Sono" (from t('about'))
-    const chiSonoButtons = screen.getAllByRole('button', { name: /chi sono/i });
-    expect(chiSonoButtons.length).toBeGreaterThanOrEqual(1);
+    // Now uses t('home') = 'Torna alla home'
+    expect(screen.getByRole('button', { name: /torna alla home/i })).toBeInTheDocument();
   });
 
   // TODO: Fix - click event doesn't trigger state update in test env with mocked framer-motion
   it.skip('hamburger button toggles aria-expanded', () => {
     render(<Header />);
-    const hamburger = screen.getAllByRole('button', { name: /open menu/i })[0]!;
+    const hamburger = screen.getAllByRole('button', { name: /apri menu/i })[0]!;
 
     expect(hamburger).toHaveAttribute('aria-expanded', 'false');
     fireEvent.click(hamburger);
