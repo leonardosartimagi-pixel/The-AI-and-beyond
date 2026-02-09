@@ -120,7 +120,7 @@ Messaggio:
 ${sanitizedMessage}
 
 ---
-Inviato dal form di contatto di theaiandbeyond.com`,
+Inviato dal form di contatto di theaiandbeyond.it`,
     });
 
     if (error) {

@@ -11,8 +11,10 @@ interface PortfolioProps {
   className?: string;
 }
 
-const PROJECT_KEYS = ['eswbs', 'maintenance', 'healthcare', 'email', 'rag'] as const;
+const PROJECT_KEYS = ['datalens', 'nis2', 'rituale', 'placeholder1', 'placeholder2'] as const;
 type ProjectKey = (typeof PROJECT_KEYS)[number];
+const REAL_PROJECT_KEYS: readonly ProjectKey[] = ['datalens', 'nis2', 'rituale'];
+const isPlaceholder = (key: string) => key === 'placeholder1' || key === 'placeholder2';
 
 // Bento grid position configurations
 const BENTO_POSITIONS = {
@@ -43,6 +45,32 @@ function BentoCard({
   t,
 }: BentoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  // Render placeholder cards with a "coming soon" style
+  if (isPlaceholder(projectKey)) {
+    return (
+      <motion.article
+        layout
+        layoutId={`bento-card-${projectKey}`}
+        className="group relative col-span-1 row-span-1"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: isInView ? 0.6 : 0, scale: isInView ? 1 : 0.9 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
+      >
+        <div className="flex h-full min-h-[200px] w-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50/50 p-6 text-center dark:border-gray-800 dark:bg-gray-900/50">
+          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+            <svg className="h-5 w-5 text-gray-400 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </div>
+          <p className="font-heading text-sm font-medium text-gray-400 dark:text-gray-600">
+            {t(`items.${projectKey}.title`)}
+          </p>
+        </div>
+      </motion.article>
+    );
+  }
+
   const technologies = t.raw(`items.${projectKey}.technologies`) as string[];
 
   const handleClick = () => {
@@ -148,18 +176,20 @@ function BentoCard({
           </p>
 
           {/* Technology badges */}
-          <div className="flex flex-wrap gap-1.5">
-            {technologies.slice(0, isFeatured ? 5 : 2).map((tech) => (
-              <Badge key={tech} variant="default" size="sm" animated={false}>
-                {tech}
-              </Badge>
-            ))}
-            {technologies.length > (isFeatured ? 5 : 2) && (
-              <Badge variant="outline" size="sm" animated={false}>
-                +{technologies.length - (isFeatured ? 5 : 2)}
-              </Badge>
-            )}
-          </div>
+          {technologies.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {technologies.slice(0, isFeatured ? 5 : 2).map((tech) => (
+                <Badge key={tech} variant="default" size="sm" animated={false}>
+                  {tech}
+                </Badge>
+              ))}
+              {technologies.length > (isFeatured ? 5 : 2) && (
+                <Badge variant="outline" size="sm" animated={false}>
+                  +{technologies.length - (isFeatured ? 5 : 2)}
+                </Badge>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Gradient border on hover */}
@@ -364,18 +394,20 @@ function PortfolioModal({
                   </ul>
                 </div>
 
-                <div className="mb-8">
-                  <h3 className="mb-3 font-heading text-sm font-semibold uppercase tracking-wider text-gray-500">
-                    {t('technologies')}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {technologies.map((tech) => (
-                      <Badge key={tech} variant="primary" size="md" animated={false}>
-                        {tech}
-                      </Badge>
-                    ))}
+                {technologies.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="mb-3 font-heading text-sm font-semibold uppercase tracking-wider text-gray-500">
+                      {t('technologies')}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {technologies.map((tech) => (
+                        <Badge key={tech} variant="primary" size="md" animated={false}>
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <a
                   href="#contatti"
@@ -432,13 +464,16 @@ export function Portfolio({ className = '' }: PortfolioProps) {
   };
 
   const handleSetFeatured = (projectKey: ProjectKey) => {
-    setFeaturedProject(projectKey);
+    if (!isPlaceholder(projectKey)) {
+      setFeaturedProject(projectKey);
+    }
   };
 
-  // Reorder projects: featured first, then others
+  // Reorder projects: featured first, then other real projects, then placeholders
   const orderedProjects = [
     featuredProject,
-    ...PROJECT_KEYS.filter((key) => key !== featuredProject),
+    ...REAL_PROJECT_KEYS.filter((key) => key !== featuredProject),
+    ...PROJECT_KEYS.filter((key) => isPlaceholder(key)),
   ];
 
   return (

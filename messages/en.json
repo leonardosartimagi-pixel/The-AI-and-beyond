@@ -1,16 +1,16 @@
 {
   "meta": {
-    "title": "The AI and Beyond | AI Consulting & Development",
-    "description": "I turn ideas into AI solutions that work. Consulting and development for businesses ready to grow with artificial intelligence.",
-    "ogTitle": "The AI and Beyond | AI Consulting & Development",
-    "ogDescription": "I turn ideas into AI solutions that work. Consulting and development for businesses ready to grow with artificial intelligence.",
-    "ogAlt": "The AI and Beyond - AI Consulting & Development"
+    "title": "The AI and Beyond — AI Consulting & Software Development",
+    "description": "We optimize your business with AI. Consulting, automation, AI agents, custom development — for businesses that want real results.",
+    "ogTitle": "The AI and Beyond — AI that works where it matters",
+    "ogDescription": "AI consulting and development for businesses. Automation, AI agents, web apps — what's needed, where it's needed.",
+    "ogAlt": "The AI and Beyond — AI Consulting & Software Development"
   },
   "nav": {
-    "about": "About",
+    "about": "About Us",
     "services": "Services",
     "portfolio": "Portfolio",
-    "process": "How I Work",
+    "process": "How We Work",
     "contact": "Contact",
     "cta": "Let's Talk",
     "language": "Language",
@@ -21,79 +21,96 @@
   },
   "skipToContent": "Skip to main content",
   "hero": {
-    "headline": "I turn ideas into AI solutions",
-    "headlineAccent": "that work",
-    "subtitle": "Consulting and development for businesses ready to grow with artificial intelligence",
-    "cta": "Discover how I can help",
+    "headline": "Not everything needs AI.",
+    "headlineAccent": "But where it matters, it changes everything.",
+    "subtitle": "We optimize your business with artificial intelligence. Consulting, automation, development — what's needed, where it's needed.",
+    "cta": "Let's Talk",
+    "microCopy": "No automated quotes. Just the right diagnosis.",
     "scrollHint": "Scroll to learn more",
     "keywords": {
-      "quality": "Quality",
-      "speed": "Speed",
-      "security": "Security",
-      "control": "Control"
+      "strategy": "AI Strategy",
+      "automation": "Automation",
+      "development": "Development",
+      "optimization": "Optimization"
     }
   },
   "brandShowcase": {
-    "label": "Welcome",
-    "tagline": "Artificial Intelligence at the service of your business",
-    "subtitle": "Let's transform today's challenges into tomorrow's opportunities",
+    "label": "Our approach",
+    "tagline": "What we build, works every day.",
+    "subtitle": "What's not needed, we don't build.",
     "scrollHint": "Keep discovering"
   },
   "about": {
-    "label": "About",
-    "title": "I turn challenges into",
-    "titleAccent": "opportunities",
-    "intro": "My name is Leonardo and I help businesses and professionals transform their challenges into opportunities through artificial intelligence.",
-    "paragraph1": "I don't sell unrealistic promises: I analyze your context, identify where AI can truly make a difference, and build solutions that work.",
-    "paragraph2": "Every project starts with listening. Because the best technology is the one that solves real problems.",
+    "label": "About Us",
+    "title": "About",
+    "titleAccent": "Us",
+    "intro": "The AI and Beyond was born from Leonardo Sarti Magi's experience: an AI consultant and software developer with a direct approach to solving real problems.",
+    "paragraph1": "But The AI and Beyond is not a single person. It's a structure designed to be lean, fast, and precise — where human expertise and AI tools work together on every project.",
+    "paragraph2": "When you work with us, you're not working with a freelancer doing everything alone. You're working with a system where every analysis, every automation, every deliverable goes through AI tools that we ourselves use every day. It's our way of proving AI works: we use it before recommending it.",
+    "paragraph3": "Our starting point is always the same: where are you losing time, money, or control over a process? From there, we figure out if AI is the right answer. Sometimes it is. Sometimes it's not. Either way, you have a clear picture before a single line of code is written.",
+    "paragraph4": "We've worked on systems where errors are costly: industrial maintenance, regulatory compliance, business-critical applications. This taught us one thing: technology that works is technology that disappears from daily life — no one has to think about it.",
     "credentials": {
       "practical": {
-        "title": "Practical Approach",
-        "description": "Concrete solutions, not theory"
+        "title": "Direct Approach",
+        "description": "We analyze the problem before proposing solutions"
       },
       "fast": {
-        "title": "Fast Results",
-        "description": "Working prototypes in weeks"
+        "title": "AI-First",
+        "description": "We use AI before recommending it"
       },
       "custom": {
         "title": "Custom-Made",
-        "description": "Tailored to your context"
+        "description": "Every project starts from your context"
       }
     },
-    "photoAlt": "Leonardo - AI Consultant"
+    "photoAlt": "The AI and Beyond - AI Consulting"
   },
   "services": {
     "label": "Services",
-    "title": "Custom AI",
-    "titleAccent": "solutions",
-    "description": "From idea to implementation, I guide you through every step of the innovation journey.",
+    "title": "What we",
+    "titleAccent": "do",
+    "description": "We don't build a single thing. We optimize how you work. With tools that already exist, or with tools designed just for you.",
     "learnMore": "Learn more",
     "close": "Close",
+    "problemLabel": "The problem",
+    "outcomeLabel": "What changes after",
+    "differentLabel": "Why it's different",
+    "bridge": "These aren't off-the-shelf services. They're the ways we solve the problems businesses bring us every day. Small or large. One person or a hundred.",
     "items": {
       "consulting": {
-        "title": "AI Consulting",
-        "description": "Analysis and strategy to integrate AI into your business",
-        "expanded": "Together we evaluate your business context to identify the most impactful opportunities. I guide you in choosing the right technologies and defining a realistic roadmap."
+        "title": "AI Strategy",
+        "description": "A clear map of where AI makes a difference in your processes",
+        "problem": "You know AI could help. But you don't know where to start. And every vendor promises revolutions without telling you what actually makes sense for your case.",
+        "outcome": "You have a clear map. You know where AI makes a difference in your processes, which tools you need, and which you don't. No blind investments.",
+        "different": "We start from the inefficiency you see every day — and verify if AI is the solution or if something else is needed. Even if the answer is \"no AI.\" Building the wrong thing is a waste for everyone."
       },
       "webdev": {
-        "title": "Web App Development",
-        "description": "Modern and high-performance web applications",
-        "expanded": "I create custom web applications using the most modern technologies. Focus on performance, security, and user experience for results that make a difference."
+        "title": "Custom Development",
+        "description": "Tools built around how your team actually works",
+        "problem": "Your team works with tools that weren't designed for your workflow. You adapt to the software. Workarounds, parallel spreadsheets, manual steps that exist only because the system won't allow otherwise.",
+        "outcome": "You have a tool built around how your team actually works. Manual steps disappear. The workflow is the right one for you.",
+        "different": "We don't develop generic software. We start from your process, understand it, and build something that makes it simpler. If a process already works well, we don't intervene."
       },
       "agents": {
-        "title": "AI Agents",
-        "description": "Intelligent automations and virtual assistants",
-        "expanded": "I develop AI agents that automate repetitive tasks and empower your team. From email automation to virtual assistants with RAG for documentation."
+        "title": "Intelligent Automation",
+        "description": "AI agents that handle repetitive tasks autonomously",
+        "problem": "Your team spends hours every week on repetitive tasks. Data entry, email sorting, reports, follow-ups. Necessary activities, but ones that don't require human expertise.",
+        "outcome": "An AI agent handles these activities autonomously. Your team only intervenes on exceptions — where the system doesn't have enough context to decide on its own. Low-value work disappears from the day.",
+        "different": "We're not talking about simple auto-reply bots. We're talking about agents that work: they receive emails, classify them, extract data into your management system, respond to clients, and only notify exceptions. They integrate with your tools — CRM, email, management systems — and work even when no one is watching."
       },
       "prototypes": {
-        "title": "Rapid Prototypes",
-        "description": "MVPs and proof of concepts in short timeframes",
-        "expanded": "I transform your ideas into working prototypes in weeks, not months. Perfect for validating concepts before major investments."
+        "title": "Rapid Validation",
+        "description": "Working MVP in 3-4 weeks to validate your idea",
+        "problem": "You have an idea for a product or process. But investing months of development before knowing if it works is a risk you don't want to take.",
+        "outcome": "In 3-4 weeks you have a working MVP — not polished, but enough to answer the real question. Real feedback from real users. You decide the next step with data, not assumptions.",
+        "different": "We optimize for speed of learning, not quantity of features. A prototype must answer one question: \"Does this thing work?\" The faster you get to the answer, the less you risk."
       },
       "pm": {
-        "title": "PM Optimization",
-        "description": "AI tools for efficient project management",
-        "expanded": "I integrate AI tools into your project management processes to optimize planning, tracking, and team communication."
+        "title": "Operational Optimization",
+        "description": "AI tools integrated into your workflow to eliminate manual coordination",
+        "problem": "Coordination steals time you should dedicate to real work. Status updates, resource reallocation, weekly reports — all manual, all repetitive.",
+        "outcome": "AI tools integrated into your workflow automate coordination. Automatic reports, smart alerts, real-time visibility. Without asking anyone \"where are we at?\"",
+        "different": "We don't replace your tools. We make them smarter. We work with what you already use — Notion, Jira, Linear, Asana — and add a layer of automation that eliminates the mechanical part."
       }
     }
   },
@@ -101,7 +118,7 @@
     "label": "Portfolio",
     "title": "Completed",
     "titleAccent": "projects",
-    "description": "Real cases of digital transformation and AI automation.",
+    "description": "Real cases. No demos, no mockups — only solutions that are in production today.",
     "viewDetails": "View details",
     "close": "Close",
     "problem": "Problem",
@@ -109,46 +126,47 @@
     "results": "Results",
     "technologies": "Technologies",
     "hint": "Click on a project to expand it",
+    "comingSoon": "Coming soon",
     "items": {
-      "eswbs": {
-        "title": "ESWBS App",
-        "category": "Web Application",
-        "problem": "Complex naval maintenance management system difficult to navigate",
-        "solution": "Modern web application for ESWBS component management and search with intuitive interface",
-        "results": ["Search time reduced by 70%", "User-friendly interface", "Always up-to-date data"],
-        "technologies": ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS"]
+      "datalens": {
+        "title": "DataLens — Analytics Dashboard",
+        "category": "Web App Development",
+        "problem": "The company managed KPIs spread across 4 different Excel sheets. Every Monday, the manager spent 2 hours compiling an aggregated report.",
+        "solution": "Custom web dashboard, powered by business APIs and Google Sheets. Real-time data updates, with interactive charts and automatic alerts when a KPI drops below threshold.",
+        "results": ["Reporting time: from 2 hours to 0", "KPIs visible in real time", "Zero transcription errors"],
+        "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "REST API", "Chart.js"]
       },
-      "maintenance": {
-        "title": "Maintenance Data Analysis",
-        "category": "Data Analysis",
-        "problem": "Manual comparison of maintenance schedules in different languages (IT/EN)",
-        "solution": "Automated analysis and data matching system with visual reports",
-        "results": ["Process 10x faster", "Errors reduced by 95%", "Automatic reports"],
-        "technologies": ["Python", "Pandas", "AI/ML", "Data Visualization"]
+      "nis2": {
+        "title": "NIS2 Compliance Dashboard",
+        "category": "Web App Development + AI",
+        "problem": "A company subject to the NIS2 directive had no visibility on the compliance status of its departments. Every audit was a manual exercise.",
+        "solution": "Interactive dashboard with modules for each NIS2 requirement, department compliance status, timelines, attached documentation. An AI layer suggests priorities and critical gaps.",
+        "results": ["Compliance mapped at 100%", "Audit preparation time: −60%", "AI-suggested priorities"],
+        "technologies": ["Next.js", "TypeScript", "PostgreSQL", "OpenAI API", "Tailwind CSS"]
       },
-      "healthcare": {
-        "title": "Professional Web App",
-        "category": "Web Application",
-        "problem": "Manual and inefficient appointment management for healthcare professionals",
-        "solution": "Online booking platform with calendar management and automatic notifications",
-        "results": ["No-shows reduced by 40%", "Simplified management", "Happier clients"],
-        "technologies": ["React", "Node.js", "MongoDB", "Twilio"]
+      "rituale": {
+        "title": "Rituale — Brand Website",
+        "category": "Website",
+        "problem": "A wellness brand needed an online presence that communicated quality, care, identity — not a generic template.",
+        "solution": "Custom website with emotional design, curated copy, structure optimized for conversion and SEO.",
+        "results": ["Unique design, zero templates", "Built-in structural SEO", "Conversion rate above industry average"],
+        "technologies": []
       },
-      "email": {
-        "title": "Coaching Email Automation",
-        "category": "Automation",
-        "problem": "Manual follow-ups requiring hours of work weekly",
-        "solution": "Personalized email automation system with intelligent sequences",
-        "results": ["4 hours saved weekly", "Engagement increased by 60%", "Zero forgotten emails"],
-        "technologies": ["Gmail API", "Python", "AI Personalization"]
+      "placeholder1": {
+        "title": "[Coming soon]",
+        "category": "",
+        "problem": "",
+        "solution": "",
+        "results": [],
+        "technologies": []
       },
-      "rag": {
-        "title": "AI Assistant with RAG",
-        "category": "AI Development",
-        "problem": "Company knowledge base difficult to consult and update",
-        "solution": "AI chatbot with Retrieval-Augmented Generation for intelligent search",
-        "results": ["Instant answers", "Source citations", "Always up-to-date"],
-        "technologies": ["LangChain", "OpenAI", "Vector DB", "Next.js"]
+      "placeholder2": {
+        "title": "[Coming soon]",
+        "category": "",
+        "problem": "",
+        "solution": "",
+        "results": [],
+        "technologies": []
       }
     }
   },
@@ -156,28 +174,13 @@
     "label": "Before & After",
     "title": "The power of",
     "titleAccent": "transformation",
-    "description": "See how AI can revolutionize your daily processes.",
-    "scrollHint": "Scroll to discover the transformation",
-    "dragHint": "Drag to compare",
+    "description": "Three real scenarios. Before and after our intervention.",
+    "scrollHint": "Scroll to continue",
     "before": "Before",
     "after": "After",
     "phase1": {
       "label": "The Problem",
-      "title": "How much time do you waste every day?",
-      "items": {
-        "reports": {
-          "title": "2 hours for a report",
-          "description": "Manual data collection, formatting, endless revisions"
-        },
-        "emails": {
-          "title": "Forgotten follow-ups",
-          "description": "Emails get lost, clients wait, opportunities fade"
-        },
-        "data": {
-          "title": "Errors in data",
-          "description": "Copy-paste between spreadsheets, typos, inconsistencies"
-        }
-      }
+      "title": "How much time do you waste every day?"
     },
     "phase2": {
       "label": "The Question",
@@ -187,79 +190,67 @@
     },
     "phase3": {
       "label": "The Solution",
-      "title": "With AI, everything changes",
-      "items": {
-        "reports": {
-          "title": "Report in 5 minutes",
-          "description": "Automatic aggregation, perfect formatting, one click"
-        },
-        "emails": {
-          "title": "Automatic follow-ups",
-          "description": "Intelligent sequences, perfect timing, zero forgotten"
-        },
-        "data": {
-          "title": "Zero errors",
-          "description": "Validated data, automatic consistency, reliable insights"
-        }
-      }
+      "title": "With AI, everything changes"
     },
     "phase4": {
-      "label": "The Results",
-      "title": "Numbers speak clearly",
-      "metric1": "Time saved",
-      "metric2": "Data accuracy",
-      "metric3": "Availability",
-      "cta": "Start the transformation"
+      "label": "The Result",
+      "title": "Less time wasted. More control.",
+      "description": "You don't need a massive project. You need the right one — built on a real problem, with tools that work from day one.",
+      "cta": "Let's talk"
     },
     "items": {
       "reports": {
-        "title": "Report Generation",
+        "title": "Weekly report",
         "before": {
-          "time": "4 hours",
-          "description": "Manual data collection, Excel formatting, multiple revisions"
+          "time": "2 hours every Monday",
+          "description": "Collecting data from 4 different Excel sheets, manual formatting, endless revisions"
         },
         "after": {
-          "time": "15 minutes",
-          "description": "Automatically aggregated data, report generated with one click"
+          "time": "0 hours",
+          "description": "Real-time dashboard. Every Monday, just open and read."
         }
       },
       "emails": {
-        "title": "Client Follow-ups",
+        "title": "Lead management",
         "before": {
-          "time": "Manual tracking",
-          "description": "Excel sheet with deadlines, emails written one by one"
+          "time": "Manual follow-ups",
+          "description": "Clients lost due to delays, no tracking, emails one by one"
         },
         "after": {
           "time": "Fully automatic",
-          "description": "Personalized sequences, intelligent triggers, zero forgotten"
+          "description": "Personalized sequences, notifications, zero forgotten leads"
         }
       },
       "data": {
-        "title": "Data Analysis",
+        "title": "Compliance & audit",
         "before": {
-          "time": "Days",
-          "description": "Complex spreadsheets, manual formulas, static charts"
+          "time": "Audit panic",
+          "description": "Scattered documents, paper checklists, no visibility on status"
         },
         "after": {
-          "time": "Real-time",
-          "description": "Interactive dashboards, automatic insights, fast decisions"
+          "time": "Under control",
+          "description": "Compliance dashboard, status by department, attached documentation"
         }
       }
     }
   },
   "roiCalculator": {
     "label": "Calculate ROI",
-    "title": "How much could you",
-    "titleAccent": "save",
-    "description": "Estimate potential savings by automating repetitive tasks.",
+    "title": "How much does it cost you",
+    "titleAccent": "not to automate",
+    "description": "Enter your data and find out how much time and money you could recover every year.",
+    "inputTitle": "Enter your data",
     "hoursLabel": "Weekly hours on repetitive tasks",
     "hourlyRateLabel": "Hourly rate (optional)",
-    "hourlyRatePlaceholder": "$/hour",
+    "hourlyRateUnit": "/hour",
+    "hourlyRateAriaLabel": "Hourly cost in euros",
     "taskTypeLabel": "Main task type",
     "taskTypes": {
       "dataEntry": "Data entry",
       "reporting": "Report generation",
       "communication": "Communications/email",
+      "documentManagement": "Document management",
+      "coordination": "Coordination & PM",
       "other": "Other"
     },
     "results": {
@@ -269,41 +260,48 @@
       "annualSavings": "Annual savings",
       "disclaimer": "* Conservative estimate based on 60% efficiency"
     },
-    "cta": "Learn how to automate"
+    "cta": "Let's talk",
+    "insight": "40% of work time is spent on tasks that can be automated.",
+    "insightPrefix": "Did you know"
   },
   "process": {
-    "label": "How I Work",
+    "label": "How We Work",
     "title": "A transparent",
     "titleAccent": "process",
-    "description": "From the first call to delivery, here's how I work.",
+    "description": "From the first call to delivery, here's how we work.",
+    "closingNote": "Every project is different. Timelines and phases adapt to the complexity of the problem — not to a template.",
     "steps": {
       "listen": {
-        "title": "Listen",
-        "description": "I understand your problem and your goals"
+        "title": "We Listen",
+        "description": "First, we understand the context. We talk to those who work, not just those who decide. We map processes, identify bottlenecks, and define objectives together."
       },
       "analyze": {
-        "title": "Analyze",
-        "description": "I study the best solution for your case"
+        "title": "We Analyze",
+        "description": "We study the data, workflows, and tools already in use. We assess where AI can have real impact and where it can't. Not everything needs artificial intelligence."
       },
       "design": {
-        "title": "Design",
-        "description": "I define architecture and clear roadmap"
+        "title": "We Design",
+        "description": "We define architecture, tools, timelines and costs. No surprises: you know exactly what will be built and why."
       },
       "develop": {
-        "title": "Develop",
-        "description": "I build with agile methodology and continuous feedback"
+        "title": "We Build",
+        "description": "We build with agile methodology. Continuous feedback, rapid iterations, zero black-box effect. You see the progress, you test it, you validate it."
       },
       "deliver": {
-        "title": "Deliver",
-        "description": "Testing, deployment, and team training"
+        "title": "We Deliver",
+        "description": "Testing, deployment, documentation. We deliver a system that works and that you know how to use. Not a prototype, a product."
       }
     }
   },
   "contact": {
     "label": "Contact",
-    "title": "Let's talk about your",
-    "titleAccent": "project",
-    "description": "Have an idea or a challenge? Tell me how I can help.",
+    "title": "",
+    "titleAccent": "Let's talk",
+    "description": "Have a problem to solve, a process to optimize, or just want to understand if AI can help? Tell us your situation — we'll respond with an analysis, not an automated quote.",
+    "informativa": "The data you provide will be used exclusively to respond to your request. More information in our",
+    "informativaLink": "Privacy Policy",
+    "microCopy": "We respond within 24 business hours.",
+    "trustNote": "Your data is safe. We don't share it with anyone.",
     "form": {
       "name": "Name",
       "namePlaceholder": "Your name",
@@ -320,7 +318,7 @@
     },
     "success": {
       "title": "Message sent!",
-      "description": "Thank you for contacting me. I'll get back to you as soon as possible."
+      "description": "Thank you for contacting us. We'll get back to you as soon as possible."
     },
     "error": "An error occurred. Please try again later.",
     "validation": {
@@ -332,68 +330,46 @@
       "privacyRequired": "You must accept the privacy policy"
     }
   },
-  "stats": {
-    "label": "Numbers",
-    "title": "Results that",
-    "titleAccent": "speak",
-    "description": "Concrete data that testifies the impact of my work.",
-    "items": {
-      "projects": {
-        "label": "Projects completed",
-        "description": "AI and web solutions delivered"
-      },
-      "hours": {
-        "label": "Hours saved",
-        "description": "For clients through automation"
-      },
-      "satisfaction": {
-        "label": "Client satisfaction",
-        "description": "Positive feedback received"
-      },
-      "technologies": {
-        "label": "Technologies mastered",
-        "description": "Modern frameworks and tools"
-      }
-    }
-  },
   "faq": {
     "label": "FAQ",
     "title": "Frequently asked",
     "titleAccent": "questions",
-    "description": "Answers to the questions I get asked most often.",
+    "description": "Answers to the questions we get asked most often.",
     "cta": "Didn't find the answer you were looking for?",
-    "ctaLink": "Contact me directly",
+    "ctaLink": "Contact us directly",
     "items": {
       "ai-fit": {
         "question": "Is AI right for my business?",
-        "answer": "AI can bring benefits to almost any type of business. During the initial consultation, I analyze your specific context to identify where artificial intelligence can really make a difference: automating repetitive processes, data analysis, customer support, operations optimization. I don't propose pre-packaged solutions, but build a custom path together with you."
+        "answer": "AI can bring benefits to almost any type of business. During the initial consultation, we analyze your specific context to identify where artificial intelligence can really make a difference: automating repetitive processes, data analysis, customer support, operations optimization. We don't propose pre-packaged solutions, but build a custom path together with you."
       },
       "timeline": {
         "question": "How long does an AI project take?",
-        "answer": "Timing varies based on complexity. A proof-of-concept or MVP can be ready in 2-4 weeks. More complex projects require 2-3 months. I work with agile methodology, so you'll have visibility on progress and tangible results from the first weeks."
+        "answer": "Timing varies based on complexity. A proof-of-concept or MVP can be ready in 2-4 weeks. More complex projects require 2-3 months. We work with agile methodology, so you'll have visibility on progress and tangible results from the first weeks."
       },
       "cost": {
         "question": "How much does an AI consulting project cost?",
-        "answer": "Every project is different, so costs depend on complexity and objectives. I offer packages ranging from an initial strategic consultation to full solution development. After the free introductory call, I always prepare a detailed and transparent quote."
+        "answer": "Every project is different, so costs depend on complexity and objectives. We offer packages ranging from an initial strategic consultation to full solution development. After the free introductory call, we always prepare a detailed and transparent quote."
       },
       "process": {
         "question": "How does the work process work?",
-        "answer": "Everything starts with a free introductory call where I listen to your needs. Then I analyze the context, propose a solution and, if we decide to proceed, we work together with agile methodology: weekly sprints, continuous feedback and regular demos to ensure the result is exactly what you need."
-      },
-      "support": {
-        "question": "Do you offer support after project delivery?",
-        "answer": "Absolutely yes. Every project includes a post-launch support period to ensure everything works perfectly. I also offer maintenance and update plans for those who want to evolve their solution over time."
+        "answer": "Everything starts with a free introductory call where we listen to your needs. Then we analyze the context, propose a solution and, if we decide to proceed, we work together with agile methodology: weekly sprints, continuous feedback and regular demos to ensure the result is exactly what you need."
       }
     }
   },
   "footer": {
-    "description": "AI consulting and development for businesses that want to innovate.",
+    "description": "AI consulting and development for businesses that want real results.",
     "quickLinks": "Quick Links",
     "contactTitle": "Contact",
     "email": "Email",
     "linkedin": "LinkedIn",
-    "copyright": "© {year} The AI and Beyond. All rights reserved.",
-    "privacy": "Privacy Policy"
+    "legalTitle": "Registered office",
+    "address": "Via Genova 9, 55049 Viareggio (LU), Italy",
+    "piva": "VAT IT02754730469",
+    "copyright": "© {year} The AI and Beyond di Leonardo Sarti Magi. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "cookiePolicy": "Cookie Policy",
+    "terms": "Terms & Conditions",
+    "manageCookies": "Manage Cookies"
   },
   "cookieConsent": {
     "message": "This site uses technical and analytics cookies to improve user experience.",
@@ -525,12 +501,12 @@
       "hypotheticalWarning": "These numbers are hypothetical based on the data you entered. Actual results depend on your specific context.",
       "opportunities": "Opportunities to explore",
       "nextStepTitle": "What's next?",
-      "disclaimerShort": "Hypothetical analysis. Contact me for accurate information.",
-      "disclaimer": "This report contains only hypothetical estimates based on the parameters you entered. It does not constitute a quote, a promise of results, or a contractual commitment. For accurate information and a personalized assessment, please contact me directly."
+      "disclaimerShort": "Hypothetical analysis. Contact us for accurate information.",
+      "disclaimer": "This report contains only hypothetical estimates based on the parameters you entered. It does not constitute a quote, a promise of results, or a contractual commitment. For accurate information and a personalized assessment, please contact us directly."
     },
     "nextStep": {
       "small": "For a team like yours, getting started is simple: let's talk about your specific needs and see what's actually feasible together.",
-      "medium": "With a team this size, the impact of automation can be significant. Contact me to understand where to start in your specific case.",
+      "medium": "With a team this size, the impact of automation can be significant. Contact us to understand where to start in your specific case.",
       "enterprise": "For structured organizations like yours, AI can make a difference on multiple fronts. Let's talk to define the right priorities."
     },
     "opportunities": {
@@ -628,6 +604,6 @@
     }
   },
   "mobileContact": {
-    "label": "Contact me"
+    "label": "Contact us"
   }
 }

@@ -74,7 +74,7 @@ export function About({ className = '' }: AboutProps) {
   return (
     <section
       ref={sectionRef}
-      id="chi-sono"
+      id="chi-siamo"
       className={`relative overflow-hidden bg-white dark:bg-gray-950 py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
@@ -144,7 +144,7 @@ export function About({ className = '' }: AboutProps) {
               </span>
             </motion.h2>
 
-            {/* Bio text - three paragraphs with different styling */}
+            {/* Bio text - five paragraphs */}
             <div className="space-y-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
               <motion.p variants={textVariants}>
                 {t('intro')}
@@ -159,6 +159,14 @@ export function About({ className = '' }: AboutProps) {
 
               <motion.p variants={textVariants}>
                 {t('paragraph2')}
+              </motion.p>
+
+              <motion.p variants={textVariants}>
+                {t('paragraph3')}
+              </motion.p>
+
+              <motion.p variants={textVariants}>
+                {t('paragraph4')}
               </motion.p>
             </div>
 
