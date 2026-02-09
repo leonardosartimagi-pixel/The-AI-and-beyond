@@ -5,8 +5,7 @@ test.use({ viewport: { width: 375, height: 812 } });
 
 test.describe('Mobile Menu', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/it');
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/it', { waitUntil: 'domcontentloaded' });
   });
 
   test('hamburger button is visible on mobile', async ({ page }) => {
