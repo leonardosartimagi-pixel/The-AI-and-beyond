@@ -13,9 +13,10 @@ export default async function Image({
   const { locale } = await params;
   const isItalian = locale === 'it';
 
-  const logoData = await fetch(
+  const logoBuffer = await fetch(
     new URL('../../public/icon-512.png', import.meta.url)
   ).then((res) => res.arrayBuffer());
+  const logoSrc = `data:image/png;base64,${Buffer.from(logoBuffer).toString('base64')}`;
 
   return new ImageResponse(
     <div
@@ -45,9 +46,8 @@ export default async function Image({
         }}
       />
 
-      {/* @ts-expect-error -- Satori accepts ArrayBuffer as img src */}
       <img
-        src={logoData}
+        src={logoSrc}
         alt=""
         width={160}
         height={160}
