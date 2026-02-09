@@ -1,13 +1,15 @@
 import { MetadataRoute } from 'next';
 import { locales } from '@/i18n/request';
 
+const LEGAL_PAGES = ['privacy', 'cookie-policy', 'terms'] as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://theaiandbeyond.it';
 
-  // Generate entries for each locale
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of locales) {
+    // Home page
     entries.push({
       url: `${baseUrl}/${locale}`,
       lastModified: new Date(),
@@ -20,6 +22,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     });
+
+    // Legal pages
+    for (const page of LEGAL_PAGES) {
+      entries.push({
+        url: `${baseUrl}/${locale}/${page}`,
+        lastModified: new Date(),
+        changeFrequency: 'yearly',
+        priority: 0.3,
+        alternates: {
+          languages: {
+            it: `${baseUrl}/it/${page}`,
+            en: `${baseUrl}/en/${page}`,
+          },
+        },
+      });
+    }
   }
 
   return entries;
