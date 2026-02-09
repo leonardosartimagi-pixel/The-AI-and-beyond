@@ -151,7 +151,7 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 
 | ID | Minaccia | OWASP Top 10 | Probabilità | Impatto | Contromisura | Stato |
 |----|----------|-------------|-------------|---------|-------------|-------|
-| T1 | XSS via input utente | A03:2021 | Bassa | Medio | React escaping, sanitization, CSP (mancante) | ⚠️ Parziale (no CSP) |
+| T1 | XSS via input utente | A03:2021 | Bassa | Medio | React escaping, sanitization, CSP | ✅ Implementato |
 | T2 | Prompt injection (chat) | A03:2021 | Media | Medio | prompt-guard.ts, content-filter.ts | ✅ Implementato |
 | T3 | API key leak | A02:2021 | Media | Alto | .gitignore, env vars | ⚠️ Key da ruotare |
 | T4 | Rate limit bypass | A04:2021 | Media | Medio | In-memory rate limiter | ⚠️ Non distribuito |
@@ -174,7 +174,7 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 | Area | Stato | Voto | Note |
 |------|-------|------|------|
 | Input Validation | Zod + sanitization su tutti gli endpoint | A | Eccellente |
-| Security Headers | HSTS, X-Frame, X-Content-Type, Referrer, Permissions | B+ | Manca CSP |
+| Security Headers | HSTS, X-Frame, X-Content-Type, Referrer, Permissions, CSP | A- | CSP implementata con vercel.live |
 | Rate Limiting | Implementato ma in-memory | B- | Non persiste tra istanze serverless |
 | Gestione Segreti | .gitignore ok, env vars, no hardcoding nel codice | B | Key da ruotare, no rotation policy |
 | CI/CD Security | E2E tests, ma no SAST/SCA/secret scan | C+ | Pipeline da potenziare |
@@ -189,7 +189,7 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 | ID | Rischio | Severità | Stato | Owner |
 |----|---------|----------|-------|-------|
 | R1 | OpenAI API key esposta in .env.local (letta da terminale) | CRITICO | **DA RUOTARE** | Proprietario |
-| R2 | Nessun CSP header configurato | MEDIO | Da implementare | Dev |
+| R2 | ~~Nessun CSP header configurato~~ | ~~MEDIO~~ | ✅ Implementato (PR #2, aggiornato 2026-02-09) | Dev |
 | R3 | Rate limiter in-memory (non persiste tra serverless invocations) | MEDIO | Da migrare a Vercel KV | Dev |
 | R4 | Nessun SAST/SCA automatico in CI | MEDIO | Da aggiungere | Dev |
 | R5 | Nessun secret scanning in CI | MEDIO | Da aggiungere | Dev |
@@ -202,7 +202,7 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 | Item | Effort stimato | Priorità | Ticket/PR |
 |------|---------------|----------|-----------|
 | Ruotare API key OpenAI | Minimo (azione manuale) | P0 — CRITICO | STOP richiesto |
-| Aggiungere CSP header | Basso | P1 | PR #1 |
+| ~~Aggiungere CSP header~~ | ~~Basso~~ | ~~P1~~ | ✅ Completato (PR #2, aggiornato 2026-02-09) |
 | Migrare rate limiter a Vercel KV | Medio | P1 | PR #2 |
 | Pipeline CI: SAST + SCA + secret scan | Medio | P1 | PR #3 |
 | Uniformare logging (secureLog) | Basso | P2 | PR #1 |
@@ -298,10 +298,10 @@ Audit basato su:
 | X-Content-Type-Options | `nosniff` | ✅ OK | `next.config.mjs:26` |
 | Referrer-Policy | `origin-when-cross-origin` | ✅ OK | `next.config.mjs:30` |
 | Permissions-Policy | `camera=(), microphone=(), geolocation=()` | ✅ OK | `next.config.mjs:34` |
-| Content-Security-Policy | **NON CONFIGURATO** | ❌ Mancante | - |
+| Content-Security-Policy | Configurata (vedi §10.1) | ✅ Implementata | `next.config.mjs:38` |
 | X-DNS-Prefetch-Control | `on` | ✅ OK | `next.config.mjs:14` |
 
-**Verdetto**: Buono, ma manca CSP. Priorità P1.
+**Verdetto**: Tutti gli header di sicurezza configurati, inclusa CSP (§10.1).
 
 #### 6.8 Logging
 
@@ -556,12 +556,13 @@ CSP configurata in `next.config.mjs`:
 
 ```
 default-src 'self';
-script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;
+script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live;
 style-src 'self' 'unsafe-inline';
 font-src 'self';
 img-src 'self' data: blob:;
 media-src 'self';
-connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com;
+connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com https://vercel.live;
+frame-src 'self' https://vercel.live;
 frame-ancestors 'self';
 base-uri 'self';
 form-action 'self';
@@ -569,7 +570,7 @@ object-src 'none';
 upgrade-insecure-requests;
 ```
 
-**Nota**: `unsafe-inline` e `unsafe-eval` necessari per Next.js. `font-src 'self'` perché `next/font/google` self-hosta i font al build time. `object-src 'none'` blocca plugin/Flash. `upgrade-insecure-requests` forza HTTPS.
+**Nota**: `unsafe-inline` e `unsafe-eval` necessari per Next.js. `font-src 'self'` perché `next/font/google` self-hosta i font al build time. `object-src 'none'` blocca plugin/Flash. `upgrade-insecure-requests` forza HTTPS. `https://vercel.live` aggiunto a `script-src`, `connect-src` e `frame-src` per la toolbar di preview deployment di Vercel (feedback/commenti) — servizio first-party del nostro hosting provider (2026-02-09).
 
 **Header aggiuntivo**: `X-Permitted-Cross-Domain-Policies: none` (PR #2).
 
@@ -766,9 +767,9 @@ Azioni **VIETATE** in qualsiasi circostanza:
 |----------|-----------|----------------------|-------|-----|
 | A01:2021 | Broken Access Control | N/A (no auth) | ✅ | Nessuno |
 | A02:2021 | Cryptographic Failures | TLS (Vercel), HSTS preload | ✅ | Nessuno |
-| A03:2021 | Injection | Zod validation, React escaping, sanitization, prompt guard | ✅ | CSP mancante |
+| A03:2021 | Injection | Zod validation, React escaping, sanitization, prompt guard, CSP | ✅ | Nessuno |
 | A04:2021 | Insecure Design | Rate limiting, input limits, session limits | ⚠️ | Rate limit non distribuito |
-| A05:2021 | Security Misconfiguration | Headers configurati, debug off in prod | ⚠️ | CSP mancante |
+| A05:2021 | Security Misconfiguration | Headers configurati, CSP, debug off in prod | ✅ | Nessuno |
 | A06:2021 | Vulnerable Components | Lockfile presente | ⚠️ | No scan automatico CI |
 | A07:2021 | Auth Failures | N/A (no auth) | ✅ | Nessuno |
 | A08:2021 | Software/Data Integrity | Vercel deploy atomico | ⚠️ | No SBOM, no signing |
@@ -792,7 +793,7 @@ Azioni **VIETATE** in qualsiasi circostanza:
 | V11 - Business Logic | 11.1 | ✅ | Rate limiting, input limits |
 | V12 - Files/Resources | 12.1-12.6 | N/A | No file upload |
 | V13 - API | 13.1-13.7 | ✅ | Input validation, method restriction |
-| V14 - Configuration | 14.1-14.5 | ⚠️ | Headers ok, CSP mancante |
+| V14 - Configuration | 14.1-14.5 | ✅ | Headers ok, CSP implementata |
 
 ### NIST SSDF (Secure Software Development Framework)
 
@@ -804,7 +805,7 @@ Azioni **VIETATE** in qualsiasi circostanza:
 | PW.1 | Design sicuro | ✅ Threat model documentato |
 | PW.4 | Review e analisi codice | ⚠️ No SAST automatico |
 | PW.5 | Test sicurezza | ⚠️ E2E presenti, no security-specific tests |
-| PW.6 | Configurazione sicura | ⚠️ Headers ok, CSP mancante |
+| PW.6 | Configurazione sicura | ✅ Headers ok, CSP implementata |
 | PW.7 | Review codice terze parti | ⚠️ No dependency scan |
 | PW.8 | Test artefatti di build | ✅ CI/CD presente |
 | RV.1 | Identificare vulnerabilità | ⚠️ Audit manuale, no automatico |
