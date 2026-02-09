@@ -8,7 +8,7 @@ import { ParticleBackground, GradientMesh } from '@/components/effects';
 import Image from 'next/image';
 
 
-const KEYWORD_KEYS = ['quality', 'speed', 'security', 'control'] as const;
+const KEYWORD_KEYS = ['strategy', 'automation', 'development', 'optimization'] as const;
 
 interface HeroProps {
   className?: string;
@@ -145,13 +145,14 @@ export function Hero({ className = '' }: HeroProps) {
             className="font-heading text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
             variants={itemVariants}
           >
-            {t('headline')}{' '}
+            {t('headline')}
+            <br />
             <span className="bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent">
               {t('headlineAccent')}
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Support text */}
           <motion.p
             className="mx-auto mt-6 max-w-2xl text-lg text-white/80 sm:text-xl"
             variants={itemVariants}
@@ -165,7 +166,7 @@ export function Hero({ className = '' }: HeroProps) {
             variants={badgeContainerVariants}
             initial="hidden"
             animate="visible"
-            aria-label={t('keywords.quality')}
+            aria-label={t('keywords.strategy')}
           >
             {KEYWORD_KEYS.map((key) => (
               <motion.div key={key} variants={badgeVariants}>
@@ -191,6 +192,9 @@ export function Hero({ className = '' }: HeroProps) {
             >
               {t('cta')}
             </Button>
+            <p className="mt-4 text-sm text-white/60">
+              {t('microCopy')}
+            </p>
           </motion.div>
         </motion.div>
 

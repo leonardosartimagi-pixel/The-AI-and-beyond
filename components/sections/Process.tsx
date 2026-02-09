@@ -21,31 +21,31 @@ const STEP_KEYS = ['listen', 'analyze', 'design', 'develop', 'deliver'] as const
 
 const steps: ProcessStep[] = [
   {
-    id: 'ascolto',
+    id: 'ascoltiamo',
     key: 'listen',
     number: 1,
     icon: <div className="h-6 w-6">{ProcessIcons.listen}</div>,
   },
   {
-    id: 'analizzo',
+    id: 'analizziamo',
     key: 'analyze',
     number: 2,
     icon: <div className="h-6 w-6">{ProcessIcons.analyze}</div>,
   },
   {
-    id: 'progetto',
+    id: 'progettiamo',
     key: 'design',
     number: 3,
     icon: <div className="h-6 w-6">{ProcessIcons.design}</div>,
   },
   {
-    id: 'sviluppo',
+    id: 'sviluppiamo',
     key: 'develop',
     number: 4,
     icon: <div className="h-6 w-6">{ProcessIcons.develop}</div>,
   },
   {
-    id: 'consegno',
+    id: 'consegniamo',
     key: 'deliver',
     number: 5,
     icon: <div className="h-6 w-6">{ProcessIcons.deliver}</div>,
@@ -286,7 +286,7 @@ export function Process({ className = '' }: ProcessProps) {
   return (
     <section
       ref={sectionRef}
-      id="come-lavoro"
+      id="come-lavoriamo"
       className={`relative overflow-hidden bg-gray-50 dark:bg-gray-900 py-24 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
@@ -367,9 +367,19 @@ export function Process({ className = '' }: ProcessProps) {
           </div>
         </div>
 
+        {/* Closing note */}
+        <motion.p
+          className="mx-auto mt-16 max-w-2xl text-center text-lg italic text-gray-500 dark:text-gray-400"
+          variants={headingVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+        >
+          {t('closingNote')}
+        </motion.p>
+
         {/* Bottom CTA */}
         <motion.div
-          className="mt-16 text-center"
+          className="mt-8 text-center"
           variants={headingVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}

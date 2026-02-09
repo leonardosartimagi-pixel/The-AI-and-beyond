@@ -52,7 +52,7 @@ test.describe('Mobile Menu', () => {
     await hamburger.click();
     await expect(page.locator('[role="dialog"]')).toBeVisible();
 
-    const navItems = ['Chi Sono', 'Servizi', 'Portfolio', 'Come Lavoro', 'Contatti'];
+    const navItems = ['Chi Siamo', 'Servizi', 'Portfolio', 'Come Lavoriamo', 'Contatti'];
 
     for (const item of navItems) {
       const menuItem = page.locator(`[role="dialog"] button:has-text("${item}")`);

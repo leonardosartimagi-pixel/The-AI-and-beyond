@@ -11,7 +11,7 @@ describe('Footer', () => {
   it('renders quick links section', () => {
     render(<Footer />);
     expect(screen.getByText('Link Rapidi')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Chi Sono' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Chi Siamo' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Servizi' })).toBeInTheDocument();
   });
 
@@ -37,7 +37,7 @@ describe('Footer', () => {
   it('renders Privacy Policy link', () => {
     render(<Footer />);
     const privacyLink = screen.getByRole('link', { name: /privacy policy/i });
-    expect(privacyLink).toHaveAttribute('href', '/privacy');
+    expect(privacyLink).toHaveAttribute('href', '/it/privacy');
   });
 
   it('has contentinfo role', () => {
@@ -47,7 +47,7 @@ describe('Footer', () => {
 
   it('renders all five quick links', () => {
     render(<Footer />);
-    const quickLinks = ['Chi Sono', 'Servizi', 'Portfolio', 'Come Lavoro', 'Contatti'];
+    const quickLinks = ['Chi Siamo', 'Servizi', 'Portfolio', 'Come Lavoriamo', 'Contatti'];
     quickLinks.forEach((link) => {
       expect(screen.getByRole('button', { name: link })).toBeInTheDocument();
     });

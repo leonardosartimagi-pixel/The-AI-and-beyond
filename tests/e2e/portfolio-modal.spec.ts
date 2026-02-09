@@ -23,15 +23,15 @@ test.describe('Portfolio Modal', () => {
     const firstCard = page.locator('#portfolio article').first();
     await expect(firstCard).toBeVisible();
 
-    await expect(firstCard.locator('h3')).toContainText('App ESWBS');
-    await expect(firstCard.locator('p')).toContainText('manutenzione navale');
+    await expect(firstCard.locator('h3')).toContainText('DataLens — Dashboard Analytics');
+    await expect(firstCard.locator('p')).toContainText('KPI sparsi su 4 fogli Excel');
 
     await expect(firstCard.locator('text=Next.js')).toBeVisible();
     await expect(firstCard.locator('text=TypeScript')).toBeVisible();
   });
 
   test('clicking project card opens modal', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -40,24 +40,24 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal displays full project details', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    await expect(modal.locator('#modal-title')).toContainText('App ESWBS');
+    await expect(modal.locator('#modal-title')).toContainText('DataLens — Dashboard Analytics');
     await expect(modal.locator('text=Problema')).toBeVisible();
     await expect(modal.locator('text=Soluzione')).toBeVisible();
     await expect(modal.locator('text=Risultati')).toBeVisible();
     await expect(modal.locator('text=Tecnologie')).toBeVisible();
 
-    await expect(modal.locator('text=PostgreSQL')).toBeVisible();
-    await expect(modal.locator('text=Tailwind CSS')).toBeVisible();
+    await expect(modal.locator('text=REST API')).toBeVisible();
+    await expect(modal.locator('text=Chart.js')).toBeVisible();
   });
 
   test('modal closes when close button is clicked', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -70,7 +70,7 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal closes when clicking outside', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -83,7 +83,7 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal closes on Escape key', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -95,7 +95,7 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal CTA button closes modal and navigates to contact', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -112,7 +112,7 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal traps focus', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -133,7 +133,7 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('focus returns to trigger element when modal closes', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
 
     await firstCard.click();
     const modal = page.locator('[role="dialog"]');
@@ -146,7 +146,7 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('body scroll is locked when modal is open', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -163,35 +163,35 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('different projects show different content', async ({ page }) => {
-    // Open first project
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    // Open first project (DataLens — featured by default)
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
     let title = await page.locator('#modal-title').textContent();
-    expect(title).toContain('App ESWBS');
+    expect(title).toContain('DataLens');
 
     await page.keyboard.press('Escape');
     await expect(modal).not.toBeVisible();
 
-    // Click second project to make it featured first
-    const secondCard = page.locator('button[aria-label="Analisi Dati Manutenzione - Click to expand"]');
+    // Click second project (NIS2) to make it featured first
+    const secondCard = page.locator('button[aria-label="NIS2 Compliance Dashboard - Click to expand"]');
     await secondCard.scrollIntoViewIfNeeded();
     await secondCard.click();
 
     // Now it's featured — click again to open modal
-    const secondCardFeatured = page.locator('button[aria-label="Vedi dettagli: Analisi Dati Manutenzione"]');
+    const secondCardFeatured = page.locator('button[aria-label="Vedi dettagli: NIS2 Compliance Dashboard"]');
     await secondCardFeatured.scrollIntoViewIfNeeded();
     await secondCardFeatured.click();
     await expect(modal).toBeVisible();
 
     title = await page.locator('#modal-title').textContent();
-    expect(title).toContain('Analisi Dati Manutenzione');
+    expect(title).toContain('NIS2 Compliance Dashboard');
 
-    await expect(page.locator('[role="dialog"] >> text=Python')).toBeVisible();
-    await expect(page.locator('[role="dialog"] >> text=Pandas')).toBeVisible();
+    await expect(page.locator('[role="dialog"] >> text=PostgreSQL')).toBeVisible();
+    await expect(page.locator('[role="dialog"] >> text=OpenAI API')).toBeVisible();
   });
 
   test('project cards show hover overlay', async ({ page, viewport }) => {
@@ -200,7 +200,7 @@ test.describe('Portfolio Modal', () => {
       return;
     }
 
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: App ESWBS"]');
+    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
 
     await firstCard.hover();
 
@@ -208,13 +208,11 @@ test.describe('Portfolio Modal', () => {
     await expect(overlay).toBeVisible();
   });
 
-  test('all five projects can be opened', async ({ page }) => {
+  test('all three real projects can be opened', async ({ page }) => {
     const projects = [
-      { name: 'App ESWBS', featured: true },
-      { name: 'Analisi Dati Manutenzione', featured: false },
-      { name: 'Web App Professionisti', featured: false },
-      { name: 'Automazione Email Coaching', featured: false },
-      { name: 'Assistente AI con RAG', featured: false },
+      { name: 'DataLens — Dashboard Analytics', featured: true },
+      { name: 'NIS2 Compliance Dashboard', featured: false },
+      { name: 'Rituale — Sito Brand', featured: false },
     ];
 
     for (const { name: projectName, featured } of projects) {
@@ -240,5 +238,10 @@ test.describe('Portfolio Modal', () => {
       await page.keyboard.press('Escape');
       await expect(modal).not.toBeVisible();
     }
+  });
+
+  test('placeholder projects are displayed as coming soon', async ({ page }) => {
+    const placeholders = page.locator('#portfolio article:has-text("[In arrivo]")');
+    await expect(placeholders).toHaveCount(2);
   });
 });

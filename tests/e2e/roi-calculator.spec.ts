@@ -126,7 +126,7 @@ test.describe('ROI Calculator', () => {
   });
 
   test('CTA button scrolls to contact section', async ({ page }) => {
-    const ctaButton = page.locator('#roi-calculator a:has-text("Scopri come automatizzare")');
+    const ctaButton = page.locator('#roi-calculator a:has-text("Parliamone")');
     await expect(ctaButton).toBeVisible();
     await expect(ctaButton).toHaveAttribute('href', '#contatti');
 

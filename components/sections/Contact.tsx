@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
@@ -21,6 +21,7 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 export function Contact({ className = '' }: ContactProps) {
   const t = useTranslations('contact');
+  const locale = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
@@ -155,6 +156,20 @@ export function Contact({ className = '' }: ContactProps) {
             className="mt-12"
           >
             <div className="contact-form-glass">
+              {/* Informativa breve */}
+              <p className="mb-6 text-center text-sm text-gray-500 dark:text-gray-400">
+                {t('informativa')}{' '}
+                <a
+                  href={`/${locale}/privacy`}
+                  className="text-accent underline hover:text-accent-dark transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('informativaLink')}
+                </a>
+                .
+              </p>
+
               <AnimatePresence mode="wait">
                 {formStatus === 'success' ? (
                   <SuccessMessage key="success" prefersReducedMotion={prefersReducedMotion} t={t} />
@@ -210,7 +225,7 @@ export function Contact({ className = '' }: ContactProps) {
                         <>
                           {t('form.privacy')}{' '}
                           <a
-                            href="/privacy"
+                            href={`/${locale}/privacy`}
                             className="text-accent underline hover:text-accent-dark transition-colors"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -251,6 +266,9 @@ export function Contact({ className = '' }: ContactProps) {
                       >
                         {formStatus === 'submitting' ? t('form.submitting') : t('form.submit')}
                       </Button>
+                      <p className="mt-3 text-center text-sm text-gray-400">
+                        {t('microCopy')}
+                      </p>
                     </div>
                   </motion.form>
                 )}
@@ -258,19 +276,29 @@ export function Contact({ className = '' }: ContactProps) {
             </div>
           </motion.div>
 
+          {/* Trust note */}
+          <motion.p
+            variants={headingVariants}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            className="mt-6 text-center text-sm text-gray-400 dark:text-gray-500"
+          >
+            {t('trustNote')}
+          </motion.p>
+
           {/* Alternative contact */}
           <motion.div
             variants={headingVariants}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            className="mt-12 text-center"
+            className="mt-8 text-center"
           >
             <p className="text-gray-600">
               <a
-                href="mailto:info@theaiandbeyond.com"
+                href="mailto:info@theaiandbeyond.it"
                 className="font-medium text-accent hover:text-accent-dark transition-colors"
               >
-                info@theaiandbeyond.com
+                info@theaiandbeyond.it
               </a>
             </p>
           </motion.div>

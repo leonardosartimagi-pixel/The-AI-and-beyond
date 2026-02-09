@@ -32,14 +32,14 @@ const ProblemIcons = {
 
 // Solution icons for Phase 3
 const SolutionIcons = {
-  automation: (
-    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-    </svg>
-  ),
   speed: (
     <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+    </svg>
+  ),
+  automation: (
+    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.15-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12" />
     </svg>
   ),
   check: (
@@ -48,38 +48,6 @@ const SolutionIcons = {
     </svg>
   ),
 };
-
-// Animated counter component
-function AnimatedCounter({
-  value,
-  suffix = '',
-  prefix = '',
-  isInView
-}: {
-  value: number;
-  suffix?: string;
-  prefix?: string;
-  isInView: boolean;
-}) {
-  return (
-    <motion.span
-      className="font-heading text-5xl font-bold md:text-6xl"
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-    >
-      {prefix}
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.3, delay: 0.3 }}
-      >
-        {value}
-      </motion.span>
-      {suffix}
-    </motion.span>
-  );
-}
 
 // Phase 1: The Problem
 function ProblemPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'beforeAfter'>>; isActive: boolean }) {
@@ -98,7 +66,7 @@ function ProblemPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'b
       transition={{ duration: 0.5 }}
     >
       <motion.span
-        className="mb-4 inline-block rounded-full bg-red-100 px-4 py-1 text-sm font-semibold uppercase tracking-wider text-red-700"
+        className="mb-4 inline-block rounded-full bg-slate-200 px-4 py-1 text-sm font-semibold uppercase tracking-wider text-slate-700"
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -106,7 +74,7 @@ function ProblemPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'b
         {t('phase1.label')}
       </motion.span>
 
-      <h3 className="mb-8 font-heading text-3xl font-bold text-red-800 md:text-4xl lg:text-5xl">
+      <h3 className="mb-8 font-heading text-3xl font-bold text-slate-800 md:text-4xl lg:text-5xl">
         {t('phase1.title')}
       </h3>
 
@@ -114,18 +82,18 @@ function ProblemPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'b
         {problems.map((problem, index) => (
           <motion.div
             key={problem.key}
-            className="rounded-2xl border-2 border-red-200 bg-red-50/80 p-6 backdrop-blur-sm"
+            className="rounded-2xl border-2 border-slate-200 bg-slate-50/80 p-6 backdrop-blur-sm"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.15 }}
           >
-            <div className="mb-4 inline-flex rounded-xl bg-red-200 p-3 text-red-700">
+            <div className="mb-4 inline-flex rounded-xl bg-slate-200 p-3 text-slate-700">
               {problem.icon}
             </div>
-            <p className="text-lg font-semibold text-red-900">
+            <p className="text-lg font-semibold text-slate-900">
               {t(`items.${problem.key}.before.time`)}
             </p>
-            <p className="mt-2 text-sm text-red-700">
+            <p className="mt-2 text-sm text-slate-600">
               {t(`items.${problem.key}.before.description`)}
             </p>
           </motion.div>
@@ -145,15 +113,14 @@ function TransitionPhase({ t, isActive }: { t: ReturnType<typeof useTranslations
       exit={{ opacity: 0, scale: 1.1 }}
       transition={{ duration: 0.6 }}
     >
-      <motion.div
-        className="mb-8"
-        animate={{ rotate: [0, 360] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+      <motion.span
+        className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold uppercase tracking-wider text-primary"
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.2 }}
       >
-        <svg className="h-20 w-20 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-        </svg>
-      </motion.div>
+        {t('phase2.label')}
+      </motion.span>
 
       <h3 className="mb-4 font-heading text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
         {t('phase2.title')}
@@ -233,14 +200,8 @@ function SolutionPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'
   );
 }
 
-// Phase 4: The Results
+// Phase 4: The Result
 function ResultsPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'beforeAfter'>>; isActive: boolean }) {
-  const metrics = [
-    { value: 95, suffix: '%', label: t('phase4.metric1') },
-    { value: 100, suffix: '%', label: t('phase4.metric2') },
-    { value: 24, suffix: '/7', label: t('phase4.metric3') },
-  ];
-
   return (
     <motion.div
       className="flex h-full flex-col items-center justify-center px-4 text-center"
@@ -258,30 +219,18 @@ function ResultsPhase({ t, isActive }: { t: ReturnType<typeof useTranslations<'b
         {t('phase4.label')}
       </motion.span>
 
-      <h3 className="mb-12 font-heading text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+      <h3 className="mb-6 font-heading text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
         {t('phase4.title')}
       </h3>
 
-      <div className="mb-12 grid max-w-4xl gap-8 md:grid-cols-3">
-        {metrics.map((metric, index) => (
-          <motion.div
-            key={index}
-            className="rounded-2xl bg-white dark:bg-gray-950 p-8 shadow-xl dark:shadow-black/20"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.15 }}
-          >
-            <AnimatedCounter
-              value={metric.value}
-              suffix={metric.suffix}
-              isInView={isActive}
-            />
-            <p className="mt-4 text-sm font-medium text-gray-600">
-              {metric.label}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+      <motion.p
+        className="mx-auto mb-12 max-w-xl text-lg text-gray-600 md:text-xl"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        {t('phase4.description')}
+      </motion.p>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -330,12 +279,12 @@ export function BeforeAfter({ className = '' }: BeforeAfterProps) {
   // Track scroll progress through the section
   const { phase, isInView } = useScrollProgress(sectionRef, 4);
 
-  // Background colors for each phase
+  // Background colors for each phase — professional palette
   const bgColors = {
-    1: 'from-red-50 via-orange-50 to-red-50',
+    1: 'from-slate-100 via-slate-50 to-slate-100',
     2: 'from-blue-50 via-accent/5 to-blue-50',
-    3: 'from-emerald-50 via-green-50 to-emerald-50',
-    4: 'from-accent/5 via-primary/5 to-accent/5',
+    3: 'from-emerald-50 via-emerald-50/80 to-emerald-50',
+    4: 'from-primary/5 via-accent/5 to-primary/5',
   };
 
   // For reduced motion, show all content without scroll effects

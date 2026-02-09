@@ -17,26 +17,12 @@ interface TaskType {
 }
 
 const taskTypes: TaskType[] = [
-  {
-    id: 'data-entry',
-    key: 'dataEntry',
-    multiplier: 1.2,
-  },
-  {
-    id: 'reporting',
-    key: 'reporting',
-    multiplier: 1.0,
-  },
-  {
-    id: 'communications',
-    key: 'communication',
-    multiplier: 0.8,
-  },
-  {
-    id: 'other',
-    key: 'other',
-    multiplier: 0.9,
-  },
+  { id: 'data-entry', key: 'dataEntry', multiplier: 1.2 },
+  { id: 'reporting', key: 'reporting', multiplier: 1.0 },
+  { id: 'communications', key: 'communication', multiplier: 0.8 },
+  { id: 'document-management', key: 'documentManagement', multiplier: 1.1 },
+  { id: 'coordination', key: 'coordination', multiplier: 0.7 },
+  { id: 'other', key: 'other', multiplier: 0.9 },
 ];
 
 // Animated counter component
@@ -257,7 +243,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   />
                 </svg>
               </span>
-              Inserisci i tuoi dati
+              {t('inputTitle')}
             </h3>
 
             <div className="space-y-6">
@@ -408,10 +394,10 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                           setHourlyRate(Math.max(1, Math.min(500, Number(e.target.value))))
                         }
                         className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-9 pr-16 text-lg font-medium text-gray-900 transition-all hover:border-accent focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                        aria-label="Costo orario in euro"
+                        aria-label={t('hourlyRateAriaLabel')}
                       />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">
-                        /ora
+                        {t('hourlyRateUnit')}
                       </span>
                     </div>
                   </motion.div>
@@ -560,8 +546,8 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
               </svg>
             </span>
             <span className="text-sm text-gray-600">
-              <strong className="text-primary">Sapevi che</strong> il 40% del tempo lavorativo
-              viene speso in attività che possono essere automatizzate?
+              <strong className="text-primary">{t('insightPrefix')}</strong>{' '}
+              {t('insight')}
             </span>
           </div>
         </motion.div>

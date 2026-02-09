@@ -1,15 +1,17 @@
 'use client';
 
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useTranslations, useLocale } from 'next-intl';
 import { useScrollTo } from '@/hooks';
+import { useConsentStorage } from '@/hooks/useConsentStorage';
 
 const NAV_KEYS = ['about', 'services', 'portfolio', 'process', 'contact'] as const;
 const QUICK_LINKS = [
-  { key: 'about', href: 'chi-sono' },
+  { key: 'about', href: 'chi-siamo' },
   { key: 'services', href: 'servizi' },
   { key: 'portfolio', href: 'portfolio' },
-  { key: 'process', href: 'come-lavoro' },
+  { key: 'process', href: 'come-lavoriamo' },
   { key: 'contact', href: 'contatti' },
 ] as const;
 
@@ -21,18 +23,21 @@ const CONTACT_INFO = {
 export function Footer() {
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
+  const locale = useLocale();
   const scrollTo = useScrollTo();
+  const { resetConsent } = useConsentStorage();
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-primary dark:bg-gray-900 text-white border-t border-transparent dark:border-gray-800" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <FooterBrand onLogoClick={() => scrollTo('hero')} t={t} />
           <FooterNav onNavClick={scrollTo} t={t} tNav={tNav} />
           <FooterContact t={t} />
+          <FooterLegal t={t} />
         </div>
-        <FooterBottom year={currentYear} t={t} />
+        <FooterBottom year={currentYear} t={t} locale={locale} onManageCookies={resetConsent} />
       </div>
     </footer>
   );
@@ -123,23 +128,55 @@ function FooterContact({ t }: FooterContactProps) {
   );
 }
 
-interface FooterBottomProps {
-  year: number;
+interface FooterLegalProps {
   t: ReturnType<typeof useTranslations<'footer'>>;
 }
 
-function FooterBottom({ year, t }: FooterBottomProps) {
+function FooterLegal({ t }: FooterLegalProps) {
+  return (
+    <div>
+      <h3 className="font-heading text-lg font-semibold mb-4">{t('legalTitle')}</h3>
+      <ul className="space-y-2 text-sm text-white/80" role="list">
+        <li>{t('address')}</li>
+        <li>{t('piva')}</li>
+      </ul>
+    </div>
+  );
+}
+
+interface FooterBottomProps {
+  year: number;
+  t: ReturnType<typeof useTranslations<'footer'>>;
+  locale: string;
+  onManageCookies: () => void;
+}
+
+function FooterBottom({ year, t, locale, onManageCookies }: FooterBottomProps) {
+  const linkClass = "text-sm text-white/60 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded";
+
   return (
     <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <p className="text-sm text-white/60">
         {t('copyright', { year })}
       </p>
-      <a
-        href="/privacy"
-        className="text-sm text-white/60 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
-      >
-        {t('privacy')}
-      </a>
+      <div className="flex flex-wrap items-center gap-4">
+        <Link href={`/${locale}/privacy`} className={linkClass}>
+          {t('privacy')}
+        </Link>
+        <Link href={`/${locale}/cookie-policy`} className={linkClass}>
+          {t('cookiePolicy')}
+        </Link>
+        <Link href={`/${locale}/terms`} className={linkClass}>
+          {t('terms')}
+        </Link>
+        <button
+          type="button"
+          onClick={onManageCookies}
+          className={linkClass}
+        >
+          {t('manageCookies')}
+        </button>
+      </div>
     </div>
   );
 }
