@@ -369,15 +369,35 @@ function ServiceModal({
                 {t(`items.${service.key}.title`)}
               </h2>
 
-              {/* Short description */}
-              <p className="mb-4 text-lg font-medium text-gray-700 dark:text-gray-300">
-                {t(`items.${service.key}.description`)}
-              </p>
+              {/* Problem section */}
+              <div className="mb-6">
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-red-500/80 dark:text-red-400/80">
+                  {t('problemLabel')}
+                </h3>
+                <p className="leading-relaxed text-gray-600 dark:text-gray-400">
+                  {t(`items.${service.key}.problem`)}
+                </p>
+              </div>
 
-              {/* Expanded description */}
-              <p className="mb-8 leading-relaxed text-gray-600 dark:text-gray-400">
-                {t(`items.${service.key}.expanded`)}
-              </p>
+              {/* Outcome section */}
+              <div className="mb-6">
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-emerald-600/80 dark:text-emerald-400/80">
+                  {t('outcomeLabel')}
+                </h3>
+                <p className="leading-relaxed text-gray-600 dark:text-gray-400">
+                  {t(`items.${service.key}.outcome`)}
+                </p>
+              </div>
+
+              {/* Why different section */}
+              <div className="mb-8">
+                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
+                  {t('differentLabel')}
+                </h3>
+                <p className="leading-relaxed text-gray-600 dark:text-gray-400">
+                  {t(`items.${service.key}.different`)}
+                </p>
+              </div>
 
               {/* CTA button */}
               <a
@@ -528,6 +548,16 @@ export function Services({ className = '' }: ServicesProps) {
               />
             ))}
           </div>
+
+          {/* Bridge narrative */}
+          <motion.p
+            className="mx-auto mt-16 max-w-2xl text-center text-lg italic text-gray-500 dark:text-gray-400"
+            variants={headingVariants}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+          >
+            {t('bridge')}
+          </motion.p>
         </div>
       </section>
 

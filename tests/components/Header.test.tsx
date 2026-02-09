@@ -55,6 +55,6 @@ describe('Header', () => {
 
   it('exports NAV_ITEMS constant', () => {
     expect(NAV_ITEMS).toHaveLength(5);
-    expect(NAV_ITEMS[0]).toEqual({ key: 'about', href: 'chi-sono' });
+    expect(NAV_ITEMS[0]).toEqual({ key: 'about', href: 'chi-siamo' });
   });
 });

@@ -2,13 +2,14 @@
 
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useConsentStorage } from '@/hooks/useConsentStorage';
 import { loadAnalytics } from '@/lib/analytics';
 import { Button } from '@/components/ui/Button';
 
 export function CookieConsentBanner() {
   const t = useTranslations('cookieConsent');
+  const locale = useLocale();
   const { status, isLoaded, acceptAll, declineAll } = useConsentStorage();
   const bannerRef = useRef<HTMLDivElement>(null);
   const acceptButtonRef = useRef<HTMLButtonElement>(null);
@@ -77,7 +78,7 @@ export function CookieConsentBanner() {
                 >
                   {t('message')}{' '}
                   <a
-                    href="/privacy-policy"
+                    href={`/${locale}/cookie-policy`}
                     className="font-medium text-accent underline underline-offset-2 transition-colors hover:text-accent-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   >
                     {t('learnMore')}

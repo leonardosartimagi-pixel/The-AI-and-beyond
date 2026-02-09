@@ -54,10 +54,20 @@ export function useConsentStorage() {
     saveConsent(false);
   }, [saveConsent]);
 
+  const resetConsent = useCallback(() => {
+    try {
+      localStorage.removeItem(CONSENT_KEY);
+    } catch {
+      // localStorage might be unavailable
+    }
+    setStatus('pending');
+  }, []);
+
   return {
     status,
     isLoaded,
     acceptAll,
     declineAll,
+    resetConsent,
   };
 }

@@ -12,10 +12,10 @@ import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
 
 export const NAV_ITEMS = [
-  { key: 'about', href: 'chi-sono' },
+  { key: 'about', href: 'chi-siamo' },
   { key: 'services', href: 'servizi' },
   { key: 'portfolio', href: 'portfolio' },
-  { key: 'process', href: 'come-lavoro' },
+  { key: 'process', href: 'come-lavoriamo' },
   { key: 'contact', href: 'contatti' },
 ] as const;
 

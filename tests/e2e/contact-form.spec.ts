@@ -183,8 +183,8 @@ test.describe('Contact Form', () => {
   });
 
   test('alternative contact email is visible', async ({ page }) => {
-    const emailLink = page.locator('a[href="mailto:info@theaiandbeyond.com"]');
+    const emailLink = page.locator('#contatti a[href="mailto:info@theaiandbeyond.it"]');
     await expect(emailLink).toBeVisible();
-    await expect(emailLink).toHaveText('info@theaiandbeyond.com');
+    await expect(emailLink).toHaveText('info@theaiandbeyond.it');
   });
 });
