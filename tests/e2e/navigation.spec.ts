@@ -75,11 +75,9 @@ test.describe('Navigation and Smooth Scroll', () => {
     // Wait for header to be visible (ensures React effect with scroll listener is mounted)
     await expect(header).toBeVisible();
 
-    // Scroll down using multiple approaches to ensure scroll event fires
-    await expect(async () => {
-      await page.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
-      await expect(header).toHaveClass(/backdrop-blur-md/);
-    }).toPass({ timeout: 10000 });
+    // Scroll down and wait for scroll event handler to update header class
+    await page.evaluate(() => window.scrollTo({ top: 300, behavior: 'instant' }));
+    await expect(header).toHaveClass(/backdrop-blur-md/, { timeout: 10000 });
   });
 
   test('all section IDs exist on the page', async ({ page }) => {
@@ -111,10 +109,8 @@ test.describe('Navigation and Smooth Scroll', () => {
     // Press Enter to activate navigation (scroll behavior tested in separate test)
     await page.keyboard.press('Enter');
 
-    // Verify the page scrolled (any amount confirms keyboard activation works)
-    await expect(async () => {
-      const scrollPosition = await page.evaluate(() => window.scrollY);
-      expect(scrollPosition).toBeGreaterThan(0);
-    }).toPass({ timeout: 5000 });
+    // Verify the page scrolled to the chi-siamo section
+    const chiSiamoSection = page.locator('#chi-siamo');
+    await expect(chiSiamoSection).toBeInViewport({ timeout: 10000 });
   });
 });
