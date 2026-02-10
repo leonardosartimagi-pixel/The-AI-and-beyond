@@ -50,7 +50,7 @@ export function Contact({ className = '' }: ContactProps) {
       email: '',
       company: '',
       message: '',
-      privacy: false as unknown as true,
+      privacy: false,
     },
   });
 

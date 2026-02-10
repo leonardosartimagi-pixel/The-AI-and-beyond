@@ -41,9 +41,11 @@ function FAQItem({
     >
       <button
         type="button"
+        id={`faq-question-${faqKey}`}
         onClick={onToggle}
         className="flex w-full items-center justify-between py-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950"
         aria-expanded={isOpen}
+        aria-controls={`faq-answer-${faqKey}`}
       >
         <span className="pr-4 text-lg font-medium text-primary dark:text-gray-100">
           {t(`items.${faqKey}.question`)}
@@ -60,13 +62,20 @@ function FAQItem({
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 4v16m8-8H4"
+            />
           </svg>
         </motion.span>
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
+            id={`faq-answer-${faqKey}`}
+            role="region"
+            aria-labelledby={`faq-question-${faqKey}`}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -76,7 +85,7 @@ function FAQItem({
             }}
             className="overflow-hidden"
           >
-            <p className="pb-5 pr-12 text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="pb-5 pr-12 leading-relaxed text-gray-600 dark:text-gray-400">
               {t(`items.${faqKey}.answer`)}
             </p>
           </motion.div>
@@ -136,7 +145,7 @@ export function FAQ({ className = '' }: FAQProps) {
       <section
         ref={sectionRef}
         id="faq"
-        className={`relative overflow-hidden bg-gray-50 dark:bg-gray-900 py-24 lg:py-32 ${className}`}
+        className={`relative overflow-hidden bg-gray-50 py-24 dark:bg-gray-900 lg:py-32 ${className}`}
         aria-label={t('label')}
       >
         <TechGridOverlay opacity={0.02} />
@@ -182,7 +191,7 @@ export function FAQ({ className = '' }: FAQProps) {
           </motion.div>
 
           {/* FAQ Accordion */}
-          <div className="rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 lg:p-8 shadow-sm">
+          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950 lg:p-8">
             {FAQ_KEYS.map((key, index) => (
               <FAQItem
                 key={key}
@@ -206,7 +215,7 @@ export function FAQ({ className = '' }: FAQProps) {
             {t('cta')}{' '}
             <a
               href="#contatti"
-              className="font-medium text-accent hover:text-accent-dark transition-colors underline underline-offset-4"
+              className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent-dark"
             >
               {t('ctaLink')}
             </a>

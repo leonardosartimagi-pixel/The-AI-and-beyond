@@ -6,13 +6,6 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useScrollTo } from '@/hooks';
 import { useConsentStorage } from '@/hooks/useConsentStorage';
 
-const NAV_KEYS = [
-  'about',
-  'services',
-  'portfolio',
-  'process',
-  'contact',
-] as const;
 const QUICK_LINKS = [
   { key: 'about', href: 'chi-siamo' },
   { key: 'services', href: 'servizi' },
@@ -41,7 +34,7 @@ export function Footer() {
     >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <FooterBrand onLogoClick={() => scrollTo('hero')} t={t} />
+          <FooterBrand onLogoClick={() => scrollTo('hero')} t={t} tNav={tNav} />
           <FooterNav onNavClick={scrollTo} t={t} tNav={tNav} />
           <FooterContact t={t} />
           <FooterLegal t={t} />
@@ -60,15 +53,16 @@ export function Footer() {
 interface FooterBrandProps {
   onLogoClick: () => void;
   t: ReturnType<typeof useTranslations<'footer'>>;
+  tNav: ReturnType<typeof useTranslations<'nav'>>;
 }
 
-function FooterBrand({ onLogoClick, t }: FooterBrandProps) {
+function FooterBrand({ onLogoClick, t, tNav }: FooterBrandProps) {
   return (
     <div>
       <button
         onClick={onLogoClick}
         className="relative h-12 w-48 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-        aria-label="Home"
+        aria-label={tNav('home')}
       >
         <Image
           src="/images/logo-full-white.svg"

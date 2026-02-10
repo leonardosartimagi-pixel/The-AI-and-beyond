@@ -50,7 +50,6 @@ export function CookieConsentBanner() {
         <motion.div
           ref={bannerRef}
           role="dialog"
-          aria-modal="false"
           aria-label="Cookie consent"
           aria-describedby="cookie-consent-description"
           initial={{ y: 100, opacity: 0 }}

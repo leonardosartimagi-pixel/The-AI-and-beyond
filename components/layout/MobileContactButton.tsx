@@ -58,7 +58,7 @@ export function MobileContactButton() {
           whileHover={{ scale: prefersReducedMotion ? 1 : 1.05 }}
           whileTap={{ scale: prefersReducedMotion ? 1 : 0.95 }}
           onClick={handleClick}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-accent px-5 py-3 font-medium text-primary-dark shadow-lg transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 lg:hidden"
+          className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom,1.5rem))] right-6 z-50 flex items-center gap-2 rounded-full bg-accent px-5 py-3 font-medium text-primary-dark shadow-lg transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 lg:hidden"
           aria-label={t('label')}
         >
           <MessageIcon className="h-5 w-5" />
