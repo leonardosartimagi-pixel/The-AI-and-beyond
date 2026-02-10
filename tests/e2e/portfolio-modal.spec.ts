@@ -4,10 +4,19 @@ test.describe('Portfolio Modal', () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem('preferred-locale', 'it');
-      localStorage.setItem('cookie-consent', JSON.stringify({ analytics: true, timestamp: Date.now() }));
+      localStorage.setItem(
+        'cookie-consent',
+        JSON.stringify({ analytics: true, timestamp: Date.now() })
+      );
     });
-    await page.goto('/it', { waitUntil: 'domcontentloaded' });
+    await page.goto('/it', { waitUntil: 'networkidle' });
     await page.locator('#portfolio').scrollIntoViewIfNeeded();
+    // Wait for portfolio to be fully hydrated and interactive.
+    // The hint text has a 0.8s animation delay — once visible, the component
+    // is rendered and animations have started, confirming hydration.
+    await expect(
+      page.locator('#portfolio >> text=Clicca su un progetto')
+    ).toBeVisible();
   });
 
   test('portfolio section displays project cards', async ({ page }) => {
@@ -16,22 +25,28 @@ test.describe('Portfolio Modal', () => {
     await expect(section).toHaveAttribute('aria-label', 'Portfolio');
 
     const projectCards = page.locator('#portfolio article');
-    await expect(projectCards).toHaveCount(5);
+    await expect(projectCards).toHaveCount(6);
   });
 
-  test('project cards display title, description, and technologies', async ({ page }) => {
+  test('project cards display title, description, and technologies', async ({
+    page,
+  }) => {
     const firstCard = page.locator('#portfolio article').first();
     await expect(firstCard).toBeVisible();
 
-    await expect(firstCard.locator('h3')).toContainText('DataLens — Dashboard Analytics');
-    await expect(firstCard.locator('p')).toContainText('KPI sparsi su 4 fogli Excel');
+    await expect(firstCard.locator('h3')).toContainText('Automazione Processi');
+    await expect(firstCard.locator('p')).toContainText(
+      'campagne pubblicitarie'
+    );
 
-    await expect(firstCard.locator('text=Next.js')).toBeVisible();
-    await expect(firstCard.locator('text=TypeScript')).toBeVisible();
+    await expect(firstCard.locator('text=n8n')).toBeVisible();
+    await expect(firstCard.locator('text=Google Ads API')).toBeVisible();
   });
 
   test('clicking project card opens modal', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -40,37 +55,47 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal displays full project details', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    await expect(modal.locator('#modal-title')).toContainText('DataLens — Dashboard Analytics');
+    await expect(modal.locator('#modal-title')).toContainText(
+      'Automazione Processi'
+    );
     await expect(modal.locator('text=Problema')).toBeVisible();
     await expect(modal.locator('text=Soluzione')).toBeVisible();
     await expect(modal.locator('text=Risultati')).toBeVisible();
     await expect(modal.locator('text=Tecnologie')).toBeVisible();
 
-    await expect(modal.locator('text=REST API')).toBeVisible();
-    await expect(modal.locator('text=Chart.js')).toBeVisible();
+    await expect(modal.locator('text=AI Document Processing')).toBeVisible();
+    await expect(modal.locator('text=Data Visualization')).toBeVisible();
   });
 
   test('modal closes when close button is clicked', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    const closeButton = page.locator('[role="dialog"] button[aria-label="Chiudi"]');
+    const closeButton = page.locator(
+      '[role="dialog"] button[aria-label="Chiudi"]'
+    );
     await closeButton.click();
 
     await expect(modal).not.toBeVisible();
   });
 
   test('modal closes when clicking outside', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -83,7 +108,9 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal closes on Escape key', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -94,8 +121,12 @@ test.describe('Portfolio Modal', () => {
     await expect(modal).not.toBeVisible();
   });
 
-  test('modal CTA button closes modal and navigates to contact', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+  test('modal CTA button closes modal and navigates to contact', async ({
+    page,
+  }) => {
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -112,13 +143,17 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('modal traps focus', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    const closeButton = page.locator('[role="dialog"] button[aria-label="Chiudi"]');
+    const closeButton = page.locator(
+      '[role="dialog"] button[aria-label="Chiudi"]'
+    );
     await expect(closeButton).toBeFocused();
 
     for (let i = 0; i < 5; i++) {
@@ -132,8 +167,12 @@ test.describe('Portfolio Modal', () => {
     }
   });
 
-  test('focus returns to trigger element when modal closes', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+  test('focus returns to trigger element when modal closes', async ({
+    page,
+  }) => {
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
 
     await firstCard.click();
     const modal = page.locator('[role="dialog"]');
@@ -146,7 +185,9 @@ test.describe('Portfolio Modal', () => {
   });
 
   test('body scroll is locked when modal is open', async ({ page }) => {
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
@@ -158,40 +199,44 @@ test.describe('Portfolio Modal', () => {
     await page.keyboard.press('Escape');
     await expect(modal).not.toBeVisible();
 
-    const overflowAfter = await page.evaluate(() => document.body.style.overflow);
+    const overflowAfter = await page.evaluate(
+      () => document.body.style.overflow
+    );
     expect(overflowAfter).toBe('');
   });
 
   test('different projects show different content', async ({ page }) => {
-    // Open first project (DataLens — featured by default)
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    // Open first project (consulting)
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
     await firstCard.click();
 
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
     let title = await page.locator('#modal-title').textContent();
-    expect(title).toContain('DataLens');
+    expect(title).toContain('Automazione Processi');
 
     await page.keyboard.press('Escape');
     await expect(modal).not.toBeVisible();
 
-    // Click second project (NIS2) to make it featured first
-    const secondCard = page.locator('button[aria-label="NIS2 Compliance Dashboard - Click to expand"]');
+    // Open second project (aiStrategy)
+    const secondCard = page.locator('button[aria-label*="Roadmap AI"]');
     await secondCard.scrollIntoViewIfNeeded();
     await secondCard.click();
 
-    // Now it's featured — click again to open modal
-    const secondCardFeatured = page.locator('button[aria-label="Vedi dettagli: NIS2 Compliance Dashboard"]');
-    await secondCardFeatured.scrollIntoViewIfNeeded();
-    await secondCardFeatured.click();
     await expect(modal).toBeVisible();
 
     title = await page.locator('#modal-title').textContent();
-    expect(title).toContain('NIS2 Compliance Dashboard');
+    expect(title).toContain('Roadmap AI per PMI Manifatturiera');
 
-    await expect(page.locator('[role="dialog"] >> text=PostgreSQL')).toBeVisible();
-    await expect(page.locator('[role="dialog"] >> text=OpenAI API')).toBeVisible();
+    await expect(
+      page.locator('[role="dialog"] >> text=Process Mining')
+    ).toBeVisible();
+    await expect(
+      page.locator('[role="dialog"] >> text=AI Readiness Assessment')
+    ).toBeVisible();
   });
 
   test('project cards show hover overlay', async ({ page, viewport }) => {
@@ -200,7 +245,9 @@ test.describe('Portfolio Modal', () => {
       return;
     }
 
-    const firstCard = page.locator('button[aria-label="Vedi dettagli: DataLens — Dashboard Analytics"]');
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
 
     await firstCard.hover();
 
@@ -208,40 +255,34 @@ test.describe('Portfolio Modal', () => {
     await expect(overlay).toBeVisible();
   });
 
-  test('all three real projects can be opened', async ({ page }) => {
+  test('all six projects can be opened', async ({ page }) => {
     const projects = [
-      { name: 'DataLens — Dashboard Analytics', featured: true },
-      { name: 'NIS2 Compliance Dashboard', featured: false },
-      { name: 'Rituale — Sito Brand', featured: false },
+      'Automazione Processi',
+      'Roadmap AI',
+      'Web App AI-Powered',
+      'Agenti AI Custom',
+      'Sistema Gestionale Cantiere',
+      'Creazione Semplificata Manuali',
     ];
 
-    for (const { name: projectName, featured } of projects) {
-      if (featured) {
-        const card = page.locator(`button[aria-label="Vedi dettagli: ${projectName}"]`);
-        await card.scrollIntoViewIfNeeded();
-        await card.click();
-      } else {
-        // Non-featured cards need two clicks: first to make featured, then to open modal
-        const expandCard = page.locator(`button[aria-label="${projectName} - Click to expand"]`);
-        await expandCard.scrollIntoViewIfNeeded();
-        await expandCard.click();
-
-        const featuredCard = page.locator(`button[aria-label="Vedi dettagli: ${projectName}"]`);
-        await featuredCard.scrollIntoViewIfNeeded();
-        await featuredCard.click();
-      }
+    for (const projectTitle of projects) {
+      const card = page.locator(`button[aria-label*="${projectTitle}"]`);
+      await card.scrollIntoViewIfNeeded();
+      await card.click();
 
       const modal = page.locator('[role="dialog"]');
       await expect(modal).toBeVisible();
-      await expect(page.locator('#modal-title')).toContainText(projectName);
+      await expect(page.locator('#modal-title')).toContainText(projectTitle);
 
       await page.keyboard.press('Escape');
       await expect(modal).not.toBeVisible();
     }
   });
 
-  test('placeholder projects are displayed as coming soon', async ({ page }) => {
-    const placeholders = page.locator('#portfolio article:has-text("[In arrivo]")');
-    await expect(placeholders).toHaveCount(2);
+  test('confidentiality notice is displayed', async ({ page }) => {
+    const notice = page.locator(
+      '#portfolio >> text=riservatezza verso i nostri clienti'
+    );
+    await expect(notice).toBeVisible();
   });
 });

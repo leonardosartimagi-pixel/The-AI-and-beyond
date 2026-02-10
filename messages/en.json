@@ -120,79 +120,123 @@
     "label": "Portfolio",
     "title": "Completed",
     "titleAccent": "projects",
-    "description": "Real cases. No demos, no mockups — only solutions that are in production today.",
+    "description": "A selection of real projects representing our areas of expertise. Each project stems from a concrete problem, solved with concrete tools.",
+    "confidentiality": "Out of respect for our clients' privacy, identifying details have been omitted. The results and competencies described are real. To discuss your project, get in touch.",
     "viewDetails": "View details",
     "close": "Close",
     "problem": "Problem",
     "solution": "Solution",
     "results": "Results",
     "technologies": "Technologies",
-    "hint": "Click on a project to expand it",
-    "comingSoon": "Coming soon",
+    "hint": "Click on a project for details",
     "items": {
-      "datalens": {
-        "title": "DataLens — Analytics Dashboard",
-        "category": "Web App Development",
-        "problem": "The company managed KPIs spread across 4 different Excel sheets. Every Monday, the manager spent 2 hours compiling an aggregated report.",
-        "solution": "Custom web dashboard, powered by business APIs and Google Sheets. Real-time data updates, with interactive charts and automatic alerts when a KPI drops below threshold.",
+      "consulting": {
+        "title": "Process Automation: Ad Campaigns & Intelligent Document Management",
+        "category": "Consulting & Automation",
+        "problem": "A company manually managed the entire ad campaign creation cycle and the filing of invoices and documents received via email. Hours of repetitive work every week, with data scattered across email, folders, and shared drives — with no automated processing.",
+        "solution": "Selection of the ideal tool stack and creation of fully automated workflows: from dynamic, animated campaign creation to publication. For document management, an AI system that not only sorts and archives, but processes, cross-references, summarizes, generates charts and automatic analyses from received documents. Every criterion and action defined together with the client.",
         "results": [
-          "Reporting time: from 2 hours to 0",
-          "KPIs visible in real time",
-          "Zero transcription errors"
+          "Campaign setup time: −70%",
+          "Documents automatically processed, analyzed, and cross-referenced",
+          "Instant insights from invoices and documents — charts, summaries, analyses"
+        ],
+        "technologies": [
+          "n8n",
+          "Google Ads API",
+          "AI Document Processing",
+          "Cloud Storage",
+          "Data Visualization"
+        ]
+      },
+      "aiStrategy": {
+        "title": "AI Roadmap for a Manufacturing SME",
+        "category": "AI Strategy",
+        "problem": "A manufacturing SME wanted to understand if and how AI could improve their processes, but lacked internal expertise and a clear vision of intervention priorities.",
+        "solution": "Complete audit of business processes and identification of high-impact areas. Definition of a 12-month implementation roadmap with immediate quick wins and medium-term projects. Management training to make the company autonomous in AI decisions.",
+        "results": [
+          "3 quick wins implemented in the first month",
+          "12-month roadmap with estimated ROI per intervention",
+          "Management autonomous in AI decisions"
+        ],
+        "technologies": [
+          "Process Mining",
+          "AI Readiness Assessment",
+          "Training Workshops",
+          "Business Analysis"
+        ]
+      },
+      "webdev": {
+        "title": "AI-Powered Web Apps: Conversational Data Analysis & Grant Search",
+        "category": "Web Development & Web Apps",
+        "problem": "Manual analysis of complex Excel files without adequate tools — hours lost searching for patterns and generating reports. Meanwhile, searching for grants and funding was scattered across dozens of different portals without intelligent filters.",
+        "solution": "Dedicated web app suite: a conversational platform for Excel file analysis — users chat with their data, ask for insights, generate charts and reports via conversation. A grant search application with conversational AI flow that filters by sector, requirements, and user preferences.",
+        "results": [
+          "Complex data analysis from hours to minutes via natural conversation",
+          "Grant coverage 10x with one-fifth the effort",
+          "Analysis errors reduced by 90%"
         ],
         "technologies": [
           "Next.js",
           "TypeScript",
+          "OpenAI API",
+          "Python",
           "Tailwind CSS",
-          "REST API",
           "Chart.js"
         ]
       },
-      "nis2": {
-        "title": "NIS2 Compliance Dashboard",
-        "category": "Web App Development + AI",
-        "problem": "A company subject to the NIS2 directive had no visibility on the compliance status of its departments. Every audit was a manual exercise.",
-        "solution": "Interactive dashboard with modules for each NIS2 requirement, department compliance status, timelines, attached documentation. An AI layer suggests priorities and critical gaps.",
+      "aiAgents": {
+        "title": "Custom AI Agents: From Operations to Personnel Selection",
+        "category": "AI Agents",
+        "problem": "A team spent hours every day on repetitive tasks: email sorting, data extraction from documents, CRM updates, client follow-ups. The HR department, in parallel, manually screened hundreds of CVs for each open position.",
+        "solution": "Suite of custom AI agents trained on the client's business: operational agents integrated with email, CRM, and management software that receive, classify, extract data, and only notify exceptions. AI HR Assistant for automatic CV screening, candidate pre-selection, and recruiting process support.",
         "results": [
-          "Compliance mapped at 100%",
-          "Audit preparation time: −60%",
-          "AI-suggested priorities"
+          "80% of operational tasks automated",
+          "CV screening time: −70%",
+          "HR team focused on high-value interviews"
+        ],
+        "technologies": [
+          "LangChain",
+          "OpenAI API",
+          "n8n",
+          "API Integration",
+          "Python"
+        ]
+      },
+      "prototyping": {
+        "title": "Naval Shipyard Management System",
+        "category": "Prototyping",
+        "problem": "A naval shipyard managed complex projects with hundreds of activities, timelines, and assignments on Excel spreadsheets and paper procedures. No real-time visibility, no structured coordination between departments.",
+        "solution": "Prototype of a multi-user web management system with ESWBS (Expanded Ship Work Breakdown Structure) classification, work order management, automatic timeline calculation, and reporting. Tablet-friendly interface designed for direct use in the shipyard.",
+        "results": [
+          "Real-time visibility across all projects",
+          "ESWBS classification 100% digitized",
+          "Inter-department coordination without meetings"
         ],
         "technologies": [
           "Next.js",
           "TypeScript",
           "PostgreSQL",
-          "OpenAI API",
+          "Prisma",
           "Tailwind CSS"
         ]
       },
-      "rituale": {
-        "title": "Rituale — Brand Website",
-        "category": "Website",
-        "problem": "A wellness brand needed an online presence that communicated quality, care, identity — not a generic template.",
-        "solution": "Custom website with emotional design, curated copy, structure optimized for conversion and SEO.",
+      "pmLogistics": {
+        "title": "Simplified Maintenance Manual Creation",
+        "category": "PM & Logistics Engineering",
+        "problem": "Technical maintenance documentation was fragmented across dozens of different sources: supplier manuals, technical sheets, internal notes, operating procedures. Creating a unified manual required weeks of manual work with a high risk of inconsistencies.",
+        "solution": "Web app with AI that simplifies the creation of maintenance manuals from multiple documentation sources. The user provides instructions and criteria, the AI analyzes sources, identifies relevant information, and generates structured, coherent outputs — always under operator supervision and guidance.",
         "results": [
-          "Unique design, zero templates",
-          "Built-in structural SEO",
-          "Conversion rate above industry average"
+          "Manual creation time: from weeks to days",
+          "Documentation coverage: from 60% to 95%",
+          "Coherent structure guided by the user"
         ],
-        "technologies": []
-      },
-      "placeholder1": {
-        "title": "[Coming soon]",
-        "category": "",
-        "problem": "",
-        "solution": "",
-        "results": [],
-        "technologies": []
-      },
-      "placeholder2": {
-        "title": "[Coming soon]",
-        "category": "",
-        "problem": "",
-        "solution": "",
-        "results": [],
-        "technologies": []
+        "technologies": [
+          "Python",
+          "LangChain",
+          "Document AI",
+          "RAG Pipeline",
+          "PDF Generation"
+        ]
       }
     }
   },
