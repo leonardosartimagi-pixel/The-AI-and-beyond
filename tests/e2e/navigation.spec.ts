@@ -84,13 +84,18 @@ test.describe('Navigation and Smooth Scroll', () => {
     // Wait for header to be visible (ensures React effect with scroll listener is mounted)
     await expect(header).toBeVisible();
 
-    // Scroll down and explicitly dispatch scroll event (headless Chromium
-    // doesn't always fire scroll events from programmatic scrollTo)
+    // Scroll down — Lenis intercepts scrollTo and animates it asynchronously,
+    // so we wait for the position to settle before dispatching the scroll event
     await page.evaluate(() => {
       window.scrollTo({ top: 300, behavior: 'instant' });
-      window.dispatchEvent(new Event('scroll'));
     });
     await page.waitForFunction(() => window.scrollY >= 250);
+
+    // Dispatch scroll event AFTER position has settled so the header
+    // listener reads the correct scrollY value
+    await page.evaluate(() => {
+      window.dispatchEvent(new Event('scroll'));
+    });
     await expect(header).toHaveClass(/backdrop-blur-md/, { timeout: 10000 });
   });
 
