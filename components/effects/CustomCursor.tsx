@@ -15,7 +15,7 @@ export function CustomCursor() {
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
 
-  // Spring config for the outer ring (follows with delay)
+  // Spring config for the ring (follows with delay)
   const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
   const ringX = useSpring(cursorX, springConfig);
   const ringY = useSpring(cursorY, springConfig);
@@ -95,7 +95,13 @@ export function CustomCursor() {
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [isTouchDevice, prefersReducedMotion, handleMouseMove, handleMouseEnter, handleMouseLeave]);
+  }, [
+    isTouchDevice,
+    prefersReducedMotion,
+    handleMouseMove,
+    handleMouseEnter,
+    handleMouseLeave,
+  ]);
 
   // Add observer for dynamically added elements
   useEffect(() => {
@@ -130,51 +136,24 @@ export function CustomCursor() {
   }
 
   return (
-    <>
-      {/* Hide default cursor via CSS */}
-      <style jsx global>{`
-        @media (hover: hover) and (pointer: fine) {
-          * {
-            cursor: none !important;
-          }
-        }
-      `}</style>
-
-      {/* Inner dot - follows mouse exactly */}
-      <motion.div
-        className="pointer-events-none fixed z-[9999] mix-blend-difference"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{
-          scale: isHovering ? 0.5 : 1,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{ duration: 0.15 }}
-      >
-        <div className="h-2 w-2 rounded-full bg-accent" />
-      </motion.div>
-
-      {/* Outer ring - follows with spring delay */}
-      <motion.div
-        className="pointer-events-none fixed z-[9998] mix-blend-difference"
-        style={{
-          x: ringX,
-          y: ringY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-        animate={{
-          scale: isHovering ? 1.5 : 1,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{ duration: 0.2 }}
-      >
-        <div className="h-8 w-8 rounded-full border border-accent/60" />
-      </motion.div>
-    </>
+    <motion.div
+      className="pointer-events-none fixed z-[9998]"
+      style={{
+        x: ringX,
+        y: ringY,
+        translateX: '-50%',
+        translateY: '-50%',
+      }}
+      animate={{
+        scale: isHovering ? 1.5 : 1,
+        opacity: isVisible ? 1 : 0,
+        boxShadow: isHovering
+          ? '0 0 15px rgba(19, 125, 197, 0.35), 0 0 30px rgba(19, 125, 197, 0.15)'
+          : '0 0 10px rgba(19, 125, 197, 0.2)',
+      }}
+      transition={{ duration: 0.2 }}
+    >
+      <div className="h-7 w-7 rounded-full border-2 border-accent/40" />
+    </motion.div>
   );
 }
