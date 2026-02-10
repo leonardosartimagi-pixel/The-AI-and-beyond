@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { useReducedMotion } from '@/hooks';
 
 export function CustomCursor() {
@@ -11,14 +11,9 @@ export function CustomCursor() {
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Use motion values for smoother performance
+  // Direct motion values — no spring, moves in sync with cursor
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
-
-  // Spring config for the ring (follows with delay)
-  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
-  const ringX = useSpring(cursorX, springConfig);
-  const ringY = useSpring(cursorY, springConfig);
 
   // Mark as mounted and detect touch device
   useEffect(() => {
@@ -137,32 +132,23 @@ export function CustomCursor() {
 
   return (
     <motion.div
-      className="pointer-events-none fixed z-[9998]"
+      className="pointer-events-none fixed z-[9998] h-6 w-6 rounded-full"
       style={{
-        x: ringX,
-        y: ringY,
+        x: cursorX,
+        y: cursorY,
         translateX: '-50%',
         translateY: '-50%',
+        background:
+          'radial-gradient(circle, rgba(19,125,197,0.18) 0%, rgba(27,47,117,0.08) 40%, transparent 70%)',
       }}
       animate={{
-        scale: isHovering ? 1.8 : 1,
+        scale: isHovering ? 2 : 1,
         opacity: isVisible ? 1 : 0,
+        boxShadow: isHovering
+          ? '0 0 16px rgba(19,125,197,0.35), 0 0 32px rgba(27,47,117,0.15)'
+          : '0 0 10px rgba(19,125,197,0.2), 0 0 20px rgba(27,47,117,0.08)',
       }}
-      transition={{ duration: 0.25 }}
-    >
-      <motion.div
-        className="h-8 w-8 rounded-full"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(19,125,197,0.25) 0%, rgba(27,47,117,0.12) 45%, transparent 70%)',
-        }}
-        animate={{
-          boxShadow: isHovering
-            ? '0 0 20px rgba(19,125,197,0.4), 0 0 40px rgba(27,47,117,0.2), 0 0 60px rgba(19,125,197,0.1)'
-            : '0 0 12px rgba(19,125,197,0.3), 0 0 24px rgba(27,47,117,0.12)',
-        }}
-        transition={{ duration: 0.25 }}
-      />
-    </motion.div>
+      transition={{ duration: 0.2 }}
+    />
   );
 }
