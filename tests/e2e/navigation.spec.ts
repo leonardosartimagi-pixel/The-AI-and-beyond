@@ -116,8 +116,7 @@ test.describe('Navigation and Smooth Scroll', () => {
       return;
     }
 
-    // Tab past skip-to-content link to logo
-    await page.keyboard.press('Tab');
+    // Tab to logo (first focusable element)
     await page.keyboard.press('Tab');
     const logo = page.locator('button[aria-label="Torna alla home"]');
     await expect(logo).toBeFocused();
