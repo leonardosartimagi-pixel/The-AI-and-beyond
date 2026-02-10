@@ -145,15 +145,24 @@ export function CustomCursor() {
         translateY: '-50%',
       }}
       animate={{
-        scale: isHovering ? 1.5 : 1,
+        scale: isHovering ? 1.8 : 1,
         opacity: isVisible ? 1 : 0,
-        boxShadow: isHovering
-          ? '0 0 15px rgba(19, 125, 197, 0.35), 0 0 30px rgba(19, 125, 197, 0.15)'
-          : '0 0 10px rgba(19, 125, 197, 0.2)',
       }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.25 }}
     >
-      <div className="h-7 w-7 rounded-full border-2 border-accent/40" />
+      <motion.div
+        className="h-8 w-8 rounded-full"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(19,125,197,0.25) 0%, rgba(27,47,117,0.12) 45%, transparent 70%)',
+        }}
+        animate={{
+          boxShadow: isHovering
+            ? '0 0 20px rgba(19,125,197,0.4), 0 0 40px rgba(27,47,117,0.2), 0 0 60px rgba(19,125,197,0.1)'
+            : '0 0 12px rgba(19,125,197,0.3), 0 0 24px rgba(27,47,117,0.12)',
+        }}
+        transition={{ duration: 0.25 }}
+      />
     </motion.div>
   );
 }
