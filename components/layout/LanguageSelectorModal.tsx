@@ -82,6 +82,13 @@ export function LanguageSelectorModal() {
     [pathname, router]
   );
 
+  // Close on backdrop click — default to the current URL locale
+  const handleBackdropClick = useCallback(() => {
+    const currentLocale =
+      (pathname.match(/^\/(it|en)/)?.[1] as 'it' | 'en') || 'it';
+    handleSelectLanguage(currentLocale);
+  }, [pathname, handleSelectLanguage]);
+
   // Don't render anything during SSR or if preference exists
   if (!isMounted) {
     return null;
@@ -107,6 +114,7 @@ export function LanguageSelectorModal() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={handleBackdropClick}
             role="dialog"
             aria-modal="true"
             aria-labelledby="language-selector-title"
@@ -114,6 +122,7 @@ export function LanguageSelectorModal() {
             {/* Modal Card */}
             <motion.div
               className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-8 shadow-2xl sm:p-10"
+              onClick={(e) => e.stopPropagation()}
               initial={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.95,
