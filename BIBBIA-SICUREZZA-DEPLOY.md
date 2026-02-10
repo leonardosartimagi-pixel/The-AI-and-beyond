@@ -292,15 +292,15 @@ Audit basato su:
 
 #### 6.7 Security Headers
 
-| Header                    | Valore                                         | Stato         | File                                          |
-| ------------------------- | ---------------------------------------------- | ------------- | --------------------------------------------- |
-| Strict-Transport-Security | `max-age=63072000; includeSubDomains; preload` | ✅ Eccellente | `next.config.mjs:18`                          |
-| X-Frame-Options           | `SAMEORIGIN`                                   | ✅ OK         | `next.config.mjs:22`                          |
-| X-Content-Type-Options    | `nosniff`                                      | ✅ OK         | `next.config.mjs:26`                          |
-| Referrer-Policy           | `origin-when-cross-origin`                     | ✅ OK         | `next.config.mjs:30`                          |
-| Permissions-Policy        | `camera=(), microphone=(), geolocation=()`     | ✅ OK         | `next.config.mjs:34`                          |
-| Content-Security-Policy   | Nonce-based (vedi §10.1)                       | ✅ Hardened   | `middleware.ts` (dinamica, per-request nonce) |
-| X-DNS-Prefetch-Control    | `on`                                           | ✅ OK         | `next.config.mjs:14`                          |
+| Header                    | Valore                                         | Stato         | File                                                     |
+| ------------------------- | ---------------------------------------------- | ------------- | -------------------------------------------------------- |
+| Strict-Transport-Security | `max-age=63072000; includeSubDomains; preload` | ✅ Eccellente | `next.config.mjs:18`                                     |
+| X-Frame-Options           | `SAMEORIGIN`                                   | ✅ OK         | `next.config.mjs:22`                                     |
+| X-Content-Type-Options    | `nosniff`                                      | ✅ OK         | `next.config.mjs:26`                                     |
+| Referrer-Policy           | `origin-when-cross-origin`                     | ✅ OK         | `next.config.mjs:30`                                     |
+| Permissions-Policy        | `camera=(), microphone=(), geolocation=()`     | ✅ OK         | `next.config.mjs:34`                                     |
+| Content-Security-Policy   | Dinamica (vedi §10.1)                          | ✅ Hardened   | `middleware.ts` (unsafe-eval solo dev, nonce su JSON-LD) |
+| X-DNS-Prefetch-Control    | `on`                                           | ✅ OK         | `next.config.mjs:14`                                     |
 
 **Verdetto**: Tutti gli header di sicurezza configurati, inclusa CSP (§10.1).
 
@@ -557,13 +557,13 @@ Regole attive su `main`:
 
 ## 10. HARDENING APPLICATIVO
 
-### 10.1 Content Security Policy — ✅ HARDENED (PR #32, nonce-based)
+### 10.1 Content Security Policy — ✅ HARDENED (PR #32 + hotfix)
 
-CSP generata dinamicamente in `middleware.ts` con nonce per-request:
+CSP generata dinamicamente in `middleware.ts`:
 
 ```
 default-src 'self';
-script-src 'self' 'nonce-{per-request}' https://vercel.live;
+script-src 'self' 'unsafe-inline' https://vercel.live;
 style-src 'self' 'unsafe-inline';
 font-src 'self';
 img-src 'self' data: blob:;
@@ -577,13 +577,12 @@ object-src 'none';
 upgrade-insecure-requests;
 ```
 
-**Evoluzione da PR #2 → PR #32**:
+**Evoluzione da PR #2 → PR #32 → hotfix**:
 
-- `unsafe-inline` rimosso da `script-src` — sostituito con nonce per-request
 - `unsafe-eval` rimosso in produzione (presente solo in dev per webpack HMR)
 - `style-src 'unsafe-inline'` mantenuto (richiesto da Framer Motion, non rimovibile senza eliminare la libreria)
-- Nonce propagato via header `x-nonce` a tutti i `<script type="application/ld+json">` (JsonLd, FAQ)
-- Next.js 14 App Router propaga automaticamente il nonce agli script di hydration
+- `script-src 'unsafe-inline'` mantenuto — Next.js 14 hydration scripts sono inline senza attributo nonce; aggiungere un nonce alla direttiva CSP causa il browser (CSP Level 2+) a ignorare `unsafe-inline`, bloccando l'hydration. Nonce-based CSP per script-src richiede supporto framework (Next.js 15+)
+- Nonce generato per-request e propagato via header `x-nonce` ai `<script type="application/ld+json">` (JsonLd, FAQ) come defense-in-depth (attributo HTML, non enforced da CSP)
 
 **Nota**: `font-src 'self'` perché `next/font/google` self-hosta i font al build time. `object-src 'none'` blocca plugin/Flash. `upgrade-insecure-requests` forza HTTPS. `https://vercel.live` in `script-src`, `connect-src` e `frame-src` per toolbar preview deployment Vercel.
 
@@ -726,7 +725,7 @@ Azioni **VIETATE** in qualsiasi circostanza:
 | ---------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- | ------------------------------------------------------ |
 | 2026-02-06 | Adozione OWASP ASVS Level 1 come baseline                 | Sito pubblico senza auth utente. Level 1 copre i controlli essenziali. Level 2 da considerare se aggiunta auth.                                                                                                                                                    | Medio                                   | Alcune classi di vulnerability non coperte (Level 2/3) |
 | 2026-02-06 | Rate limiter in-memory accettato per MVP                  | Vercel KV richiede setup da parte del proprietario                                                                                                                                                                                                                 | Basso-Medio                             | Rate limit bypassabile tra invocazioni diverse         |
-| 2026-02-06 | CSP con unsafe-inline/unsafe-eval                         | Next.js richiede inline scripts per hydration. Nonce-based CSP richiede custom server.                                                                                                                                                                             | Medio                                   | CSP meno efficace contro XSS avanzato                  |
+| 2026-02-06 | CSP con unsafe-inline in script-src                       | Next.js 14 hydration scripts sono inline senza nonce. Nonce in script-src causa CSP2+ a ignorare unsafe-inline, bloccando hydration. Nonce-based CSP richiede Next.js 15+.                                                                                         | Medio                                   | CSP meno efficace contro XSS avanzato                  |
 | 2026-02-06 | No WAF dedicato                                           | Vercel fornisce protezione DDoS base. WAF dedicato (Cloudflare) eccessivo per il traffico attuale.                                                                                                                                                                 | Basso                                   | Attacchi application-layer sofisticati non filtrati    |
 | 2026-02-06 | AI Chatbot (AICore) mantenuto disabilitato                | Superficie d'attacco significativa. Da riabilitare solo dopo audit dedicato.                                                                                                                                                                                       | Positivo (riduce rischio)               | Nessuno                                                |
 | 2026-02-09 | npm audit: critical-only + omit dev                       | Vuln. high in next@14 (GHSA-9g9p-9gw9, GHSA-h25m-26qc) sono DoS per self-hosted, non applicabili su Vercel. Vuln. dev (esbuild, glob) non in produzione. Upgrade a Next.js 16 da pianificare come task separato.                                                   | Basso                                   | DoS non mitigato se si passa a self-hosted             |
