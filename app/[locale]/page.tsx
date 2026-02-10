@@ -9,9 +9,6 @@ export default async function Home() {
 
   return (
     <>
-      <a href="#main-content" className="skip-to-content">
-        {t('skipToContent')}
-      </a>
       <Header />
       <main id="main-content">
         <HomeContent />
