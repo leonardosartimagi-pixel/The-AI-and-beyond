@@ -84,10 +84,12 @@ test.describe('Navigation and Smooth Scroll', () => {
     // Wait for header to be visible (ensures React effect with scroll listener is mounted)
     await expect(header).toBeVisible();
 
-    // Scroll down and wait for scroll to complete before checking header class
-    await page.evaluate(() =>
-      window.scrollTo({ top: 300, behavior: 'instant' })
-    );
+    // Scroll down and explicitly dispatch scroll event (headless Chromium
+    // doesn't always fire scroll events from programmatic scrollTo)
+    await page.evaluate(() => {
+      window.scrollTo({ top: 300, behavior: 'instant' });
+      window.dispatchEvent(new Event('scroll'));
+    });
     await page.waitForFunction(() => window.scrollY >= 250);
     await expect(header).toHaveClass(/backdrop-blur-md/, { timeout: 10000 });
   });
