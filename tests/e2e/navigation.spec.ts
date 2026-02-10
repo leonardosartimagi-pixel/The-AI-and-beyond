@@ -24,8 +24,8 @@ test.describe('Navigation and Smooth Scroll', () => {
     // First scroll down
     await page.evaluate(() => window.scrollTo(0, 500));
 
-    // Click logo
-    const logo = page.locator('button[aria-label="Torna alla home"]');
+    // Click logo (scoped to header to avoid matching footer logo)
+    const logo = page.locator('header button[aria-label="Torna alla home"]');
     await logo.click();
 
     // Verify scroll position is near top
@@ -116,9 +116,9 @@ test.describe('Navigation and Smooth Scroll', () => {
       return;
     }
 
-    // Tab to logo (first focusable element)
+    // Tab to logo (first focusable element, scoped to header)
     await page.keyboard.press('Tab');
-    const logo = page.locator('button[aria-label="Torna alla home"]');
+    const logo = page.locator('header button[aria-label="Torna alla home"]');
     await expect(logo).toBeFocused();
 
     // Tab to first nav item
