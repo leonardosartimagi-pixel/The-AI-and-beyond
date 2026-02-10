@@ -61,6 +61,15 @@ export function useConsentStorage() {
       // localStorage might be unavailable
     }
     setStatus('pending');
+    // Notify other hook instances (e.g. CookieConsentBanner) to re-show
+    window.dispatchEvent(new Event('consent-reset'));
+  }, []);
+
+  // Listen for reset events from other hook instances
+  useEffect(() => {
+    const handleReset = () => setStatus('pending');
+    window.addEventListener('consent-reset', handleReset);
+    return () => window.removeEventListener('consent-reset', handleReset);
   }, []);
 
   return {
