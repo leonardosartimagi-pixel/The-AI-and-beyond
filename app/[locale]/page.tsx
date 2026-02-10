@@ -1,17 +1,17 @@
-import { getTranslations } from 'next-intl/server';
+import { headers } from 'next/headers';
 import { Header, Footer, MobileContactButton } from '@/components/layout';
 import { HomeContent } from '@/components/sections';
 // TEMPORARILY DISABLED - AICore chatbot
 // import { AICore } from '@/components/effects';
 
 export default async function Home() {
-  const t = await getTranslations();
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
 
   return (
     <>
       <Header />
       <main id="main-content">
-        <HomeContent />
+        <HomeContent nonce={nonce} />
       </main>
       <Footer />
       <MobileContactButton />

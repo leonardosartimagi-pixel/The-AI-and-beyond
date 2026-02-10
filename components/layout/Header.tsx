@@ -46,11 +46,11 @@ export function Header() {
     <>
       <motion.header
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          'fixed left-0 right-0 top-0 z-50 transition-all duration-300',
           // Hardware acceleration for fixed positioning (better scroll performance)
           'transform-gpu will-change-transform',
           isScrolled
-            ? 'bg-white/90 dark:bg-gray-950/90 backdrop-blur-md shadow-sm dark:shadow-gray-900/20'
+            ? 'bg-white/90 shadow-sm backdrop-blur-md dark:bg-gray-950/90 dark:shadow-gray-900/20'
             : 'bg-transparent'
         )}
         initial={prefersReducedMotion ? false : { y: -100 }}
@@ -63,7 +63,7 @@ export function Header() {
         >
           <Logo onClick={handleLogoClick} t={t} />
           <DesktopNav onNavClick={handleNavClick} t={t} />
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden items-center gap-4 lg:flex">
             <LanguageSwitcher />
             <ThemeToggle />
             <DesktopCTA onClick={() => handleNavClick('contatti')} t={t} />
@@ -98,7 +98,7 @@ function Logo({ onClick, t }: LogoProps) {
   return (
     <button
       onClick={onClick}
-      className="relative h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+      className="relative h-11 min-h-[44px] w-11 min-w-[44px] overflow-hidden rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 md:h-12 md:w-12"
       aria-label={t('home')}
     >
       {/* Logo symbol - circular, without white background */}
@@ -127,7 +127,7 @@ function DesktopNav({ onNavClick, t }: DesktopNavProps) {
         <li key={item.href}>
           <button
             onClick={() => onNavClick(item.href)}
-            className="text-primary dark:text-gray-100 hover:text-accent dark:hover:text-accent-light transition-colors duration-200 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 rounded px-2 py-1"
+            className="rounded px-2 py-1 font-medium text-primary transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:text-gray-100 dark:hover:text-accent-light dark:focus-visible:ring-offset-gray-950"
           >
             <NavGlitch>{t(item.key)}</NavGlitch>
           </button>
@@ -157,11 +157,16 @@ interface HamburgerButtonProps {
   closeLabel: string;
 }
 
-function HamburgerButton({ isOpen, onClick, openLabel, closeLabel }: HamburgerButtonProps) {
+function HamburgerButton({
+  isOpen,
+  onClick,
+  openLabel,
+  closeLabel,
+}: HamburgerButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 rounded"
+      className="relative z-50 flex h-11 min-h-[44px] w-11 min-w-[44px] flex-col items-center justify-center gap-1.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950 lg:hidden"
       aria-label={isOpen ? closeLabel : openLabel}
       aria-expanded={isOpen}
     >
