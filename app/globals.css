@@ -107,10 +107,9 @@
     }
   }
 
-  /* GPU-accelerated animations */
+  /* GPU-accelerated animations — translateZ(0) triggers compositing layer */
   .gpu-accelerated {
     transform: translateZ(0);
-    will-change: transform, opacity;
   }
 
   /* Optimize paint for animated elements */
@@ -133,7 +132,7 @@
 
 /* Performance: optimize rendering of decorative elements */
 [aria-hidden='true'] {
-  contain: strict;
+  contain: layout paint style;
 }
 
 /* Optimize blur effects for performance */
@@ -215,16 +214,20 @@
   mix-blend-mode: soft-light;
 }
 
-/* Smooth theme transition */
-* {
+/* Smooth theme transition — scoped to elements that visually change */
+body,
+header,
+footer,
+nav,
+main,
+section,
+.glass,
+.glass-subtle,
+.glass-strong,
+.contact-form-glass {
   transition-property: background-color, border-color;
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Exclude elements that shouldn't transition */
-*:where(:not(button, a, input, textarea, select)) {
-  transition-property: background-color, border-color;
 }
 
 /* Override for elements that need instant color changes */
