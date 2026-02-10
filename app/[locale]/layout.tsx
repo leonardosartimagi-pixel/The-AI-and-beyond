@@ -62,6 +62,7 @@ export async function generateMetadata({
 
   const isItalian = locale === 'it';
   const localePath = `/${locale}`;
+  const ogImage = isItalian ? '/og-image.png' : '/og-image-en.png';
 
   return {
     metadataBase: new URL(siteUrl),
@@ -104,11 +105,20 @@ export async function generateMetadata({
       siteName: siteName,
       title: meta.ogTitle,
       description: meta.ogDescription,
+      images: [
+        {
+          url: `${siteUrl}${ogImage}`,
+          width: 1200,
+          height: 630,
+          alt: siteName,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: meta.ogTitle,
       description: meta.ogDescription,
+      images: [`${siteUrl}${ogImage}`],
     },
     robots: {
       index: true,

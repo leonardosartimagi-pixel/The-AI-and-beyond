@@ -68,3 +68,6 @@ storybook-static/
 # Temporary files
 tmp/
 temp/
+
+# Logo video source files (not deployed)
+Logo - The AI and beyond/

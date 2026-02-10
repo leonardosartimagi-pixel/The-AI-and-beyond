@@ -1,10 +1,12 @@
+import { headers } from 'next/headers';
 import { SITE_URL, SITE_NAME } from '@/lib/constants';
 
 interface JsonLdProps {
   locale: string;
 }
 
-export function JsonLd({ locale }: JsonLdProps) {
+export async function JsonLd({ locale }: JsonLdProps) {
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   const isItalian = locale === 'it';
 
   const organizationSchema = {
@@ -79,18 +81,21 @@ export function JsonLd({ locale }: JsonLdProps) {
     <>
       <script
         type="application/ld+json"
+        nonce={nonce}
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationSchema),
         }}
       />
       <script
         type="application/ld+json"
+        nonce={nonce}
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteSchema),
         }}
       />
       <script
         type="application/ld+json"
+        nonce={nonce}
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(serviceSchema),
         }}
