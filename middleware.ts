@@ -19,10 +19,13 @@ export default function middleware(request: NextRequest) {
   // Generate a unique nonce for this request
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
-  // Build CSP with nonce instead of unsafe-inline for script-src
+  // Build CSP with nonce for script-src.
+  // 'unsafe-inline' is kept as fallback: CSP Level 2+ browsers IGNORE it
+  // when a nonce is present (spec behavior), so security is nonce-enforced.
+  // Next.js hydration scripts need either nonce or unsafe-inline.
   const cspDirectives = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''} https://vercel.live`,
+    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''} https://vercel.live`,
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
     "img-src 'self' data: blob:",
