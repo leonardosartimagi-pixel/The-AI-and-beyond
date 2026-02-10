@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks';
 
@@ -9,6 +10,14 @@ interface GradientMeshProps {
 
 export function GradientMesh({ className = '' }: GradientMeshProps) {
   const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   // If user prefers reduced motion, show static gradient
   if (prefersReducedMotion) {
@@ -29,21 +38,26 @@ export function GradientMesh({ className = '' }: GradientMeshProps) {
   }
 
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
+    <div
+      className={`absolute inset-0 overflow-hidden ${className}`}
+      aria-hidden="true"
+    >
       {/* Base gradient */}
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(135deg, rgba(27, 47, 117, 1) 0%, rgba(21, 31, 79, 1) 100%)',
+          background:
+            'linear-gradient(135deg, rgba(27, 47, 117, 1) 0%, rgba(21, 31, 79, 1) 100%)',
         }}
       />
 
-      {/* Animated mesh gradient orbs */}
+      {/* Animated mesh gradient orbs — on mobile only 2 primary orbs with reduced blur */}
       <motion.div
         className="absolute h-[800px] w-[800px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(19, 125, 197, 0.5) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          background:
+            'radial-gradient(circle, rgba(19, 125, 197, 0.5) 0%, transparent 70%)',
+          filter: isMobile ? 'blur(40px)' : 'blur(60px)',
           left: '-10%',
           top: '-20%',
         }}
@@ -62,8 +76,9 @@ export function GradientMesh({ className = '' }: GradientMeshProps) {
       <motion.div
         className="absolute h-[600px] w-[600px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(0, 174, 239, 0.4) 0%, transparent 70%)',
-          filter: 'blur(50px)',
+          background:
+            'radial-gradient(circle, rgba(0, 174, 239, 0.4) 0%, transparent 70%)',
+          filter: isMobile ? 'blur(40px)' : 'blur(50px)',
           right: '-5%',
           bottom: '-15%',
         }}
@@ -80,47 +95,54 @@ export function GradientMesh({ className = '' }: GradientMeshProps) {
         }}
       />
 
-      <motion.div
-        className="absolute h-[500px] w-[500px] rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(19, 125, 197, 0.3) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-          right: '20%',
-          top: '10%',
-        }}
-        animate={{
-          x: [0, -50, 30, 0],
-          y: [0, 80, 40, 0],
-          scale: [1, 1.15, 0.95, 1],
-        }}
-        transition={{
-          duration: 22,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 4,
-        }}
-      />
+      {/* Secondary orbs — hidden on mobile to reduce GPU load */}
+      {!isMobile && (
+        <>
+          <motion.div
+            className="absolute h-[500px] w-[500px] rounded-full"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(19, 125, 197, 0.3) 0%, transparent 70%)',
+              filter: 'blur(40px)',
+              right: '20%',
+              top: '10%',
+            }}
+            animate={{
+              x: [0, -50, 30, 0],
+              y: [0, 80, 40, 0],
+              scale: [1, 1.15, 0.95, 1],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 4,
+            }}
+          />
 
-      <motion.div
-        className="absolute h-[400px] w-[400px] rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(0, 174, 239, 0.25) 0%, transparent 70%)',
-          filter: 'blur(30px)',
-          left: '30%',
-          bottom: '5%',
-        }}
-        animate={{
-          x: [0, 60, -30, 0],
-          y: [0, -50, 20, 0],
-          scale: [1, 0.85, 1.1, 1],
-        }}
-        transition={{
-          duration: 16,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
-      />
+          <motion.div
+            className="absolute h-[400px] w-[400px] rounded-full"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(0, 174, 239, 0.25) 0%, transparent 70%)',
+              filter: 'blur(30px)',
+              left: '30%',
+              bottom: '5%',
+            }}
+            animate={{
+              x: [0, 60, -30, 0],
+              y: [0, -50, 20, 0],
+              scale: [1, 0.85, 1.1, 1],
+            }}
+            transition={{
+              duration: 16,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 1,
+            }}
+          />
+        </>
+      )}
 
       {/* Subtle noise texture overlay */}
       <div

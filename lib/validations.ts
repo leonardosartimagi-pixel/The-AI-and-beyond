@@ -30,8 +30,8 @@ export function createContactFormSchema(locale: string = 'it') {
     email: z.string().email(m.emailInvalid),
     company: z.string().optional(),
     message: z.string().min(10, m.messageMin).max(1000, m.messageMax),
-    privacy: z.literal(true, {
-      errorMap: () => ({ message: m.privacyRequired }),
+    privacy: z.boolean().refine((val) => val === true, {
+      message: m.privacyRequired,
     }),
   });
 }

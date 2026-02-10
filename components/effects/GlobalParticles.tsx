@@ -1,11 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import type { Container } from '@tsparticles/engine';
 import { useReducedMotion } from '@/hooks';
-import { particleConfigLight, particleConfigLightMobile } from './ParticleConfig';
+import {
+  particleConfigLight,
+  particleConfigLightMobile,
+} from './ParticleConfig';
 
 // Sections where particles should be visible
 const PARTICLE_SECTIONS = ['servizi', 'portfolio', 'contatti'];
@@ -15,14 +18,23 @@ export function GlobalParticles() {
   const [isMobile, setIsMobile] = useState(false);
   const [isEngineReady, setIsEngineReady] = useState(false);
   const [shouldShowParticles, setShouldShowParticles] = useState(false);
+  const engineInitialized = useRef(false);
 
+  // Lazy-init: only load the particles engine when sections are first visible
   useEffect(() => {
+    if (
+      !shouldShowParticles ||
+      engineInitialized.current ||
+      prefersReducedMotion
+    )
+      return;
+    engineInitialized.current = true;
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
     }).then(() => {
       setIsEngineReady(true);
     });
-  }, []);
+  }, [shouldShowParticles, prefersReducedMotion]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -58,9 +70,12 @@ export function GlobalParticles() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const particlesLoaded = useCallback(async (_container: Container | undefined) => {
-    // Particles loaded
-  }, []);
+  const particlesLoaded = useCallback(
+    async (_container: Container | undefined) => {
+      // Particles loaded
+    },
+    []
+  );
 
   // Don't render if reduced motion, engine not ready, or not in target sections
   if (prefersReducedMotion || !isEngineReady || !shouldShowParticles) {

@@ -12,7 +12,10 @@ interface BrandShowcaseProps {
   onScrollPastSection?: (isPast: boolean) => void;
 }
 
-export function BrandShowcase({ className = '', onScrollPastSection }: BrandShowcaseProps) {
+export function BrandShowcase({
+  className = '',
+  onScrollPastSection,
+}: BrandShowcaseProps) {
   const t = useTranslations('brandShowcase');
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -104,7 +107,7 @@ export function BrandShowcase({ className = '', onScrollPastSection }: BrandShow
     <section
       ref={sectionRef}
       id="brand-showcase"
-      className={`relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-white dark:bg-gray-950 py-16 md:py-24 ${className}`}
+      className={`relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-white py-16 dark:bg-gray-950 md:py-24 ${className}`}
       aria-label={t('label')}
     >
       {/* Subtle background pattern */}
@@ -163,7 +166,7 @@ export function BrandShowcase({ className = '', onScrollPastSection }: BrandShow
                   muted
                   loop
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   aria-label="Video presentazione The AI and Beyond"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isVideoLoaded ? 1 : 0 }}

@@ -52,28 +52,33 @@ export function CustomCursor() {
     setIsVisible(false);
   }, []);
 
-  // Handle hover states for interactive elements
+  // Handle hover states via event delegation (single listener, no memory leaks)
   useEffect(() => {
     if (isTouchDevice || prefersReducedMotion) return;
 
-    const handleHoverStart = () => setIsHovering(true);
-    const handleHoverEnd = () => setIsHovering(false);
+    const interactiveSelector =
+      'a, button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])';
 
-    // Select all interactive elements
-    const interactiveElements = document.querySelectorAll(
-      'a, button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])'
-    );
+    const handlePointerOver = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (target.closest(interactiveSelector)) {
+        setIsHovering(true);
+      }
+    };
 
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleHoverStart);
-      el.addEventListener('mouseleave', handleHoverEnd);
-    });
+    const handlePointerOut = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (target.closest(interactiveSelector)) {
+        setIsHovering(false);
+      }
+    };
+
+    document.addEventListener('mouseover', handlePointerOver);
+    document.addEventListener('mouseout', handlePointerOut);
 
     return () => {
-      interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleHoverStart);
-        el.removeEventListener('mouseleave', handleHoverEnd);
-      });
+      document.removeEventListener('mouseover', handlePointerOver);
+      document.removeEventListener('mouseout', handlePointerOut);
     };
   }, [isTouchDevice, prefersReducedMotion]);
 
@@ -97,33 +102,6 @@ export function CustomCursor() {
     handleMouseEnter,
     handleMouseLeave,
   ]);
-
-  // Add observer for dynamically added elements
-  useEffect(() => {
-    if (isTouchDevice || prefersReducedMotion) return;
-
-    const observer = new MutationObserver(() => {
-      const interactiveElements = document.querySelectorAll(
-        'a, button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])'
-      );
-
-      interactiveElements.forEach((el) => {
-        // Remove existing listeners to prevent duplicates
-        el.removeEventListener('mouseenter', () => setIsHovering(true));
-        el.removeEventListener('mouseleave', () => setIsHovering(false));
-        // Add fresh listeners
-        el.addEventListener('mouseenter', () => setIsHovering(true));
-        el.addEventListener('mouseleave', () => setIsHovering(false));
-      });
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    return () => observer.disconnect();
-  }, [isTouchDevice, prefersReducedMotion]);
 
   // Don't render until mounted, on touch devices, or if reduced motion is preferred
   if (!isMounted || isTouchDevice || prefersReducedMotion) {
