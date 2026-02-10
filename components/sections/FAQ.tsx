@@ -8,6 +8,7 @@ import { TechGridOverlay, SectionTitleGlitch } from '@/components/effects';
 
 interface FAQProps {
   className?: string;
+  nonce?: string;
 }
 
 const FAQ_KEYS = ['ai-fit', 'timeline', 'cost', 'process'] as const;
@@ -95,7 +96,7 @@ function FAQItem({
   );
 }
 
-export function FAQ({ className = '' }: FAQProps) {
+export function FAQ({ className = '', nonce }: FAQProps) {
   const t = useTranslations('faq');
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
@@ -139,6 +140,7 @@ export function FAQ({ className = '' }: FAQProps) {
       {/* FAQ Schema JSON-LD */}
       <script
         type="application/ld+json"
+        nonce={nonce}
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 

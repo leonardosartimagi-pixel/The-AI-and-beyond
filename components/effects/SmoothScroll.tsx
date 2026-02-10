@@ -30,7 +30,13 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    // Defer RAF loop start to avoid competing with initial paint
+    const startRaf = () => requestAnimationFrame(raf);
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(startRaf);
+    } else {
+      setTimeout(startRaf, 0);
+    }
 
     // Esponi Lenis globalmente per permettere ad altri componenti di controllarlo
     if (typeof window !== 'undefined') {

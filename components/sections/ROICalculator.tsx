@@ -40,7 +40,9 @@ function AnimatedNumber({
     damping: 20,
     duration: prefersReducedMotion ? 0 : undefined,
   });
-  const display = useTransform(spring, (current) => formatFn(Math.round(current)));
+  const display = useTransform(spring, (current) =>
+    formatFn(Math.round(current))
+  );
   const [displayValue, setDisplayValue] = useState(formatFn(0));
 
   useEffect(() => {
@@ -65,14 +67,19 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
   const [hoursPerWeek, setHoursPerWeek] = useState(10);
   const [hourlyRate, setHourlyRate] = useState(50);
   const [useHourlyRate, setUseHourlyRate] = useState(true);
-  const [selectedTaskType, setSelectedTaskType] = useState<TaskType>(taskTypes[1] as TaskType);
+  const [selectedTaskType, setSelectedTaskType] = useState<TaskType>(
+    taskTypes[1] as TaskType
+  );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     }
@@ -82,7 +89,8 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
 
   // Calculations (Conservative 60% efficiency)
   const EFFICIENCY = 0.6;
-  const hoursSavedMonthly = hoursPerWeek * 4 * EFFICIENCY * selectedTaskType.multiplier;
+  const hoursSavedMonthly =
+    hoursPerWeek * 4 * EFFICIENCY * selectedTaskType.multiplier;
   const hoursSavedAnnually = hoursSavedMonthly * 12;
   const annualSavings = hoursSavedAnnually * hourlyRate;
 
@@ -156,7 +164,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
     <section
       ref={sectionRef}
       id="roi-calculator"
-      className={`relative overflow-hidden bg-gray-50 dark:bg-gray-900 py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden bg-gray-50 py-24 dark:bg-gray-900 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
       {/* Decorative gradient blur - top left */}
@@ -264,7 +272,7 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                   max="40"
                   value={hoursPerWeek}
                   onChange={(e) => setHoursPerWeek(Number(e.target.value))}
-                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-accent [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
+                  className="h-3 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-accent [&::-moz-range-thumb]:h-[44px] [&::-moz-range-thumb]:w-[44px] [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-accent [&::-moz-range-thumb]:shadow-md [&::-webkit-slider-thumb]:h-[44px] [&::-webkit-slider-thumb]:w-[44px] [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-accent [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
                   aria-valuemin={1}
                   aria-valuemax={40}
                   aria-valuenow={hoursPerWeek}
@@ -390,7 +398,9 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
                         max="500"
                         value={hourlyRate}
                         onChange={(e) =>
-                          setHourlyRate(Math.max(1, Math.min(500, Number(e.target.value))))
+                          setHourlyRate(
+                            Math.max(1, Math.min(500, Number(e.target.value)))
+                          )
                         }
                         className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-9 pr-16 text-lg font-medium text-gray-900 transition-all hover:border-accent focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                         aria-label={t('hourlyRateAriaLabel')}
@@ -489,13 +499,11 @@ export function ROICalculator({ className = '' }: ROICalculatorProps) {
               )}
 
               {/* Disclaimer */}
-              <p className="text-xs text-gray-400">
-                {t('results.disclaimer')}
-              </p>
+              <p className="text-xs text-gray-400">{t('results.disclaimer')}</p>
             </div>
 
             {/* CTA Button */}
-            <div className="mt-6 pt-6 border-t border-gray-100">
+            <div className="mt-6 border-t border-gray-100 pt-6">
               <a
                 href="#contatti"
                 className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-light px-6 py-4 font-medium text-white shadow-lg transition-all hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
