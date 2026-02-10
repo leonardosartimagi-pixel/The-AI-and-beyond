@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from 'next/og';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { ogLogoDataUri } from './og-logo-data';
 
-export const runtime = 'nodejs';
 export const alt = 'The AI and Beyond';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -15,11 +13,6 @@ export default async function Image({
 }) {
   const { locale } = await params;
   const isItalian = locale === 'it';
-
-  const logoBuffer = await readFile(
-    join(process.cwd(), 'public', 'icon-512.png')
-  );
-  const logoSrc = `data:image/png;base64,${logoBuffer.toString('base64')}`;
 
   return new ImageResponse(
     <div
@@ -50,7 +43,7 @@ export default async function Image({
       />
 
       <img
-        src={logoSrc}
+        src={ogLogoDataUri}
         alt=""
         width={160}
         height={160}
