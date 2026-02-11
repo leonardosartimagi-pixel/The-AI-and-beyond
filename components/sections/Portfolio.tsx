@@ -4,7 +4,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useReducedMotion } from '@/hooks';
+import { useReducedMotion, useScrollTo } from '@/hooks';
 import { Badge, PortfolioVideoPlayer } from '@/components/ui';
 import {
   TechGridOverlay,
@@ -224,6 +224,7 @@ function PortfolioModal({
 }: PortfolioModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const scrollTo = useScrollTo();
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -474,9 +475,14 @@ function PortfolioModal({
                   </div>
                 )}
 
-                <a
-                  href="#contatti"
-                  onClick={onClose}
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    setTimeout(() => {
+                      scrollTo('contatti');
+                    }, 100);
+                  }}
                   className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent-light px-6 py-3 font-medium text-white shadow-lg transition-all hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 >
                   <span>{tNav('cta')}</span>
@@ -493,7 +499,7 @@ function PortfolioModal({
                       d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
                     />
                   </svg>
-                </a>
+                </button>
               </div>
             </motion.div>
           </motion.div>
