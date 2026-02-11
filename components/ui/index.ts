@@ -16,3 +16,4 @@ export { Checkbox, type CheckboxProps } from './Checkbox';
 export { Badge, badgeVariants, type BadgeProps } from './Badge';
 export { MagneticButton } from './MagneticButton';
 export { LanguageSwitcher } from './LanguageSwitcher';
+export { PortfolioVideoPlayer } from './PortfolioVideoPlayer';
