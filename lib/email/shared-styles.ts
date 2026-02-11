@@ -16,7 +16,7 @@ export const BRAND = {
 } as const;
 
 export const LOGO_URL = `${SITE_URL}/images/logo-color.png`;
-export const FROM_ADDRESS = `${SITE_NAME} <noreply@theaiandbeyond.com>`;
+export const FROM_ADDRESS = `${SITE_NAME} <noreply@theaiandbeyond.it>`;
 
 const FONT_STACK =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
