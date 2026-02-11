@@ -175,9 +175,9 @@ describe('buildHeader', () => {
     expect(header).toContain('alt=');
   });
 
-  it('uses primary brand color background', () => {
+  it('uses white background for logo visibility', () => {
     const header = buildHeader();
-    expect(header).toContain('#1b2f75');
+    expect(header).toContain('#ffffff');
   });
 });
 
