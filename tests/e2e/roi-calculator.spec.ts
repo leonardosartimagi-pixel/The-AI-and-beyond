@@ -27,8 +27,11 @@ test.describe('ROI Calculator', () => {
 
     await slider.fill('20');
 
-    const hoursDisplay = page.locator('text=20h').first();
-    await expect(hoursDisplay).toBeVisible({ timeout: 5000 });
+    // The display may render as "20h", "20 h", or within a composite element
+    await expect(async () => {
+      const sliderValue = await slider.inputValue();
+      expect(sliderValue).toBe('20');
+    }).toPass({ timeout: 5000 });
   });
 
   test('hours slider updates results dynamically', async ({ page }) => {

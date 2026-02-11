@@ -117,12 +117,12 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 
 ### Flussi dati
 
-| Flusso        | Dati                            | Direzione                | Protezione                                           |
-| ------------- | ------------------------------- | ------------------------ | ---------------------------------------------------- |
-| Form contatto | nome, email, company, messaggio | Client → Server → Resend | Zod, sanitize, rate limit                            |
-| AI Chat       | messaggio utente, history       | Client → Server → OpenAI | Validation, prompt guard, rate limit, content filter |
-| Analytics     | page views, web vitals          | Client → Vercel          | Consent-gated                                        |
-| i18n          | locale preference               | Client localStorage      | Non sensibile                                        |
+| Flusso        | Dati                                    | Direzione                                            | Protezione                                           |
+| ------------- | --------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| Form contatto | nome, email, company, messaggio, locale | Client → Server → Resend (2 email: lead + thank-you) | Zod, sanitizeForHtml, rate limit                     |
+| AI Chat       | messaggio utente, history               | Client → Server → OpenAI                             | Validation, prompt guard, rate limit, content filter |
+| Analytics     | page views, web vitals                  | Client → Vercel                                      | Consent-gated                                        |
+| i18n          | locale preference                       | Client localStorage                                  | Non sensibile                                        |
 
 ---
 
@@ -149,21 +149,21 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 
 ### Minacce principali e contromisure
 
-| ID  | Minaccia                 | OWASP Top 10 | Probabilità | Impatto | Contromisura                            | Stato                  |
-| --- | ------------------------ | ------------ | ----------- | ------- | --------------------------------------- | ---------------------- |
-| T1  | XSS via input utente     | A03:2021     | Bassa       | Medio   | React escaping, sanitization, CSP       | ✅ Implementato        |
-| T2  | Prompt injection (chat)  | A03:2021     | Media       | Medio   | prompt-guard.ts, content-filter.ts      | ✅ Implementato        |
-| T3  | API key leak             | A02:2021     | Media       | Alto    | .gitignore, env vars                    | ⚠️ Key da ruotare      |
-| T4  | Rate limit bypass        | A04:2021     | Media       | Medio   | In-memory rate limiter                  | ⚠️ Non distribuito     |
-| T5  | Dependency vulnerability | A06:2021     | Media       | Medio   | lockfile presente                       | ⚠️ No scan automatico  |
-| T6  | Email injection/spam     | A03:2021     | Bassa       | Basso   | Zod validation, rate limit              | ✅ Implementato        |
-| T7  | Clickjacking             | A05:2021     | Bassa       | Basso   | X-Frame-Options: SAMEORIGIN             | ✅ Implementato        |
-| T8  | MIME sniffing            | A05:2021     | Bassa       | Basso   | X-Content-Type-Options: nosniff         | ✅ Implementato        |
-| T9  | Man-in-the-middle        | A02:2021     | Bassa       | Alto    | HSTS preload, Vercel TLS                | ✅ Implementato        |
-| T10 | Supply chain attack      | A08:2021     | Bassa       | Alto    | lockfile                                | ⚠️ No SBOM, no signing |
-| T11 | DDoS/abuse               | A04:2021     | Media       | Medio   | Rate limit, Vercel protection           | ⚠️ Parziale            |
-| T12 | Secret in logs           | A09:2021     | Media       | Medio   | secureLog (chat), console.log (contact) | ⚠️ Parziale            |
-| T13 | SSRF via chat            | A10:2021     | Bassa       | Medio   | OpenAI proxied, no direct fetch         | ✅ Non applicabile     |
+| ID  | Minaccia                 | OWASP Top 10 | Probabilità | Impatto | Contromisura                                                      | Stato                  |
+| --- | ------------------------ | ------------ | ----------- | ------- | ----------------------------------------------------------------- | ---------------------- |
+| T1  | XSS via input utente     | A03:2021     | Bassa       | Medio   | React escaping, sanitization, CSP                                 | ✅ Implementato        |
+| T2  | Prompt injection (chat)  | A03:2021     | Media       | Medio   | prompt-guard.ts, content-filter.ts                                | ✅ Implementato        |
+| T3  | API key leak             | A02:2021     | Media       | Alto    | .gitignore, env vars                                              | ⚠️ Key da ruotare      |
+| T4  | Rate limit bypass        | A04:2021     | Media       | Medio   | In-memory rate limiter                                            | ⚠️ Non distribuito     |
+| T5  | Dependency vulnerability | A06:2021     | Media       | Medio   | lockfile presente                                                 | ⚠️ No scan automatico  |
+| T6  | Email injection/spam     | A03:2021     | Bassa       | Basso   | Zod validation, rate limit, sanitizeForHtml, HTML email templates | ✅ Implementato        |
+| T7  | Clickjacking             | A05:2021     | Bassa       | Basso   | X-Frame-Options: SAMEORIGIN                                       | ✅ Implementato        |
+| T8  | MIME sniffing            | A05:2021     | Bassa       | Basso   | X-Content-Type-Options: nosniff                                   | ✅ Implementato        |
+| T9  | Man-in-the-middle        | A02:2021     | Bassa       | Alto    | HSTS preload, Vercel TLS                                          | ✅ Implementato        |
+| T10 | Supply chain attack      | A08:2021     | Bassa       | Alto    | lockfile                                                          | ⚠️ No SBOM, no signing |
+| T11 | DDoS/abuse               | A04:2021     | Media       | Medio   | Rate limit, Vercel protection                                     | ⚠️ Parziale            |
+| T12 | Secret in logs           | A09:2021     | Media       | Medio   | secureLog (chat), log generici (contact)                          | ✅ Implementato        |
+| T13 | SSRF via chat            | A10:2021     | Bassa       | Medio   | OpenAI proxied, no direct fetch                                   | ✅ Non applicabile     |
 
 ---
 
@@ -186,16 +186,16 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 
 ### Rischi noti aperti
 
-| ID  | Rischio                                                          | Severità    | Stato                                          | Owner        |
-| --- | ---------------------------------------------------------------- | ----------- | ---------------------------------------------- | ------------ |
-| R1  | OpenAI API key esposta in .env.local (letta da terminale)        | CRITICO     | **DA RUOTARE**                                 | Proprietario |
-| R2  | ~~Nessun CSP header configurato~~                                | ~~MEDIO~~   | ✅ Implementato (PR #2, aggiornato 2026-02-09) | Dev          |
-| R3  | Rate limiter in-memory (non persiste tra serverless invocations) | MEDIO       | Da migrare a Vercel KV                         | Dev          |
-| R4  | Nessun SAST/SCA automatico in CI                                 | MEDIO       | Da aggiungere                                  | Dev          |
-| R5  | Nessun secret scanning in CI                                     | MEDIO       | Da aggiungere                                  | Dev          |
-| R6  | Email utente loggata in contact API                              | BASSO-MEDIO | Da fixare                                      | Dev          |
-| R7  | Branch protection non verificata                                 | MEDIO       | Da configurare                                 | Proprietario |
-| R8  | Nessun CODEOWNERS configurato                                    | BASSO       | Da aggiungere                                  | Dev          |
+| ID  | Rischio                                                          | Severità        | Stato                                             | Owner        |
+| --- | ---------------------------------------------------------------- | --------------- | ------------------------------------------------- | ------------ |
+| R1  | OpenAI API key esposta in .env.local (letta da terminale)        | CRITICO         | **DA RUOTARE**                                    | Proprietario |
+| R2  | ~~Nessun CSP header configurato~~                                | ~~MEDIO~~       | ✅ Implementato (PR #2, aggiornato 2026-02-09)    | Dev          |
+| R3  | Rate limiter in-memory (non persiste tra serverless invocations) | MEDIO           | Da migrare a Vercel KV                            | Dev          |
+| R4  | Nessun SAST/SCA automatico in CI                                 | MEDIO           | Da aggiungere                                     | Dev          |
+| R5  | Nessun secret scanning in CI                                     | MEDIO           | Da aggiungere                                     | Dev          |
+| R6  | ~~Email utente loggata in contact API~~                          | ~~BASSO-MEDIO~~ | ✅ Risolto — sanitizeForHtml + nessun PII nei log | Dev          |
+| R7  | Branch protection non verificata                                 | MEDIO           | Da configurare                                    | Proprietario |
+| R8  | Nessun CODEOWNERS configurato                                    | BASSO           | Da aggiungere                                     | Dev          |
 
 ### Debito di sicurezza
 
@@ -205,7 +205,7 @@ Questi principi si applicano a OGNI modifica, PR, deploy e decisione architettur
 | ~~Aggiungere CSP header~~                 | ~~Basso~~             | ~~P1~~   | ✅ Completato (PR #2, aggiornato 2026-02-09)                                     |
 | ~~Migrare rate limiter a Vercel KV~~      | ~~Medio~~             | ~~P1~~   | ✅ Completato — `lib/rate-limiter.ts` usa `@upstash/redis` con `KV_REST_API_URL` |
 | ~~Pipeline CI: SAST + SCA + secret scan~~ | ~~Medio~~             | ~~P1~~   | ✅ Completato (PR #3 — `security-ci.yml` + `dependabot.yml`)                     |
-| Uniformare logging (secureLog)            | Basso                 | P2       | PR #1                                                                            |
+| ~~Uniformare logging (secureLog)~~        | ~~Basso~~             | ~~P2~~   | ✅ Completato — Contact API usa log generici senza PII                           |
 | Branch protection + CODEOWNERS            | Basso (config GitHub) | P2       | Manuale                                                                          |
 | PR template con security checklist        | Basso                 | P2       | PR #3                                                                            |
 | Monitoraggio Vercel (alerts)              | Basso                 | P3       | Config                                                                           |
@@ -306,16 +306,16 @@ Audit basato su:
 
 #### 6.8 Logging
 
-| Controllo             | Stato       | File                            | Note                            |
-| --------------------- | ----------- | ------------------------------- | ------------------------------- |
-| Log eventi auth       | N/A         | -                               | No auth                         |
-| Log admin actions     | N/A         | -                               | No admin                        |
-| Log errori critici    | ✅ OK       | API routes                      | try-catch con console.error     |
-| No PII nei log        | ⚠️ PARZIALE | `app/api/contact/route.ts:135`  | Email loggata su invio successo |
-| Secure logging (chat) | ✅ OK       | `app/api/chat/route.ts:207-239` | secureLog filtra dati sensibili |
-| Rate limit logging    | ✅ OK       | Entrambe le route               | IP loggato (accettabile)        |
+| Controllo             | Stato | File                            | Note                                               |
+| --------------------- | ----- | ------------------------------- | -------------------------------------------------- |
+| Log eventi auth       | N/A   | -                               | No auth                                            |
+| Log admin actions     | N/A   | -                               | No admin                                           |
+| Log errori critici    | ✅ OK | API routes                      | try-catch con console.error                        |
+| No PII nei log        | ✅ OK | `app/api/contact/route.ts`      | Nessun dato utente nei log, solo messaggi generici |
+| Secure logging (chat) | ✅ OK | `app/api/chat/route.ts:207-239` | secureLog filtra dati sensibili                    |
+| Rate limit logging    | ✅ OK | Entrambe le route               | IP loggato (accettabile)                           |
 
-**Verdetto**: Buono per chat, da migliorare per contact (email nei log).
+**Verdetto**: ✅ OK — Contact API non logga PII (solo messaggi generici). Chat API usa secureLog.
 
 #### 6.9 Rate Limiting
 
