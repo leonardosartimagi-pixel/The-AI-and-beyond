@@ -4,7 +4,13 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { TechGridOverlay, SectionDecorations, AnimatedIcon, ServiceIcons, SectionTitleGlitch } from '@/components/effects';
+import {
+  TechGridOverlay,
+  SectionDecorations,
+  AnimatedIcon,
+  ServiceIcons,
+  SectionTitleGlitch,
+} from '@/components/effects';
 
 interface Service {
   id: string;
@@ -109,7 +115,7 @@ function ServiceCard({
         type="button"
         onClick={() => onOpenModal(service)}
         onMouseMove={handleMouseMove}
-        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 p-6 text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 lg:p-8"
+        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 text-left shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:border-gray-800 dark:bg-gray-950 dark:focus-visible:ring-offset-gray-900 lg:p-8"
         whileHover={
           prefersReducedMotion
             ? {}
@@ -246,9 +252,10 @@ function ServiceModal({
       }
 
       if (event.key === 'Tab' && modalRef.current) {
-        const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
+        const focusableElements =
+          modalRef.current.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -270,7 +277,9 @@ function ServiceModal({
       document.body.style.overflow = 'hidden';
       // Stop Lenis smooth scroll to prevent background scrolling
       if (typeof window !== 'undefined') {
-        (window as Window & { lenis?: { stop: () => void; start: () => void } }).lenis?.stop();
+        (
+          window as Window & { lenis?: { stop: () => void; start: () => void } }
+        ).lenis?.stop();
       }
       closeButtonRef.current?.focus();
     }
@@ -280,7 +289,9 @@ function ServiceModal({
       document.body.style.overflow = '';
       // Restart Lenis smooth scroll
       if (typeof window !== 'undefined') {
-        (window as Window & { lenis?: { stop: () => void; start: () => void } }).lenis?.start();
+        (
+          window as Window & { lenis?: { stop: () => void; start: () => void } }
+        ).lenis?.start();
       }
     };
   }, [isOpen, handleKeyDown]);
@@ -308,11 +319,13 @@ function ServiceModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={onClose}
           >
             <motion.article
               ref={modalRef}
               data-lenis-prevent
-              className="relative max-h-[90vh] w-full max-w-lg overflow-auto overscroll-contain rounded-3xl bg-white dark:bg-gray-950 p-8 shadow-2xl dark:shadow-black/30"
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-h-[90vh] w-full max-w-lg overflow-auto overscroll-contain rounded-3xl bg-white p-8 shadow-2xl dark:bg-gray-950 dark:shadow-black/30"
               initial={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.9,
@@ -337,7 +350,7 @@ function ServiceModal({
                 ref={closeButtonRef}
                 type="button"
                 onClick={onClose}
-                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
                 aria-label={t('close')}
               >
                 <svg
@@ -467,7 +480,7 @@ export function Services({ className = '' }: ServicesProps) {
       <section
         ref={sectionRef}
         id="servizi"
-        className={`relative overflow-hidden bg-gray-50 dark:bg-gray-900 py-24 lg:py-32 ${className}`}
+        className={`relative overflow-hidden bg-gray-50 py-24 dark:bg-gray-900 lg:py-32 ${className}`}
         aria-label={t('label')}
       >
         {/* Tech grid overlay for consistency */}
