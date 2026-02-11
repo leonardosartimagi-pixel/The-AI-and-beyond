@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "The AI and Beyond — AI Consulting & Software Development",
-    "description": "We optimize your business with AI. Consulting, automation, AI agents, custom development — for businesses that want real results.",
-    "ogTitle": "The AI and Beyond — AI that works where it matters",
-    "ogDescription": "AI consulting and development for businesses. Automation, AI agents, web apps — what's needed, where it's needed.",
-    "ogAlt": "The AI and Beyond — AI Consulting & Software Development"
+    "title": "The AI and Beyond — AI Consulting That Starts From the Problem",
+    "description": "We find where your business loses time or money. Then we build the fix — with AI or without. Consulting, automation, custom development.",
+    "ogTitle": "AI works — when you start from the right problem | The AI and Beyond",
+    "ogDescription": "AI consulting, automation and custom development for businesses. We start from your problem, not the technology.",
+    "ogAlt": "The AI and Beyond — AI Consulting That Starts From the Problem"
   },
   "nav": {
     "about": "About Us",
@@ -20,11 +20,11 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "headline": "Thanks to AI",
-    "headlineAccent": "your business can do more.",
-    "subtitleLine1": "We optimize your business with artificial intelligence.",
-    "subtitleLine2": "Consulting, automation, development.",
-    "subtitleLine3": "What's needed, where it's needed.",
+    "headline": "AI works",
+    "headlineAccent": "when you start from the right problem.",
+    "subtitleLine1": "We find where your business loses time or money.",
+    "subtitleLine2": "Then we build the tool that fixes it.",
+    "subtitleLine3": "Only what's needed. Nothing more.",
     "cta": "Let's Talk",
     "microCopy": "No automated quotes. Just the right diagnosis.",
     "scrollHint": "Scroll to learn more",
@@ -46,22 +46,22 @@
     "title": "About",
     "titleAccent": "Us",
     "intro": "The AI and Beyond was born from Leonardo Sarti Magi's experience: an AI consultant and software developer with a direct approach to solving real problems.",
-    "paragraph1": "But The AI and Beyond is not a single person. It's a structure designed to be lean, fast, and precise — where human expertise and AI tools work together on every project.",
+    "paragraph1": "The AI and Beyond is a lean structure where human expertise and AI tools work together on every project. No departments, no bureaucracy — just the right people and tools for the problem at hand.",
     "paragraph2": "When you work with us, you're not working with a freelancer doing everything alone. You're working with a system where every analysis, every automation, every deliverable goes through AI tools that we ourselves use every day. It's our way of proving AI works: we use it before recommending it.",
     "paragraph3": "Our starting point is always the same: where are you losing time, money, or control over a process? From there, we figure out if AI is the right answer. Sometimes it is. Sometimes it's not. Either way, you have a clear picture before a single line of code is written.",
     "paragraph4": "We've worked on systems where errors are costly: industrial maintenance, regulatory compliance, business-critical applications. This taught us one thing: technology that works is technology that disappears from daily life — no one has to think about it.",
     "credentials": {
       "practical": {
         "title": "Direct Approach",
-        "description": "We analyze the problem before proposing solutions"
+        "description": "If AI isn't the answer, we'll tell you"
       },
       "fast": {
         "title": "AI-First",
-        "description": "We use AI before recommending it"
+        "description": "We use AI every day — before recommending it to you"
       },
       "custom": {
         "title": "Custom-Made",
-        "description": "Every project starts from your context"
+        "description": "We start from your process, not from a template"
       }
     },
     "photoAlt": "The AI and Beyond - AI Consulting"
@@ -70,13 +70,13 @@
     "label": "Services",
     "title": "What we",
     "titleAccent": "do",
-    "description": "We don't build a single thing. We optimize how you work. With tools that already exist, or with tools designed just for you.",
+    "description": "Every business has processes that work poorly, cost too much, or steal time from the wrong people. We find them and fix them — with AI where it makes sense, with other tools where it doesn't.",
     "learnMore": "Learn more",
     "close": "Close",
     "problemLabel": "The problem",
     "outcomeLabel": "What changes after",
     "differentLabel": "Why it's different",
-    "bridge": "These aren't off-the-shelf services. They're the ways we solve the problems businesses bring us every day. Small or large. One person or a hundred.",
+    "bridge": "These aren't rigid categories. They're the most common starting points. Your project might cross one, or several — we'll figure it out together on the first call.",
     "items": {
       "consulting": {
         "title": "AI Strategy",
@@ -387,7 +387,7 @@
     },
     "success": {
       "title": "Message sent!",
-      "description": "Thank you for contacting us. We'll get back to you as soon as possible."
+      "description": "Message received. We'll get back to you within 24 business hours."
     },
     "error": "An error occurred. Please try again later.",
     "validation": {
@@ -409,19 +409,19 @@
     "items": {
       "ai-fit": {
         "question": "Is AI right for my business?",
-        "answer": "AI can bring benefits to almost any type of business. During the initial consultation, we analyze your specific context to identify where artificial intelligence can really make a difference: automating repetitive processes, data analysis, customer support, operations optimization. We don't propose pre-packaged solutions, but build a custom path together with you."
+        "answer": "It depends. Not on how big your company is, but on where it's losing time or money. If you have repetitive processes tying up skilled people, data no one analyzes, or a team doing avoidable manual work — probably yes. The first step is always a diagnosis: we understand your context, map the inefficiencies, and honestly tell you where AI makes sense and where it doesn't."
       },
       "timeline": {
         "question": "How long does an AI project take?",
-        "answer": "Timing varies based on complexity. A proof-of-concept or MVP can be ready in 2-4 weeks. More complex projects require 2-3 months. We work with agile methodology, so you'll have visibility on progress and tangible results from the first weeks."
+        "answer": "An MVP or proof-of-concept: 2-4 weeks. More structured projects: 2-3 months. We work in agile — weekly sprints, regular demos, zero black-box effect. You see progress from day one, not after months of silence."
       },
       "cost": {
         "question": "How much does an AI consulting project cost?",
-        "answer": "Every project is different, so costs depend on complexity and objectives. We offer packages ranging from an initial strategic consultation to full solution development. After the free introductory call, we always prepare a detailed and transparent quote."
+        "answer": "We don't have a price list — automating email sorting for a 5-person team is different from building an AI-powered management system. Cost depends on what needs to be built and how complex it is. What we always do: free first call to understand the problem, then a clear quote with scope, timeline, and costs — before any code is written."
       },
       "process": {
         "question": "How does the work process work?",
-        "answer": "Everything starts with a free introductory call where we listen to your needs. Then we analyze the context, propose a solution and, if we decide to proceed, we work together with agile methodology: weekly sprints, continuous feedback and regular demos to ensure the result is exactly what you need."
+        "answer": "Free introductory call — we understand the problem and context. Analysis and concrete proposal with scope, timeline, and costs. If we go ahead, we work in agile: weekly sprints, demos of what works, continuous feedback. You don't receive a final deliverable after months of silence — you see progress week by week."
       }
     }
   },
