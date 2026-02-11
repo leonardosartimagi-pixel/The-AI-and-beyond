@@ -82,7 +82,7 @@ describe('buildLeadNotificationHtml', () => {
   it('includes brand colors', () => {
     const html = buildLeadNotificationHtml(mockData);
     expect(html).toContain('#1b2f75');
-    expect(html).toContain('#137dc5');
+    expect(html).toContain('#1177bd');
   });
 });
 

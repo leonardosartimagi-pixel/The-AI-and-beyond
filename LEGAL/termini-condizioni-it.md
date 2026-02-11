@@ -8,7 +8,7 @@
 
 **Titolare del sito web:**
 
-- **Nome**: The AI and Beyond di Leonardo Sarti Magi
+- **Nome**: The AI and beyond di Leonardo Sarti Magi
 - **Ditta Individuale**
 - **Titolare**: Leonardo Sarti Magi
 - **Partita IVA**: 02754730469
@@ -188,7 +188,7 @@ Si consiglia agli Utenti di controllare periodicamente questa pagina per verific
 
 Per qualsiasi domanda, richiesta di chiarimenti, o segnalazione relativa ai presenti Termini e Condizioni, contattare il Titolare ai seguenti recapiti:
 
-**The AI and Beyond di Leonardo Sarti Magi**
+**The AI and beyond di Leonardo Sarti Magi**
 
 - **Email**: info@theaiandbeyond.it / privacy@theaiandbeyond.it
 - **Indirizzo**: Via Genova 9, 55049 Viareggio (LU), Italia

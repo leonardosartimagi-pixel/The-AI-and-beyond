@@ -17,13 +17,13 @@ export function LegalPageLayout({ children, locale }: LegalPageLayoutProps) {
           <Link href={`/${locale}`} className="relative h-8 w-36">
             <Image
               src="/logos/logo-color.png"
-              alt="The AI and Beyond"
+              alt="The AI and beyond"
               fill
               className="object-contain dark:hidden"
             />
             <Image
               src="/logos/logo-white.png"
-              alt="The AI and Beyond"
+              alt="The AI and beyond"
               fill
               className="hidden object-contain dark:block"
             />
@@ -60,7 +60,7 @@ export function LegalPageLayout({ children, locale }: LegalPageLayoutProps) {
         <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              &copy; {new Date().getFullYear()} The AI and Beyond di Leonardo
+              &copy; {new Date().getFullYear()} The AI and beyond di Leonardo
               Sarti Magi
             </p>
             <nav className="flex flex-wrap items-center gap-4 text-sm">

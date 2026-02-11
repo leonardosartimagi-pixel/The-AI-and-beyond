@@ -16,7 +16,7 @@ const config: Config = {
           light: '#2d388a',
         },
         accent: {
-          DEFAULT: '#137dc5', // Blu primario del logo ufficiale
+          DEFAULT: '#1177bd', // Blu primario del logo — WCAG AA compliant (4.78:1 su bianco)
           dark: '#0f6ba8',
           light: '#00aeef', // Cyan dal gradiente logo
         },

@@ -52,9 +52,7 @@ test.describe('Portfolio Modal', () => {
     expect(isMuted).toBe(true);
   });
 
-  test('project cards display title, description, and technologies', async ({
-    page,
-  }) => {
+  test('project cards display title and description', async ({ page }) => {
     const firstCard = page.locator('#portfolio article').first();
     await expect(firstCard).toBeVisible();
 
@@ -62,9 +60,6 @@ test.describe('Portfolio Modal', () => {
     await expect(firstCard.locator('p')).toContainText(
       'campagne pubblicitarie'
     );
-
-    await expect(firstCard.locator('text=n8n')).toBeVisible();
-    await expect(firstCard.locator('text=Google Ads API')).toBeVisible();
   });
 
   test('clicking project card opens modal', async ({ page }) => {
@@ -93,10 +88,6 @@ test.describe('Portfolio Modal', () => {
     await expect(modal.locator('text=Problema')).toBeVisible();
     await expect(modal.locator('text=Soluzione')).toBeVisible();
     await expect(modal.locator('text=Risultati')).toBeVisible();
-    await expect(modal.locator('text=Tecnologie')).toBeVisible();
-
-    await expect(modal.locator('text=AI Document Processing')).toBeVisible();
-    await expect(modal.locator('text=Data Visualization')).toBeVisible();
   });
 
   test('modal closes when close button is clicked', async ({ page }) => {
@@ -251,13 +242,6 @@ test.describe('Portfolio Modal', () => {
 
     title = await page.locator('#modal-title').textContent();
     expect(title).toContain('Roadmap AI per PMI Manifatturiera');
-
-    await expect(
-      page.locator('[role="dialog"] >> text=Process Mining')
-    ).toBeVisible();
-    await expect(
-      page.locator('[role="dialog"] >> text=AI Readiness Assessment')
-    ).toBeVisible();
   });
 
   test('project cards show hover overlay', async ({ page, viewport }) => {

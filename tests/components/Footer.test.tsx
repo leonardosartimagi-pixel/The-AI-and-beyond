@@ -5,20 +5,26 @@ import { Footer } from '@/components/layout/Footer';
 describe('Footer', () => {
   it('renders the logo', () => {
     render(<Footer />);
-    expect(screen.getByAltText('The AI and Beyond')).toBeInTheDocument();
+    expect(screen.getByAltText('The AI and beyond')).toBeInTheDocument();
   });
 
   it('renders quick links section', () => {
     render(<Footer />);
     expect(screen.getByText('Link Rapidi')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Chi Siamo' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Chi Siamo' })
+    ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Servizi' })).toBeInTheDocument();
   });
 
   it('renders contact section', () => {
     render(<Footer />);
-    expect(screen.getByRole('heading', { name: 'Contatti' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /info@theaiandbeyond/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Contatti' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /info@theaiandbeyond/i })
+    ).toBeInTheDocument();
   });
 
   it('renders LinkedIn link with security attributes', () => {
@@ -47,7 +53,13 @@ describe('Footer', () => {
 
   it('renders all five quick links', () => {
     render(<Footer />);
-    const quickLinks = ['Chi Siamo', 'Servizi', 'Portfolio', 'Come Lavoriamo', 'Contatti'];
+    const quickLinks = [
+      'Chi Siamo',
+      'Servizi',
+      'Portfolio',
+      'Come Lavoriamo',
+      'Contatti',
+    ];
     quickLinks.forEach((link) => {
       expect(screen.getByRole('button', { name: link })).toBeInTheDocument();
     });
@@ -55,7 +67,9 @@ describe('Footer', () => {
 
   it('email link has correct mailto href', () => {
     render(<Footer />);
-    const emailLink = screen.getByRole('link', { name: /info@theaiandbeyond/i });
+    const emailLink = screen.getByRole('link', {
+      name: /info@theaiandbeyond/i,
+    });
     expect(emailLink).toHaveAttribute('href', 'mailto:info@theaiandbeyond.it');
   });
 });

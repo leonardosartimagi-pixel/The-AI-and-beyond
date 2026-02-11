@@ -117,14 +117,14 @@ export function CustomCursor() {
         translateX: '-50%',
         translateY: '-50%',
         background:
-          'radial-gradient(circle, rgba(19,125,197,0.18) 0%, rgba(27,47,117,0.08) 40%, transparent 70%)',
+          'radial-gradient(circle, rgba(17,119,189,0.18) 0%, rgba(27,47,117,0.08) 40%, transparent 70%)',
       }}
       animate={{
         scale: isHovering ? 2 : 1,
         opacity: isVisible ? 1 : 0,
         boxShadow: isHovering
-          ? '0 0 16px rgba(19,125,197,0.35), 0 0 32px rgba(27,47,117,0.15)'
-          : '0 0 10px rgba(19,125,197,0.2), 0 0 20px rgba(27,47,117,0.08)',
+          ? '0 0 16px rgba(17,119,189,0.35), 0 0 32px rgba(27,47,117,0.15)'
+          : '0 0 10px rgba(17,119,189,0.2), 0 0 20px rgba(27,47,117,0.08)',
       }}
       transition={{ duration: 0.2 }}
     />

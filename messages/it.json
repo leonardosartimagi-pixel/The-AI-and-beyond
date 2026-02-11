@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "The AI and Beyond — Consulenza AI che parte dal problema",
+    "title": "The AI and beyond — Consulenza AI che parte dal problema",
     "description": "Troviamo dove il tuo business perde tempo o soldi. Poi costruiamo la soluzione — con l'AI o senza. Consulenza, automazione, sviluppo su misura.",
-    "ogTitle": "L'AI funziona — se parti dal problema giusto | The AI and Beyond",
+    "ogTitle": "L'AI funziona — se parti dal problema giusto | The AI and beyond",
     "ogDescription": "Consulenza AI, automazione e sviluppo su misura per aziende. Partiamo dal tuo problema, non dalla tecnologia.",
-    "ogAlt": "The AI and Beyond — Consulenza AI che parte dal problema"
+    "ogAlt": "The AI and beyond — Consulenza AI che parte dal problema"
   },
   "nav": {
     "about": "Chi Siamo",
@@ -45,8 +45,8 @@
     "label": "Chi Siamo",
     "title": "Chi",
     "titleAccent": "Siamo",
-    "intro": "The AI and Beyond nasce dall'esperienza di Leonardo Sarti Magi: consulente AI e sviluppatore software con un approccio diretto alla risoluzione di problemi reali.",
-    "paragraph1": "The AI and Beyond è una struttura snella dove competenze umane e strumenti AI lavorano insieme su ogni progetto. Niente reparti, niente burocrazia — solo le persone e gli strumenti giusti per il problema da risolvere.",
+    "intro": "The AI and beyond nasce dall'esperienza di Leonardo Sarti Magi: consulente AI e sviluppatore software con un approccio diretto alla risoluzione di problemi reali.",
+    "paragraph1": "The AI and beyond è una struttura snella dove competenze umane e strumenti AI lavorano insieme su ogni progetto. Niente reparti, niente burocrazia — solo le persone e gli strumenti giusti per il problema da risolvere.",
     "paragraph2": "Quando lavori con noi, non lavori con un freelancer che fa tutto da solo. Lavori con un sistema dove ogni analisi, ogni automazione, ogni deliverable passa attraverso strumenti AI che noi stessi usiamo ogni giorno. È il nostro modo di dimostrare che l'AI funziona: la usiamo prima di consigliarla.",
     "paragraph3": "Il nostro punto di partenza è sempre lo stesso: dove stai perdendo tempo, soldi, o il controllo su un processo? Da lì capiamo se l'AI è la risposta giusta. A volte lo è. A volte serve altro. In entrambi i casi, hai un quadro chiaro prima che venga scritta una riga di codice.",
     "paragraph4": "Abbiamo lavorato su sistemi dove l'errore ha un costo alto: manutenzione industriale, compliance normativa, applicazioni critiche per il business. Questo ci ha insegnato una cosa: la tecnologia che funziona è quella che sparisce dal quotidiano — nessuno ci deve pensare.",
@@ -64,7 +64,7 @@
         "description": "Partiamo dal tuo processo, non da un template"
       }
     },
-    "photoAlt": "The AI and Beyond - Consulenza AI"
+    "photoAlt": "The AI and beyond - Consulenza AI"
   },
   "services": {
     "label": "Servizi",
@@ -128,6 +128,10 @@
     "results": "Risultati",
     "technologies": "Tecnologie",
     "hint": "Clicca su un progetto per i dettagli",
+    "techStack": {
+      "title": "Il nostro stack tecnologico",
+      "description": "Ogni progetto è diverso, e lo stack giusto fa la differenza. Questi sono alcuni degli strumenti e delle tecnologie che padroneggiamo — ma la vera competenza sta nel scegliere la combinazione giusta per ogni sfida specifica."
+    },
     "items": {
       "consulting": {
         "title": "Automazione Processi: Campagne ADV e Gestione Documentale Intelligente",
@@ -434,7 +438,7 @@
     "legalTitle": "Sede legale",
     "address": "Via Genova 9, 55049 Viareggio (LU)",
     "piva": "P.IVA 02754730469",
-    "copyright": "© {year} The AI and Beyond di Leonardo Sarti Magi. Tutti i diritti riservati.",
+    "copyright": "© {year} The AI and beyond di Leonardo Sarti Magi. Tutti i diritti riservati.",
     "privacy": "Privacy Policy",
     "cookiePolicy": "Cookie Policy",
     "terms": "Termini e Condizioni",

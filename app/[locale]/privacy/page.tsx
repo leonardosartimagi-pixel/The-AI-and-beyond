@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isIT ? 'Informativa Privacy' : 'Privacy Policy',
     description: isIT
-      ? 'Informativa sulla privacy e il trattamento dei dati personali di The AI and Beyond.'
-      : 'Privacy policy and personal data processing information for The AI and Beyond.',
+      ? 'Informativa sulla privacy e il trattamento dei dati personali di The AI and beyond.'
+      : 'Privacy policy and personal data processing information for The AI and beyond.',
     alternates: {
       canonical: `https://theaiandbeyond.it/${locale}/privacy`,
       languages: {
@@ -29,7 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PrivacyPage({ params }: Props) {
   const { locale } = await params;
-  const filePath = path.join(process.cwd(), 'LEGAL', `privacy-policy-${locale}.md`);
+  const filePath = path.join(
+    process.cwd(),
+    'LEGAL',
+    `privacy-policy-${locale}.md`
+  );
   const content = fs.readFileSync(filePath, 'utf-8');
 
   return (

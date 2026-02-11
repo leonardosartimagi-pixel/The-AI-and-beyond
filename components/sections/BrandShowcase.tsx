@@ -116,8 +116,8 @@ export function BrandShowcase({
         aria-hidden="true"
         style={{
           backgroundImage: `
-            linear-gradient(to right, #137dc5 1px, transparent 1px),
-            linear-gradient(to bottom, #137dc5 1px, transparent 1px)
+            linear-gradient(to right, #1177bd 1px, transparent 1px),
+            linear-gradient(to bottom, #1177bd 1px, transparent 1px)
           `,
           backgroundSize: '80px 80px',
         }}
@@ -167,7 +167,7 @@ export function BrandShowcase({
                   loop
                   playsInline
                   preload="metadata"
-                  aria-label="Video presentazione The AI and Beyond"
+                  aria-label="Video presentazione The AI and beyond"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isVideoLoaded ? 1 : 0 }}
                   transition={{ duration: 0.3 }}
@@ -188,7 +188,7 @@ export function BrandShowcase({
               <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary to-primary-dark p-12">
                 <Image
                   src="/logos/logo-white.png"
-                  alt="The AI and Beyond"
+                  alt="The AI and beyond"
                   width={500}
                   height={180}
                   className="h-auto max-h-32 w-auto max-w-full object-contain md:max-h-48"

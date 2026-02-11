@@ -104,7 +104,7 @@ function Logo({ onClick, t }: LogoProps) {
       {/* Logo symbol - circular, without white background */}
       <Image
         src="/images/logo-symbol.png"
-        alt="The AI and Beyond"
+        alt="The AI and beyond"
         fill
         sizes="48px"
         className="object-cover"

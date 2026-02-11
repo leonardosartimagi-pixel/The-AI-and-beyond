@@ -21,7 +21,7 @@ export function TechGridOverlay({
   opacity = 0.03,
   gridSize = 60,
   animate = false,
-  color = 'rgba(19, 125, 197, 0.3)', // accent color
+  color = 'rgba(17, 119, 189, 0.3)', // accent color
 }: TechGridOverlayProps) {
   const prefersReducedMotion = useReducedMotion();
   const shouldAnimate = animate && !prefersReducedMotion;
@@ -60,7 +60,12 @@ export function TechGridOverlay({
 
 interface GradientOrbProps {
   className?: string;
-  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
+  position?:
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'center';
   size?: 'sm' | 'md' | 'lg';
   animate?: boolean;
 }

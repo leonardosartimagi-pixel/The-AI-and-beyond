@@ -20,9 +20,13 @@ interface Particle {
   color: string;
 }
 
-const COLORS = ['#ffffff', '#00aeef', '#137dc5', '#ffffff'];
+const COLORS = ['#ffffff', '#00aeef', '#1177bd', '#ffffff'];
 
-export function AICoreParticles({ intensity, isHovered, size }: AICoreParticlesProps) {
+export function AICoreParticles({
+  intensity,
+  isHovered,
+  size,
+}: AICoreParticlesProps) {
   const center = size / 2;
 
   // Generate random particles
@@ -41,7 +45,8 @@ export function AICoreParticles({ intensity, isHovered, size }: AICoreParticlesP
   return (
     <g>
       {particles.map((particle) => {
-        const adjustedDuration = (particle.duration / 10) * intensity.particleSpeed;
+        const adjustedDuration =
+          (particle.duration / 10) * intensity.particleSpeed;
 
         return (
           <motion.g
@@ -56,8 +61,14 @@ export function AICoreParticles({ intensity, isHovered, size }: AICoreParticlesP
             }}
           >
             <motion.circle
-              cx={center + particle.radius * Math.cos((particle.angle * Math.PI) / 180)}
-              cy={center + particle.radius * Math.sin((particle.angle * Math.PI) / 180)}
+              cx={
+                center +
+                particle.radius * Math.cos((particle.angle * Math.PI) / 180)
+              }
+              cy={
+                center +
+                particle.radius * Math.sin((particle.angle * Math.PI) / 180)
+              }
               r={isHovered ? particle.size * 1.3 : particle.size}
               fill={particle.color}
               animate={{

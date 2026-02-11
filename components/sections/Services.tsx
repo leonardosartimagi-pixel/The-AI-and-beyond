@@ -122,7 +122,7 @@ function ServiceCard({
             : {
                 scale: 1.02,
                 boxShadow:
-                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(19, 125, 197, 0.15)',
+                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(17, 119, 189, 0.15)',
               }
         }
         transition={{

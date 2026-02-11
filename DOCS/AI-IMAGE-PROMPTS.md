@@ -1,5 +1,5 @@
 # AI Image Prompts for Portfolio
-## The AI and Beyond - Website
+## The AI and beyond - Website
 
 > Prompt dettagliati per generare immagini professionali per il portfolio e altre sezioni del sito.
 
