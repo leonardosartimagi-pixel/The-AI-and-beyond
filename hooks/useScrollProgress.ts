@@ -93,17 +93,22 @@ export function useActiveStep(
     const windowHeight = window.innerHeight;
     const elementHeight = element.offsetHeight;
 
-    // Start tracking when section enters viewport (from top 80% of screen)
-    const triggerPoint = windowHeight * 0.8;
+    // Start tracking when section enters viewport (from top 70% of screen)
+    const triggerPoint = windowHeight * 0.7;
 
     // Calculate progress through the section
+    // Use elementHeight * 0.5 so all steps illuminate within the first half of the scroll,
+    // giving the last step time to stay visible before the section scrolls out
     const sectionProgress = Math.max(
       0,
-      Math.min(1, (triggerPoint - rect.top) / (elementHeight + triggerPoint - windowHeight * 0.2))
+      Math.min(1, (triggerPoint - rect.top) / (elementHeight * 0.5))
     );
 
     // Calculate active step (0-indexed)
-    const step = Math.min(totalSteps - 1, Math.floor(sectionProgress * totalSteps));
+    const step = Math.min(
+      totalSteps - 1,
+      Math.floor(sectionProgress * totalSteps)
+    );
 
     // Check if element is in view
     const inView = rect.top < windowHeight && rect.bottom > 0;

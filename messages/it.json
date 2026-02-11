@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "The AI and Beyond — Consulenza AI e Sviluppo Software",
-    "description": "Ottimizziamo il tuo business con l'intelligenza artificiale. Consulenza, automazione, agenti AI, sviluppo su misura — per aziende che vogliono risultati concreti.",
-    "ogTitle": "The AI and Beyond — AI che lavora dove serve",
-    "ogDescription": "Consulenza e sviluppo AI per aziende. Automazione, agenti AI, web app — quello che serve, dove serve.",
-    "ogAlt": "The AI and Beyond — Consulenza AI e Sviluppo Software"
+    "title": "The AI and Beyond — Consulenza AI che parte dal problema",
+    "description": "Troviamo dove il tuo business perde tempo o soldi. Poi costruiamo la soluzione — con l'AI o senza. Consulenza, automazione, sviluppo su misura.",
+    "ogTitle": "L'AI funziona — se parti dal problema giusto | The AI and Beyond",
+    "ogDescription": "Consulenza AI, automazione e sviluppo su misura per aziende. Partiamo dal tuo problema, non dalla tecnologia.",
+    "ogAlt": "The AI and Beyond — Consulenza AI che parte dal problema"
   },
   "nav": {
     "about": "Chi Siamo",
@@ -20,11 +20,11 @@
     "closeMenu": "Chiudi menu"
   },
   "hero": {
-    "headline": "Grazie all'AI",
-    "headlineAccent": "il tuo business può fare di più.",
-    "subtitleLine1": "Ottimizziamo il tuo business con l'intelligenza artificiale.",
-    "subtitleLine2": "Consulenza, automazione, sviluppo.",
-    "subtitleLine3": "Quello che serve, dove serve.",
+    "headline": "L'AI funziona",
+    "headlineAccent": "se parti dal problema giusto.",
+    "subtitleLine1": "Troviamo dove il tuo business perde tempo o soldi.",
+    "subtitleLine2": "Poi costruiamo lo strumento che lo risolve.",
+    "subtitleLine3": "Solo quello che serve. Niente di più.",
     "cta": "Parliamone",
     "microCopy": "Nessun preventivo automatico. Solo una diagnosi corretta.",
     "scrollHint": "Scorri per saperne di più",
@@ -38,7 +38,7 @@
   "brandShowcase": {
     "label": "Il nostro approccio",
     "tagline": "Quello che costruiamo, funziona ogni giorno.",
-    "subtitle": "Quello che non serve, non lo costruiamo.",
+    "subtitle": "Il difficile non è costruire. È capire cosa costruire.",
     "scrollHint": "Continua a scoprire"
   },
   "about": {
@@ -46,22 +46,22 @@
     "title": "Chi",
     "titleAccent": "Siamo",
     "intro": "The AI and Beyond nasce dall'esperienza di Leonardo Sarti Magi: consulente AI e sviluppatore software con un approccio diretto alla risoluzione di problemi reali.",
-    "paragraph1": "Ma The AI and Beyond non è una persona sola. È una struttura progettata per essere leggera, veloce e precisa — dove competenze umane e strumenti di intelligenza artificiale lavorano insieme su ogni progetto.",
+    "paragraph1": "The AI and Beyond è una struttura snella dove competenze umane e strumenti AI lavorano insieme su ogni progetto. Niente reparti, niente burocrazia — solo le persone e gli strumenti giusti per il problema da risolvere.",
     "paragraph2": "Quando lavori con noi, non lavori con un freelancer che fa tutto da solo. Lavori con un sistema dove ogni analisi, ogni automazione, ogni deliverable passa attraverso strumenti AI che noi stessi usiamo ogni giorno. È il nostro modo di dimostrare che l'AI funziona: la usiamo prima di consigliarla.",
     "paragraph3": "Il nostro punto di partenza è sempre lo stesso: dove stai perdendo tempo, soldi, o il controllo su un processo? Da lì capiamo se l'AI è la risposta giusta. A volte lo è. A volte serve altro. In entrambi i casi, hai un quadro chiaro prima che venga scritta una riga di codice.",
     "paragraph4": "Abbiamo lavorato su sistemi dove l'errore ha un costo alto: manutenzione industriale, compliance normativa, applicazioni critiche per il business. Questo ci ha insegnato una cosa: la tecnologia che funziona è quella che sparisce dal quotidiano — nessuno ci deve pensare.",
     "credentials": {
       "practical": {
         "title": "Approccio Diretto",
-        "description": "Analizziamo il problema prima di proporre soluzioni"
+        "description": "Se l'AI non serve, te lo diciamo"
       },
       "fast": {
         "title": "AI-First",
-        "description": "Usiamo l'AI prima di consigliarla"
+        "description": "Usiamo l'AI ogni giorno — prima di consigliarla a te"
       },
       "custom": {
         "title": "Su Misura",
-        "description": "Ogni progetto parte dal tuo contesto"
+        "description": "Partiamo dal tuo processo, non da un template"
       }
     },
     "photoAlt": "The AI and Beyond - Consulenza AI"
@@ -70,13 +70,13 @@
     "label": "Servizi",
     "title": "Cosa",
     "titleAccent": "facciamo",
-    "description": "Non costruiamo una singola cosa. Ottimizziamo come lavori. Con strumenti che esistono già, o con strumenti progettati su misura.",
+    "description": "Ogni azienda ha processi che funzionano male, costano troppo, o rubano tempo alle persone sbagliate. Noi li troviamo e li risolviamo — con l'AI dove ha senso, con altri strumenti dove serve.",
     "learnMore": "Scopri di più",
     "close": "Chiudi",
     "problemLabel": "Il problema",
     "outcomeLabel": "Cosa cambia dopo",
     "differentLabel": "Perché è diverso",
-    "bridge": "Questi non sono servizi a catalogo. Sono i modi in cui risolviamo i problemi che le aziende ci portano ogni giorno. Piccole o grandi. Una persona o cento.",
+    "bridge": "Non sono categorie rigide. Sono i punti di partenza più comuni. Il tuo progetto potrebbe attraversarne uno, o più di uno — lo capiamo insieme nella prima call.",
     "items": {
       "consulting": {
         "title": "Strategia AI",
@@ -358,7 +358,7 @@
       },
       "deliver": {
         "title": "Consegniamo",
-        "description": "Testing, deployment, documentazione. Ti consegniamo un sistema che funziona e che sai usare. Non un prototipo, un prodotto."
+        "description": "Testing, deployment, documentazione. Ti consegniamo tutto quello che è stato concordato — funzionante, documentato, e pronto per essere usato dal tuo team."
       }
     }
   },
@@ -387,7 +387,7 @@
     },
     "success": {
       "title": "Messaggio inviato!",
-      "description": "Grazie per averci contattato. Ti risponderemo il prima possibile."
+      "description": "Messaggio ricevuto. Ti rispondiamo entro 24 ore lavorative."
     },
     "error": "Si è verificato un errore. Riprova più tardi.",
     "validation": {
@@ -409,19 +409,19 @@
     "items": {
       "ai-fit": {
         "question": "L'AI è adatta alla mia azienda?",
-        "answer": "L'AI può portare benefici a quasi ogni tipo di azienda. Durante la consulenza iniziale, analizziamo il tuo contesto specifico per identificare dove l'intelligenza artificiale può fare davvero la differenza: automazione di processi ripetitivi, analisi dati, assistenza clienti, ottimizzazione delle operazioni. Non proponiamo soluzioni preconfezionate, ma costruiamo insieme a te un percorso su misura."
+        "answer": "Dipende. Non da quanto è grande la tua azienda, ma da dove perde tempo o soldi. Se hai processi ripetitivi che occupano persone qualificate, dati che nessuno analizza, o un team che fa lavoro manuale evitabile — probabilmente sì. Il primo passo è sempre una diagnosi: capiamo il tuo contesto, mappiamo le inefficienze, e ti diciamo con onestà dove l'AI ha senso e dove no."
       },
       "timeline": {
         "question": "Quanto tempo richiede un progetto AI?",
-        "answer": "I tempi variano in base alla complessità. Un proof-of-concept o MVP può essere pronto in 2-4 settimane. Progetti più complessi richiedono 2-3 mesi. Lavoriamo con metodologia agile, quindi avrai visibilità sui progressi e risultati tangibili già dalle prime settimane."
+        "answer": "Un MVP o proof-of-concept: 2-4 settimane. Progetti più strutturati: 2-3 mesi. Lavoriamo in agile — sprint settimanali, demo regolari, nessun effetto black-box. Vedi il progresso dal giorno uno, non dopo mesi di silenzio."
       },
       "cost": {
         "question": "Quanto costa un progetto di consulenza AI?",
-        "answer": "Ogni progetto è diverso, quindi i costi dipendono dalla complessità e dagli obiettivi. Offriamo pacchetti che partono da una consulenza strategica iniziale fino allo sviluppo completo di soluzioni. Dopo la prima call gratuita, prepariamo sempre un preventivo dettagliato e trasparente."
+        "answer": "Non abbiamo un listino prezzi — automatizzare lo smistamento email di un team di 5 persone è diverso da costruire un gestionale AI-powered. Il costo dipende da cosa va costruito e da quanto è complesso. Quello che facciamo sempre: prima call gratuita per capire il problema, poi un preventivo chiaro con scope, tempi e costi — prima che venga scritto codice."
       },
       "process": {
         "question": "Come funziona il processo di lavoro?",
-        "answer": "Tutto parte da una call conoscitiva gratuita dove ascoltiamo le tue esigenze. Poi analizziamo il contesto, proponiamo una soluzione e, se decidiamo di procedere, lavoriamo insieme con metodologia agile: sprint settimanali, feedback continuo e demo regolari per assicurarci che il risultato sia esattamente ciò di cui hai bisogno."
+        "answer": "Call conoscitiva gratuita — capiamo il problema e il contesto. Analisi e proposta concreta con scope, tempi e costi. Se si parte, lavoriamo in agile: sprint settimanali, demo di quello che funziona, feedback continuo. Non ricevi un deliverable finale dopo mesi di silenzio — vedi il progresso settimana per settimana."
       }
     }
   },
