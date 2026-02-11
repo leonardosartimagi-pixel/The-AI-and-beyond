@@ -97,8 +97,8 @@ export function Hero({ className = '' }: HeroProps) {
         aria-hidden="true"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(19, 125, 197, 0.3) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(19, 125, 197, 0.3) 1px, transparent 1px)
+            linear-gradient(to right, rgba(17, 119, 189, 0.3) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(17, 119, 189, 0.3) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }}

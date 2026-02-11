@@ -113,7 +113,7 @@ export const DecorativeConnections = memo(function DecorativeConnections({
   if (!pattern) return null;
 
   // Brand blue colors
-  const primaryBlue = '#137dc5';
+  const primaryBlue = '#1177bd';
   const lightBlue = '#00aeef';
 
   return (
@@ -129,13 +129,25 @@ export const DecorativeConnections = memo(function DecorativeConnections({
         style={{ opacity }}
       >
         <defs>
-          <linearGradient id={`line-grad-${variant}`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id={`line-grad-${variant}`}
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor={lightBlue} stopOpacity="0.3" />
             <stop offset="50%" stopColor={primaryBlue} stopOpacity="0.9" />
             <stop offset="100%" stopColor={lightBlue} stopOpacity="0.3" />
           </linearGradient>
 
-          <filter id={`glow-${variant}`} x="-100%" y="-100%" width="300%" height="300%">
+          <filter
+            id={`glow-${variant}`}
+            x="-100%"
+            y="-100%"
+            width="300%"
+            height="300%"
+          >
             <feGaussianBlur stdDeviation="0.4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
@@ -185,7 +197,9 @@ export const DecorativeConnections = memo(function DecorativeConnections({
 
 // For sections - combines multiple flowing patterns
 interface SectionDecorationsProps {
-  decorations?: Array<'flowing1' | 'flowing2' | 'flowing3' | 'rightSide' | 'horizontal'>;
+  decorations?: Array<
+    'flowing1' | 'flowing2' | 'flowing3' | 'rightSide' | 'horizontal'
+  >;
   opacity?: number;
 }
 
@@ -196,7 +210,11 @@ export const SectionDecorations = memo(function SectionDecorations({
   return (
     <>
       {decorations.map((variant) => (
-        <DecorativeConnections key={variant} variant={variant} opacity={opacity} />
+        <DecorativeConnections
+          key={variant}
+          variant={variant}
+          opacity={opacity}
+        />
       ))}
     </>
   );

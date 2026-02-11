@@ -116,8 +116,8 @@ export function BrandShowcase({
         aria-hidden="true"
         style={{
           backgroundImage: `
-            linear-gradient(to right, #137dc5 1px, transparent 1px),
-            linear-gradient(to bottom, #137dc5 1px, transparent 1px)
+            linear-gradient(to right, #1177bd 1px, transparent 1px),
+            linear-gradient(to bottom, #1177bd 1px, transparent 1px)
           `,
           backgroundSize: '80px 80px',
         }}
