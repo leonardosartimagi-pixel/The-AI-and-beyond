@@ -70,13 +70,13 @@
     "label": "Servizi",
     "title": "Cosa",
     "titleAccent": "facciamo",
-    "description": "Ogni azienda ha processi che funzionano male, costano troppo, o rubano tempo alle persone sbagliate. Noi li troviamo e li risolviamo — con l'AI dove ha senso, con altri strumenti dove serve.",
+    "description": "Ogni azienda ha processi che funzionano male, costano troppo, o rubano tempo alle persone sbagliate. Noi li troviamo e li risolviamo — con l'AI dove ha senso, con altri strumenti dove serve. A volte basta la combinazione giusta di strumenti esistenti, configurati bene, per cambiare tutto.",
     "learnMore": "Scopri di più",
     "close": "Chiudi",
     "problemLabel": "Il problema",
     "outcomeLabel": "Cosa cambia dopo",
     "differentLabel": "Perché è diverso",
-    "bridge": "Non sono categorie rigide. Sono i punti di partenza più comuni. Il tuo progetto potrebbe attraversarne uno, o più di uno — lo capiamo insieme nella prima call.",
+    "bridge": "Non sono categorie rigide. Sono i punti di partenza più comuni. Il tuo progetto potrebbe attraversarne uno, o più di uno. E non sempre serve costruire qualcosa di complesso: spesso il valore più grande arriva dagli strumenti giusti, messi insieme nel modo giusto. Lo capiamo insieme nella prima call.",
     "items": {
       "consulting": {
         "title": "Strategia AI",
@@ -223,7 +223,7 @@
         "title": "Creazione Semplificata Manuali di Manutenzione",
         "category": "PM & Ingegneria Logistica",
         "problem": "La documentazione tecnica di manutenzione era frammentata tra decine di fonti diverse: manuali fornitori, schede tecniche, note interne, procedure operative. Creare un manuale unificato richiedeva settimane di lavoro manuale con alto rischio di incoerenze.",
-        "solution": "Web app con AI che semplifica la creazione di manuali di manutenzione a partire da documentazione multipla. L'utente fornisce le istruzioni e i criteri, l'AI analizza le fonti, identifica le informazioni rilevanti e genera output strutturati e coerenti — sempre sotto la supervisione e la guida dell'operatore.",
+        "solution": "Strumento locale con AI che semplifica la creazione di manuali di manutenzione a partire da documentazione multipla — senza che i dati sensibili escano dall'infrastruttura del cliente. L'utente fornisce le istruzioni e i criteri, l'AI analizza le fonti, identifica le informazioni rilevanti e genera output strutturati e coerenti. Nessun prodotto complesso: la giusta combinazione di strumenti AI, orchestrati bene, ha trasformato settimane di lavoro in giorni. Sempre sotto la supervisione e la guida dell'operatore.",
         "results": [
           "Tempo di creazione manuali: da settimane a giorni",
           "Copertura documentale: dal 60% al 95%",
