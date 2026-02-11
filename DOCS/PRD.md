@@ -1,5 +1,5 @@
 # Product Requirements Document (PRD)
-# The AI and Beyond - Website
+# The AI and beyond - Website
 
 ## Document Info
 - **Version**: 1.2
@@ -12,7 +12,7 @@
 ## 1. Project Overview
 
 ### 1.1 What
-A modern, high-impact single-page website for "The AI and Beyond" - a professional AI consulting and development brand. The site showcases AI integration services, demonstrates expertise through an interactive portfolio, and converts visitors into leads through strategic CTAs and an optimized contact form.
+A modern, high-impact single-page website for "The AI and beyond" - a professional AI consulting and development brand. The site showcases AI integration services, demonstrates expertise through an interactive portfolio, and converts visitors into leads through strategic CTAs and an optimized contact form.
 
 ### 1.2 Why
 - Establish professional online presence for AI consulting services

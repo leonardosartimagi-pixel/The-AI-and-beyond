@@ -9,7 +9,10 @@ interface FloatingVideoProps {
   className?: string;
 }
 
-export function FloatingVideo({ isVisible, className = '' }: FloatingVideoProps) {
+export function FloatingVideo({
+  isVisible,
+  className = '',
+}: FloatingVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -115,7 +118,7 @@ export function FloatingVideo({ isVisible, className = '' }: FloatingVideoProps)
                 preload="auto"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isVideoLoaded ? 1 : 0 }}
-                aria-label="Logo animato The AI and Beyond"
+                aria-label="Logo animato The AI and beyond"
               >
                 <source src="/videos/hero-logo.webm" type="video/webm" />
                 <source src="/videos/hero-logo.mp4" type="video/mp4" />

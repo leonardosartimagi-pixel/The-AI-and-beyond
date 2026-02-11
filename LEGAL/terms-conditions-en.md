@@ -8,7 +8,7 @@
 
 **Website Owner:**
 
-- **Name**: The AI and Beyond by Leonardo Sarti Magi
+- **Name**: The AI and beyond by Leonardo Sarti Magi
 - **Individual Business (Ditta Individuale)**
 - **Owner**: Leonardo Sarti Magi
 - **VAT ID (P.IVA)**: 02754730469
@@ -188,7 +188,7 @@ Users are advised to check this page periodically for updates.
 
 For any questions, requests for clarification, or reports related to these Terms and Conditions, please contact the Owner at:
 
-**The AI and Beyond by Leonardo Sarti Magi**
+**The AI and beyond by Leonardo Sarti Magi**
 
 - **Email**: info@theaiandbeyond.it / privacy@theaiandbeyond.it
 - **Address**: Via Genova 9, 55049 Viareggio (LU), Italy

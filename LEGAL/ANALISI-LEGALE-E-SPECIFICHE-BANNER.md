@@ -3,7 +3,7 @@
 **Documento tecnico-legale per sviluppatori**
 **Data: 9 febbraio 2026**
 
-**Destinatario**: Team di sviluppo - The AI and Beyond (theaiandbeyond.it)
+**Destinatario**: Team di sviluppo - The AI and beyond (theaiandbeyond.it)
 
 ---
 
@@ -22,9 +22,11 @@
 ### A.1 Elementi già conformi
 
 #### Security Headers - ✅ CONFORME
+
 **Stato**: Implementato in `next.config.mjs`
 
 Headers presenti:
+
 - `X-Content-Type-Options: nosniff` ✅
 - `X-Frame-Options: DENY` ✅
 - `X-XSS-Protection: 1; mode=block` ✅
@@ -35,9 +37,11 @@ Headers presenti:
 **Valutazione**: Headers ben configurati, proteggono da attacchi XSS, clickjacking, MIME-sniffing.
 
 #### CSP (Content Security Policy) - ✅ CONFORME
+
 **Stato**: Implementato con direttive restrittive
 
 CSP attuale:
+
 ```
 default-src 'self';
 script-src 'self' 'unsafe-inline' vercel.live cdn.vercel.com;
@@ -48,13 +52,16 @@ connect-src 'self' vercel.live api.github.com;
 ```
 
 **Valutazione**: CSP ragionevolmente restrittivo. Note:
+
 - `unsafe-inline` per script: accettabile per Next.js, ma potrebbe essere ridotto in futuro
 - Vercel Analytics già nei CSP connect-src
 
 #### Cookie Consent Mechanism - ⚠️ NON COMPLETAMENTE CONFORME
+
 **Stato**: Implementato ma con lacune significative
 
 File coinvolti:
+
 - `CookieConsentBanner.tsx` - componente di visualizzazione
 - `useConsentStorage.ts` - logica di gestione consenso
 
@@ -86,6 +93,7 @@ File coinvolti:
    - Consenso non completamente revocabile in modo trasparente
 
 #### HTTPS e Hosting - ✅ CONFORME
+
 **Stato**: Vercel fornisce SSL/TLS automatico
 
 - HTTPS obbligatorio: ✅ Sì
@@ -93,37 +101,46 @@ File coinvolti:
 - Supporto HTTP/2: ✅ Sì
 
 #### P.IVA Visibile - ✅ CONFORME
+
 **Stato**: Presente nel footer
 
 Visibile come: "P.IVA: 02754730469"
 
 #### Dati Identificativi del Titolare - ⚠️ PARZIALMENTE CONFORME
+
 **Stato**: Presente nel footer ma incompleto
 
 Attualmente visibile:
+
 - P.IVA: 02754730469 ✅
 - Indirizzo: Via Genova 9, 55049 Viareggio (LU) ✅
 
 Mancante:
+
 - Nome completo del titolare: "Leonardo Sarti Magi" non è esplicito (si dice "di Leonardo Sarti Magi" in nota)
 - Email di contatto nel footer (presente solo in form) - dovrebbe essere più prominente
 
 #### Form di Contatto - ⚠️ PARZIALMENTE CONFORME
+
 **Stato**: Implementato con alcuni elementi corretti
 
 Elementi presenti:
+
 - Campi standard: nome, email, oggetto, messaggio ✅
 - Informativa privacy brevemente menzionata ⚠️
 
 Miglioramenti necessari:
+
 - Checkbox esplicita "Accetto l'informativa privacy" (separata da consenso marketing)
 - Link chiaro alla Privacy Policy nel form
 - Nessun campo nascosto che raccoglie dati senza consenso
 
 #### Nessun Tracciamento Prima del Consenso - ✅ CONFORME
+
 **Stato**: Corretto secondo il GDPR
 
 Verifica nel codice:
+
 - Vercel Analytics caricato solo dopo consenso `useEffect` ✅
 - Google Analytics: NON ATTIVO al momento (bene)
 - Script terzi non caricati automaticamente ✅
@@ -133,11 +150,13 @@ Verifica nel codice:
 ### A.2 Elementi Mancanti o Non Conformi
 
 #### 1. Pagina Privacy Policy - ❌ NON ESISTE
+
 **Criticità**: ALTA
 
 Stato: Sito contiene link `/privacy` ma la pagina non è stata ancora creata.
 
 Contenuti richiesti:
+
 - Identificazione del titolare (nome, P.IVA, indirizzo)
 - Contatti DPO (se applicabile)
 - Base legale del trattamento
@@ -150,11 +169,13 @@ Contenuti richiesti:
 - Informazioni su link esterni (LinkedIn)
 
 #### 2. Pagina Cookie Policy - ❌ NON ESISTE
+
 **Criticità**: ALTA
 
 Stato: Sito non ha pagina dedicata ai cookie.
 
 Contenuti richiesti:
+
 - Elenco completo di TUTTI i cookie utilizzati (nome, dominio, durata, scopo)
 - Categorizzazione per tipo (tecnico, analitico, di marketing, ecc.)
 - Cookie propri vs cookie di terzi
@@ -164,9 +185,11 @@ Contenuti richiesti:
 - Durata della conservazione del consenso (raccomandato: 6 mesi)
 
 #### 3. Cookie Banner Non Conforme - ❌ NON CONFORME AL PROVVEDIMENTO GARANTE 2021
+
 **Criticità**: ALTA
 
 Problemi specifici (vedi PARTE B per dettagli):
+
 - Manca consenso granulare
 - Link "Scopri di più" inadeguato
 - Assenza elenco categorie nel banner
@@ -174,9 +197,11 @@ Problemi specifici (vedi PARTE B per dettagli):
 - Gestione post-consenso incompleta
 
 #### 4. DPA (Data Processing Agreement) con Vercel - ❌ DA VERIFICARE
+
 **Criticità**: MEDIA-ALTA
 
 Stato: Vercel fornisce DPA standard nella documentazione, ma deve essere:
+
 - Revisionato dal titolare
 - Conservato in archivio
 - Verificato che copra tutte le attività di processing
@@ -184,21 +209,25 @@ Stato: Vercel fornisce DPA standard nella documentazione, ma deve essere:
 **Azione richiesta**: Scaricare DPA da Vercel dashboard e mantenerlo in archivio.
 
 #### 5. DPA con Resend (per Email) - ❌ DA VERIFICARE
+
 **Criticità**: MEDIA-ALTA
 
 Stato: Resend è utilizzato per invio email dal form di contatto.
 
 **Azione richiesta**:
+
 - Verificare se Resend ha DPA disponibile
 - Se sì, scaricarlo e mantenerlo in archivio
 - Se no, aggiungere clausola DPA al Processor nel Registro Trattamenti
 
 #### 6. Registro dei Trattamenti - ⚠️ RACCOMANDATO
+
 **Criticità**: MEDIA
 
 Stato: Non ancora creato.
 
 Per conformità GDPR completa, è buona pratica mantenere un registro (anche se formalmente non obbligatorio per tutti) che documenti:
+
 - Scopo del trattamento (gestire form, analitiche, hosting)
 - Categoria di dati (nome, email, IP address, ecc.)
 - Periodo di conservazione
@@ -208,9 +237,11 @@ Per conformità GDPR completa, è buona pratica mantenere un registro (anche se 
 **Suggerimento formato**: Documento spreadsheet o markdown
 
 #### 7. DPIA (Data Protection Impact Assessment) - ⚠️ POTENZIALMENTE RICHIESTO
+
 **Criticità**: BASSA (per ora)
 
 Stato: Attualmente non necessario poiché:
+
 - Sito non ha chatbot AI attivo
 - Nessuna profilazione automatizzata
 - Nessun trattamento su larga scala di dati sensibili
@@ -218,11 +249,13 @@ Stato: Attualmente non necessario poiché:
 **Azione futura**: Se si riattiva il chatbot AI o si aggiungono funzionalità di IA, valutare se DPIA è necessaria.
 
 #### 8. Informativa Privacy nel Form di Contatto - ⚠️ INCOMPLETA
+
 **Criticità**: MEDIA
 
 Stato: Presente ma poco prominente.
 
 Miglioramenti:
+
 - Checkbox esplicita sotto il form: "Ho letto e accetto l'informativa privacy"
 - Link alla pagina `/privacy` nel footer del form
 - Brevissima informativa inline (max 2 righe) richiamando privacy policy completa
@@ -232,19 +265,23 @@ Miglioramenti:
 ### A.3 Analisi Vercel (Hosting Provider)
 
 #### Conformità GDPR di Vercel
+
 - ✅ Fornisce DPA (Data Processing Agreement)
 - ✅ Dichiara compliance GDPR
 - ✅ Ubicazione server: EU zone + US zone (scegliere EU se possibile)
 - ✅ Encryption in transit (HTTPS) e at rest
 
 #### Attualmente configurato:
+
 - `vercelAnalytics`: script caricato DOPO consenso ✅
 - `vercelWebVitals`: NO (vercelAnalytics sufficiente)
 - No Google Analytics (non configurato) ✅
 - No Facebook Pixel ✅
 
 #### Considerazioni sulla localizzazione:
+
 Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle impostazioni del progetto:
+
 - Se è possibile scegliere datacenter EU
 - Se sì, configurare per EU
 
@@ -258,6 +295,7 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
 "Linee Guida Cookie e altri identificatori online"
 
 **Requisiti chiave**:
+
 1. Consenso deve essere informato, specifico, e granulare
 2. Accettazione e rifiuto devono avere eguale prominenza
 3. Niente cookie wall (sito deve essere navigabile senza consenso)
@@ -269,6 +307,7 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
 ### B.2 Struttura del Banner - Primo Livello
 
 #### B.2.1 Quando mostrare il banner
+
 - Alla prima visita di un Utente non ancora tracciato
 - Quando il consenso precedente è scaduto
 - Quando l'Utente clicca "Gestisci Cookie" nel footer
@@ -293,11 +332,13 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
 #### B.2.3 Specifiche di UI/UX
 
 **Posizionamento**:
+
 - Fondo della pagina, full-width (mobile) o finestra modale (desktop)
 - Sempre visibile, non scrollabile
 - Z-index: 1000+ (sopra tutti gli elementi)
 
 **Testo informativo**:
+
 - Massimo 2-3 righe
 - Font leggibile (min 12px)
 - Lingua: italiano per versione IT, inglese per versione EN
@@ -333,9 +374,10 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
    - Color: colore principale
    - Underline: yes
    - Target: `/cookie-policy` (nuova pagina)
-   - Target="_blank" opzionale (ma NO per mantenere sessione)
+   - Target="\_blank" opzionale (ma NO per mantenere sessione)
 
 **Comportamenti proibiti**:
+
 - ❌ Niente X per chiudere il banner (il Garante considera la chiusura = rifiuto)
 - ❌ Niente timeout automatico che accetta cookie
 - ❌ Niente scroll = consenso (scrollare il sito NON equivale ad accettare)
@@ -347,6 +389,7 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
 ### B.3 Secondo Livello: Pannello Preferenze Dettagliato
 
 #### B.3.1 Quando appare
+
 - Quando l'Utente clicca "Personalizza" nel banner
 - Quando l'Utente clicca "Gestisci Cookie" nel footer
 - Come modale o pannello full-page (a scelta di design)
@@ -390,9 +433,11 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
 #### B.3.3 Categorie di Cookie da implementare
 
 **1. Cookie Tecnici / Necessari**
+
 - **Stato**: SEMPRE ATTIVO (non disattivabile)
 - **Toggle**: Disabilitato (visual only)
 - **Descrizione breve**:
+
   ```
   Questi cookie sono essenziali per il funzionamento del sito web
   (gestione sessione, autenticazione, sicurezza, preferenze utente).
@@ -401,6 +446,7 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
   ```
 
 - **Elenco cookie**:
+
   ```
   - __Host-consent: Memorizza il consenso dell'utente ai cookie
     Durata: 6 mesi (in linea con raccomandazione Garante)
@@ -413,9 +459,11 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
   ```
 
 **2. Cookie Analitici**
+
 - **Stato**: DISATTIVO per default
 - **Toggle**: Attivabile/disattivabile
 - **Descrizione breve**:
+
   ```
   Questi cookie consentono di analizzare come gli utenti
   utilizzano il sito (pagine visitate, tempo speso, ecc.).
@@ -424,6 +472,7 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
   ```
 
 - **Cookie includiti**:
+
   ```
   - Vercel Analytics Cookie (nome specifico dipende da Vercel)
     Dominio: *.vercel-analytics.com
@@ -437,6 +486,7 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
   ```
 
 **3. Cookie di Marketing / Social Media** (Opzionale, per future espansioni)
+
 - **Stato**: DISATTIVO per default
 - **Toggle**: Attivabile/disattivabile
 - **Descrizione breve**:
@@ -452,19 +502,20 @@ Vercel ha server negli USA. Per piena conformità GDPR, verificare nelle imposta
 ### B.4 Azioni dei Pulsanti - Specifiche Tecniche
 
 #### B.4.1 "Accetta Tutti" (nel banner)
+
 ```javascript
 // Pseudocodice
 function handleAcceptAll() {
   const consent = {
     timestamp: new Date().toISOString(),
-    version: "1.0",
+    version: '1.0',
     expiresAt: new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000), // 6 mesi
     categories: {
-      technical: true,        // sempre true, non modificabile
-      analytics: true,        // accetto
-      marketing: true         // accetto
+      technical: true, // sempre true, non modificabile
+      analytics: true, // accetto
+      marketing: true, // accetto
     },
-    banner: "accepted-all"
+    banner: 'accepted-all',
   };
 
   // Salva nel cookie
@@ -480,19 +531,20 @@ function handleAcceptAll() {
 ```
 
 #### B.4.2 "Rifiuta Tutti" (nel banner)
+
 ```javascript
 // Pseudocodice
 function handleRejectAll() {
   const consent = {
     timestamp: new Date().toISOString(),
-    version: "1.0",
+    version: '1.0',
     expiresAt: new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000),
     categories: {
-      technical: true,        // sempre true
-      analytics: false,       // rifiuto
-      marketing: false        // rifiuto
+      technical: true, // sempre true
+      analytics: false, // rifiuto
+      marketing: false, // rifiuto
     },
-    banner: "rejected-all"
+    banner: 'rejected-all',
   };
 
   localStorage.setItem('cookie-consent', JSON.stringify(consent));
@@ -506,6 +558,7 @@ function handleRejectAll() {
 ```
 
 #### B.4.3 "Personalizza" (nel banner)
+
 ```javascript
 function handleCustomize() {
   closeBanner();
@@ -514,16 +567,17 @@ function handleCustomize() {
 ```
 
 #### B.4.4 "Salva Preferenze" (nel pannello)
+
 ```javascript
 function handleSavePreferences(preferences) {
   // preferences = { technical: true, analytics: true/false, marketing: true/false }
 
   const consent = {
     timestamp: new Date().toISOString(),
-    version: "1.0",
+    version: '1.0',
     expiresAt: new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000),
     categories: preferences,
-    banner: "customized"
+    banner: 'customized',
   };
 
   localStorage.setItem('cookie-consent', JSON.stringify(consent));
@@ -537,7 +591,7 @@ function handleSavePreferences(preferences) {
   }
 
   closePreferencesPanel();
-  showSuccessMessage("Preferenze salvate"); // opzionale
+  showSuccessMessage('Preferenze salvate'); // opzionale
 }
 ```
 
@@ -548,6 +602,7 @@ function handleSavePreferences(preferences) {
 **Durata del consenso**: 6 mesi
 
 **Logica di rinnovo**:
+
 ```javascript
 function checkConsentValidity() {
   const storedConsent = JSON.parse(localStorage.getItem('cookie-consent'));
@@ -580,6 +635,7 @@ function checkConsentValidity() {
 **Chiave**: `cookie-consent`
 
 **Formato JSON**:
+
 ```json
 {
   "timestamp": "2026-02-09T10:30:00Z",
@@ -606,6 +662,7 @@ function checkConsentValidity() {
 **Testo**: "Gestisci Cookie" (o "Cookie Settings" in inglese)
 
 **Comportamento**:
+
 - Cliccare apre il pannello preferenze (B.3)
 - Permette all'Utente di modificare consenso in qualsiasi momento
 - Non resetta il consenso, solo lo mostra per modifica
@@ -621,6 +678,7 @@ function openCookieManager() {
 #### B.7.2 Revoca del Consenso
 
 L'Utente può:
+
 1. Aprire il pannello preferenze (B.7.1)
 2. Disattivare le categorie desiderate
 3. Cliccare "Salva Preferenze"
@@ -642,16 +700,19 @@ Non è necessario un pulsante "Reset Consenso" separato.
 # Privacy Policy
 
 ## 1. Identificazione del Titolare del Trattamento
-- Nome: The AI and Beyond di Leonardo Sarti Magi
+
+- Nome: The AI and beyond di Leonardo Sarti Magi
 - P.IVA: 02754730469
 - Indirizzo: Via Genova 9, 55049 Viareggio (LU), Italia
 - Email: privacy@theaiandbeyond.it
 - Telefono: [se disponibile]
 
 ## 2. Contatti Responsabile della Protezione dei Dati (DPO)
+
 [Se applicabile. Altrimenti: "Attualmente non è stato designato un DPO in quanto non è obbligatorio per questa attività"]
 
 ## 3. Base Legale del Trattamento
+
 - Art. 6(1)(a) GDPR: Consenso esplicito (es. form contatti, consenso marketing)
 - Art. 6(1)(b) GDPR: Esecuzione di contratto (futuri contratti di consulenza)
 - Art. 6(1)(f) GDPR: Legittimi interessi (es. analytics, security)
@@ -659,6 +720,7 @@ Non è necessario un pulsante "Reset Consenso" separato.
 ## 4. Dati Personali Raccolti
 
 ### Via Form di Contatto:
+
 - Nome
 - Email
 - Numero di telefono (opzionale)
@@ -670,6 +732,7 @@ Non è necessario un pulsante "Reset Consenso" separato.
 **Periodo di conservazione**: 12 mesi dopo l'ultima interazione (salvo esigenze contabili/legali)
 
 ### Via Analytics (Vercel Analytics):
+
 - IP address (anonimizzato)
 - User agent
 - Referrer
@@ -681,7 +744,8 @@ Non è necessario un pulsante "Reset Consenso" separato.
 
 **Periodo di conservazione**: 90 giorni (default Vercel)
 
-### Cookie __Host-consent:
+### Cookie \_\_Host-consent:
+
 - Versione del banner
 - Data di accettazione/rifiuto
 - Categorie accettate/rifiutate
@@ -693,18 +757,21 @@ Non è necessario un pulsante "Reset Consenso" separato.
 ## 5. Destinatari dei Dati (Sub-Responsabili)
 
 ### Vercel (Hosting Provider)
+
 - **Ruolo**: Responsabile del Trattamento
 - **Dati trasferiti**: IP address, user agent, dati analitici
 - **Ubicazione**: EU + US (verificare impostazioni progetto per EU)
 - **DPA**: Disponibile nella dashboard Vercel
 
 ### Resend (Email Service Provider)
+
 - **Ruolo**: Responsabile del Trattamento
 - **Dati trasferiti**: Email, nome, contenuto del form
 - **Ubicazione**: USA
 - **DPA**: [Verificare disponibilità]
 
 ### Google Analytics (se attivato in futuro)
+
 - **Ruolo**: Co-Responsabile del Trattamento
 - **Dati trasferiti**: IP (anonimizzato), behavior dati
 - **Ubicazione**: USA
@@ -713,6 +780,7 @@ Non è necessario un pulsante "Reset Consenso" separato.
 ## 6. Trasferimenti Internazionali di Dati
 
 Alcuni dati potrebbero essere trasferiti verso:
+
 - **USA**: Vercel, Resend (soggetto a Standard Contractual Clauses)
 - **Altre giurisdizioni**: A seconda dei servizi utilizzati in futuro
 
@@ -738,6 +806,7 @@ Per informazioni dettagliate su cookie, modalità di disabilitazione, e categori
 ## 9. Sicurezza dei Dati
 
 Implementiamo misure di sicurezza appropriate:
+
 - Hosting su Vercel con HTTPS obbligatorio
 - Security headers (HSTS, X-Frame-Options, CSP)
 - Encryption in transit e at rest
@@ -784,6 +853,7 @@ quando visita un sito web. Possono contenere informazioni come preferenze dell'u
 cronologia di navigazione, ecc.
 
 I cookie possono essere:
+
 - **Cookie sessione**: Eliminati quando il browser viene chiuso
 - **Cookie persistenti**: Rimangono nel browser fino alla scadenza specificata
 - **Cookie first-party**: Creati dal sito visitato
@@ -796,10 +866,10 @@ I cookie possono essere:
 Questi cookie sono essenziali per il funzionamento del sito e non richiedono consenso
 secondo le linee guida dell'EDPB e il Provvedimento del Garante.
 
-| Nome Cookie | Dominio | Durata | Scopo |
-|---|---|---|---|
-| `__Host-consent` | theaiandbeyond.it | 6 mesi | Memorizza consenso cookie |
-| `_vercel_jwt` | *.vercel.app | Sessione | Autenticazione Vercel |
+| Nome Cookie      | Dominio           | Durata   | Scopo                     |
+| ---------------- | ----------------- | -------- | ------------------------- |
+| `__Host-consent` | theaiandbeyond.it | 6 mesi   | Memorizza consenso cookie |
+| `_vercel_jwt`    | \*.vercel.app     | Sessione | Autenticazione Vercel     |
 
 **Come funzionano**: Questi cookie permettono al sito di ricordarsi delle tue preferenze
 e di fornire una navigazione fluida.
@@ -812,6 +882,7 @@ non funzionare correttamente.
 Questi cookie consentono di analizzare in forma anonima come gli utenti utilizzano il sito.
 
 **Vercel Analytics**
+
 - **Dominio**: vercel-analytics.com
 - **Durata**: ~1 anno
 - **Scopo**: Raccogliere dati su visite, pagine visitate, tempo speso
@@ -823,6 +894,7 @@ Questi cookie consentono di analizzare in forma anonima come gli utenti utilizza
 ### 2.3 Cookie di Marketing / Social Media
 
 Attualmente NON utilizzati, ma potrebbero essere abilitati in futuro per:
+
 - Integrazioni con LinkedIn (LinkedIn Insight Tag)
 - Pixel di tracciamento da piattaforme sociali
 
@@ -832,21 +904,25 @@ sarà nuovamente richiesto agli utenti.
 ## 3. Come Disabilitare i Cookie nel Browser
 
 ### Firefox
+
 1. Apri Firefox → Preferenze
 2. Vai a Privacy → Cookie
 3. Seleziona "Non memorizzare cookie"
 
 ### Chrome
+
 1. Apri Chrome → Impostazioni
 2. Vai a Privacy e sicurezza → Cookie e altri dati dei siti
 3. Disattiva "Consenti a tutti i siti di memorizzare cookie"
 
 ### Safari
+
 1. Apri Safari → Preferenze
 2. Vai a Privacy
 3. Seleziona "Blocca sempre"
 
 ### Edge
+
 1. Apri Edge → Impostazioni
 2. Vai a Privacy e sicurezza
 3. Disattiva il tracciamento dei cookie
@@ -856,6 +932,7 @@ sarà nuovamente richiesto agli utenti.
 ## 4. Cookie di Terzi e loro Politiche
 
 ### Vercel
+
 - **Privacy Policy**: https://vercel.com/legal/privacy
 - **Opt-out**: https://vercel.com/privacy
 - **Ubicazione dati**: USA (con opzione EU se configurato)
@@ -1041,7 +1118,7 @@ e i prossimi step per raggiungere una conformità completa.
 
 1. **Creare Privacy Policy** (`/privacy`)
    - Copiare template da C.1
-   - Personalizzare con dati reali di The AI and Beyond
+   - Personalizzare con dati reali di The AI and beyond
    - Pubblicare e linkare da footer + form
 
 2. **Creare Cookie Policy** (`/cookie-policy`)
@@ -1122,16 +1199,16 @@ e i prossimi step per raggiungere una conformità completa.
 
 ### E.4 Cronologia e Responsabilità
 
-| Task | Priorità | Responsabile | Deadline | Status |
-|---|---|---|---|---|
-| Creare `/privacy` | ALTA | Dev/Legal | 28 Feb 2026 | Pending |
-| Creare `/cookie-policy` | ALTA | Dev/Legal | 28 Feb 2026 | Pending |
-| Implementare banner granulare | ALTA | Frontend Dev | 28 Feb 2026 | Pending |
-| Fix link "Scopri di più" | ALTA | Frontend Dev | 28 Feb 2026 | Pending |
-| Vercel DPA | MEDIA | Legal/Admin | 31 Mar 2026 | Pending |
-| Resend DPA | MEDIA | Legal/Admin | 31 Mar 2026 | Pending |
-| Registro Trattamenti | MEDIA | Legal/Admin | 31 Mar 2026 | Pending |
-| Migliorare form contatto | MEDIA | Frontend Dev | 31 Mar 2026 | Pending |
+| Task                          | Priorità | Responsabile | Deadline    | Status  |
+| ----------------------------- | -------- | ------------ | ----------- | ------- |
+| Creare `/privacy`             | ALTA     | Dev/Legal    | 28 Feb 2026 | Pending |
+| Creare `/cookie-policy`       | ALTA     | Dev/Legal    | 28 Feb 2026 | Pending |
+| Implementare banner granulare | ALTA     | Frontend Dev | 28 Feb 2026 | Pending |
+| Fix link "Scopri di più"      | ALTA     | Frontend Dev | 28 Feb 2026 | Pending |
+| Vercel DPA                    | MEDIA    | Legal/Admin  | 31 Mar 2026 | Pending |
+| Resend DPA                    | MEDIA    | Legal/Admin  | 31 Mar 2026 | Pending |
+| Registro Trattamenti          | MEDIA    | Legal/Admin  | 31 Mar 2026 | Pending |
+| Migliorare form contatto      | MEDIA    | Frontend Dev | 31 Mar 2026 | Pending |
 
 ---
 
@@ -1215,25 +1292,20 @@ Conservare i seguenti documenti per audit e compliance:
 
 ## CONCLUSIONE
 
-Il sito "The AI and Beyond" ha fondamenta solide in termini di security headers, CSP,
+Il sito "The AI and beyond" ha fondamenta solide in termini di security headers, CSP,
 e compliance di base. Tuttavia, per raggiungere piena conformità al Provvedimento del
 Garante 2021 e al GDPR, sono necessari i seguenti step:
 
 **URGENTI** (entro 1 mese):
+
 1. Pagina Privacy Policy
 2. Pagina Cookie Policy
 3. Cookie banner granulare con pannello preferenze
 4. Fix link "Scopri di più"
 
-**IMPORTANTI** (entro 3 mesi):
-5. Verifica/sottoscrizione DPA Vercel e Resend
-6. Registro Trattamenti
-7. Miglioramento form contatto
+**IMPORTANTI** (entro 3 mesi): 5. Verifica/sottoscrizione DPA Vercel e Resend 6. Registro Trattamenti 7. Miglioramento form contatto
 
-**OPZIONALI** (future espansioni):
-8. DPIA per chatbot AI
-9. Google Analytics con consent
-10. LinkedIn Pixel con consent
+**OPZIONALI** (future espansioni): 8. DPIA per chatbot AI 9. Google Analytics con consent 10. LinkedIn Pixel con consent
 
 Una volta completati questi step, il sito avrà **conformità legale completa** secondo
 le normative italiane e europee in vigore al febbraio 2026.

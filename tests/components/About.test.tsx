@@ -35,12 +35,8 @@ describe('About', () => {
 
   it.skip('displays the introduction paragraph', () => {
     render(<About />);
-    expect(
-      screen.getByText(/mi chiamo leonardo/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/intelligenza artificiale/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/mi chiamo leonardo/i)).toBeInTheDocument();
+    expect(screen.getByText(/intelligenza artificiale/i)).toBeInTheDocument();
   });
 
   it.skip('displays the quote paragraph', () => {
@@ -48,9 +44,7 @@ describe('About', () => {
     expect(
       screen.getByText(/non vendo promesse irrealizzabili/i)
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/soluzioni che funzionano/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/soluzioni che funzionano/i)).toBeInTheDocument();
   });
 
   it.skip('displays the closing paragraph', () => {
@@ -58,9 +52,7 @@ describe('About', () => {
     expect(
       screen.getByText(/ogni progetto parte dall'ascolto/i)
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/problemi reali/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/problemi reali/i)).toBeInTheDocument();
   });
 
   it.skip('renders the photo placeholder', () => {
@@ -95,10 +87,10 @@ describe('About', () => {
     expect(blurElements.length).toBeGreaterThanOrEqual(2);
   });
 
-  it.skip('renders the floating AI accent element', () => {
+  it.skip('renders the floating wave logo element', () => {
     render(<About />);
-    expect(screen.getByText('AI')).toBeInTheDocument();
-    expect(screen.getByText('& Beyond')).toBeInTheDocument();
+    expect(screen.getByAltText('The AI and beyond')).toBeInTheDocument();
+    // Wave logo replaces old text badge
   });
 
   it.skip('has decorative frame elements for photo', () => {

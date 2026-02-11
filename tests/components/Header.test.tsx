@@ -9,7 +9,7 @@ describe('Header', () => {
 
   it('renders the logo', () => {
     render(<Header />);
-    const logos = screen.getAllByAltText('The AI and Beyond');
+    const logos = screen.getAllByAltText('The AI and beyond');
     expect(logos.length).toBeGreaterThan(0);
   });
 
@@ -22,25 +22,33 @@ describe('Header', () => {
 
   it('renders the Parliamone CTA button', () => {
     render(<Header />);
-    expect(screen.getByRole('button', { name: /parliamone/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /parliamone/i })
+    ).toBeInTheDocument();
   });
 
   it('renders hamburger menu button', () => {
     render(<Header />);
     // Now uses translated aria-label: 'Apri menu' (from t('openMenu'))
-    expect(screen.getByRole('button', { name: /apri menu/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /apri menu/i })
+    ).toBeInTheDocument();
   });
 
   it('has navigation element with proper label', () => {
     render(<Header />);
     // Now uses t('mainNav') = 'Navigazione principale'
-    expect(screen.getByRole('navigation', { name: /navigazione principale/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('navigation', { name: /navigazione principale/i })
+    ).toBeInTheDocument();
   });
 
   it('logo has accessible home label', () => {
     render(<Header />);
     // Now uses t('home') = 'Torna alla home'
-    expect(screen.getByRole('button', { name: /torna alla home/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /torna alla home/i })
+    ).toBeInTheDocument();
   });
 
   // TODO: Fix - click event doesn't trigger state update in test env with mocked framer-motion

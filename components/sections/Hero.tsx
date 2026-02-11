@@ -130,7 +130,7 @@ export function Hero({ className = '' }: HeroProps) {
             <div className="relative h-20 w-80 sm:h-24 sm:w-96 md:h-28 md:w-[30rem] lg:h-32 lg:w-[34rem]">
               <Image
                 src="/logos/logo-white.png"
-                alt="The AI and Beyond"
+                alt="The AI and beyond"
                 fill
                 className="object-contain drop-shadow-2xl"
                 sizes="(min-width: 1024px) 34rem, (min-width: 768px) 30rem, (min-width: 640px) 24rem, 20rem"
