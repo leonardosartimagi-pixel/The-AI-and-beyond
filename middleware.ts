@@ -24,15 +24,19 @@ export default function middleware(request: NextRequest) {
   // CSP Level 2+ browsers to IGNORE 'unsafe-inline' (spec behavior), breaking
   // hydration. The nonce is still generated and passed via x-nonce header for
   // JSON-LD <script> tags (defense-in-depth attribute, not CSP-enforced).
+  // Only allow vercel.live in non-production environments (dev/preview)
+  const isProduction = process.env.VERCEL_ENV === 'production';
+  const vercelLive = isProduction ? '' : ' https://vercel.live';
+
   const cspDirectives = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''} https://vercel.live`,
+    `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}${vercelLive}`,
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
     "img-src 'self' data: blob:",
     "media-src 'self'",
-    "connect-src 'self' https://vitals.vercel-insights.com https://vercel.live",
-    "frame-src 'self' https://vercel.live",
+    `connect-src 'self' https://vitals.vercel-insights.com${vercelLive}`,
+    `frame-src 'self'${vercelLive}`,
     "frame-ancestors 'self'",
     "base-uri 'self'",
     "form-action 'self'",

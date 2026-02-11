@@ -43,9 +43,10 @@ Technical cookies are essential for the proper functioning of the website. Accor
 
 #### Language Preference
 
-- **Name:** `next-intl locale` (and related variants)
-- **Type:** cookie/localStorage managed by Next.js internationalization middleware
-- **Duration:** session or persistent depending on browser settings
+- **Name:** `preferred-locale`
+- **Type:** localStorage
+- **Duration:** persistent (until manual browser data deletion)
+- **Content:** language code selected by the user (`it` or `en`)
 - **Purpose:** to store the user's language preference to display the website in the selected language
 - **Manager:** The AI and Beyond
 
@@ -78,12 +79,12 @@ Analytical cookies allow the website owner to collect information about visitor 
 
 ## 4. Summary Cookie Table
 
-| Cookie Name           | Manager           | Type                | Duration           | Purpose                            | Consent Required |
-| --------------------- | ----------------- | ------------------- | ------------------ | ---------------------------------- | ---------------- |
-| `cookie-consent`      | The AI and Beyond | localStorage        | Persistent         | Store consent preferences          | No               |
-| `next-intl locale`    | The AI and Beyond | cookie/localStorage | Session/Persistent | Language preference                | No               |
-| `__vercel_live_token` | Vercel            | cookie              | Session            | Development token (preview only)   | No               |
-| Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non-persistent     | Performance and page view analysis | Yes              |
+| Cookie Name           | Manager           | Type                | Duration       | Purpose                            | Consent Required |
+| --------------------- | ----------------- | ------------------- | -------------- | ---------------------------------- | ---------------- |
+| `cookie-consent`      | The AI and Beyond | localStorage        | Persistent     | Store consent preferences          | No               |
+| `preferred-locale`    | The AI and Beyond | localStorage        | Persistent     | Language preference                | No               |
+| `__vercel_live_token` | Vercel            | cookie              | Session        | Development token (preview only)   | No               |
+| Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non-persistent | Performance and page view analysis | Yes              |
 
 ---
 
@@ -97,8 +98,7 @@ Our website provides a cookie consent banner at the bottom of the page. Through 
 
 1. **Accept All Cookies** - Allows the use of all cookies (technical and analytical)
 2. **Reject Non-Essential Cookies** - Allows only strictly necessary cookies
-3. **Customize Preferences** - Access "Manage Cookies" to selectively choose which cookies to authorize
-4. **Modify Preferences Later** - The "Manage Cookies" button is available during subsequent visits
+3. **Modify Preferences Later** - The "Manage Cookies" button is available in the website footer and allows you to reopen the banner to change your previous choice
 
 When you modify preferences through the banner, your choice is stored in the `cookie-consent` cookie and analytical cookies are loaded or removed accordingly.
 
@@ -157,14 +157,18 @@ Vercel Analytics does not provide an explicit opt-out mechanism because it is de
 - Disable beacons in your browser if available
 - Contact us to request exclusion
 
-### 5.4 Do Not Track (DNT) Mode
+### 5.4 Do Not Track (DNT) and Global Privacy Control (GPC)
 
-If your browser supports the "Do Not Track" feature, you can enable it:
+Our website **actively respects** privacy signals sent by your browser. If your browser has DNT or GPC enabled, the website automatically treats you as having declined analytical cookies, without displaying the consent banner.
+
+To enable these signals in your browser:
 
 - **Chrome:** Settings → Privacy and security → Cookies and other site data → Uncheck "Allow sites to check if you have payment methods saved"
 - **Firefox:** Settings → Privacy & Security → "Send websites a 'Do Not Track' signal" (advanced setting)
 - **Safari:** Preferences → Privacy → "Prevent cross-site tracking"
 - **Edge:** Settings → Privacy, search, and services → Turn on "Tracking prevention"
+
+**Note**: If you have previously made an explicit choice through the cookie banner (accept or decline), that choice takes precedence over DNT/GPC browser signals.
 
 ---
 
@@ -303,7 +307,7 @@ To report privacy violations or complaints regarding data processing, you can al
 
 - **Website:** https://www.garanteprivacy.it
 - **Phone:** +39 06 696771
-- **Address:** Piazza di Monte Citorio, 121 - 00186 Rome, Italy
+- **Address:** Piazza Venezia 11, 00187 Rome, Italy
 
 ---
 
