@@ -128,6 +128,10 @@
     "results": "Risultati",
     "technologies": "Tecnologie",
     "hint": "Clicca su un progetto per i dettagli",
+    "techStack": {
+      "title": "Il nostro stack tecnologico",
+      "description": "Ogni progetto è diverso, e lo stack giusto fa la differenza. Questi sono alcuni degli strumenti e delle tecnologie che padroneggiamo — ma la vera competenza sta nel scegliere la combinazione giusta per ogni sfida specifica."
+    },
     "items": {
       "consulting": {
         "title": "Automazione Processi: Campagne ADV e Gestione Documentale Intelligente",

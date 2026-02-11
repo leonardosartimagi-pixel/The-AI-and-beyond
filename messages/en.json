@@ -128,6 +128,10 @@
     "results": "Results",
     "technologies": "Technologies",
     "hint": "Click on a project for details",
+    "techStack": {
+      "title": "Our technology stack",
+      "description": "Every project is different, and the right stack makes the difference. These are some of the tools and technologies we master — but the real skill lies in choosing the right combination for each specific challenge."
+    },
     "items": {
       "consulting": {
         "title": "Process Automation: Ad Campaigns & Intelligent Document Management",
