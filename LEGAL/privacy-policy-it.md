@@ -8,7 +8,7 @@
 **Email Informazioni Generali:** info@theaiandbeyond.it
 **Sito Web:** https://theaiandbeyond.it
 
-**Data Ultimo Aggiornamento:** 9 febbraio 2026
+**Data Ultimo Aggiornamento:** 11 febbraio 2026
 
 ---
 
@@ -55,7 +55,7 @@ Durante la visita del Sito, vengono raccolti automaticamente i seguenti dati:
 
 #### 3.2.1 Dati Tecnici di Accesso
 
-- **Indirizzo IP**: Utilizzato per il rate limiting del modulo di contatto al fine di prevenire abusi. L'indirizzo IP è conservato esclusivamente in memoria volatile e NON è persistito in database.
+- **Indirizzo IP**: Utilizzato per il rate limiting del modulo di contatto al fine di prevenire abusi. L'indirizzo IP è memorizzato temporaneamente (massimo 15 minuti) nel servizio di rate limiting Upstash Redis, dopodiché viene automaticamente eliminato tramite TTL (Time-To-Live). L'IP non è utilizzato per altri scopi e non è associato ad altri dati personali.
 - **User Agent e informazioni del browser**: Raccolti dal server Vercel per scopi di hosting e sicurezza.
 - **Timestamp della richiesta**: Registrato automaticamente dal server di hosting.
 
@@ -94,7 +94,7 @@ I dati personali sono trattati per le seguenti finalità:
 
 ### 4.1 Modulo di Contatto
 
-- **Finalità**: Rispondere alle richieste di informazioni e consulenza inviate dagli utenti
+- **Finalità**: Rispondere alle richieste di informazioni e consulenza inviate dagli utenti, incluso l'invio di un'email automatica di conferma ricezione al mittente
 - **Base giuridica**:
   - Articolo 6, comma 1, lettera a) GDPR: Consenso esplicito (dichiarazione di accettazione della presente informativa)
   - Articolo 6, comma 1, lettera b) GDPR: Esecuzione di un contratto o di misure precontrattuali (quando applicabile)
@@ -103,7 +103,7 @@ I dati personali sono trattati per le seguenti finalità:
 
 - **Finalità**: Implementare misure di sicurezza per il rate limiting del modulo di contatto, prevenendo invii massivi o automatizzati
 - **Base giuridica**: Articolo 6, comma 1, lettera f) GDPR: Interesse legittimo del Titolare nel proteggere i propri sistemi da abusi
-- **Nota**: L'indirizzo IP utilizzato per questo scopo è memorizzato solo in RAM e non persistito
+- **Nota**: L'indirizzo IP utilizzato per questo scopo è memorizzato temporaneamente (massimo 15 minuti) nel servizio Upstash Redis, dopodiché viene eliminato automaticamente
 
 ### 4.3 Analytics e Miglioramento del Sito
 
@@ -122,14 +122,14 @@ I dati personali sono trattati per le seguenti finalità:
 
 Il trattamento dei dati personali è effettuato sulla base delle seguenti fondamenti giuridici (articolo 6 GDPR):
 
-| Tipo di Dato               | Base Giuridica                                 | Note                                                            |
-| -------------------------- | ---------------------------------------------- | --------------------------------------------------------------- |
-| Dati modulo di contatto    | Consenso (art. 6.1.a) + Contratto (art. 6.1.b) | Consenso ottenuto tramite checkbox; rapporto potenziale cliente |
-| IP per rate limiting       | Interesse legittimo (art. 6.1.f)               | Protezione da abusi e spam                                      |
-| Cookie tecnici di consenso | Necessità tecnica (Direttiva ePrivacy)         | Non richiede consenso, è strettamente necessario                |
-| Analytics (Vercel)         | Consenso (art. 6.1.a)                          | Attivati solo dopo consenso esplicito                           |
-| Google Fonts               | Interesse legittimo (art. 6.1.f)               | Self-hosted, no tracking                                        |
-| Obblighi legali            | Adempimento legge (art. 6.1.c)                 | Conservazione per scopi fiscali/amministrativi                  |
+| Tipo di Dato               | Base Giuridica                                 | Note                                                                       |
+| -------------------------- | ---------------------------------------------- | -------------------------------------------------------------------------- |
+| Dati modulo di contatto    | Consenso (art. 6.1.a) + Contratto (art. 6.1.b) | Consenso ottenuto tramite checkbox; rapporto potenziale cliente            |
+| IP per rate limiting       | Interesse legittimo (art. 6.1.f)               | Protezione da abusi e spam; IP memorizzato in Upstash Redis per max 15 min |
+| Cookie tecnici di consenso | Necessità tecnica (Direttiva ePrivacy)         | Non richiede consenso, è strettamente necessario                           |
+| Analytics (Vercel)         | Consenso (art. 6.1.a)                          | Attivati solo dopo consenso esplicito                                      |
+| Google Fonts               | Interesse legittimo (art. 6.1.f)               | Self-hosted, no tracking                                                   |
+| Obblighi legali            | Adempimento legge (art. 6.1.c)                 | Conservazione per scopi fiscali/amministrativi                             |
 
 ---
 
@@ -142,7 +142,7 @@ Il Titolare del Trattamento implementa le seguenti misure di sicurezza:
 - **Hosting su Vercel**: Infrastruttura cloud con standard di sicurezza internazionali (ISO 27001)
 - **Connessione HTTPS**: Tutti i dati in transito sono cifrati tramite SSL/TLS
 - **Validazione input**: I dati del modulo di contatto sono validati tramite Zod schema per prevenire iniezioni e dati malformati
-- **Nessuna persistenza di IP**: Gli indirizzi IP per il rate limiting non sono memorizzati in database, solo in memoria RAM
+- **Conservazione temporanea IP**: Gli indirizzi IP per il rate limiting sono memorizzati temporaneamente (massimo 15 minuti) nel servizio Upstash Redis con eliminazione automatica tramite TTL
 - **Nessun database dati personali**: I dati del modulo di contatto NON sono archiviati in un database locale o online, bensì trasmessi tramite API Resend direttamente all'email del proprietario
 - **Accesso limitato**: Solo il titolare del trattamento ha accesso ai dati trasmessi tramite il modulo di contatto
 
@@ -201,6 +201,7 @@ I dati del modulo di contatto sono trasmessi a **Resend Inc.** (sede legale: Sta
 Alcuni dati possono essere trasferiti verso Stati Uniti tramite:
 
 - **EU-US Data Privacy Framework**: Per Vercel Inc. (analytics, hosting)
+- **EU-US Data Privacy Framework**: Per Upstash Inc. (rate limiting, IP temporaneo)
 
 Tali trasferimenti sono autorizzati dalla Commissione Europea e comportano garanzie equipollenti a quelle previste dal GDPR.
 
@@ -208,13 +209,13 @@ Tali trasferimenti sono autorizzati dalla Commissione Europea e comportano garan
 
 ## 8. Periodo di Conservazione dei Dati
 
-| Tipo di Dato               | Periodo di Conservazione                  | Motivo                                          |
-| -------------------------- | ----------------------------------------- | ----------------------------------------------- |
-| Dati modulo di contatto    | 3 anni                                    | Obblighi fiscali/amministrativi                 |
-| IP per rate limiting       | Sessione (RAM)                            | Solo per gestione abusi nella sessione corrente |
-| Cookie di consenso         | 12 mesi                                   | Ricordare preferenze utente                     |
-| Analytics (Vercel)         | Secondo policy Vercel (default 90 giorni) | Analisi statistiche aggregate                   |
-| Logistica hosting (Vercel) | Secondo retention policy Vercel           | Sicurezza e troubleshooting                     |
+| Tipo di Dato               | Periodo di Conservazione                               | Motivo                              |
+| -------------------------- | ------------------------------------------------------ | ----------------------------------- |
+| Dati modulo di contatto    | 3 anni                                                 | Obblighi fiscali/amministrativi     |
+| IP per rate limiting       | 15 minuti (Upstash Redis, eliminazione automatica TTL) | Rate limiting per prevenzione abusi |
+| Cookie di consenso         | 12 mesi                                                | Ricordare preferenze utente         |
+| Analytics (Vercel)         | Secondo policy Vercel (default 90 giorni)              | Analisi statistiche aggregate       |
+| Logistica hosting (Vercel) | Secondo retention policy Vercel                        | Sicurezza e troubleshooting         |
 
 **Nota**: Dopo la scadenza del periodo di conservazione, i dati sono eliminati o anonimizzati in conformità al principio di minimizzazione dei dati.
 
@@ -279,7 +280,7 @@ Il Titolare risponderà entro **30 giorni** dal ricevimento della richiesta (est
 Qualora l'interessato ritenga che il trattamento dei propri dati violi le disposizioni del GDPR o del Codice della Privacy italiano, ha diritto di presentare un reclamo presso:
 
 **Garante per la Protezione dei Dati Personali**
-Piazza di Monte Citorio 60, 00186 Roma, Italia
+Piazza Venezia 11, 00187 Roma, Italia
 Sito: https://www.garanteprivacy.it
 Email: protocollo@pec.garanteprivacy.it
 
@@ -343,12 +344,22 @@ Secondo l'articolo 28 GDPR, i seguenti servizi fungono da **Responsabili del Tra
 - **Conservazione**: Fino a consegna email
 - **Contatti**: support@resend.com
 
+#### 11.1.3 Upstash Inc.
+
+- **Ruolo**: Rate limiting (memorizzazione temporanea IP per prevenzione abusi)
+- **Sede**: Stati Uniti
+- **DPA**: Disponibile su https://upstash.com/trust/dpa.pdf
+- **Dati elaborati**: Indirizzo IP (con TTL di 15 minuti, eliminazione automatica)
+- **Conservazione**: Massimo 15 minuti
+- **Contatti**: support@upstash.com
+
 ### 11.2 Condivisione dei Dati con Terzi
 
 I dati personali NON sono condivisi con terze parti, eccetto:
 
 - **Resend**: Per l'invio di email (modulo contatto)
 - **Vercel**: Per hosting e analytics (solo con consenso)
+- **Upstash**: Per il rate limiting (memorizzazione temporanea IP, max 15 minuti)
 
 Nessun dato è venduto, ceduto in licenza o altrimenti divulgato a fini di marketing o profitto.
 
@@ -383,15 +394,28 @@ Se le modifiche comportano un materiale cambiamento nelle modalità di trattamen
 
 ---
 
-## 14. Consenso e Accettazione
+## 14. Meccanismi di Consenso
 
-Accedendo e utilizzando il Sito, l'utente:
+Il consenso al trattamento dei dati personali è acquisito tramite meccanismi specifici e non tramite la semplice navigazione del Sito:
 
-1. Conferma di aver letto e compreso questa informativa
-2. Accetta il trattamento dei dati personali secondo quanto descritto
-3. Accetta le condizioni d'uso del Sito
+1. **Modulo di contatto**: L'utente deve selezionare esplicitamente la checkbox "Accetto l'informativa privacy" prima di inviare il messaggio. Senza tale consenso, il modulo non può essere inviato.
+2. **Cookie analitici**: Il consenso è acquisito tramite il banner cookie, che consente di accettare o rifiutare gli analytics. Senza consenso, nessun cookie analitico viene installato.
+3. **Cookie tecnici**: Non richiedono consenso in quanto strettamente necessari al funzionamento del Sito (Direttiva ePrivacy).
 
-Per il modulo di contatto, l'utente deve esplicitamente selezionare la checkbox "Accetto l'informativa privacy" prima di inviare il messaggio.
+La navigazione del Sito non implica il consenso al trattamento dei dati personali, che resta soggetto ai meccanismi sopra descritti.
+
+### 14.1 Prova del Consenso
+
+Ai sensi dell'articolo 7, comma 1, del GDPR, il Titolare conserva una registrazione anonimizzata del consenso prestato dall'utente. Al momento dell'accettazione o del rifiuto tramite il banner cookie, viene salvato un record contenente: la scelta effettuata, la versione dell'informativa, e il timestamp. L'indirizzo IP dell'utente viene sostituito da un hash crittografico non reversibile (SHA-256 troncato) e i record scadono automaticamente dopo 13 mesi.
+
+### 14.2 Segnali "Do Not Track" e "Global Privacy Control"
+
+Il Sito rispetta i segnali di privacy inviati dal browser dell'utente:
+
+- **Do Not Track (DNT)**: Se il browser invia il segnale `DNT: 1`, il Sito tratta automaticamente l'utente come se avesse rifiutato i cookie analitici, senza mostrare il banner.
+- **Global Privacy Control (GPC)**: Se il browser invia il segnale GPC, il Sito applica lo stesso comportamento automatico di rifiuto dei cookie analitici.
+
+Questi segnali vengono rispettati solo in assenza di una scelta esplicita già memorizzata dall'utente. Se l'utente ha precedentemente effettuato una scelta tramite il banner, tale scelta prevale sui segnali del browser.
 
 ---
 
@@ -412,7 +436,7 @@ Il Titolare risponderà a tutte le richieste entro 30 giorni (extendibili a 60 g
 
 - **Interessato**: La persona fisica cui si riferiscono i dati personali
 - **Titolare del Trattamento**: La persona fisica o giuridica che determina le finalità e le modalità del trattamento (in questo caso: Leonardo Sarti Magi)
-- **Responsabile del Trattamento**: La persona fisica o giuridica che tratta i dati su istruzione del Titolare (Vercel, Resend)
+- **Responsabile del Trattamento**: La persona fisica o giuridica che tratta i dati su istruzione del Titolare (Vercel, Resend, Upstash)
 - **Trattamento**: Qualsiasi operazione su dati personali (raccolta, conservazione, utilizzo, cancellazione, ecc.)
 - **Dato Personale**: Qualsiasi informazione relativa a una persona fisica identificata o identificabile
 - **GDPR**: Regolamento (UE) 2016/679 - Regolamento generale sulla protezione dei dati
@@ -425,4 +449,4 @@ Il Titolare risponderà a tutte le richieste entro 30 giorni (extendibili a 60 g
 
 **Documento redatto in conformità al GDPR (Reg. UE 2016/679) e al Codice della Privacy italiano (D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018).**
 
-**Ultima revisione**: 9 febbraio 2026
+**Ultima revisione**: 11 febbraio 2026
