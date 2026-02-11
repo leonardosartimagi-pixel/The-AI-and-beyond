@@ -70,13 +70,13 @@
     "label": "Services",
     "title": "What we",
     "titleAccent": "do",
-    "description": "Every business has processes that work poorly, cost too much, or steal time from the wrong people. We find them and fix them — with AI where it makes sense, with other tools where it doesn't.",
+    "description": "Every business has processes that work poorly, cost too much, or steal time from the wrong people. We find them and fix them — with AI where it makes sense, with other tools where it doesn't. Sometimes the right combination of existing tools, configured well, changes everything.",
     "learnMore": "Learn more",
     "close": "Close",
     "problemLabel": "The problem",
     "outcomeLabel": "What changes after",
     "differentLabel": "Why it's different",
-    "bridge": "These aren't rigid categories. They're the most common starting points. Your project might cross one, or several — we'll figure it out together on the first call.",
+    "bridge": "These aren't rigid categories. They're the most common starting points. Your project might cross one, or several. And it doesn't always require building something complex: often the biggest value comes from the right tools, put together the right way. We'll figure it out together on the first call.",
     "items": {
       "consulting": {
         "title": "AI Strategy",
@@ -223,7 +223,7 @@
         "title": "Simplified Maintenance Manual Creation",
         "category": "PM & Logistics Engineering",
         "problem": "Technical maintenance documentation was fragmented across dozens of different sources: supplier manuals, technical sheets, internal notes, operating procedures. Creating a unified manual required weeks of manual work with a high risk of inconsistencies.",
-        "solution": "Web app with AI that simplifies the creation of maintenance manuals from multiple documentation sources. The user provides instructions and criteria, the AI analyzes sources, identifies relevant information, and generates structured, coherent outputs — always under operator supervision and guidance.",
+        "solution": "Local AI-powered tool that simplifies the creation of maintenance manuals from multiple documentation sources — without sensitive data ever leaving the client's infrastructure. The user provides instructions and criteria, the AI analyzes sources, identifies relevant information, and generates structured, coherent outputs. No complex product needed: the right combination of AI tools, well orchestrated, turned weeks of work into days. Always under operator supervision and guidance.",
         "results": [
           "Manual creation time: from weeks to days",
           "Documentation coverage: from 60% to 95%",
