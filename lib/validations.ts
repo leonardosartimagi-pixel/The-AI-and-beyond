@@ -33,6 +33,7 @@ export function createContactFormSchema(locale: string = 'it') {
     privacy: z.boolean().refine((val) => val === true, {
       message: m.privacyRequired,
     }),
+    locale: z.enum(['it', 'en']).optional(),
   });
 }
 
