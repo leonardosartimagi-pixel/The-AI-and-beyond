@@ -1,14 +1,14 @@
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { Badge } from '@/components/ui';
+import { Badge, PortfolioVideoPlayer } from '@/components/ui';
 import {
   TechGridOverlay,
   SectionDecorations,
-  ProjectMockup,
   SectionTitleGlitch,
 } from '@/components/effects';
 
@@ -24,6 +24,42 @@ const PROJECT_KEYS = [
   'prototyping',
   'pmLogistics',
 ] as const;
+
+const PROJECT_MEDIA: Record<
+  string,
+  { image: string; video: string; videoWebm: string }
+> = {
+  consulting: {
+    image: '/images/portfolio/consulting.webp',
+    video: '/videos/portfolio/consulting.mp4',
+    videoWebm: '/videos/portfolio/consulting.webm',
+  },
+  aiStrategy: {
+    image: '/images/portfolio/ai-strategy.webp',
+    video: '/videos/portfolio/ai-strategy.mp4',
+    videoWebm: '/videos/portfolio/ai-strategy.webm',
+  },
+  webdev: {
+    image: '/images/portfolio/webdev.webp',
+    video: '/videos/portfolio/webdev.mp4',
+    videoWebm: '/videos/portfolio/webdev.webm',
+  },
+  aiAgents: {
+    image: '/images/portfolio/ai-agents.webp',
+    video: '/videos/portfolio/ai-agents.mp4',
+    videoWebm: '/videos/portfolio/ai-agents.webm',
+  },
+  prototyping: {
+    image: '/images/portfolio/prototyping.webp',
+    video: '/videos/portfolio/prototyping.mp4',
+    videoWebm: '/videos/portfolio/prototyping.webm',
+  },
+  pmLogistics: {
+    image: '/images/portfolio/pm-logistics.webp',
+    video: '/videos/portfolio/pm-logistics.mp4',
+    videoWebm: '/videos/portfolio/pm-logistics.webm',
+  },
+};
 
 // Project Card Component
 interface ProjectCardProps {
@@ -68,11 +104,16 @@ function ProjectCard({
         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
         aria-label={`${t('viewDetails')}: ${t(`items.${projectKey}.title`)}`}
       >
-        {/* Project Mockup */}
+        {/* Project Image */}
         <div className="relative aspect-video w-full overflow-hidden">
-          <ProjectMockup
-            category={t(`items.${projectKey}.category`)}
-            projectKey={projectKey}
+          <Image
+            src={PROJECT_MEDIA[projectKey]?.image ?? ''}
+            alt={t(`items.${projectKey}.title`)}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            quality={80}
           />
 
           {/* Category badge */}
@@ -304,9 +345,12 @@ function PortfolioModal({
               </button>
 
               <div className="relative aspect-video w-full overflow-hidden rounded-t-3xl">
-                <ProjectMockup
-                  category={t(`items.${projectKey}.category`)}
-                  projectKey={projectKey}
+                <PortfolioVideoPlayer
+                  imageSrc={PROJECT_MEDIA[projectKey]?.image ?? ''}
+                  videoSrc={PROJECT_MEDIA[projectKey]?.video ?? ''}
+                  videoWebmSrc={PROJECT_MEDIA[projectKey]?.videoWebm ?? ''}
+                  alt={t(`items.${projectKey}.title`)}
+                  prefersReducedMotion={prefersReducedMotion}
                 />
                 <div className="absolute left-6 top-6 z-10">
                   <Badge variant="solid" size="md" animated={false}>
