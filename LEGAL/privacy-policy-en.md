@@ -8,7 +8,7 @@
 **General Information Email:** info@theaiandbeyond.it
 **Website:** https://theaiandbeyond.it
 
-**Last Updated:** February 9, 2026
+**Last Updated:** February 11, 2026
 
 ---
 
@@ -55,7 +55,7 @@ During visits to the Website, the following data are collected automatically:
 
 #### 3.2.1 Technical Access Data
 
-- **IP Address**: Used for rate limiting on the contact form to prevent abuse. The IP address is stored exclusively in volatile memory and is NOT persisted in any database.
+- **IP Address**: Used for rate limiting on the contact form to prevent abuse. The IP address is temporarily stored (maximum 15 minutes) in the Upstash Redis rate limiting service, after which it is automatically deleted via TTL (Time-To-Live). The IP is not used for any other purpose and is not associated with other personal data.
 - **User Agent and browser information**: Collected by the Vercel server for hosting and security purposes.
 - **Request timestamp**: Automatically logged by the hosting server.
 
@@ -94,7 +94,7 @@ Personal data are processed for the following purposes:
 
 ### 4.1 Contact Form
 
-- **Purpose**: To respond to requests for information and consultation submitted by users
+- **Purpose**: To respond to requests for information and consultation submitted by users, including the sending of an automatic confirmation email to the sender
 - **Legal basis**:
   - Article 6, paragraph 1, letter a, GDPR: Explicit consent (declaration of acceptance of this privacy policy)
   - Article 6, paragraph 1, letter b, GDPR: Performance of a contract or pre-contractual measures (when applicable)
@@ -103,7 +103,7 @@ Personal data are processed for the following purposes:
 
 - **Purpose**: To implement security measures for rate limiting on the contact form, preventing mass or automated submissions
 - **Legal basis**: Article 6, paragraph 1, letter f, GDPR: Legitimate interest of the Data Controller in protecting its systems from abuse
-- **Note**: The IP address used for this purpose is stored only in RAM and not persisted
+- **Note**: The IP address used for this purpose is temporarily stored (maximum 15 minutes) in the Upstash Redis service and automatically deleted thereafter
 
 ### 4.3 Analytics and Website Improvement
 
@@ -122,14 +122,14 @@ Personal data are processed for the following purposes:
 
 The processing of personal data is carried out on the basis of the following legal grounds (Article 6 GDPR):
 
-| Type of Data              | Legal Basis                                  | Notes                                                          |
-| ------------------------- | -------------------------------------------- | -------------------------------------------------------------- |
-| Contact form data         | Consent (Art. 6.1.a) + Contract (Art. 6.1.b) | Consent obtained via checkbox; potential customer relationship |
-| IP for rate limiting      | Legitimate interest (Art. 6.1.f)             | Protection from abuse and spam                                 |
-| Technical consent cookies | Technical necessity (ePrivacy Directive)     | Does not require consent, strictly necessary                   |
-| Analytics (Vercel)        | Consent (Art. 6.1.a)                         | Activated only after explicit consent                          |
-| Google Fonts              | Legitimate interest (Art. 6.1.f)             | Self-hosted, no tracking                                       |
-| Legal obligations         | Legal compliance (Art. 6.1.c)                | Retention for tax/administrative purposes                      |
+| Type of Data              | Legal Basis                                  | Notes                                                                     |
+| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------- |
+| Contact form data         | Consent (Art. 6.1.a) + Contract (Art. 6.1.b) | Consent obtained via checkbox; potential customer relationship            |
+| IP for rate limiting      | Legitimate interest (Art. 6.1.f)             | Protection from abuse and spam; IP stored in Upstash Redis for max 15 min |
+| Technical consent cookies | Technical necessity (ePrivacy Directive)     | Does not require consent, strictly necessary                              |
+| Analytics (Vercel)        | Consent (Art. 6.1.a)                         | Activated only after explicit consent                                     |
+| Google Fonts              | Legitimate interest (Art. 6.1.f)             | Self-hosted, no tracking                                                  |
+| Legal obligations         | Legal compliance (Art. 6.1.c)                | Retention for tax/administrative purposes                                 |
 
 ---
 
@@ -142,7 +142,7 @@ The Data Controller implements the following security measures:
 - **Hosting on Vercel**: Cloud infrastructure with international security standards (ISO 27001)
 - **HTTPS Connection**: All data in transit is encrypted via SSL/TLS
 - **Input validation**: Contact form data is validated via Zod schema to prevent injections and malformed data
-- **No IP persistence**: IP addresses for rate limiting are not stored in a database, only in RAM
+- **Temporary IP storage**: IP addresses for rate limiting are temporarily stored (maximum 15 minutes) in the Upstash Redis service with automatic deletion via TTL
 - **No database storage**: Contact form data is NOT archived in a local or online database, but transmitted via the Resend API directly to the website owner's email
 - **Limited access**: Only the data controller has access to data transmitted via the contact form
 
@@ -201,6 +201,7 @@ Contact form data is transmitted to **Resend Inc.** (legal seat: United States)
 Some data may be transferred to the United States via:
 
 - **EU-US Data Privacy Framework**: For Vercel Inc. (analytics, hosting)
+- **EU-US Data Privacy Framework**: For Upstash Inc. (rate limiting, temporary IP)
 
 Such transfers are authorized by the European Commission and provide safeguards equivalent to those under GDPR.
 
@@ -208,13 +209,13 @@ Such transfers are authorized by the European Commission and provide safeguards 
 
 ## 8. Data Retention Period
 
-| Type of Data               | Retention Period                             | Reason                                       |
-| -------------------------- | -------------------------------------------- | -------------------------------------------- |
-| Contact form data          | 3 years                                      | Tax/administrative obligations               |
-| IP for rate limiting       | Session (RAM)                                | Only for abuse management in current session |
-| Consent cookie             | 12 months                                    | Remember user preferences                    |
-| Analytics (Vercel)         | According to Vercel policy (default 90 days) | Statistical analysis                         |
-| Hosting logistics (Vercel) | According to Vercel retention policy         | Security and troubleshooting                 |
+| Type of Data               | Retention Period                                   | Reason                             |
+| -------------------------- | -------------------------------------------------- | ---------------------------------- |
+| Contact form data          | 3 years                                            | Tax/administrative obligations     |
+| IP for rate limiting       | 15 minutes (Upstash Redis, automatic TTL deletion) | Rate limiting for abuse prevention |
+| Consent cookie             | 12 months                                          | Remember user preferences          |
+| Analytics (Vercel)         | According to Vercel policy (default 90 days)       | Statistical analysis               |
+| Hosting logistics (Vercel) | According to Vercel retention policy               | Security and troubleshooting       |
 
 **Note**: After the retention period expires, data are deleted or anonymized in accordance with the principle of data minimization.
 
@@ -279,7 +280,7 @@ The Data Controller will respond within **30 days** of receipt of the request (e
 If the data subject believes that the processing of their personal data violates GDPR provisions or the Italian Privacy Code, they have the right to lodge a complaint with:
 
 **Garante per la Protezione dei Dati Personali** (Italian Data Protection Authority)
-Piazza di Monte Citorio 60, 00186 Roma, Italy
+Piazza Venezia 11, 00187 Roma, Italy
 Website: https://www.garanteprivacy.it
 Email: protocollo@pec.garanteprivacy.it
 
@@ -343,12 +344,22 @@ Under Article 28 GDPR, the following services act as **Data Processors** (proces
 - **Retention**: Until email delivery
 - **Contact**: support@resend.com
 
+#### 11.1.3 Upstash Inc.
+
+- **Role**: Rate limiting (temporary IP storage for abuse prevention)
+- **Location**: United States
+- **DPA**: Available at https://upstash.com/trust/dpa.pdf
+- **Data processed**: IP address (with 15-minute TTL, automatic deletion)
+- **Retention**: Maximum 15 minutes
+- **Contact**: support@upstash.com
+
 ### 11.2 Data Sharing with Third Parties
 
 Personal data are NOT shared with third parties, except:
 
 - **Resend**: For email delivery (contact form)
 - **Vercel**: For hosting and analytics (only with consent)
+- **Upstash**: For rate limiting (temporary IP storage, max 15 minutes)
 
 No data are sold, licensed, or otherwise disclosed for marketing or profit purposes.
 
@@ -383,15 +394,28 @@ If changes involve a material change in data processing methods, notification wi
 
 ---
 
-## 14. Consent and Acceptance
+## 14. Consent Mechanisms
 
-By accessing and using the Website, the user:
+Consent to the processing of personal data is obtained through specific mechanisms and not through mere browsing of the Website:
 
-1. Confirms that they have read and understood this privacy policy
-2. Accepts the processing of personal data as described
-3. Accepts the Website's terms and conditions
+1. **Contact form**: The user must explicitly select the "I accept the privacy policy" checkbox before submitting the message. Without such consent, the form cannot be submitted.
+2. **Analytical cookies**: Consent is obtained through the cookie banner, which allows users to accept or decline analytics. Without consent, no analytical cookies are installed.
+3. **Technical cookies**: Do not require consent as they are strictly necessary for the Website's operation (ePrivacy Directive).
 
-For the contact form, users must explicitly select the "I accept the privacy policy" checkbox before submitting the message.
+Browsing the Website does not imply consent to the processing of personal data, which remains subject to the mechanisms described above.
+
+### 14.1 Proof of Consent
+
+Pursuant to Article 7(1) GDPR, the Data Controller maintains an anonymized record of the consent given by the user. When the user accepts or declines cookies through the banner, a record is saved containing: the choice made, the privacy policy version, and the timestamp. The user's IP address is replaced by a non-reversible cryptographic hash (truncated SHA-256) and records expire automatically after 13 months.
+
+### 14.2 "Do Not Track" and "Global Privacy Control" Signals
+
+The Website respects privacy signals sent by the user's browser:
+
+- **Do Not Track (DNT)**: If the browser sends the `DNT: 1` signal, the Website automatically treats the user as having declined analytical cookies, without displaying the banner.
+- **Global Privacy Control (GPC)**: If the browser sends the GPC signal, the Website applies the same automatic decline behavior for analytical cookies.
+
+These signals are respected only in the absence of an explicit choice already stored by the user. If the user has previously made a choice through the banner, that choice takes precedence over browser signals.
 
 ---
 
@@ -412,7 +436,7 @@ The Data Controller will respond to all requests within 30 days (extendable to 6
 
 - **Data Subject**: The natural person to whom personal data refers
 - **Data Controller**: The natural or legal person that determines the purposes and methods of processing (in this case: Leonardo Sarti Magi)
-- **Data Processor**: The natural or legal person that processes data on the instructions of the Data Controller (Vercel, Resend)
+- **Data Processor**: The natural or legal person that processes data on the instructions of the Data Controller (Vercel, Resend, Upstash)
 - **Processing**: Any operation on personal data (collection, storage, use, deletion, etc.)
 - **Personal Data**: Any information relating to an identified or identifiable natural person
 - **GDPR**: Regulation (EU) 2016/679 - General Data Protection Regulation
@@ -425,4 +449,4 @@ The Data Controller will respond to all requests within 30 days (extendable to 6
 
 **Document prepared in accordance with GDPR (Regulation (EU) 2016/679) and the Italian Privacy Code (Decree-Law 196/2003 as amended by Decree-Law 101/2018).**
 
-**Last review**: February 9, 2026
+**Last review**: February 11, 2026
