@@ -26,7 +26,7 @@ export function GradientMesh({ className = '' }: GradientMeshProps) {
         className={`absolute inset-0 ${className}`}
         style={{
           background: `
-            radial-gradient(ellipse at 20% 30%, rgba(19, 125, 197, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at 20% 30%, rgba(17, 119, 189, 0.4) 0%, transparent 50%),
             radial-gradient(ellipse at 80% 70%, rgba(0, 174, 239, 0.3) 0%, transparent 50%),
             radial-gradient(ellipse at 50% 50%, rgba(27, 47, 117, 0.5) 0%, transparent 70%),
             linear-gradient(135deg, rgba(27, 47, 117, 1) 0%, rgba(21, 31, 79, 1) 100%)
@@ -56,7 +56,7 @@ export function GradientMesh({ className = '' }: GradientMeshProps) {
         className="absolute h-[800px] w-[800px] rounded-full"
         style={{
           background:
-            'radial-gradient(circle, rgba(19, 125, 197, 0.5) 0%, transparent 70%)',
+            'radial-gradient(circle, rgba(17, 119, 189, 0.5) 0%, transparent 70%)',
           filter: isMobile ? 'blur(40px)' : 'blur(60px)',
           left: '-10%',
           top: '-20%',
@@ -102,7 +102,7 @@ export function GradientMesh({ className = '' }: GradientMeshProps) {
             className="absolute h-[500px] w-[500px] rounded-full"
             style={{
               background:
-                'radial-gradient(circle, rgba(19, 125, 197, 0.3) 0%, transparent 70%)',
+                'radial-gradient(circle, rgba(17, 119, 189, 0.3) 0%, transparent 70%)',
               filter: 'blur(40px)',
               right: '20%',
               top: '10%',

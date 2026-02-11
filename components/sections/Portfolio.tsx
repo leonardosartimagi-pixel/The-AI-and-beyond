@@ -120,7 +120,7 @@ function ProjectCard({
             ? {}
             : {
                 boxShadow:
-                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(19, 125, 197, 0.2)',
+                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(17, 119, 189, 0.2)',
               }
         }
         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -193,7 +193,7 @@ function ProjectCard({
           className="pointer-events-none absolute inset-0 rounded-2xl"
           style={{
             background:
-              'linear-gradient(135deg, rgba(19,125,197,0.5), rgba(0,174,239,0.3), rgba(19,125,197,0.5))',
+              'linear-gradient(135deg, rgba(17,119,189,0.5), rgba(0,174,239,0.3), rgba(17,119,189,0.5))',
             padding: '2px',
             WebkitMask:
               'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
