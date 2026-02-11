@@ -298,11 +298,13 @@ function PortfolioModal({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={onClose}
           >
             <motion.div
               ref={modalRef}
               data-lenis-prevent
               className="relative max-h-[90vh] w-full max-w-2xl overflow-auto overscroll-contain rounded-3xl bg-white shadow-2xl dark:bg-gray-950 dark:shadow-black/30"
+              onClick={(e) => e.stopPropagation()}
               initial={{
                 opacity: 0,
                 scale: prefersReducedMotion ? 1 : 0.9,
