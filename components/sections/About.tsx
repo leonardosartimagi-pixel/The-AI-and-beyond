@@ -281,7 +281,7 @@ export function About({ className = '' }: AboutProps) {
 
             {/* Floating accent element */}
             <motion.div
-              className="absolute -bottom-8 -left-8 hidden rounded-xl bg-accent p-4 shadow-lg lg:block"
+              className="absolute -bottom-8 -left-8 hidden rounded-xl bg-white p-3 shadow-lg lg:block"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{
@@ -289,8 +289,13 @@ export function About({ className = '' }: AboutProps) {
                 delay: prefersReducedMotion ? 0 : 0.8,
               }}
             >
-              <p className="text-2xl font-bold text-white">AI</p>
-              <p className="text-xs text-white/80">& Beyond</p>
+              <Image
+                src="/images/logo-symbol.png"
+                alt="The AI and Beyond"
+                width={48}
+                height={48}
+                className="h-12 w-12"
+              />
             </motion.div>
           </motion.div>
         </motion.div>
