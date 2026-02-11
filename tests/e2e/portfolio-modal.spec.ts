@@ -28,6 +28,30 @@ test.describe('Portfolio Modal', () => {
     await expect(projectCards).toHaveCount(6);
   });
 
+  test('project cards display real images', async ({ page }) => {
+    const firstCard = page.locator('#portfolio article').first();
+    const image = firstCard.locator('img');
+    await expect(image).toBeVisible();
+    await expect(image).toHaveAttribute('alt', /Automazione Processi/);
+  });
+
+  test('modal displays video when opened', async ({ page }) => {
+    const firstCard = page.locator(
+      'button[aria-label*="Automazione Processi"]'
+    );
+    await firstCard.click();
+
+    const modal = page.locator('[role="dialog"]');
+    await expect(modal).toBeVisible();
+
+    const video = modal.locator('video');
+    await expect(video).toBeVisible();
+    await expect(video).toHaveAttribute('loop', '');
+    // muted is a DOM property in React, not an HTML attribute
+    const isMuted = await video.evaluate((el: HTMLVideoElement) => el.muted);
+    expect(isMuted).toBe(true);
+  });
+
   test('project cards display title, description, and technologies', async ({
     page,
   }) => {

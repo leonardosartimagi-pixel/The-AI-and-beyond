@@ -58,6 +58,7 @@
 | TASK-032 | AI Chatbot with guided conversation flow | [x] Completed | P0 | 8h | TASK-031 |
 | TASK-033 | AI Audit Express - Trasforma chatbot in consulente WOW | [x] Completed | P0 | 6h | TASK-032 |
 | TASK-038 | Neural connections in BrandShowcase (Avatar removed) | [x] Completed | P1 | 2h | - |
+| TASK-039 | Integrate real media assets (About photo + Portfolio images/videos) | [x] Completed | P1 | 3h | TASK-005, TASK-007 |
 
 ---
 

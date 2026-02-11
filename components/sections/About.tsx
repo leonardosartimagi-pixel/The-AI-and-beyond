@@ -1,10 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { TechGridOverlay, PremiumProfilePlaceholder, SectionTitleGlitch } from '@/components/effects';
+import { TechGridOverlay, SectionTitleGlitch } from '@/components/effects';
 
 interface AboutProps {
   className?: string;
@@ -75,7 +76,7 @@ export function About({ className = '' }: AboutProps) {
     <section
       ref={sectionRef}
       id="chi-siamo"
-      className={`relative overflow-hidden bg-white dark:bg-gray-950 py-24 lg:py-32 ${className}`}
+      className={`relative overflow-hidden bg-white py-24 dark:bg-gray-950 lg:py-32 ${className}`}
       aria-label={t('label')}
     >
       {/* Tech grid overlay for consistency */}
@@ -146,9 +147,7 @@ export function About({ className = '' }: AboutProps) {
 
             {/* Bio text - five paragraphs */}
             <div className="space-y-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-              <motion.p variants={textVariants}>
-                {t('intro')}
-              </motion.p>
+              <motion.p variants={textVariants}>{t('intro')}</motion.p>
 
               <motion.p
                 className="border-l-2 border-accent/30 pl-6 italic text-gray-600 dark:text-gray-400"
@@ -157,17 +156,11 @@ export function About({ className = '' }: AboutProps) {
                 {t('paragraph1')}
               </motion.p>
 
-              <motion.p variants={textVariants}>
-                {t('paragraph2')}
-              </motion.p>
+              <motion.p variants={textVariants}>{t('paragraph2')}</motion.p>
 
-              <motion.p variants={textVariants}>
-                {t('paragraph3')}
-              </motion.p>
+              <motion.p variants={textVariants}>{t('paragraph3')}</motion.p>
 
-              <motion.p variants={textVariants}>
-                {t('paragraph4')}
-              </motion.p>
+              <motion.p variants={textVariants}>{t('paragraph4')}</motion.p>
             </div>
 
             {/* Credibility elements - methodology badges */}
@@ -175,7 +168,7 @@ export function About({ className = '' }: AboutProps) {
               className="mt-10 flex flex-wrap gap-4"
               variants={textVariants}
             >
-              <div className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-900 px-4 py-3">
+              <div className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-3 dark:bg-gray-900">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
                   <svg
                     className="h-5 w-5 text-accent"
@@ -193,12 +186,16 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary dark:text-gray-100">{t('credentials.practical.title')}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('credentials.practical.description')}</p>
+                  <p className="text-sm font-medium text-primary dark:text-gray-100">
+                    {t('credentials.practical.title')}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {t('credentials.practical.description')}
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-900 px-4 py-3">
+              <div className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-3 dark:bg-gray-900">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
                   <svg
                     className="h-5 w-5 text-accent"
@@ -216,12 +213,16 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary dark:text-gray-100">{t('credentials.fast.title')}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('credentials.fast.description')}</p>
+                  <p className="text-sm font-medium text-primary dark:text-gray-100">
+                    {t('credentials.fast.title')}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {t('credentials.fast.description')}
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-lg bg-gray-50 dark:bg-gray-900 px-4 py-3">
+              <div className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-3 dark:bg-gray-900">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10">
                   <svg
                     className="h-5 w-5 text-accent"
@@ -239,8 +240,12 @@ export function About({ className = '' }: AboutProps) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-primary dark:text-gray-100">{t('credentials.custom.title')}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('credentials.custom.description')}</p>
+                  <p className="text-sm font-medium text-primary dark:text-gray-100">
+                    {t('credentials.custom.title')}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {t('credentials.custom.description')}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -261,9 +266,17 @@ export function About({ className = '' }: AboutProps) {
               aria-hidden="true"
             />
 
-            {/* Main photo container with premium placeholder */}
+            {/* Main photo container */}
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
-              <PremiumProfilePlaceholder initials="LA" />
+              <Image
+                src="/images/about/profile.webp"
+                alt={t('photoAlt')}
+                fill
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="object-cover"
+                quality={85}
+                loading="lazy"
+              />
             </div>
 
             {/* Floating accent element */}
