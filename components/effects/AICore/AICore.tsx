@@ -121,12 +121,15 @@ export function AICore() {
     openChat();
   }, [openChat]);
 
-  const handleDismiss = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    closeChat();
-    setIsDismissed(true);
-    setIsVisible(false);
-  }, [closeChat]);
+  const handleDismiss = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      closeChat();
+      setIsDismissed(true);
+      setIsVisible(false);
+    },
+    [closeChat]
+  );
 
   // Calculate magnetic offset
   const magneticOffset = useMemo(() => {
@@ -143,7 +146,8 @@ export function AICore() {
     const distance = Math.sqrt(dx * dx + dy * dy);
 
     if (distance < MAGNETIC_RANGE && distance > 0) {
-      const strength = ((MAGNETIC_RANGE - distance) / MAGNETIC_RANGE) * MAGNETIC_STRENGTH;
+      const strength =
+        ((MAGNETIC_RANGE - distance) / MAGNETIC_RANGE) * MAGNETIC_STRENGTH;
       return {
         x: (dx / distance) * strength,
         y: (dy / distance) * strength,
@@ -231,8 +235,18 @@ export function AICore() {
                 whileTap={{ scale: 0.9 }}
                 aria-label={t('dismiss')}
               >
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="h-3 w-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </motion.button>
 
@@ -247,9 +261,10 @@ export function AICore() {
                 style={{
                   width: currentSize + 16,
                   height: currentSize + 16,
-                  boxShadow: isHovered || isChatOpen
-                    ? `0 0 30px rgba(0, 174, 239, ${intensity.glowOpacity})`
-                    : `0 4px 20px rgba(0, 0, 0, 0.1)`,
+                  boxShadow:
+                    isHovered || isChatOpen
+                      ? `0 0 30px rgba(0, 174, 239, ${intensity.glowOpacity})`
+                      : `0 4px 20px rgba(0, 0, 0, 0.1)`,
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -275,30 +290,83 @@ export function AICore() {
                   >
                     <defs>
                       {/* Core gradient */}
-                      <radialGradient id="nucleusCore" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#137dc5" />
+                      <radialGradient
+                        id="nucleusCore"
+                        cx="50%"
+                        cy="50%"
+                        r="50%"
+                      >
+                        <stop offset="0%" stopColor="#1177bd" />
                         <stop offset="70%" stopColor="#1b2f75" />
                         <stop offset="100%" stopColor="#0f1d4a" />
                       </radialGradient>
 
                       {/* Inner glow gradient */}
-                      <radialGradient id="nucleusGlowInner" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#00aeef" stopOpacity="0.8" />
-                        <stop offset="100%" stopColor="#137dc5" stopOpacity="0" />
+                      <radialGradient
+                        id="nucleusGlowInner"
+                        cx="50%"
+                        cy="50%"
+                        r="50%"
+                      >
+                        <stop
+                          offset="0%"
+                          stopColor="#00aeef"
+                          stopOpacity="0.8"
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#1177bd"
+                          stopOpacity="0"
+                        />
                       </radialGradient>
 
                       {/* Outer glow gradient */}
-                      <radialGradient id="nucleusGlow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#00aeef" stopOpacity="0.4" />
-                        <stop offset="50%" stopColor="#137dc5" stopOpacity="0.2" />
-                        <stop offset="100%" stopColor="#1b2f75" stopOpacity="0" />
+                      <radialGradient
+                        id="nucleusGlow"
+                        cx="50%"
+                        cy="50%"
+                        r="50%"
+                      >
+                        <stop
+                          offset="0%"
+                          stopColor="#00aeef"
+                          stopOpacity="0.4"
+                        />
+                        <stop
+                          offset="50%"
+                          stopColor="#1177bd"
+                          stopOpacity="0.2"
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#1b2f75"
+                          stopOpacity="0"
+                        />
                       </radialGradient>
 
                       {/* Orbit gradient */}
-                      <linearGradient id="orbitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#00aeef" stopOpacity="0.6" />
-                        <stop offset="50%" stopColor="#137dc5" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="#00aeef" stopOpacity="0.6" />
+                      <linearGradient
+                        id="orbitGradient"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                      >
+                        <stop
+                          offset="0%"
+                          stopColor="#00aeef"
+                          stopOpacity="0.6"
+                        />
+                        <stop
+                          offset="50%"
+                          stopColor="#1177bd"
+                          stopOpacity="0.3"
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#00aeef"
+                          stopOpacity="0.6"
+                        />
                       </linearGradient>
                     </defs>
 

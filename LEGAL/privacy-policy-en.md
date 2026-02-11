@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **Data Controller:** Leonardo Sarti Magi (sole proprietorship)
-**Business Name:** The AI and Beyond di Leonardo Sarti Magi
+**Business Name:** The AI and beyond di Leonardo Sarti Magi
 **Tax ID (P.IVA):** 02754730469
 **Legal Seat:** Via Genova 9, 55049 Viareggio (LU), Italy
 **Privacy Email:** privacy@theaiandbeyond.it
@@ -14,7 +14,7 @@
 
 ## 1. Introduction
 
-This privacy policy describes how the website "The AI and Beyond" (hereinafter "the Website") collects, uses, stores, and protects the personal data of users. Personal data means any information relating to an identified or identifiable natural person (data subject).
+This privacy policy describes how the website "The AI and beyond" (hereinafter "the Website") collects, uses, stores, and protects the personal data of users. Personal data means any information relating to an identified or identifiable natural person (data subject).
 
 The processing of personal data is carried out in accordance with Regulation (EU) 2016/679 (GDPR) and the Italian Privacy Code (Decree-Law 196/2003 as amended by Decree-Law 101/2018).
 

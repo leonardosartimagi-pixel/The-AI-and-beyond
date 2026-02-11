@@ -1,6 +1,6 @@
 # Tests Directory
 
-# The AI and Beyond
+# The AI and beyond
 
 ## Structure
 

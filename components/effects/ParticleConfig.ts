@@ -26,7 +26,7 @@ export const particleConfig: ISourceOptions = {
         distance: 180,
         links: {
           opacity: 0.8,
-          color: '#137dc5',
+          color: '#1177bd',
         },
       },
       push: {
@@ -36,11 +36,11 @@ export const particleConfig: ISourceOptions = {
   },
   particles: {
     color: {
-      value: ['#137dc5', '#00aeef', '#1b2f75'],
+      value: ['#1177bd', '#00aeef', '#1b2f75'],
     },
     links: {
       enable: true,
-      color: '#137dc5',
+      color: '#1177bd',
       distance: 150,
       opacity: 0.3,
       width: 1,
@@ -139,7 +139,7 @@ export const particleConfigLight: ISourceOptions = {
         distance: 180,
         links: {
           opacity: 0.5,
-          color: '#137dc5',
+          color: '#1177bd',
         },
       },
       push: {
@@ -149,11 +149,11 @@ export const particleConfigLight: ISourceOptions = {
   },
   particles: {
     color: {
-      value: ['#137dc5', '#1b2f75'], // Blue tones for contrast on white
+      value: ['#1177bd', '#1b2f75'], // Blue tones for contrast on white
     },
     links: {
       enable: true,
-      color: '#137dc5',
+      color: '#1177bd',
       distance: 200,
       opacity: 0.25, // More visible on light background
       width: 1,

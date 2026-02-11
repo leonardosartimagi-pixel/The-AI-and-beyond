@@ -15,7 +15,7 @@ According to the provisions of the ePrivacy Directive and the General Data Prote
 
 ## 2. Data Controller
 
-**Name:** Leonardo Sarti Magi - "The AI and Beyond di Leonardo Sarti Magi"
+**Name:** Leonardo Sarti Magi - "The AI and beyond di Leonardo Sarti Magi"
 **Tax ID (P.IVA):** 02754730469
 **Registered Office:** Via Genova 9, 55049 Viareggio (LU), Italy
 **Privacy Email:** privacy@theaiandbeyond.it
@@ -39,7 +39,7 @@ Technical cookies are essential for the proper functioning of the website. Accor
 - **Duration:** persistent (until user reset via "Manage Cookies" button)
 - **Content:** user's consent preferences (e.g., `{analytics: boolean, timestamp: number}`)
 - **Purpose:** to store user preferences regarding analytical cookies and tracking tools
-- **Manager:** The AI and Beyond
+- **Manager:** The AI and beyond
 
 #### Language Preference
 
@@ -48,7 +48,7 @@ Technical cookies are essential for the proper functioning of the website. Accor
 - **Duration:** persistent (until manual browser data deletion)
 - **Content:** language code selected by the user (`it` or `en`)
 - **Purpose:** to store the user's language preference to display the website in the selected language
-- **Manager:** The AI and Beyond
+- **Manager:** The AI and beyond
 
 #### Vercel Development Token (preview only)
 
@@ -81,8 +81,8 @@ Analytical cookies allow the website owner to collect information about visitor 
 
 | Cookie Name           | Manager           | Type                | Duration       | Purpose                            | Consent Required |
 | --------------------- | ----------------- | ------------------- | -------------- | ---------------------------------- | ---------------- |
-| `cookie-consent`      | The AI and Beyond | localStorage        | Persistent     | Store consent preferences          | No               |
-| `preferred-locale`    | The AI and Beyond | localStorage        | Persistent     | Language preference                | No               |
+| `cookie-consent`      | The AI and beyond | localStorage        | Persistent     | Store consent preferences          | No               |
+| `preferred-locale`    | The AI and beyond | localStorage        | Persistent     | Language preference                | No               |
 | `__vercel_live_token` | Vercel            | cookie              | Session        | Development token (preview only)   | No               |
 | Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non-persistent | Performance and page view analysis | Yes              |
 
@@ -294,7 +294,7 @@ To exercise these rights, please contact:
 
 For questions, clarifications, or to exercise your rights regarding cookies and personal data processing, you can contact:
 
-**The AI and Beyond di Leonardo Sarti Magi**
+**The AI and beyond di Leonardo Sarti Magi**
 
 - **Email:** privacy@theaiandbeyond.it
 - **Website:** https://theaiandbeyond.it

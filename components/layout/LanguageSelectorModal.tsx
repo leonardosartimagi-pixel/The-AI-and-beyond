@@ -158,7 +158,7 @@ export function LanguageSelectorModal() {
               >
                 <Image
                   src="/logos/logo-color.png"
-                  alt="The AI and Beyond"
+                  alt="The AI and beyond"
                   width={200}
                   height={67}
                   className="h-auto w-48"

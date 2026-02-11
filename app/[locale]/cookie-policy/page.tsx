@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: 'Cookie Policy',
     description: isIT
-      ? 'Informativa sui cookie e altri strumenti di tracciamento utilizzati da The AI and Beyond.'
-      : 'Cookie and tracking technology policy for The AI and Beyond.',
+      ? 'Informativa sui cookie e altri strumenti di tracciamento utilizzati da The AI and beyond.'
+      : 'Cookie and tracking technology policy for The AI and beyond.',
     alternates: {
       canonical: `https://theaiandbeyond.it/${locale}/cookie-policy`,
       languages: {
@@ -29,7 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CookiePolicyPage({ params }: Props) {
   const { locale } = await params;
-  const filePath = path.join(process.cwd(), 'LEGAL', `cookie-policy-${locale}.md`);
+  const filePath = path.join(
+    process.cwd(),
+    'LEGAL',
+    `cookie-policy-${locale}.md`
+  );
   const content = fs.readFileSync(filePath, 'utf-8');
 
   return (

@@ -30,11 +30,14 @@ export default function PreviewPage() {
         <header>
           <h1 className="text-primary">Design System Preview</h1>
           <p className="mt-2 text-gray-600">
-            Component library for The AI and Beyond
+            Component library for The AI and beyond
           </p>
         </header>
 
-        <ButtonsSection isLoading={isLoading} onLoadingClick={handleLoadingClick} />
+        <ButtonsSection
+          isLoading={isLoading}
+          onLoadingClick={handleLoadingClick}
+        />
         <BadgesSection />
         <CardsSection />
         <InputsSection
@@ -119,13 +122,23 @@ function BadgesSection() {
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-lg font-medium text-primary">Hero Keywords Example</h3>
+        <h3 className="text-lg font-medium text-primary">
+          Hero Keywords Example
+        </h3>
         <div className="rounded-xl bg-primary p-6">
           <div className="flex flex-wrap gap-3">
-            <Badge variant="secondary" size="lg">Consulenza AI</Badge>
-            <Badge variant="secondary" size="lg">Sviluppo Web</Badge>
-            <Badge variant="secondary" size="lg">Automazioni</Badge>
-            <Badge variant="secondary" size="lg">Innovazione</Badge>
+            <Badge variant="secondary" size="lg">
+              Consulenza AI
+            </Badge>
+            <Badge variant="secondary" size="lg">
+              Sviluppo Web
+            </Badge>
+            <Badge variant="secondary" size="lg">
+              Automazioni
+            </Badge>
+            <Badge variant="secondary" size="lg">
+              Innovazione
+            </Badge>
           </div>
         </div>
       </div>
@@ -155,7 +168,9 @@ function CardsSection() {
 
         <Card variant="interactive">
           <CardHeader>
-            <h3 className="text-lg font-semibold text-primary">Interactive Card</h3>
+            <h3 className="text-lg font-semibold text-primary">
+              Interactive Card
+            </h3>
           </CardHeader>
           <CardContent>
             <p className="text-gray-600">
@@ -213,11 +228,7 @@ function InputsSection({
             error="This field is required"
           />
 
-          <Input
-            label="Disabled"
-            placeholder="Cannot edit"
-            disabled
-          />
+          <Input label="Disabled" placeholder="Cannot edit" disabled />
         </div>
 
         <div className="space-y-4">
@@ -250,17 +261,12 @@ function InputsSection({
             checked={isChecked}
             onChange={(e) => onCheckedChange(e.target.checked)}
           />
-          <Checkbox
-            label="Subscribe to newsletter"
-          />
+          <Checkbox label="Subscribe to newsletter" />
           <Checkbox
             label="With error state"
             error="You must accept the terms"
           />
-          <Checkbox
-            label="Disabled checkbox"
-            disabled
-          />
+          <Checkbox label="Disabled checkbox" disabled />
         </div>
       </div>
     </section>
@@ -281,7 +287,8 @@ function TypographySection() {
         <h6 className="text-primary">Heading 6</h6>
         <p className="text-gray-600">
           This is body text. Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+          aliqua.
         </p>
       </div>
     </section>

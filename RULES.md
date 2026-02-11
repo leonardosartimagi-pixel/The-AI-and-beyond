@@ -1,6 +1,6 @@
 # PROJECT RULES
 
-# The AI and Beyond - Website
+# The AI and beyond - Website
 
 > **CRITICAL**: Read this file COMPLETELY before making ANY changes to the codebase.
 > These rules are NON-NEGOTIABLE.

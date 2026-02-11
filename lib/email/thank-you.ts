@@ -21,7 +21,7 @@ const COPY = {
       'Ti rispondiamo entro 24 ore lavorative con un\u2019analisi personalizzata',
       'Se utile, organizziamo una call conoscitiva gratuita',
     ],
-    cta: 'Per qualsiasi necessit\u00e0 o informazione aggiuntiva, scrivici a <a href="mailto:info@theaiandbeyond.it" style="color: #137dc5; text-decoration: none; font-weight: 600;">info@theaiandbeyond.it</a>',
+    cta: 'Per qualsiasi necessit\u00e0 o informazione aggiuntiva, scrivici a <a href="mailto:info@theaiandbeyond.it" style="color: #1177bd; text-decoration: none; font-weight: 600;">info@theaiandbeyond.it</a>',
     noReply:
       'Questa email \u00e8 stata generata automaticamente, ti preghiamo di non rispondere a questo indirizzo.',
     closing: 'A presto,',
@@ -37,7 +37,7 @@ const COPY = {
       "We'll get back to you within 24 business hours with a personalized assessment",
       "If helpful, we'll set up a free introductory call",
     ],
-    cta: 'For any questions or additional information, write to us at <a href="mailto:info@theaiandbeyond.it" style="color: #137dc5; text-decoration: none; font-weight: 600;">info@theaiandbeyond.it</a>',
+    cta: 'For any questions or additional information, write to us at <a href="mailto:info@theaiandbeyond.it" style="color: #1177bd; text-decoration: none; font-weight: 600;">info@theaiandbeyond.it</a>',
     noReply:
       'This email was generated automatically, please do not reply to this address.',
     closing: 'Best regards,',

@@ -25,6 +25,29 @@ const PROJECT_KEYS = [
   'pmLogistics',
 ] as const;
 
+const TECH_STACK = [
+  'Python',
+  'TypeScript',
+  'Next.js',
+  'React',
+  'Node.js',
+  'OpenAI API',
+  'LangChain',
+  'RAG',
+  'Document AI',
+  'n8n',
+  'API Integration',
+  'PostgreSQL',
+  'MongoDB',
+  'Prisma',
+  'Tailwind CSS',
+  'Chart.js',
+  'Docker',
+  'Vercel',
+  'AWS',
+  'CI/CD',
+];
+
 const PROJECT_MEDIA: Record<
   string,
   { image: string; video: string; videoWebm: string }
@@ -78,7 +101,6 @@ function ProjectCard({
   t,
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const technologies = t.raw(`items.${projectKey}.technologies`) as string[];
 
   return (
     <motion.article
@@ -98,7 +120,7 @@ function ProjectCard({
             ? {}
             : {
                 boxShadow:
-                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(19, 125, 197, 0.2)',
+                  '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 4px 20px -4px rgba(17, 119, 189, 0.2)',
               }
         }
         transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -164,22 +186,6 @@ function ProjectCard({
           <p className="mb-4 line-clamp-2 flex-grow text-sm leading-relaxed text-gray-600 dark:text-gray-400">
             {t(`items.${projectKey}.problem`)}
           </p>
-
-          {/* Technology badges */}
-          {technologies.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {technologies.slice(0, 3).map((tech) => (
-                <Badge key={tech} variant="default" size="sm" animated={false}>
-                  {tech}
-                </Badge>
-              ))}
-              {technologies.length > 3 && (
-                <Badge variant="outline" size="sm" animated={false}>
-                  +{technologies.length - 3}
-                </Badge>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Gradient border on hover */}
@@ -187,7 +193,7 @@ function ProjectCard({
           className="pointer-events-none absolute inset-0 rounded-2xl"
           style={{
             background:
-              'linear-gradient(135deg, rgba(19,125,197,0.5), rgba(0,174,239,0.3), rgba(19,125,197,0.5))',
+              'linear-gradient(135deg, rgba(17,119,189,0.5), rgba(0,174,239,0.3), rgba(17,119,189,0.5))',
             padding: '2px',
             WebkitMask:
               'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -277,7 +283,6 @@ function PortfolioModal({
 
   if (!projectKey) return null;
 
-  const technologies = t.raw(`items.${projectKey}.technologies`) as string[];
   const results = t.raw(`items.${projectKey}.results`) as string[];
 
   return (
@@ -455,26 +460,6 @@ function PortfolioModal({
                   </ul>
                 </div>
 
-                {technologies.length > 0 && (
-                  <div className="mb-8">
-                    <h3 className="mb-3 font-heading text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                      {t('technologies')}
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {technologies.map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="primary"
-                          size="md"
-                          animated={false}
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
                 <button
                   type="button"
                   onClick={() => {
@@ -625,6 +610,37 @@ export function Portfolio({ className = '' }: PortfolioProps) {
           >
             {t('hint')}
           </motion.p>
+
+          {/* Technology Stack Showcase */}
+          <motion.div
+            className="mt-20 text-center"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+            animate={{
+              opacity: isInView ? 1 : 0,
+              y: isInView ? 0 : prefersReducedMotion ? 0 : 20,
+            }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 0.6,
+              delay: prefersReducedMotion ? 0 : 0.4,
+            }}
+          >
+            <h3 className="mb-4 font-heading text-xl font-bold text-primary dark:text-gray-100 sm:text-2xl">
+              {t('techStack.title')}
+            </h3>
+            <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-gray-600 dark:text-gray-400">
+              {t('techStack.description')}
+            </p>
+            <div className="flex flex-wrap justify-center gap-2.5">
+              {TECH_STACK.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-gray-200 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-accent/30 hover:bg-accent/5 hover:text-accent dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-accent/40 dark:hover:bg-accent/10 dark:hover:text-accent-light"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 

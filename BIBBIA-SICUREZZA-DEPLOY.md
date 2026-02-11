@@ -1,4 +1,4 @@
-# BIBBIA SICUREZZA & DEPLOY — The AI and Beyond
+# BIBBIA SICUREZZA & DEPLOY — The AI and beyond
 
 > **Versione**: 1.0.0
 > **Data creazione**: 2026-02-06
@@ -35,7 +35,7 @@
 
 | Campo               | Valore                                                      |
 | ------------------- | ----------------------------------------------------------- |
-| **Nome**            | The AI and Beyond                                           |
+| **Nome**            | The AI and beyond                                           |
 | **Tipo**            | Sito web / Landing page con funzionalità interattive        |
 | **Stack**           | Next.js 14.2.35, React 18, TypeScript 5.x, Tailwind CSS 3.4 |
 | **Hosting**         | Vercel (serverless)                                         |

@@ -18,7 +18,7 @@
   --color-primary: 27 47 117;
   --color-primary-dark: 21 31 79;
   --color-primary-light: 45 56 138;
-  --color-accent: 19 125 197;
+  --color-accent: 17 119 189;
   --color-accent-dark: 15 107 168;
   --color-accent-light: 0 174 239;
 
@@ -181,9 +181,9 @@
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(19, 125, 197, 0.5),
+    rgba(17, 119, 189, 0.5),
     rgba(0, 174, 239, 0.3),
-    rgba(19, 125, 197, 0.5)
+    rgba(17, 119, 189, 0.5)
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -290,7 +290,7 @@ section,
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
-    0 0 0 1px rgba(19, 125, 197, 0.05);
+    0 0 0 1px rgba(17, 119, 189, 0.05);
 }
 
 .dark .contact-form-glass {
@@ -314,9 +314,9 @@ section,
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(19, 125, 197, 0.4),
+    rgba(17, 119, 189, 0.4),
     rgba(0, 174, 239, 0.2),
-    rgba(19, 125, 197, 0.4)
+    rgba(17, 119, 189, 0.4)
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -336,7 +336,7 @@ section,
 .contact-form-glass input:focus,
 .contact-form-glass textarea:focus {
   box-shadow:
-    0 0 0 2px rgb(19 125 197 / 0.3),
+    0 0 0 2px rgb(17 119 189 / 0.3),
     0 0 20px -5px rgba(0, 174, 239, 0.25);
 }
 
@@ -351,10 +351,10 @@ section,
 @keyframes cta-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(19, 125, 197, 0.4);
+    box-shadow: 0 0 0 0 rgba(17, 119, 189, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(19, 125, 197, 0);
+    box-shadow: 0 0 0 8px rgba(17, 119, 189, 0);
   }
 }
 
