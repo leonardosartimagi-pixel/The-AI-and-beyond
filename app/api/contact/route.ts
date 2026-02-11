@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { contactFormSchema } from '@/lib/validations';
 import { isRateLimited, getRemainingRequests } from '@/lib/rate-limiter';
+import { sanitizeForHtml } from '@/lib/email/sanitize';
+import { FROM_ADDRESS } from '@/lib/email/shared-styles';
+import type { ContactEmailData } from '@/lib/email/types';
+import {
+  buildLeadNotificationHtml,
+  buildLeadNotificationSubject,
+} from '@/lib/email/lead-notification';
+import { buildThankYouHtml, buildThankYouSubject } from '@/lib/email/thank-you';
 
 // Lazy initialization to avoid build-time errors when API key is not set
 let resend: Resend | null = null;
@@ -33,14 +41,20 @@ function getClientIp(request: NextRequest): string {
   return 'unknown';
 }
 
-function sanitizeString(value: string): string {
-  return value
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .trim();
-}
+const DEFAULT_COMPANY = {
+  it: 'Non specificata',
+  en: 'Not specified',
+} as const;
+
+const ERROR_MESSAGES = {
+  it: 'Si \u00e8 verificato un errore. Riprova pi\u00f9 tardi.',
+  en: 'An error occurred. Please try again later.',
+} as const;
+
+const SUCCESS_MESSAGES = {
+  it: 'Messaggio inviato con successo!',
+  en: 'Message sent successfully!',
+} as const;
 
 export async function POST(request: NextRequest) {
   const clientIp = getClientIp(request);
@@ -80,12 +94,13 @@ export async function POST(request: NextRequest) {
   }
 
   const { name, email, company, message } = validation.data;
+  const locale = validation.data.locale ?? 'it';
 
-  const sanitizedName = sanitizeString(name);
+  const sanitizedName = sanitizeForHtml(name);
   const sanitizedCompany = company
-    ? sanitizeString(company)
-    : 'Non specificata';
-  const sanitizedMessage = sanitizeString(message);
+    ? sanitizeForHtml(company)
+    : DEFAULT_COMPANY[locale];
+  const sanitizedMessage = sanitizeForHtml(message);
 
   const contactEmail = process.env.CONTACT_EMAIL;
 
@@ -93,7 +108,7 @@ export async function POST(request: NextRequest) {
     console.error('[Contact API] CONTACT_EMAIL not configured');
 
     return NextResponse.json(
-      { error: 'Si è verificato un errore. Riprova più tardi.' },
+      { error: ERROR_MESSAGES[locale] },
       { status: 500 }
     );
   }
@@ -103,41 +118,52 @@ export async function POST(request: NextRequest) {
     console.error('[Contact API] RESEND_API_KEY not configured');
 
     return NextResponse.json(
-      { error: 'Si è verificato un errore. Riprova più tardi.' },
+      { error: ERROR_MESSAGES[locale] },
       { status: 500 }
     );
   }
 
+  const emailData: ContactEmailData = {
+    name: sanitizedName,
+    email,
+    company: sanitizedCompany,
+    message: sanitizedMessage,
+    locale,
+    submittedAt: new Date().toISOString(),
+  };
+
   try {
-    const { error } = await resendClient.emails.send({
-      from: 'The AI and Beyond <noreply@theaiandbeyond.com>',
-      to: contactEmail,
-      reply_to: email,
-      subject: `Nuovo contatto dal sito - ${sanitizedName}`,
-      text: `Nome: ${sanitizedName}
-Email: ${email}
-Azienda: ${sanitizedCompany}
+    // CRITICAL: Send lead notification to owner
+    const leadError = await sendLeadNotification(
+      resendClient,
+      contactEmail,
+      emailData
+    );
 
-Messaggio:
-${sanitizedMessage}
-
----
-Inviato dal form di contatto di theaiandbeyond.it`,
-    });
-
-    if (error) {
-      console.error('[Contact API] Resend error:', error.message);
+    if (leadError) {
+      console.error('[Contact API] Lead notification failed:', leadError);
 
       return NextResponse.json(
-        { error: 'Si è verificato un errore. Riprova più tardi.' },
+        { error: ERROR_MESSAGES[locale] },
         { status: 500 }
       );
     }
 
-    console.log('[Contact API] Email sent successfully');
+    // BEST-EFFORT: Send thank-you email to client
+    const thankYouError = await sendThankYouEmail(
+      resendClient,
+      email,
+      emailData
+    );
+
+    if (thankYouError) {
+      console.error('[Contact API] Thank-you email failed:', thankYouError);
+    }
+
+    console.log('[Contact API] Emails sent successfully');
 
     return NextResponse.json(
-      { success: true, message: 'Messaggio inviato con successo!' },
+      { success: true, message: SUCCESS_MESSAGES[locale] },
       {
         status: 200,
         headers: {
@@ -152,8 +178,39 @@ Inviato dal form di contatto di theaiandbeyond.it`,
     );
 
     return NextResponse.json(
-      { error: 'Si è verificato un errore. Riprova più tardi.' },
+      { error: ERROR_MESSAGES[locale] },
       { status: 500 }
     );
   }
+}
+
+async function sendLeadNotification(
+  client: Resend,
+  to: string,
+  data: ContactEmailData
+): Promise<string | null> {
+  const { error } = await client.emails.send({
+    from: FROM_ADDRESS,
+    to,
+    reply_to: data.email,
+    subject: buildLeadNotificationSubject(data.name),
+    html: buildLeadNotificationHtml(data),
+  });
+
+  return error ? error.message : null;
+}
+
+async function sendThankYouEmail(
+  client: Resend,
+  to: string,
+  data: ContactEmailData
+): Promise<string | null> {
+  const { error } = await client.emails.send({
+    from: FROM_ADDRESS,
+    to,
+    subject: buildThankYouSubject(data.locale),
+    html: buildThankYouHtml(data),
+  });
+
+  return error ? error.message : null;
 }

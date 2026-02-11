@@ -62,7 +62,7 @@ export function Contact({ className = '' }: ContactProps) {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, locale }),
       });
 
       if (!response.ok) {
