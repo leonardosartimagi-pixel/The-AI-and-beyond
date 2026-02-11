@@ -156,11 +156,8 @@ test.describe('Portfolio Modal', () => {
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    const cta = page.locator('[role="dialog"] a:has-text("Parliamone")');
+    const cta = page.locator('[role="dialog"] button:has-text("Parliamone")');
     await expect(cta).toBeVisible();
-
-    // Verify CTA has correct link target before clicking (modal will close after click)
-    await expect(cta).toHaveAttribute('href', '#contatti');
 
     await cta.click();
     await expect(modal).not.toBeVisible();
