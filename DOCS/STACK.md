@@ -1,5 +1,5 @@
 # Technology Stack
-# The AI and Beyond - Website
+# The AI and beyond - Website
 
 > Rationale and documentation for every technology choice.
 

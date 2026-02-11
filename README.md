@@ -1,4 +1,4 @@
-# The AI and Beyond
+# The AI and beyond
 
 ### Website by Leonardo Sarti Magi
 
@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Overview
 
-**The AI and Beyond** is a professional website showcasing AI consulting services, featuring:
+**The AI and beyond** is a professional website showcasing AI consulting services, featuring:
 
 - Modern design with powerful animations
 - Interactive ROI calculator

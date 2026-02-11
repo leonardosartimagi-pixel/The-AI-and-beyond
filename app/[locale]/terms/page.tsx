@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isIT ? 'Termini e Condizioni' : 'Terms and Conditions',
     description: isIT
-      ? 'Termini e condizioni di utilizzo del sito web The AI and Beyond.'
-      : 'Terms and conditions for using The AI and Beyond website.',
+      ? 'Termini e condizioni di utilizzo del sito web The AI and beyond.'
+      : 'Terms and conditions for using The AI and beyond website.',
     alternates: {
       canonical: `https://theaiandbeyond.it/${locale}/terms`,
       languages: {

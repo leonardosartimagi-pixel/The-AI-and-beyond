@@ -15,7 +15,7 @@ Secondo le disposizioni della direttiva ePrivacy e del Regolamento generale sull
 
 ## 2. Titolare del trattamento
 
-**Nome:** Leonardo Sarti Magi - "The AI and Beyond di Leonardo Sarti Magi"
+**Nome:** Leonardo Sarti Magi - "The AI and beyond di Leonardo Sarti Magi"
 **P.IVA:** 02754730469
 **Sede legale:** Via Genova 9, 55049 Viareggio (LU), Italia
 **Email privacy:** privacy@theaiandbeyond.it
@@ -39,7 +39,7 @@ I cookie tecnici sono essenziali per il corretto funzionamento del sito web. Sec
 - **Durata:** persistente (fino al reset da parte dell'utente)
 - **Contenuto:** preferenze di consenso dell'utente (es. `{analytics: boolean, timestamp: number}`)
 - **Scopo:** memorizzare le preferenze di consenso dell'utente riguardante cookie analitici e strumenti di tracciamento
-- **Gestore:** The AI and Beyond
+- **Gestore:** The AI and beyond
 
 #### Preferenze di lingua
 
@@ -48,7 +48,7 @@ I cookie tecnici sono essenziali per il corretto funzionamento del sito web. Sec
 - **Durata:** persistente (fino alla cancellazione manuale dei dati del browser)
 - **Contenuto:** codice lingua selezionato dall'utente (`it` o `en`)
 - **Scopo:** memorizzare la preferenza linguistica dell'utente per visualizzare il sito nella lingua selezionata
-- **Gestore:** The AI and Beyond
+- **Gestore:** The AI and beyond
 
 #### Token di sviluppo Vercel (solo in preview)
 
@@ -81,8 +81,8 @@ I cookie analitici consentono al gestore del sito di raccogliere informazioni su
 
 | Nome Cookie           | Gestore           | Tipo                | Durata          | Scopo                              | Consenso Richiesto |
 | --------------------- | ----------------- | ------------------- | --------------- | ---------------------------------- | ------------------ |
-| `cookie-consent`      | The AI and Beyond | localStorage        | Persistente     | Memorizzare preferenze di consenso | No                 |
-| `preferred-locale`    | The AI and Beyond | localStorage        | Persistente     | Preferenza lingua                  | No                 |
+| `cookie-consent`      | The AI and beyond | localStorage        | Persistente     | Memorizzare preferenze di consenso | No                 |
+| `preferred-locale`    | The AI and beyond | localStorage        | Persistente     | Preferenza lingua                  | No                 |
 | `__vercel_live_token` | Vercel            | cookie              | Sessione        | Token sviluppo (solo preview)      | No                 |
 | Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non persistente | Analisi performance e pagine viste | Sì                 |
 
@@ -294,7 +294,7 @@ Per esercitare questi diritti, contattare:
 
 Per domande, chiarimenti, o per esercitare i vostri diritti riguardanti i cookie e il trattamento dei dati personali, potete contattare:
 
-**The AI and Beyond di Leonardo Sarti Magi**
+**The AI and beyond di Leonardo Sarti Magi**
 
 - **Email:** privacy@theaiandbeyond.it
 - **Sito web:** https://theaiandbeyond.it

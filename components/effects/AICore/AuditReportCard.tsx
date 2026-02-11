@@ -23,7 +23,7 @@ interface AuditReportCardProps {
  * AuditReportCard - Mostra il report audit brandizzato
  *
  * Features:
- * - Design brandizzato con colori The AI and Beyond
+ * - Design brandizzato con colori The AI and beyond
  * - Calcolo trasparente step-by-step
  * - Disclaimer sempre visibili
  * - Copia testo report

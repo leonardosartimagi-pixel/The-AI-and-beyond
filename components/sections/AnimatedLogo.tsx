@@ -57,18 +57,12 @@ export function AnimatedLogo({
       xmlns="http://www.w3.org/2000/svg"
       initial="hidden"
       animate="visible"
-      aria-label="Logo The AI and Beyond - Onda stilizzata"
+      aria-label="Logo The AI and beyond - Onda stilizzata"
       role="img"
     >
-      <title>The AI and Beyond Logo</title>
+      <title>The AI and beyond Logo</title>
       <defs>
-        <linearGradient
-          id="waveGradient"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="0%"
-        >
+        <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#137dc5" />
           <stop offset="50%" stopColor="#00aeef" />
           <stop offset="100%" stopColor="#137dc5" />

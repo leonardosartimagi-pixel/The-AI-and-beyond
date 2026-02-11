@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "The AI and Beyond — AI Consulting That Starts From the Problem",
+    "title": "The AI and beyond — AI Consulting That Starts From the Problem",
     "description": "We find where your business loses time or money. Then we build the fix — with AI or without. Consulting, automation, custom development.",
-    "ogTitle": "AI works — when you start from the right problem | The AI and Beyond",
+    "ogTitle": "AI works — when you start from the right problem | The AI and beyond",
     "ogDescription": "AI consulting, automation and custom development for businesses. We start from your problem, not the technology.",
-    "ogAlt": "The AI and Beyond — AI Consulting That Starts From the Problem"
+    "ogAlt": "The AI and beyond — AI Consulting That Starts From the Problem"
   },
   "nav": {
     "about": "About Us",
@@ -45,8 +45,8 @@
     "label": "About Us",
     "title": "About",
     "titleAccent": "Us",
-    "intro": "The AI and Beyond was born from Leonardo Sarti Magi's experience: an AI consultant and software developer with a direct approach to solving real problems.",
-    "paragraph1": "The AI and Beyond is a lean structure where human expertise and AI tools work together on every project. No departments, no bureaucracy — just the right people and tools for the problem at hand.",
+    "intro": "The AI and beyond was born from Leonardo Sarti Magi's experience: an AI consultant and software developer with a direct approach to solving real problems.",
+    "paragraph1": "The AI and beyond is a lean structure where human expertise and AI tools work together on every project. No departments, no bureaucracy — just the right people and tools for the problem at hand.",
     "paragraph2": "When you work with us, you're not working with a freelancer doing everything alone. You're working with a system where every analysis, every automation, every deliverable goes through AI tools that we ourselves use every day. It's our way of proving AI works: we use it before recommending it.",
     "paragraph3": "Our starting point is always the same: where are you losing time, money, or control over a process? From there, we figure out if AI is the right answer. Sometimes it is. Sometimes it's not. Either way, you have a clear picture before a single line of code is written.",
     "paragraph4": "We've worked on systems where errors are costly: industrial maintenance, regulatory compliance, business-critical applications. This taught us one thing: technology that works is technology that disappears from daily life — no one has to think about it.",
@@ -64,7 +64,7 @@
         "description": "We start from your process, not from a template"
       }
     },
-    "photoAlt": "The AI and Beyond - AI Consulting"
+    "photoAlt": "The AI and beyond - AI Consulting"
   },
   "services": {
     "label": "Services",
@@ -434,7 +434,7 @@
     "legalTitle": "Registered office",
     "address": "Via Genova 9, 55049 Viareggio (LU), Italy",
     "piva": "VAT IT02754730469",
-    "copyright": "© {year} The AI and Beyond di Leonardo Sarti Magi. All rights reserved.",
+    "copyright": "© {year} The AI and beyond di Leonardo Sarti Magi. All rights reserved.",
     "privacy": "Privacy Policy",
     "cookiePolicy": "Cookie Policy",
     "terms": "Terms & Conditions",

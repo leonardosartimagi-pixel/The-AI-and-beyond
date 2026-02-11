@@ -66,7 +66,7 @@ function FooterBrand({ onLogoClick, t, tNav }: FooterBrandProps) {
       >
         <Image
           src="/images/logo-full-white.svg"
-          alt="The AI and Beyond"
+          alt="The AI and beyond"
           fill
           sizes="192px"
           className="object-contain"

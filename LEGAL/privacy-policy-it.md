@@ -1,7 +1,7 @@
 # Informativa Privacy
 
 **Titolare del Trattamento:** Leonardo Sarti Magi (ditta individuale)
-**Ragione Sociale:** The AI and Beyond di Leonardo Sarti Magi
+**Ragione Sociale:** The AI and beyond di Leonardo Sarti Magi
 **P.IVA:** 02754730469
 **Sede Legale:** Via Genova 9, 55049 Viareggio (LU), Italia
 **Email Privacy:** privacy@theaiandbeyond.it
@@ -14,7 +14,7 @@
 
 ## 1. Introduzione
 
-Questa informativa descrive come il sito web "The AI and Beyond" (di seguito "il Sito") raccoglie, utilizza, conserva e protegge i dati personali degli utenti. I dati personali sono qualsiasi informazione relativa a una persona fisica identificata o identificabile (interessato).
+Questa informativa descrive come il sito web "The AI and beyond" (di seguito "il Sito") raccoglie, utilizza, conserva e protegge i dati personali degli utenti. I dati personali sono qualsiasi informazione relativa a una persona fisica identificata o identificabile (interessato).
 
 Il trattamento dei dati personali è effettuato in conformità al Regolamento UE 2016/679 (GDPR) e al Decreto Legislativo 196/2003 come modificato dal Decreto Legislativo 101/2018 (Codice della Privacy italiano).
 

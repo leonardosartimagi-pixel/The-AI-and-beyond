@@ -17,12 +17,15 @@ describe('AnimatedLogo', () => {
   it('has proper aria-label for accessibility', () => {
     render(<AnimatedLogo />);
     const svg = screen.getByRole('img');
-    expect(svg).toHaveAttribute('aria-label', 'Logo The AI and Beyond - Onda stilizzata');
+    expect(svg).toHaveAttribute(
+      'aria-label',
+      'Logo The AI and beyond - Onda stilizzata'
+    );
   });
 
   it('contains a title element for screen readers', () => {
     render(<AnimatedLogo />);
-    expect(screen.getByText('The AI and Beyond Logo')).toBeInTheDocument();
+    expect(screen.getByText('The AI and beyond Logo')).toBeInTheDocument();
   });
 
   it('applies default dimensions', () => {

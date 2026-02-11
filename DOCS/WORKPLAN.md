@@ -1,5 +1,5 @@
 # Work Plan
-# The AI and Beyond - Website
+# The AI and beyond - Website
 
 > Master document for project execution. Each task has a complete, self-contained prompt.
 
@@ -7,7 +7,7 @@
 
 ## Project Overview
 
-**Project**: The AI and Beyond - Professional AI Consulting Website
+**Project**: The AI and beyond - Professional AI Consulting Website
 **Client**: Leonardo Sarti Magi
 **Goal**: Modern, animated single-page website to showcase AI services and generate leads
 **Target**: Italian businesses and professionals
@@ -77,7 +77,7 @@
 
 #### CONTEXT
 
-You are continuing work on "The AI and Beyond" website. This is the chat for TASK-001.
+You are continuing work on "The AI and beyond" website. This is the chat for TASK-001.
 
 **Completed so far:**
 - TASK-000: Project foundation (documentation, structure, rules)
@@ -313,7 +313,7 @@ export default defineConfig({
 
 #### CONTEXT
 
-You are continuing work on "The AI and Beyond" website. This is the chat for TASK-002.
+You are continuing work on "The AI and beyond" website. This is the chat for TASK-002.
 
 **Completed so far:**
 - TASK-000: Project foundation
@@ -483,7 +483,7 @@ export const staggerContainer = {
 
 #### CONTEXT
 
-You are continuing work on "The AI and Beyond" website. This is the chat for TASK-003.
+You are continuing work on "The AI and beyond" website. This is the chat for TASK-003.
 
 **Completed so far:**
 - TASK-000: Project foundation
@@ -603,7 +603,7 @@ components/
 
 #### CONTEXT
 
-You are continuing work on "The AI and Beyond" website. This is the chat for TASK-004.
+You are continuing work on "The AI and beyond" website. This is the chat for TASK-004.
 
 **Completed so far:**
 - TASK-000: Project foundation
@@ -731,7 +731,7 @@ CTA: "Scopri come posso aiutarti"
 
 #### CONTEXT
 
-You are continuing work on "The AI and Beyond" website. This is the chat for TASK-005.
+You are continuing work on "The AI and beyond" website. This is the chat for TASK-005.
 
 **Completed so far:**
 - TASK-000 through TASK-004
@@ -816,7 +816,7 @@ Ogni progetto parte dall'ascolto. Perché la tecnologia migliore
 
 #### CONTEXT
 
-You are continuing work on "The AI and Beyond" website. This is the chat for TASK-006.
+You are continuing work on "The AI and beyond" website. This is the chat for TASK-006.
 
 ---
 
@@ -888,7 +888,7 @@ Commit: `feat(services): add Services section with interactive cards [TASK-006]`
 
 #### CONTEXT
 
-You are continuing work on "The AI and Beyond" website. This is the chat for TASK-007.
+You are continuing work on "The AI and beyond" website. This is the chat for TASK-007.
 
 ---
 
@@ -1267,7 +1267,7 @@ Configure SEO and metadata:
 
 **Metadata:**
 ```
-Title: The AI and Beyond | Consulenza e Sviluppo AI
+Title: The AI and beyond | Consulenza e Sviluppo AI
 Description: Trasformo idee in soluzioni AI che funzionano. Consulenza e sviluppo per aziende italiane che vogliono crescere con l'intelligenza artificiale.
 ```
 

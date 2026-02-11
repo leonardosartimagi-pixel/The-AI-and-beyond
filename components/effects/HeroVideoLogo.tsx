@@ -92,7 +92,7 @@ export function HeroVideoLogo({
         <div className={`relative ${logoSizeClasses}`}>
           <Image
             src="/images/logo-full-white.svg"
-            alt="The AI and Beyond"
+            alt="The AI and beyond"
             fill
             className="object-contain drop-shadow-lg"
             priority
@@ -125,7 +125,7 @@ export function HeroVideoLogo({
               muted
               playsInline
               preload="auto"
-              aria-label="Logo animato The AI and Beyond"
+              aria-label="Logo animato The AI and beyond"
             >
               <source src="/videos/hero-logo.webm" type="video/webm" />
               <source src="/videos/hero-logo.mp4" type="video/mp4" />
@@ -158,7 +158,7 @@ export function HeroVideoLogo({
             <div className={`relative ${logoSizeClasses}`}>
               <Image
                 src="/images/logo-full-white.svg"
-                alt="The AI and Beyond"
+                alt="The AI and beyond"
                 fill
                 className="object-contain drop-shadow-lg"
                 sizes="(min-width: 1024px) 34rem, (min-width: 768px) 30rem, (min-width: 640px) 24rem, 20rem"

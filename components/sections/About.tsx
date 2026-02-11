@@ -291,7 +291,7 @@ export function About({ className = '' }: AboutProps) {
             >
               <Image
                 src="/images/logo-symbol.png"
-                alt="The AI and Beyond"
+                alt="The AI and beyond"
                 width={48}
                 height={48}
                 className="h-12 w-12"
