@@ -125,8 +125,8 @@ test.describe('Portfolio Modal', () => {
     const modal = page.locator('[role="dialog"]');
     await expect(modal).toBeVisible();
 
-    // Press Escape to close (backdrop click is blocked by container overlay)
-    await page.keyboard.press('Escape');
+    // Click outside the modal (on the backdrop overlay)
+    await page.mouse.click(10, 10);
 
     await expect(modal).not.toBeVisible();
   });
