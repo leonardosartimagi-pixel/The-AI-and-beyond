@@ -38,7 +38,7 @@
   "brandShowcase": {
     "label": "Our approach",
     "tagline": "What we build, works every day.",
-    "subtitle": "What's not needed, we don't build.",
+    "subtitle": "The hard part isn't building. It's knowing what to build.",
     "scrollHint": "Keep discovering"
   },
   "about": {
@@ -358,7 +358,7 @@
       },
       "deliver": {
         "title": "We Deliver",
-        "description": "Testing, deployment, documentation. We deliver a system that works and that you know how to use. Not a prototype, a product."
+        "description": "Testing, deployment, documentation. We deliver everything that was agreed — working, documented, and ready for your team to use."
       }
     }
   },

@@ -38,7 +38,7 @@
   "brandShowcase": {
     "label": "Il nostro approccio",
     "tagline": "Quello che costruiamo, funziona ogni giorno.",
-    "subtitle": "Quello che non serve, non lo costruiamo.",
+    "subtitle": "Il difficile non è costruire. È capire cosa costruire.",
     "scrollHint": "Continua a scoprire"
   },
   "about": {
@@ -358,7 +358,7 @@
       },
       "deliver": {
         "title": "Consegniamo",
-        "description": "Testing, deployment, documentazione. Ti consegniamo un sistema che funziona e che sai usare. Non un prototipo, un prodotto."
+        "description": "Testing, deployment, documentazione. Ti consegniamo tutto quello che è stato concordato — funzionante, documentato, e pronto per essere usato dal tuo team."
       }
     }
   },
