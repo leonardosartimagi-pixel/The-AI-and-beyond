@@ -46,8 +46,10 @@ test.describe('Portfolio Modal', () => {
 
     const video = modal.locator('video');
     await expect(video).toBeVisible();
-    await expect(video).toHaveAttribute('muted', '');
     await expect(video).toHaveAttribute('loop', '');
+    // muted is a DOM property in React, not an HTML attribute
+    const isMuted = await video.evaluate((el: HTMLVideoElement) => el.muted);
+    expect(isMuted).toBe(true);
   });
 
   test('project cards display title, description, and technologies', async ({
