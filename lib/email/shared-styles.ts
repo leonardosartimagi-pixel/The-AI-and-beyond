@@ -57,10 +57,10 @@ export function buildEmailWrapper(content: string): string {
 </html>`;
 }
 
-/** Branded header with logo on dark blue background */
+/** Branded header with logo on white background */
 export function buildHeader(): string {
   return `<tr>
-  <td align="center" style="background-color: ${BRAND.primary}; padding-top: 28px; padding-bottom: 28px; padding-left: 32px; padding-right: 32px; border-radius: 8px 8px 0 0;">
+  <td align="center" style="background-color: ${BRAND.white}; padding-top: 28px; padding-bottom: 28px; padding-left: 32px; padding-right: 32px; border-radius: 8px 8px 0 0; border-bottom: 2px solid ${BRAND.gray200};">
     <img src="${LOGO_URL}" alt="${SITE_NAME}" width="160" height="auto" style="display: block; border: 0; outline: none; text-decoration: none;" />
   </td>
 </tr>`;

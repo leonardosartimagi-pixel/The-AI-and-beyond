@@ -21,7 +21,9 @@ const COPY = {
       'Ti rispondiamo entro 24 ore lavorative con un\u2019analisi personalizzata',
       'Se utile, organizziamo una call conoscitiva gratuita',
     ],
-    cta: 'Nel frattempo, puoi rispondere direttamente a questa email se hai informazioni da aggiungere.',
+    cta: 'Per qualsiasi necessit\u00e0 o informazione aggiuntiva, scrivici a <a href="mailto:info@theaiandbeyond.it" style="color: #137dc5; text-decoration: none; font-weight: 600;">info@theaiandbeyond.it</a>',
+    noReply:
+      'Questa email \u00e8 stata generata automaticamente, ti preghiamo di non rispondere a questo indirizzo.',
     closing: 'A presto,',
     signature: `Leonardo Sarti Magi \u2014 ${SITE_NAME}`,
   },
@@ -35,7 +37,9 @@ const COPY = {
       "We'll get back to you within 24 business hours with a personalized assessment",
       "If helpful, we'll set up a free introductory call",
     ],
-    cta: 'In the meantime, feel free to reply directly to this email if you have additional information to share.',
+    cta: 'For any questions or additional information, write to us at <a href="mailto:info@theaiandbeyond.it" style="color: #137dc5; text-decoration: none; font-weight: 600;">info@theaiandbeyond.it</a>',
+    noReply:
+      'This email was generated automatically, please do not reply to this address.',
     closing: 'Best regards,',
     signature: `Leonardo Sarti Magi \u2014 ${SITE_NAME}`,
   },
@@ -59,7 +63,7 @@ export function buildThankYouHtml(data: ContactEmailData): string {
 
 function buildThankYouHeader(): string {
   return `<tr>
-  <td align="center" style="background-color: ${BRAND.primary}; padding-top: 32px; padding-bottom: 32px; padding-left: 32px; padding-right: 32px; border-radius: 8px 8px 0 0;">
+  <td align="center" style="background-color: ${BRAND.white}; padding-top: 32px; padding-bottom: 32px; padding-left: 32px; padding-right: 32px; border-radius: 8px 8px 0 0; border-bottom: 2px solid ${BRAND.gray200};">
     <img src="${LOGO_URL}" alt="${SITE_NAME}" width="140" height="auto" style="display: block; border: 0; outline: none; text-decoration: none;" />
   </td>
 </tr>`;
@@ -75,6 +79,7 @@ function buildBody(
     ${buildParagraph(c.body)}
     ${buildStepsSection(c.nextTitle, c.steps)}
     ${buildCtaBox(c.cta)}
+    ${buildNoReply(c.noReply)}
     ${buildClosing(c.closing, c.signature)}
   </td>
 </tr>`;
@@ -142,6 +147,12 @@ function buildCtaBox(text: string): string {
     </td>
   </tr>
 </table>`;
+}
+
+function buildNoReply(text: string): string {
+  return `<p style="margin: 0 0 24px 0; font-size: 12px; line-height: 18px; color: ${BRAND.gray500}; font-style: italic; font-family: ${FONT_STACK};">
+  ${text}
+</p>`;
 }
 
 function buildClosing(closing: string, signature: string): string {
