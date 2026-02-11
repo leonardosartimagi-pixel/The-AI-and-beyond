@@ -43,9 +43,10 @@ I cookie tecnici sono essenziali per il corretto funzionamento del sito web. Sec
 
 #### Preferenze di lingua
 
-- **Nome:** `next-intl locale` (e varianti correlate)
-- **Tipo:** cookie/localStorage gestito dal middleware Next.js
-- **Durata:** sessione o persistente secondo le impostazioni del browser
+- **Nome:** `preferred-locale`
+- **Tipo:** localStorage
+- **Durata:** persistente (fino alla cancellazione manuale dei dati del browser)
+- **Contenuto:** codice lingua selezionato dall'utente (`it` o `en`)
 - **Scopo:** memorizzare la preferenza linguistica dell'utente per visualizzare il sito nella lingua selezionata
 - **Gestore:** The AI and Beyond
 
@@ -78,12 +79,12 @@ I cookie analitici consentono al gestore del sito di raccogliere informazioni su
 
 ## 4. Tabella riepilogativa dei cookie
 
-| Nome Cookie           | Gestore           | Tipo                | Durata               | Scopo                              | Consenso Richiesto |
-| --------------------- | ----------------- | ------------------- | -------------------- | ---------------------------------- | ------------------ |
-| `cookie-consent`      | The AI and Beyond | localStorage        | Persistente          | Memorizzare preferenze di consenso | No                 |
-| `next-intl locale`    | The AI and Beyond | cookie/localStorage | Sessione/Persistente | Preferenza lingua                  | No                 |
-| `__vercel_live_token` | Vercel            | cookie              | Sessione             | Token sviluppo (solo preview)      | No                 |
-| Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non persistente      | Analisi performance e pagine viste | Sì                 |
+| Nome Cookie           | Gestore           | Tipo                | Durata          | Scopo                              | Consenso Richiesto |
+| --------------------- | ----------------- | ------------------- | --------------- | ---------------------------------- | ------------------ |
+| `cookie-consent`      | The AI and Beyond | localStorage        | Persistente     | Memorizzare preferenze di consenso | No                 |
+| `preferred-locale`    | The AI and Beyond | localStorage        | Persistente     | Preferenza lingua                  | No                 |
+| `__vercel_live_token` | Vercel            | cookie              | Sessione        | Token sviluppo (solo preview)      | No                 |
+| Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non persistente | Analisi performance e pagine viste | Sì                 |
 
 ---
 
@@ -97,8 +98,7 @@ Il nostro sito web fornisce un banner di consenso ai cookie nella parte bassa de
 
 1. **Accettare tutti i cookie** - Consente l'utilizzo di tutti i cookie (tecnici e analitici)
 2. **Rifiutare i cookie non essenziali** - Consente solo i cookie strettamente necessari
-3. **Personalizzare le preferenze** - Accedere a "Gestisci Cookie" per scegliere selettivamente quali cookie autorizzare
-4. **Modificare le preferenze successivamente** - Il bottone "Gestisci Cookie" è disponibile anche nelle successive visite
+3. **Modificare le preferenze successivamente** - Il bottone "Gestisci Cookie" è disponibile nel footer del sito e consente di riaprire il banner per modificare la scelta effettuata
 
 Quando l'utente modifica le preferenze tramite il banner, la scelta viene memorizzata nel cookie `cookie-consent` e i cookie analitici vengono caricati o rimossi di conseguenza.
 
@@ -157,14 +157,18 @@ Vercel Analytics non fornisce un meccanismo di opt-out esplicito perché è prog
 - Disabilitare i beacon nel browser se disponibile
 - Contattarci per richiedere l'esclusione
 
-### 5.4 Modalità "Non tracciare" (DNT)
+### 5.4 Modalità "Non tracciare" (DNT) e Global Privacy Control (GPC)
 
-Se il vostro browser supporta la funzione "Non tracciare", potete attivarla:
+Il nostro sito **rispetta attivamente** i segnali di privacy inviati dal browser. Se il vostro browser ha attivato DNT o GPC, il sito tratta automaticamente l'utente come se avesse rifiutato i cookie analitici, senza mostrare il banner di consenso.
+
+Per attivare questi segnali nel vostro browser:
 
 - **Chrome:** Impostazioni → Privacy e sicurezza → Cookie e altri dati dei siti → Deselezionare "Consenti ai siti di controllare..."
 - **Firefox:** Impostazioni → Privacy e sicurezza → "Invia un segnale "Non voglio essere tracciato" ai siti web" (impostazione avanzata)
 - **Safari:** Preferenze → Privacy → "Limita il tracciamento tra i siti web"
 - **Edge:** Impostazioni → Privacy, ricerca e servizi → Attivare "Tracker prevention"
+
+**Nota**: Se l'utente ha precedentemente effettuato una scelta esplicita tramite il banner cookie (accettare o rifiutare), tale scelta prevale sui segnali DNT/GPC del browser.
 
 ---
 
@@ -303,7 +307,7 @@ Per segnalare violazioni della privacy o reclami riguardanti il trattamento dei 
 
 - **Sito:** https://www.garanteprivacy.it
 - **Centralino:** +39 06 696771
-- **Indirizzo:** Piazza di Monte Citorio, 121 - 00186 Roma, Italia
+- **Indirizzo:** Piazza Venezia 11, 00187 Roma, Italia
 
 ---
 

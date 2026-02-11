@@ -41,6 +41,14 @@ function getClientIp(request: NextRequest): string {
   return 'unknown';
 }
 
+/** Anonymize IP for logging — replace last octet to minimize PII in server logs */
+function anonymizeIp(ip: string): string {
+  if (ip === 'unknown') return ip;
+  if (ip.includes('.')) return ip.replace(/\.\d+$/, '.x');
+  if (ip.includes(':')) return ip.replace(/:[^:]+$/, ':x');
+  return 'anonymized';
+}
+
 const DEFAULT_COMPANY = {
   it: 'Non specificata',
   en: 'Not specified',
@@ -60,7 +68,7 @@ export async function POST(request: NextRequest) {
   const clientIp = getClientIp(request);
 
   if (await isRateLimited(clientIp)) {
-    console.log(`[Contact API] Rate limited: ${clientIp}`);
+    console.log(`[Contact API] Rate limited: ${anonymizeIp(clientIp)}`);
 
     return NextResponse.json(
       { error: 'Troppi tentativi. Riprova tra qualche minuto.' },
