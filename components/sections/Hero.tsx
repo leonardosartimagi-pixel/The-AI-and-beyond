@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollTo } from '@/hooks';
+import { createContainerVariants } from '@/lib/animation-variants';
 import { Badge, Button } from '@/components/ui';
 import { ParticleBackground, GradientMesh } from '@/components/effects';
 import Image from 'next/image';
@@ -27,16 +28,10 @@ export function Hero({ className = '' }: HeroProps) {
     scrollTo('contatti');
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.2,
-        delayChildren: prefersReducedMotion ? 0 : 0.3,
-      },
-    },
-  };
+  const containerVariants = createContainerVariants(prefersReducedMotion, {
+    staggerChildren: 0.2,
+    delayChildren: 0.3,
+  });
 
   const itemVariants = {
     hidden: {
@@ -53,16 +48,10 @@ export function Hero({ className = '' }: HeroProps) {
     },
   };
 
-  const badgeContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: prefersReducedMotion ? 0 : 0.8,
-      },
-    },
-  };
+  const badgeContainerVariants = createContainerVariants(prefersReducedMotion, {
+    staggerChildren: 0.1,
+    delayChildren: 0.8,
+  });
 
   const badgeVariants = {
     hidden: {

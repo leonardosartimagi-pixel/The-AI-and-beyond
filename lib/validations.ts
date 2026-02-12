@@ -1,5 +1,15 @@
 import { z } from 'zod';
 
+// Contact form validation limits
+export const MIN_NAME_LENGTH = 2;
+export const MAX_NAME_LENGTH = 100;
+export const MIN_MESSAGE_LENGTH = 10;
+export const MAX_MESSAGE_LENGTH = 1000;
+
+// Chat validation limits
+export const MAX_CHAT_MESSAGE_LENGTH = 500;
+export const MAX_CONVERSATION_HISTORY_LENGTH = 20;
+
 const validationMessages = {
   it: {
     nameMin: 'Il nome deve avere almeno 2 caratteri',
@@ -26,10 +36,16 @@ export function createContactFormSchema(locale: string = 'it') {
     validationMessages[locale as SupportedLocale] ?? validationMessages.it;
 
   return z.object({
-    name: z.string().min(2, m.nameMin).max(100, m.nameMax),
+    name: z
+      .string()
+      .min(MIN_NAME_LENGTH, m.nameMin)
+      .max(MAX_NAME_LENGTH, m.nameMax),
     email: z.string().email(m.emailInvalid),
     company: z.string().optional(),
-    message: z.string().min(10, m.messageMin).max(1000, m.messageMax),
+    message: z
+      .string()
+      .min(MIN_MESSAGE_LENGTH, m.messageMin)
+      .max(MAX_MESSAGE_LENGTH, m.messageMax),
     privacy: z.boolean().refine((val) => val === true, {
       message: m.privacyRequired,
     }),
@@ -45,7 +61,7 @@ export type ContactFormData = z.infer<typeof contactFormSchema>;
 // Chat Message Schema
 const chatMessageSchema = z.object({
   role: z.enum(['user', 'assistant']),
-  content: z.string().max(500),
+  content: z.string().max(MAX_CHAT_MESSAGE_LENGTH),
 });
 
 // Chat Request Schema
@@ -53,7 +69,7 @@ export const chatRequestSchema = z.object({
   message: z
     .string()
     .min(1, 'Message is required')
-    .max(500, 'Message is too long'),
+    .max(MAX_CHAT_MESSAGE_LENGTH, 'Message is too long'),
   sessionId: z
     .string()
     .regex(
@@ -62,7 +78,7 @@ export const chatRequestSchema = z.object({
     ),
   conversationHistory: z
     .array(chatMessageSchema)
-    .max(20, 'Conversation history too long'),
+    .max(MAX_CONVERSATION_HISTORY_LENGTH, 'Conversation history too long'),
   locale: z.enum(['it', 'en']).optional().default('it'),
 });
 

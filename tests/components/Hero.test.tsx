@@ -10,91 +10,90 @@ vi.mock('@/hooks', () => ({
 }));
 
 describe('Hero', () => {
-  // TODO: Tests need updating — component was refactored with i18n and new structure
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it.skip('renders the hero section', () => {
+  it('renders the hero section', () => {
     render(<Hero />);
-    const section = screen.getByRole('region', { name: /sezione principale/i });
+    const section = screen.getByRole('region', { name: /l'ai funziona/i });
     expect(section).toBeInTheDocument();
   });
 
-  it.skip('has the correct section id', () => {
+  it('has the correct section id', () => {
     render(<Hero />);
-    const section = screen.getByRole('region', { name: /sezione principale/i });
+    const section = screen.getByRole('region', { name: /l'ai funziona/i });
     expect(section).toHaveAttribute('id', 'hero');
   });
 
-  it.skip('displays the main headline', () => {
+  it('displays the main headline', () => {
     render(<Hero />);
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      /trasformo idee in soluzioni ai/i
-    );
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      /che funzionano/i
-    );
+    const heading = screen.getByRole('heading', { level: 1 });
+    expect(heading).toHaveTextContent(/l'ai funziona/i);
+    expect(heading).toHaveTextContent(/se parti dal problema giusto/i);
   });
 
-  it.skip('displays the subtitle text', () => {
+  it('displays the subtitle text', () => {
     render(<Hero />);
     expect(
-      screen.getByText(/consulenza e sviluppo per aziende/i)
+      screen.getByText(/troviamo dove il tuo business perde tempo/i)
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/intelligenza artificiale/i)
+      screen.getByText(/poi costruiamo lo strumento che lo risolve/i)
     ).toBeInTheDocument();
   });
 
-  it.skip('renders all four keyword badges', () => {
+  it('renders all four keyword badges', () => {
     render(<Hero />);
-    expect(screen.getByText('Qualità')).toBeInTheDocument();
-    expect(screen.getByText('Velocità')).toBeInTheDocument();
-    expect(screen.getByText('Sicurezza')).toBeInTheDocument();
-    expect(screen.getByText('Controllo')).toBeInTheDocument();
+    expect(screen.getByText('Strategia AI')).toBeInTheDocument();
+    expect(screen.getByText('Automazione')).toBeInTheDocument();
+    expect(screen.getByText('Sviluppo')).toBeInTheDocument();
+    expect(screen.getByText('Ottimizzazione')).toBeInTheDocument();
   });
 
-  it.skip('renders the CTA button', () => {
+  it('renders the CTA button', () => {
     render(<Hero />);
-    const ctaButton = screen.getByRole('button', { name: /scopri come posso aiutarti/i });
+    const ctaButton = screen.getByRole('button', { name: /parliamone/i });
     expect(ctaButton).toBeInTheDocument();
   });
 
-  it.skip('CTA button triggers scroll to contatti section', () => {
+  it('CTA button triggers scroll to contatti section', () => {
     render(<Hero />);
-    const ctaButton = screen.getByRole('button', { name: /scopri come posso aiutarti/i });
+    const ctaButton = screen.getByRole('button', { name: /parliamone/i });
     fireEvent.click(ctaButton);
     expect(mockScrollTo).toHaveBeenCalledWith('contatti');
   });
 
-  it.skip('accepts custom className', () => {
+  it('accepts custom className', () => {
     render(<Hero className="custom-class" />);
-    const section = screen.getByRole('region', { name: /sezione principale/i });
+    const section = screen.getByRole('region', { name: /l'ai funziona/i });
     expect(section).toHaveClass('custom-class');
   });
 
-  it.skip('renders the AnimatedLogo component', () => {
+  it('renders the logo image', () => {
     render(<Hero />);
-    const logo = screen.getByRole('img', { name: /logo/i });
+    const logo = screen.getByAltText('The AI and beyond');
     expect(logo).toBeInTheDocument();
   });
 
-  it.skip('renders the scroll indicator', () => {
+  it('renders the scroll indicator', () => {
     const { container } = render(<Hero />);
-    const scrollIndicator = container.querySelector('svg[stroke="currentColor"]');
+    const scrollIndicator = container.querySelector(
+      'svg[stroke="currentColor"]'
+    );
     expect(scrollIndicator).toBeInTheDocument();
   });
 
-  it.skip('has gradient background elements', () => {
+  it('has decorative background elements', () => {
     const { container } = render(<Hero />);
-    const gradientBg = container.querySelector('.bg-gradient-to-br');
-    expect(gradientBg).toBeInTheDocument();
+    const blurElements = container.querySelectorAll('.blur-3xl');
+    expect(blurElements.length).toBeGreaterThanOrEqual(2);
   });
 
-  it.skip('badge container has proper aria-label', () => {
+  it('displays micro-copy text below CTA', () => {
     render(<Hero />);
-    const badgeContainer = screen.getByLabelText(/valori principali/i);
-    expect(badgeContainer).toBeInTheDocument();
+    expect(
+      screen.getByText(/nessun preventivo automatico/i)
+    ).toBeInTheDocument();
   });
 });

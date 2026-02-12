@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { contactFormSchema } from '@/lib/validations';
 import { isRateLimited, getRemainingRequests } from '@/lib/rate-limiter';
+import { getClientIp } from '@/lib/get-client-ip';
 import { sanitizeForHtml } from '@/lib/email/sanitize';
 import { FROM_ADDRESS } from '@/lib/email/shared-styles';
 import type { ContactEmailData } from '@/lib/email/types';
@@ -22,23 +23,6 @@ function getResendClient(): Resend | null {
     resend = new Resend(process.env.RESEND_API_KEY);
   }
   return resend;
-}
-
-function getClientIp(request: NextRequest): string {
-  const forwardedFor = request.headers.get('x-forwarded-for');
-
-  if (forwardedFor) {
-    const firstIp = forwardedFor.split(',')[0];
-    return firstIp ? firstIp.trim() : 'unknown';
-  }
-
-  const realIp = request.headers.get('x-real-ip');
-
-  if (realIp) {
-    return realIp;
-  }
-
-  return 'unknown';
 }
 
 /** Anonymize IP for logging — replace last octet to minimize PII in server logs */

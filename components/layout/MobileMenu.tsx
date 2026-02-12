@@ -1,10 +1,16 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Button, LanguageSwitcher } from '@/components/ui';
-import { useReducedMotion } from '@/hooks';
+import {
+  useReducedMotion,
+  useEscapeKey,
+  useFocusTrap,
+  useBodyScrollLock,
+} from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 import { NAV_ITEMS } from './Header';
 
 interface MobileMenuProps {
@@ -28,11 +34,15 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
       {isOpen && (
         <motion.div
           ref={menuRef}
-          className="fixed inset-0 z-40 flex flex-col bg-white pt-24 px-6 lg:hidden"
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: '100%' }}
+          className="fixed inset-0 z-40 flex flex-col bg-white px-6 pt-24 lg:hidden"
+          initial={
+            prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: '100%' }
+          }
           animate={{ opacity: 1, x: 0 }}
-          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: '100%' }}
-          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          exit={
+            prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: '100%' }
+          }
+          transition={{ duration: 0.3, ease: EASING }}
           role="dialog"
           aria-modal="true"
           aria-label="Menu di navigazione"
@@ -49,7 +59,7 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
                   <button
                     ref={index === 0 ? firstFocusableRef : undefined}
                     onClick={() => onNavClick(item.href)}
-                    className="block w-full py-3 text-left text-2xl font-heading font-semibold text-primary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+                    className="block w-full rounded py-3 text-left font-heading text-2xl font-semibold text-primary transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                   >
                     {t(item.key)}
                   </button>
@@ -77,7 +87,11 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <Button onClick={() => onNavClick('contatti')} size="lg" className="w-full">
+            <Button
+              onClick={() => onNavClick('contatti')}
+              size="lg"
+              className="w-full"
+            >
               {t('cta')}
             </Button>
           </motion.div>
@@ -85,68 +99,4 @@ export function MobileMenu({ isOpen, onClose, onNavClick }: MobileMenuProps) {
       )}
     </AnimatePresence>
   );
-}
-
-function useEscapeKey(isOpen: boolean, onClose: () => void) {
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen, onClose]);
-}
-
-function useFocusTrap(
-  isOpen: boolean,
-  menuRef: React.RefObject<HTMLDivElement | null>,
-  firstFocusableRef: React.RefObject<HTMLButtonElement | null>
-) {
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const timer = setTimeout(() => firstFocusableRef.current?.focus(), 100);
-    return () => clearTimeout(timer);
-  }, [isOpen, firstFocusableRef]);
-
-  useEffect(() => {
-    if (!isOpen || !menuRef.current) return;
-
-    const handleTabKey = (event: KeyboardEvent) => {
-      if (event.key !== 'Tab' || !menuRef.current) return;
-
-      const focusableElements = menuRef.current.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-
-      if (event.shiftKey && document.activeElement === firstElement) {
-        event.preventDefault();
-        lastElement?.focus();
-      } else if (!event.shiftKey && document.activeElement === lastElement) {
-        event.preventDefault();
-        firstElement?.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleTabKey);
-    return () => document.removeEventListener('keydown', handleTabKey);
-  }, [isOpen, menuRef]);
-}
-
-function useBodyScrollLock(isOpen: boolean) {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
 }

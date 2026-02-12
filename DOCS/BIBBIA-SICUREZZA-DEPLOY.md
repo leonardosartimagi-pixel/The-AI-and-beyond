@@ -499,7 +499,7 @@ Tipi: `feat`, `fix`, `refactor`, `test`, `docs`, `security`, `chore`, `perf`
 
 File: `.github/CODEOWNERS` — owner: `@leonardosartimagi-pixel`
 
-Percorsi coperti: `/app/api/`, `/lib/security/`, `/lib/rate-limiter.ts`, `/lib/validations.ts`, `/next.config.mjs`, `/middleware.ts`, `/.github/`, `/.env.example`, `/BIBBIA-SICUREZZA-DEPLOY.md`
+Percorsi coperti: `/app/api/`, `/lib/security/`, `/lib/rate-limiter.ts`, `/lib/validations.ts`, `/next.config.mjs`, `/middleware.ts`, `/.github/`, `/.env.example`, `/DOCS/BIBBIA-SICUREZZA-DEPLOY.md`
 
 ---
 

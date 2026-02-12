@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 
 interface FloatingVideoProps {
   isVisible: boolean;
@@ -97,7 +98,7 @@ export function FloatingVideo({
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
           transition={{
             duration: 0.4,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            ease: EASING,
           }}
         >
           {/* Container with glow effect */}

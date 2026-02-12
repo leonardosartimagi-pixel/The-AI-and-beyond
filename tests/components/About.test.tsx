@@ -8,117 +8,116 @@ vi.mock('@/hooks', () => ({
 }));
 
 describe('About', () => {
-  // TODO: Tests need updating — component was refactored with i18n and new structure
-  it.skip('renders the about section', () => {
+  it('renders the about section', () => {
     render(<About />);
-    const section = screen.getByRole('region', { name: /chi sono/i });
+    const section = screen.getByRole('region', { name: /chi siamo/i });
     expect(section).toBeInTheDocument();
   });
 
-  it.skip('has the correct section id', () => {
+  it('has the correct section id', () => {
     render(<About />);
     const section = screen.getByRole('region', { name: /chi siamo/i });
     expect(section).toHaveAttribute('id', 'chi-siamo');
   });
 
-  it.skip('displays the section label', () => {
+  it('displays the section label', () => {
     render(<About />);
     expect(screen.getByText('Chi Siamo')).toBeInTheDocument();
   });
 
-  it.skip('displays the main heading', () => {
+  it('displays the main heading', () => {
     render(<About />);
     const heading = screen.getByRole('heading', { level: 2 });
-    expect(heading).toHaveTextContent(/trasformo sfide in/i);
-    expect(heading).toHaveTextContent(/opportunità/i);
+    expect(heading).toHaveTextContent(/chi/i);
+    expect(heading).toHaveTextContent(/siamo/i);
   });
 
-  it.skip('displays the introduction paragraph', () => {
-    render(<About />);
-    expect(screen.getByText(/mi chiamo leonardo/i)).toBeInTheDocument();
-    expect(screen.getByText(/intelligenza artificiale/i)).toBeInTheDocument();
-  });
-
-  it.skip('displays the quote paragraph', () => {
+  it('displays the introduction paragraph', () => {
     render(<About />);
     expect(
-      screen.getByText(/non vendo promesse irrealizzabili/i)
+      screen.getByText(/the ai and beyond nasce dall'esperienza/i)
     ).toBeInTheDocument();
-    expect(screen.getByText(/soluzioni che funzionano/i)).toBeInTheDocument();
   });
 
-  it.skip('displays the closing paragraph', () => {
+  it('displays the quote paragraph with border styling', () => {
     render(<About />);
     expect(
-      screen.getByText(/ogni progetto parte dall'ascolto/i)
+      screen.getByText(/the ai and beyond è una struttura snella/i)
     ).toBeInTheDocument();
-    expect(screen.getByText(/problemi reali/i)).toBeInTheDocument();
   });
 
-  it.skip('renders the photo placeholder', () => {
+  it('displays the AI-first philosophy paragraph', () => {
     render(<About />);
-    expect(screen.getByText(/foto placeholder/i)).toBeInTheDocument();
-    expect(screen.getByText(/immagine professionale/i)).toBeInTheDocument();
+    expect(screen.getByText(/quando lavori con noi/i)).toBeInTheDocument();
   });
 
-  it.skip('renders all three credibility badges', () => {
+  it('renders the profile photo', () => {
     render(<About />);
-    expect(screen.getByText('Approccio Pratico')).toBeInTheDocument();
-    expect(screen.getByText('Risultati Rapidi')).toBeInTheDocument();
+    const photo = screen.getByAltText(/the ai and beyond - consulenza ai/i);
+    expect(photo).toBeInTheDocument();
+    expect(photo).toHaveAttribute('src', '/images/about/profile.webp');
+  });
+
+  it('renders all three credibility badges', () => {
+    render(<About />);
+    expect(screen.getByText('Approccio Diretto')).toBeInTheDocument();
+    expect(screen.getByText('AI-First')).toBeInTheDocument();
     expect(screen.getByText('Su Misura')).toBeInTheDocument();
   });
 
-  it.skip('renders badge descriptions', () => {
+  it('renders badge descriptions', () => {
     render(<About />);
-    expect(screen.getByText('Soluzioni concrete')).toBeInTheDocument();
-    expect(screen.getByText('Iterazioni veloci')).toBeInTheDocument();
-    expect(screen.getByText('Adattato al contesto')).toBeInTheDocument();
+    expect(
+      screen.getByText(/se l'ai non serve, te lo diciamo/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/usiamo l'ai ogni giorno/i)).toBeInTheDocument();
+    expect(screen.getByText(/partiamo dal tuo processo/i)).toBeInTheDocument();
   });
 
-  it.skip('accepts custom className', () => {
+  it('accepts custom className', () => {
     render(<About className="custom-class" />);
-    const section = screen.getByRole('region', { name: /chi sono/i });
+    const section = screen.getByRole('region', { name: /chi siamo/i });
     expect(section).toHaveClass('custom-class');
   });
 
-  it.skip('has decorative gradient blur elements', () => {
+  it('has decorative gradient blur elements', () => {
     const { container } = render(<About />);
     const blurElements = container.querySelectorAll('.blur-3xl');
     expect(blurElements.length).toBeGreaterThanOrEqual(2);
   });
 
-  it.skip('renders the floating wave logo element', () => {
+  it('renders the floating logo element', () => {
     render(<About />);
-    expect(screen.getByAltText('The AI and beyond')).toBeInTheDocument();
-    // Wave logo replaces old text badge
+    const logos = screen.getAllByAltText('The AI and beyond');
+    expect(logos.length).toBeGreaterThanOrEqual(1);
   });
 
-  it.skip('has decorative frame elements for photo', () => {
+  it('has decorative frame elements for photo', () => {
     const { container } = render(<About />);
     const frameElements = container.querySelectorAll('.rounded-2xl');
     expect(frameElements.length).toBeGreaterThanOrEqual(3);
   });
 
-  it.skip('uses asymmetric grid layout on desktop', () => {
+  it('uses asymmetric grid layout on desktop', () => {
     const { container } = render(<About />);
     const gridContainer = container.querySelector('.lg\\:grid-cols-12');
     expect(gridContainer).toBeInTheDocument();
   });
 
-  it.skip('has proper heading hierarchy', () => {
+  it('has proper heading hierarchy', () => {
     render(<About />);
     const headings = screen.getAllByRole('heading');
     expect(headings.length).toBeGreaterThan(0);
     expect(headings[0]?.tagName).toBe('H2');
   });
 
-  it.skip('renders icons with proper aria-hidden', () => {
+  it('renders icons with proper aria-hidden', () => {
     const { container } = render(<About />);
     const icons = container.querySelectorAll('svg[aria-hidden="true"]');
-    expect(icons.length).toBeGreaterThanOrEqual(4);
+    expect(icons.length).toBeGreaterThanOrEqual(3);
   });
 
-  it.skip('applies border-l styling to quote paragraph', () => {
+  it('applies border-l styling to quote paragraph', () => {
     const { container } = render(<About />);
     const quoteParagraph = container.querySelector('.border-l-2');
     expect(quoteParagraph).toBeInTheDocument();
