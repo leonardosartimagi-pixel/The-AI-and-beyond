@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 import { useAICoreState } from './useAICoreState';
 import { useAIChat } from './useAIChat';
 import { AICoreNucleus } from './AICoreNucleus';
@@ -194,7 +195,7 @@ export function AICore() {
               x: magneticOffset.x,
             }}
             exit={{ opacity: 0, y: 50, scale: 0.8 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.4, ease: EASING }}
           >
             {/* Speech bubble with glitch effect (hidden when chat is open) */}
             <AnimatePresence mode="wait">

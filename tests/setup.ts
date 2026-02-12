@@ -42,15 +42,22 @@ vi.mock('next/image', () => ({
 // ============================================================
 // Global mock: next-intl (with real Italian translations)
 // ============================================================
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const messages = require('../messages/it.json');
 
-function resolveKey(obj: Record<string, unknown>, namespace: string | undefined, key: string): string {
+function resolveKey(
+  obj: Record<string, unknown>,
+  namespace: string | undefined,
+  key: string
+): string {
   const fullPath = namespace ? `${namespace}.${key}` : key;
   const parts = fullPath.split('.');
   let current: unknown = obj;
   for (const part of parts) {
-    if (current && typeof current === 'object' && part in (current as Record<string, unknown>)) {
+    if (
+      current &&
+      typeof current === 'object' &&
+      part in (current as Record<string, unknown>)
+    ) {
       current = (current as Record<string, unknown>)[part];
     } else {
       return fullPath;
@@ -72,7 +79,8 @@ vi.mock('next-intl', () => ({
     };
     t.rich = (key: string, values?: Record<string, unknown>) => t(key, values);
     t.raw = (key: string) => resolveKey(messages, namespace, key);
-    t.markup = (key: string, values?: Record<string, unknown>) => t(key, values);
+    t.markup = (key: string, values?: Record<string, unknown>) =>
+      t(key, values);
     t.has = () => true;
     return t;
   },
@@ -85,7 +93,8 @@ vi.mock('next-intl', () => ({
     dateTime: (d: Date) => d.toISOString(),
     relativeTime: () => '',
   }),
-  NextIntlClientProvider: ({ children }: { children: React.ReactNode }) => children,
+  NextIntlClientProvider: ({ children }: { children: React.ReactNode }) =>
+    children,
 }));
 
 // ============================================================
@@ -107,7 +116,10 @@ vi.mock('next-themes', () => ({
 // Renders plain HTML elements, strips animation props.
 // ============================================================
 function createMotionComponent(tag: string) {
-  return React.forwardRef(function MotionComponent(props: Record<string, unknown>, ref: React.Ref<unknown>) {
+  return React.forwardRef(function MotionComponent(
+    props: Record<string, unknown>,
+    ref: React.Ref<unknown>
+  ) {
     const {
       // Strip framer-motion specific props
       initial: _initial,
@@ -142,8 +154,15 @@ vi.mock('framer-motion', () => ({
   AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
   useAnimation: () => ({ start: vi.fn(), stop: vi.fn(), set: vi.fn() }),
   useInView: () => true,
-  useScroll: () => ({ scrollY: { get: () => 0, on: vi.fn() }, scrollYProgress: { get: () => 0, on: vi.fn() } }),
-  useTransform: () => 0,
+  useScroll: () => ({
+    scrollY: { get: () => 0, on: vi.fn() },
+    scrollYProgress: { get: () => 0, on: vi.fn() },
+  }),
+  useTransform: () => ({
+    get: () => 0,
+    set: vi.fn(),
+    on: vi.fn(() => vi.fn()),
+  }),
   useMotionValue: (initial: number) => ({
     get: () => initial,
     set: vi.fn(),

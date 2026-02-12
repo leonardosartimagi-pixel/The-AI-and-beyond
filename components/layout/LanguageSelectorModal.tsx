@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, usePathname } from 'next/navigation';
-import { useReducedMotion } from '@/hooks';
+import { useReducedMotion, useLenisControl } from '@/hooks';
+import { createModalAnimation } from '@/lib/animation-variants';
 import Image from 'next/image';
 
 const LOCALE_STORAGE_KEY = 'preferred-locale';
@@ -36,6 +37,7 @@ export function LanguageSelectorModal() {
   const router = useRouter();
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
+  useLenisControl(isVisible);
 
   // Check localStorage on mount (client-side only)
   useEffect(() => {
@@ -51,9 +53,6 @@ export function LanguageSelectorModal() {
         setIsVisible(true);
         // Prevent background scroll
         document.body.style.overflow = 'hidden';
-        if (typeof window !== 'undefined') {
-          (window as Window & { lenis?: { stop: () => void } }).lenis?.stop();
-        }
       }
     }, 100);
 
@@ -67,9 +66,6 @@ export function LanguageSelectorModal() {
 
       // Re-enable scroll
       document.body.style.overflow = '';
-      if (typeof window !== 'undefined') {
-        (window as Window & { lenis?: { start: () => void } }).lenis?.start();
-      }
 
       // Hide modal
       setIsVisible(false);
@@ -123,21 +119,10 @@ export function LanguageSelectorModal() {
             <motion.div
               className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white p-8 shadow-2xl sm:p-10"
               onClick={(e) => e.stopPropagation()}
-              initial={{
-                opacity: 0,
-                scale: prefersReducedMotion ? 1 : 0.95,
-                y: prefersReducedMotion ? 0 : 20,
-              }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{
-                opacity: 0,
-                scale: prefersReducedMotion ? 1 : 0.95,
-                y: prefersReducedMotion ? 0 : 20,
-              }}
-              transition={{
-                duration: prefersReducedMotion ? 0 : 0.5,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
+              {...createModalAnimation(prefersReducedMotion, {
+                scale: 0.95,
+                duration: 0.5,
+              })}
             >
               {/* Decorative gradient background */}
               <div

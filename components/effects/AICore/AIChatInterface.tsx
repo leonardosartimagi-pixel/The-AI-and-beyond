@@ -3,13 +3,19 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useReducedMotion } from '@/hooks';
+import { useReducedMotion, useLenisControl } from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 import { AIChatMessage } from './AIChatMessage';
 import { AIChatQuickReplies } from './AIChatQuickReplies';
 import { AIChatInput } from './AIChatInput';
 import { AIChatTyping } from './AIChatTyping';
 import { AuditReportCard } from './AuditReportCard';
-import type { ChatMessage, QuickReply, ChatFlow, AuditReport } from './chat-types';
+import type {
+  ChatMessage,
+  QuickReply,
+  ChatFlow,
+  AuditReport,
+} from './chat-types';
 
 interface AIChatInterfaceProps {
   isOpen: boolean;
@@ -61,6 +67,8 @@ export function AIChatInterface({
     }
   }, [messages, isTyping, prefersReducedMotion]);
 
+  useLenisControl(isOpen);
+
   // Focus trap e keyboard handlers
   useEffect(() => {
     if (!isOpen) return;
@@ -71,19 +79,10 @@ export function AIChatInterface({
       }
     };
 
-    // Stop Lenis smooth scroll quando chat è aperta
-    if (typeof window !== 'undefined' && window.lenis) {
-      window.lenis.stop();
-    }
-
     document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      // Riattiva Lenis quando chat si chiude
-      if (typeof window !== 'undefined' && window.lenis) {
-        window.lenis.start();
-      }
     };
   }, [isOpen, onClose]);
 
@@ -107,7 +106,7 @@ export function AIChatInterface({
       scale: 1,
       transition: {
         duration: prefersReducedMotion ? 0.1 : 0.25,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: EASING,
       },
     },
     exit: {
@@ -211,10 +210,7 @@ export function AIChatInterface({
             {messages.map((message) => (
               <div key={message.id}>
                 {message.isAuditReport && auditReport ? (
-                  <AuditReportCard
-                    report={auditReport}
-                    onClose={onClose}
-                  />
+                  <AuditReportCard report={auditReport} onClose={onClose} />
                 ) : (
                   <AIChatMessage message={message} />
                 )}
@@ -222,9 +218,7 @@ export function AIChatInterface({
             ))}
 
             {/* Typing indicator */}
-            <AnimatePresence>
-              {isTyping && <AIChatTyping />}
-            </AnimatePresence>
+            <AnimatePresence>{isTyping && <AIChatTyping />}</AnimatePresence>
 
             {/* Quick replies */}
             {showQuickReplies && !isHoursStep && (
@@ -293,7 +287,8 @@ export function AIChatInterface({
           {/* Remaining messages indicator */}
           {remainingMessages <= 10 && remainingMessages > 0 && (
             <div className="border-t border-gray-100 bg-amber-50 px-4 py-2 text-center text-xs text-amber-700">
-              {remainingMessages} {t('messagesRemaining', { count: remainingMessages })}
+              {remainingMessages}{' '}
+              {t('messagesRemaining', { count: remainingMessages })}
             </div>
           )}
 
@@ -306,14 +301,4 @@ export function AIChatInterface({
       )}
     </AnimatePresence>
   );
-}
-
-// Extend Window interface per Lenis
-declare global {
-  interface Window {
-    lenis?: {
-      stop: () => void;
-      start: () => void;
-    };
-  }
 }

@@ -17,3 +17,9 @@ export { Badge, badgeVariants, type BadgeProps } from './Badge';
 export { MagneticButton } from './MagneticButton';
 export { LanguageSwitcher } from './LanguageSwitcher';
 export { PortfolioVideoPlayer } from './PortfolioVideoPlayer';
+export { SectionHeader, type SectionHeaderProps } from './SectionHeader';
+export {
+  SectionWrapper,
+  type SectionWrapperProps,
+  type SectionWrapperRenderProps,
+} from './SectionWrapper';

@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useReducedMotion } from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 import { cn } from '@/lib/utils';
 
 interface SplitTextRevealProps {
@@ -49,7 +50,7 @@ export function SplitTextReveal({
           transition={{
             duration: 0.3,
             delay: delay + index * staggerDelay,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            ease: EASING,
           }}
           aria-hidden="true"
         >

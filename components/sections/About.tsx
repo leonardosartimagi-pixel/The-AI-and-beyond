@@ -6,6 +6,10 @@ import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
 import { TechGridOverlay, SectionTitleGlitch } from '@/components/effects';
+import {
+  createContainerVariants,
+  createItemVariants,
+} from '@/lib/animation-variants';
 
 interface AboutProps {
   className?: string;
@@ -17,48 +21,15 @@ export function About({ className = '' }: AboutProps) {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.15,
-        delayChildren: prefersReducedMotion ? 0 : 0.1,
-      },
-    },
-  };
-
-  const textVariants = {
-    hidden: {
-      opacity: 0,
-      x: prefersReducedMotion ? 0 : -30,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
-  const imageVariants = {
-    hidden: {
-      opacity: 0,
-      x: prefersReducedMotion ? 0 : 30,
-      scale: prefersReducedMotion ? 1 : 0.95,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
+  const containerVariants = createContainerVariants(prefersReducedMotion, {
+    delayChildren: 0.1,
+  });
+  const textVariants = createItemVariants(prefersReducedMotion, { x: -30 });
+  const imageVariants = createItemVariants(prefersReducedMotion, {
+    x: 30,
+    scale: 0.95,
+    duration: 0.8,
+  });
 
   const decorativeVariants = {
     hidden: { opacity: 0, scale: 0.8 },

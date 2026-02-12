@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, ReactNode } from 'react';
 import { useReducedMotion } from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 
 interface AnimatedIconProps {
   children: ReactNode;
@@ -40,7 +41,7 @@ export function AnimatedIcon({
       transition={{
         duration: prefersReducedMotion ? 0 : duration * 0.5,
         delay: prefersReducedMotion ? 0 : delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: EASING,
       }}
       style={{
         ['--draw-delay' as string]: `${delay}s`,
@@ -63,7 +64,7 @@ export function AnimatedIcon({
 export const ServiceIcons = {
   consulting: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -78,7 +79,7 @@ export const ServiceIcons = {
   ),
   webdev: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -95,7 +96,7 @@ export const ServiceIcons = {
   ),
   agents: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -113,7 +114,7 @@ export const ServiceIcons = {
   ),
   prototypes: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -126,7 +127,7 @@ export const ServiceIcons = {
   ),
   pm: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -151,7 +152,7 @@ export const ServiceIcons = {
 export const ProcessIcons = {
   listen: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -164,7 +165,7 @@ export const ProcessIcons = {
   ),
   analyze: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -178,7 +179,7 @@ export const ProcessIcons = {
   ),
   design: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -193,7 +194,7 @@ export const ProcessIcons = {
   ),
   develop: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -206,7 +207,7 @@ export const ProcessIcons = {
   ),
   deliver: (
     <svg
-      className="w-full h-full animated-svg-icon"
+      className="animated-svg-icon h-full w-full"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
