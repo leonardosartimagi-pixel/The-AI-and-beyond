@@ -73,6 +73,19 @@ const BLOCKED_CONTENT_PATTERNS: RegExp[] = [
   /how\s+to\s+(steal|hack|break\s+into)/i,
 ];
 
+// Input sanitization limits
+const MAX_USER_INPUT_LENGTH = 500;
+
+// Risk score weights for calculateRiskScore
+const INJECTION_RISK_WEIGHT = 50;
+const BLOCKED_CONTENT_RISK_WEIGHT = 40;
+const LONG_INPUT_THRESHOLD = 400;
+const LONG_INPUT_RISK_WEIGHT = 10;
+const EXCESSIVE_NEWLINE_THRESHOLD = 5;
+const EXCESSIVE_NEWLINE_RISK_WEIGHT = 10;
+const CODE_MARKUP_RISK_WEIGHT = 15;
+const MAX_RISK_SCORE = 100;
+
 // Caratteri potenzialmente pericolosi da sanitizzare
 const DANGEROUS_CHARS: Record<string, string> = {
   '<': '&lt;',
@@ -120,8 +133,8 @@ export function sanitizeUserInput(input: string): string {
   let sanitized = input.trim();
 
   // Limita lunghezza
-  if (sanitized.length > 500) {
-    sanitized = sanitized.slice(0, 500);
+  if (sanitized.length > MAX_USER_INPUT_LENGTH) {
+    sanitized = sanitized.slice(0, MAX_USER_INPUT_LENGTH);
   }
 
   // Escape caratteri pericolosi
@@ -147,29 +160,29 @@ export function calculateRiskScore(input: string): number {
 
   // Check injection patterns (alto rischio)
   if (detectPromptInjection(input)) {
-    score += 50;
+    score += INJECTION_RISK_WEIGHT;
   }
 
   // Check blocked content (alto rischio)
   if (containsBlockedContent(input)) {
-    score += 40;
+    score += BLOCKED_CONTENT_RISK_WEIGHT;
   }
 
   // Input molto lungo (rischio medio)
-  if (input.length > 400) {
-    score += 10;
+  if (input.length > LONG_INPUT_THRESHOLD) {
+    score += LONG_INPUT_RISK_WEIGHT;
   }
 
   // Molti newline (potenziale tentativo di confusione)
   const newlineCount = (input.match(/\n/g) || []).length;
-  if (newlineCount > 5) {
-    score += 10;
+  if (newlineCount > EXCESSIVE_NEWLINE_THRESHOLD) {
+    score += EXCESSIVE_NEWLINE_RISK_WEIGHT;
   }
 
   // Presenza di codice/markup
   if (/```|<\/?[a-z][\s\S]*>/i.test(input)) {
-    score += 15;
+    score += CODE_MARKUP_RISK_WEIGHT;
   }
 
-  return Math.min(100, score);
+  return Math.min(MAX_RISK_SCORE, score);
 }

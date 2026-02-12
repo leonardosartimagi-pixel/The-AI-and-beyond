@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Redis } from '@upstash/redis';
 import { createHash } from 'crypto';
+import { getClientIp } from '@/lib/get-client-ip';
 
 const CONSENT_VERSION = '2026-02-11';
 // 13 months TTL (Provvedimento Garante: consent valid max 12 months + 1 month margin)
@@ -24,15 +25,6 @@ function getRedis(): Redis | null {
 /** SHA-256 hash of IP — non-reversible, used only as unique key */
 function hashIp(ip: string): string {
   return createHash('sha256').update(ip).digest('hex').slice(0, 16);
-}
-
-function getClientIp(request: NextRequest): string {
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  if (forwardedFor) {
-    const firstIp = forwardedFor.split(',')[0];
-    return firstIp ? firstIp.trim() : 'unknown';
-  }
-  return request.headers.get('x-real-ip') ?? 'unknown';
 }
 
 interface ConsentLogBody {

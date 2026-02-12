@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion, useScrollTo } from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 
 interface Message {
   key: string;
@@ -95,7 +96,7 @@ export function FloatingAssistant() {
           initial={{ opacity: 0, y: 50, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 50, scale: 0.8 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.4, ease: EASING }}
         >
           {/* Speech bubble */}
           <AnimatePresence mode="wait">

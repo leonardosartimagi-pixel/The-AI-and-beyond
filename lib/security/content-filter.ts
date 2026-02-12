@@ -26,6 +26,10 @@ const INAPPROPRIATE_PATTERNS: RegExp[] = [
   /https?:\/\/(?!theaiandbeyond\.com)[^\s]+\.(exe|bat|cmd|sh|ps1)/i,
 ];
 
+// Response validation limits
+const MAX_RESPONSE_LENGTH = 1000;
+const MIN_VALID_RESPONSE_LENGTH = 10;
+
 // Frasi di fallback per risposte problematiche
 const FALLBACK_RESPONSES = {
   it: 'Mi scusi, non sono riuscito a elaborare una risposta appropriata. Posso aiutarti in altro modo?',
@@ -48,10 +52,7 @@ export function sanitizeAIResponse(response: string): string {
     .replace(/>/g, '&gt;');
 
   // Rimuovi markdown pericoloso (link con javascript:, etc.)
-  sanitized = sanitized.replace(
-    /\[([^\]]*)\]\(javascript:[^)]*\)/gi,
-    '$1'
-  );
+  sanitized = sanitized.replace(/\[([^\]]*)\]\(javascript:[^)]*\)/gi, '$1');
 
   // Rimuovi link esterni (mantieni solo link interni)
   sanitized = sanitized.replace(
@@ -60,8 +61,8 @@ export function sanitizeAIResponse(response: string): string {
   );
 
   // Limita lunghezza risposta
-  if (sanitized.length > 1000) {
-    sanitized = sanitized.slice(0, 1000) + '...';
+  if (sanitized.length > MAX_RESPONSE_LENGTH) {
+    sanitized = sanitized.slice(0, MAX_RESPONSE_LENGTH) + '...';
   }
 
   // Rimuovi sequenze di spazi/newline eccessive
@@ -83,7 +84,7 @@ export function validateResponse(response: string): boolean {
   }
 
   // Risposta troppo corta potrebbe indicare un problema
-  if (response.trim().length < 10) {
+  if (response.trim().length < MIN_VALID_RESPONSE_LENGTH) {
     return false;
   }
 
@@ -127,10 +128,12 @@ export function processAIResponse(
  */
 export function detectLanguage(text: string): 'it' | 'en' {
   // Pattern comuni italiano
-  const italianPatterns = /\b(ciao|grazie|posso|aiutarti|servizi|consulenza|progetto|contatto|per|del|della|che|non|sono|come)\b/gi;
+  const italianPatterns =
+    /\b(ciao|grazie|posso|aiutarti|servizi|consulenza|progetto|contatto|per|del|della|che|non|sono|come)\b/gi;
 
   // Pattern comuni inglese
-  const englishPatterns = /\b(hello|thanks|can|help|services|consulting|project|contact|for|the|that|not|am|how|what|your)\b/gi;
+  const englishPatterns =
+    /\b(hello|thanks|can|help|services|consulting|project|contact|for|the|that|not|am|how|what|your)\b/gi;
 
   const italianMatches = (text.match(italianPatterns) || []).length;
   const englishMatches = (text.match(englishPatterns) || []).length;
@@ -144,18 +147,34 @@ export function detectLanguage(text: string): 'it' | 'en' {
 export function isOnTopic(response: string): boolean {
   const onTopicKeywords = [
     // Italiano
-    'ai', 'intelligenza artificiale', 'consulenza', 'sviluppo',
-    'web', 'app', 'automazione', 'agenti', 'prototipo', 'mvp',
-    'progetto', 'servizi', 'leonardo', 'contatto', 'form',
+    'ai',
+    'intelligenza artificiale',
+    'consulenza',
+    'sviluppo',
+    'web',
+    'app',
+    'automazione',
+    'agenti',
+    'prototipo',
+    'mvp',
+    'progetto',
+    'servizi',
+    'leonardo',
+    'contatto',
+    'form',
     // Inglese
-    'artificial intelligence', 'consulting', 'development',
-    'automation', 'agents', 'prototype', 'project', 'services',
+    'artificial intelligence',
+    'consulting',
+    'development',
+    'automation',
+    'agents',
+    'prototype',
+    'project',
+    'services',
     'contact',
   ];
 
   const lowerResponse = response.toLowerCase();
 
-  return onTopicKeywords.some(keyword =>
-    lowerResponse.includes(keyword)
-  );
+  return onTopicKeywords.some((keyword) => lowerResponse.includes(keyword));
 }

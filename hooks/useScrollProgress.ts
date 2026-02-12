@@ -78,7 +78,7 @@ export function useScrollProgress(
  * @returns Object with activeStep (0-indexed), progress (0-1), and isInView
  */
 export function useActiveStep(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   totalSteps: number
 ): { activeStep: number; progress: number; isInView: boolean } {
   const [activeStep, setActiveStep] = useState(0);

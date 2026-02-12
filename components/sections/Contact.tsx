@@ -1,24 +1,25 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations, useLocale } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
+import {
+  createHeadingVariants,
+  createItemVariants,
+} from '@/lib/animation-variants';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Button } from '@/components/ui/Button';
+import { SectionWrapper } from '@/components/ui';
 import {
   createContactFormSchema,
   type ContactFormData,
 } from '@/lib/validations';
-import {
-  TechGridOverlay,
-  SectionDecorations,
-  SectionTitleGlitch,
-} from '@/components/effects';
+import { SectionDecorations, SectionTitleGlitch } from '@/components/effects';
 
 interface ContactProps {
   className?: string;
@@ -29,8 +30,6 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 export function Contact({ className = '' }: ContactProps) {
   const t = useTranslations('contact');
   const locale = useLocale();
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -78,30 +77,12 @@ export function Contact({ className = '' }: ContactProps) {
     }
   };
 
-  const headingVariants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
+  const headingVariants = createHeadingVariants(prefersReducedMotion);
 
-  const formVariants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-        delay: prefersReducedMotion ? 0 : 0.2,
-      },
-    },
-  };
+  const formVariants = createItemVariants(prefersReducedMotion, {
+    y: 30,
+    delay: 0.2,
+  });
 
   const shakeAnimation = {
     x: prefersReducedMotion ? 0 : [0, -10, 10, -10, 10, 0],
@@ -112,29 +93,25 @@ export function Contact({ className = '' }: ContactProps) {
     formStatus === 'submitting' || formStatus === 'success';
 
   return (
-    <section
-      ref={sectionRef}
+    <SectionWrapper
       id="contatti"
-      className={`relative overflow-hidden bg-white py-24 dark:bg-gray-950 lg:py-32 ${className}`}
-      aria-label={t('label')}
+      ariaLabel={t('label')}
+      className={className}
+      decorations={
+        <>
+          <SectionDecorations decorations={['flowing2']} opacity={0.4} />
+          <div
+            className="pointer-events-none absolute left-0 top-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-accent/5 blur-3xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute bottom-1/4 right-0 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
+            aria-hidden="true"
+          />
+        </>
+      }
     >
-      {/* Tech grid overlay for consistency */}
-      <TechGridOverlay opacity={0.02} />
-
-      {/* Decorative neural connections */}
-      <SectionDecorations decorations={['flowing2']} opacity={0.4} />
-
-      {/* Decorative gradient blurs */}
-      <div
-        className="pointer-events-none absolute left-0 top-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-accent/5 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute bottom-1/4 right-0 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {({ isInView }) => (
         <div className="mx-auto max-w-2xl">
           {/* Section Header */}
           <motion.div
@@ -322,8 +299,8 @@ export function Contact({ className = '' }: ContactProps) {
             </p>
           </motion.div>
         </div>
-      </div>
-    </section>
+      )}
+    </SectionWrapper>
   );
 }
 

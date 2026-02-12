@@ -4,6 +4,10 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
+import {
+  createContainerVariants,
+  createItemVariants,
+} from '@/lib/animation-variants';
 import { DecorativeConnections } from '@/components/effects';
 import Image from 'next/image';
 
@@ -80,28 +84,14 @@ export function BrandShowcase({
   }, [prefersReducedMotion, handleCanPlay, handleError]);
 
   // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.4,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
+  const containerVariants = createContainerVariants(prefersReducedMotion, {
+    staggerChildren: 0.1,
+    duration: 0.4,
+  });
+  const itemVariants = createItemVariants(prefersReducedMotion, {
+    y: 20,
+    duration: 0.3,
+  });
 
   return (
     <section
