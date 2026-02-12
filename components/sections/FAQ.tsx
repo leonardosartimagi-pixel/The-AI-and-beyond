@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useReducedMotion } from '@/hooks';
-import { TechGridOverlay, SectionTitleGlitch } from '@/components/effects';
+import { SectionHeader, SectionWrapper } from '@/components/ui';
+import { EASING } from '@/lib/animation-variants';
 
 interface FAQProps {
   className?: string;
@@ -82,7 +83,7 @@ function FAQItem({
             exit={{ height: 0, opacity: 0 }}
             transition={{
               duration: prefersReducedMotion ? 0 : 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
+              ease: EASING,
             }}
             className="overflow-hidden"
           >
@@ -98,22 +99,8 @@ function FAQItem({
 
 export function FAQ({ className = '', nonce }: FAQProps) {
   const t = useTranslations('faq');
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const prefersReducedMotion = useReducedMotion();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const headingVariants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -144,86 +131,70 @@ export function FAQ({ className = '', nonce }: FAQProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <section
-        ref={sectionRef}
+      <SectionWrapper
         id="faq"
-        className={`relative overflow-hidden bg-gray-50 py-24 dark:bg-gray-900 lg:py-32 ${className}`}
-        aria-label={t('label')}
+        ariaLabel={t('label')}
+        bgVariant="gray"
+        maxWidth="max-w-3xl"
+        className={className}
+        decorations={
+          <>
+            <div
+              className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent/5 blur-3xl"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute -bottom-48 -left-48 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl"
+              aria-hidden="true"
+            />
+          </>
+        }
       >
-        <TechGridOverlay opacity={0.02} />
+        {({ isInView }) => (
+          <>
+            {/* Section header */}
+            <SectionHeader
+              label={t('label')}
+              title={t('title')}
+              titleAccent={t('titleAccent')}
+              description={t('description')}
+              className="mb-12 text-center lg:mb-16"
+              isInView={isInView}
+            />
 
-        {/* Decorative blurs */}
-        <div
-          className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent/5 blur-3xl"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute -bottom-48 -left-48 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          {/* Section header */}
-          <motion.div
-            className="mb-12 text-center lg:mb-16"
-            variants={headingVariants}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-          >
-            <span className="mb-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-accent">
-              <span className="h-px w-8 bg-accent" aria-hidden="true" />
-              {t('label')}
-              <span className="h-px w-8 bg-accent" aria-hidden="true" />
-            </span>
-
-            <h2 className="mx-auto max-w-2xl font-heading text-3xl font-bold leading-tight text-primary dark:text-gray-100 sm:text-4xl lg:text-5xl">
-              {t('title')}{' '}
-              <span className="relative inline-block">
-                <SectionTitleGlitch>{t('titleAccent')}</SectionTitleGlitch>
-                <span
-                  className="absolute -bottom-1 left-0 h-1 w-full bg-gradient-to-r from-accent to-accent-light"
-                  aria-hidden="true"
+            {/* FAQ Accordion */}
+            <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950 lg:p-8">
+              {FAQ_KEYS.map((key, index) => (
+                <FAQItem
+                  key={key}
+                  faqKey={key}
+                  index={index}
+                  isOpen={openIndex === index}
+                  onToggle={() => handleToggle(index)}
+                  prefersReducedMotion={prefersReducedMotion}
+                  t={t}
                 />
-              </span>
-            </h2>
+              ))}
+            </div>
 
-            <p className="mx-auto mt-6 max-w-xl text-lg text-gray-600 dark:text-gray-400">
-              {t('description')}
-            </p>
-          </motion.div>
-
-          {/* FAQ Accordion */}
-          <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950 lg:p-8">
-            {FAQ_KEYS.map((key, index) => (
-              <FAQItem
-                key={key}
-                faqKey={key}
-                index={index}
-                isOpen={openIndex === index}
-                onToggle={() => handleToggle(index)}
-                prefersReducedMotion={prefersReducedMotion}
-                t={t}
-              />
-            ))}
-          </div>
-
-          {/* CTA */}
-          <motion.p
-            className="mt-8 text-center text-gray-600 dark:text-gray-400"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }}
-            transition={{ delay: 0.8 }}
-          >
-            {t('cta')}{' '}
-            <a
-              href="#contatti"
-              className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent-dark"
+            {/* CTA */}
+            <motion.p
+              className="mt-8 text-center text-gray-600 dark:text-gray-400"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isInView ? 1 : 0 }}
+              transition={{ delay: 0.8 }}
             >
-              {t('ctaLink')}
-            </a>
-          </motion.p>
-        </div>
-      </section>
+              {t('cta')}{' '}
+              <a
+                href="#contatti"
+                className="font-medium text-accent underline underline-offset-4 transition-colors hover:text-accent-dark"
+              >
+                {t('ctaLink')}
+              </a>
+            </motion.p>
+          </>
+        )}
+      </SectionWrapper>
     </>
   );
 }

@@ -8,6 +8,7 @@ import { Button, LanguageSwitcher } from '@/components/ui';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { NavGlitch } from '@/components/effects';
 import { useScrollTo, useReducedMotion } from '@/hooks';
+import { EASING } from '@/lib/animation-variants';
 import { cn } from '@/lib/utils';
 import { MobileMenu } from './MobileMenu';
 
@@ -55,7 +56,7 @@ export function Header() {
         )}
         initial={prefersReducedMotion ? false : { y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ duration: 0.4, ease: EASING }}
       >
         <nav
           className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"

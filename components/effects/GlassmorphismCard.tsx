@@ -2,6 +2,7 @@
 
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { EASING } from '@/lib/animation-variants';
 
 interface GlassmorphismCardProps extends HTMLMotionProps<'div'> {
   variant?: 'default' | 'subtle' | 'strong';
@@ -45,7 +46,7 @@ export function GlassmorphismCard({
             }
           : undefined
       }
-      transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: 0.3, ease: EASING }}
       {...props}
     >
       {children}

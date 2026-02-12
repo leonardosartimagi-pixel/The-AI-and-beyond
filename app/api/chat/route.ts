@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { chatRequestSchema } from '@/lib/validations';
+import { getClientIp } from '@/lib/get-client-ip';
 import {
   validateChatInput,
   processAIResponse,
@@ -51,26 +52,6 @@ If you don't know something or the question is outside scope, say:
 (In English if user writes in English)
 
 [END SYSTEM CONFIGURATION]`;
-
-/**
- * Ottiene IP del client dalla request
- */
-function getClientIp(request: NextRequest): string {
-  const forwardedFor = request.headers.get('x-forwarded-for');
-
-  if (forwardedFor) {
-    const firstIp = forwardedFor.split(',')[0];
-    return firstIp ? firstIp.trim() : 'unknown';
-  }
-
-  const realIp = request.headers.get('x-real-ip');
-
-  if (realIp) {
-    return realIp;
-  }
-
-  return 'unknown';
-}
 
 /**
  * Gestisce blocco sicurezza

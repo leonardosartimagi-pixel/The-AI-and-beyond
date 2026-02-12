@@ -2,50 +2,51 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import { Services } from '@/components/sections/Services';
 
-// Mock hooks
+// Mock hooks — must provide all hooks used by Services and its children (ServiceModal)
 vi.mock('@/hooks', () => ({
   useReducedMotion: () => false,
+  useFocusTrap: vi.fn(),
+  useLenisControl: vi.fn(),
 }));
 
 describe('Services', () => {
-  // TODO: Tests need updating — component was refactored with i18n and new structure
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   describe('Section Structure', () => {
-    it.skip('renders the services section', () => {
+    it('renders the services section', () => {
       render(<Services />);
       const section = screen.getByRole('region', { name: /servizi/i });
       expect(section).toBeInTheDocument();
     });
 
-    it.skip('has the correct section id', () => {
+    it('has the correct section id', () => {
       render(<Services />);
       const section = screen.getByRole('region', { name: /servizi/i });
       expect(section).toHaveAttribute('id', 'servizi');
     });
 
-    it.skip('displays the section label', () => {
+    it('displays the section label', () => {
       render(<Services />);
       expect(screen.getByText('Servizi')).toBeInTheDocument();
     });
 
-    it.skip('displays the main heading', () => {
+    it('displays the main heading', () => {
       render(<Services />);
       const heading = screen.getByRole('heading', { level: 2 });
-      expect(heading).toHaveTextContent(/soluzioni ai/i);
-      expect(heading).toHaveTextContent(/su misura/i);
+      expect(heading).toHaveTextContent(/cosa/i);
+      expect(heading).toHaveTextContent(/facciamo/i);
     });
 
-    it.skip('displays the section description', () => {
+    it('displays the section description', () => {
       render(<Services />);
       expect(
-        screen.getByText(/dall'idea alla realizzazione/i)
+        screen.getByText(/ogni azienda ha processi che funzionano male/i)
       ).toBeInTheDocument();
     });
 
-    it.skip('accepts custom className', () => {
+    it('accepts custom className', () => {
       render(<Services className="custom-class" />);
       const section = screen.getByRole('region', { name: /servizi/i });
       expect(section).toHaveClass('custom-class');
@@ -53,81 +54,80 @@ describe('Services', () => {
   });
 
   describe('Service Cards', () => {
-    it.skip('renders all 5 service cards', () => {
+    it('renders all 5 service cards', () => {
       render(<Services />);
       const articles = screen.getAllByRole('article');
       expect(articles).toHaveLength(5);
     });
 
-    it.skip('displays Consulenza AI service', () => {
+    it('displays Strategia AI service', () => {
       render(<Services />);
-      expect(screen.getByText('Consulenza AI')).toBeInTheDocument();
+      expect(screen.getByText('Strategia AI')).toBeInTheDocument();
       expect(
-        screen.getByText(/analisi e strategia per integrare ai/i)
+        screen.getByText(/mappa chiara su dove l'ai fa la differenza/i)
       ).toBeInTheDocument();
     });
 
-    it.skip('displays Sviluppo Web App service', () => {
+    it('displays Sviluppo Su Misura service', () => {
       render(<Services />);
-      expect(screen.getByText('Sviluppo Web App')).toBeInTheDocument();
+      expect(screen.getByText('Sviluppo Su Misura')).toBeInTheDocument();
       expect(
-        screen.getByText(/applicazioni web moderne e performanti/i)
+        screen.getByText(/strumenti costruiti intorno a come il tuo team/i)
       ).toBeInTheDocument();
     });
 
-    it.skip('displays Agenti AI service', () => {
+    it('displays Automazione Intelligente service', () => {
       render(<Services />);
-      expect(screen.getByText('Agenti AI')).toBeInTheDocument();
+      expect(screen.getByText('Automazione Intelligente')).toBeInTheDocument();
       expect(
-        screen.getByText(/automazioni intelligenti e assistenti virtuali/i)
+        screen.getByText(/agenti ai che gestiscono task ripetitivi/i)
       ).toBeInTheDocument();
     });
 
-    it.skip('displays Prototipi Rapidi service', () => {
+    it('displays Validazione Rapida service', () => {
       render(<Services />);
-      expect(screen.getByText('Prototipi Rapidi')).toBeInTheDocument();
+      expect(screen.getByText('Validazione Rapida')).toBeInTheDocument();
       expect(
-        screen.getByText(/mvp e proof of concept in tempi brevi/i)
+        screen.getByText(/mvp funzionante in 3-4 settimane/i)
       ).toBeInTheDocument();
     });
 
-    it.skip('displays Ottimizzazione PM service', () => {
+    it('displays Ottimizzazione Operativa service', () => {
       render(<Services />);
-      expect(screen.getByText('Ottimizzazione PM')).toBeInTheDocument();
+      expect(screen.getByText('Ottimizzazione Operativa')).toBeInTheDocument();
       expect(
-        screen.getByText(/strumenti ai per project management efficiente/i)
+        screen.getByText(/strumenti ai integrati nel workflow/i)
       ).toBeInTheDocument();
     });
 
-    it.skip('each card has a "Scopri di più" CTA', () => {
+    it('each card has a "Scopri di più" CTA', () => {
       render(<Services />);
       const ctaLinks = screen.getAllByText('Scopri di più');
       expect(ctaLinks).toHaveLength(5);
     });
 
-    it.skip('cards have accessible button labels', () => {
+    it('cards have accessible button labels', () => {
       render(<Services />);
       expect(
-        screen.getByLabelText(/scopri di più su consulenza ai/i)
+        screen.getByLabelText(/scopri di più - strategia ai/i)
       ).toBeInTheDocument();
       expect(
-        screen.getByLabelText(/scopri di più su sviluppo web app/i)
+        screen.getByLabelText(/scopri di più - sviluppo su misura/i)
       ).toBeInTheDocument();
       expect(
-        screen.getByLabelText(/scopri di più su agenti ai/i)
+        screen.getByLabelText(/scopri di più - automazione intelligente/i)
       ).toBeInTheDocument();
     });
   });
 
   describe('Service Icons', () => {
-    it.skip('renders icons with aria-hidden', () => {
+    it('renders icons with aria-hidden', () => {
       const { container } = render(<Services />);
       const icons = container.querySelectorAll('svg[aria-hidden="true"]');
-      // At least 5 icons for cards plus some decorative
       expect(icons.length).toBeGreaterThanOrEqual(5);
     });
 
-    it.skip('icons are contained in styled containers', () => {
+    it('icons are contained in styled containers', () => {
       const { container } = render(<Services />);
       const iconContainers = container.querySelectorAll(
         '.rounded-xl.bg-gradient-to-br'
@@ -137,45 +137,44 @@ describe('Services', () => {
   });
 
   describe('Modal Functionality', () => {
-    it.skip('opens modal when card is clicked', () => {
+    it('opens modal when card is clicked', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
-      // Modal should be open with dialog role
       const modal = screen.getByRole('dialog');
       expect(modal).toBeInTheDocument();
     });
 
-    it.skip('modal displays service title', () => {
+    it('modal displays service title', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
       const modal = screen.getByRole('dialog');
-      expect(within(modal).getByText('Consulenza AI')).toBeInTheDocument();
+      expect(within(modal).getByText('Strategia AI')).toBeInTheDocument();
     });
 
-    it.skip('modal displays expanded description', () => {
+    it('modal displays problem and outcome sections', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
-      expect(
-        screen.getByText(/valutiamo insieme il tuo contesto aziendale/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText('Il problema')).toBeInTheDocument();
+      expect(screen.getByText('Cosa cambia dopo')).toBeInTheDocument();
+      expect(screen.getByText('Perché è diverso')).toBeInTheDocument();
     });
 
-    it.skip('modal has close button', () => {
+    it('modal has close button', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
@@ -183,10 +182,10 @@ describe('Services', () => {
       expect(closeButton).toBeInTheDocument();
     });
 
-    it.skip('closes modal when close button is clicked', () => {
+    it('closes modal when close button is clicked', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
@@ -196,10 +195,10 @@ describe('Services', () => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
 
-    it.skip('modal has CTA button linking to contacts', () => {
+    it('modal has CTA button linking to contacts', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
@@ -207,14 +206,13 @@ describe('Services', () => {
       expect(ctaLink).toHaveAttribute('href', '#contatti');
     });
 
-    it.skip('closes modal when backdrop is clicked', () => {
+    it('closes modal when backdrop is clicked', () => {
       const { container } = render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
-      // Find backdrop by class
       const backdrop = container.querySelector('.backdrop-blur-sm');
       if (backdrop) {
         fireEvent.click(backdrop);
@@ -224,53 +222,33 @@ describe('Services', () => {
   });
 
   describe('Layout', () => {
-    it.skip('uses grid layout for cards', () => {
+    it('uses grid layout for cards', () => {
       const { container } = render(<Services />);
       const gridContainer = container.querySelector('.grid');
       expect(gridContainer).toBeInTheDocument();
     });
 
-    it.skip('has responsive grid columns', () => {
+    it('has responsive grid columns', () => {
       const { container } = render(<Services />);
       const gridContainer = container.querySelector('.lg\\:grid-cols-3');
       expect(gridContainer).toBeInTheDocument();
     });
-
-    it.skip('featured cards have different min-height', () => {
-      const { container } = render(<Services />);
-      const featuredCards = container.querySelectorAll('.min-h-\\[320px\\]');
-      // 2 featured cards: Consulenza AI and Agenti AI
-      expect(featuredCards.length).toBeGreaterThanOrEqual(2);
-    });
-
-    it.skip('normal cards have standard min-height', () => {
-      const { container } = render(<Services />);
-      const normalCards = container.querySelectorAll('.min-h-\\[240px\\]');
-      // 3 normal cards
-      expect(normalCards.length).toBeGreaterThanOrEqual(3);
-    });
   });
 
   describe('Decorative Elements', () => {
-    it.skip('has decorative gradient blur elements', () => {
+    it('has decorative gradient blur elements', () => {
       const { container } = render(<Services />);
       const blurElements = container.querySelectorAll('.blur-3xl');
       expect(blurElements.length).toBeGreaterThanOrEqual(2);
     });
 
-    it.skip('has decorative dot pattern', () => {
-      const { container } = render(<Services />);
-      const dotPattern = container.querySelector('.lg\\:block.opacity-\\[0\\.03\\]');
-      expect(dotPattern).toBeInTheDocument();
-    });
-
-    it.skip('section label has decorative lines', () => {
+    it('section label has decorative lines', () => {
       const { container } = render(<Services />);
       const labelLines = container.querySelectorAll('.h-px.w-8.bg-accent');
       expect(labelLines.length).toBe(2);
     });
 
-    it.skip('heading has underline accent', () => {
+    it('heading has underline accent', () => {
       const { container } = render(<Services />);
       const headingAccent = container.querySelector(
         '.h-1.w-full.bg-gradient-to-r.from-accent'
@@ -280,16 +258,16 @@ describe('Services', () => {
   });
 
   describe('Accessibility', () => {
-    it.skip('section has proper aria-label', () => {
+    it('section has proper aria-label', () => {
       render(<Services />);
       const section = screen.getByRole('region', { name: /servizi/i });
       expect(section).toHaveAttribute('aria-label', 'Servizi');
     });
 
-    it.skip('modal has proper aria attributes', () => {
+    it('modal has proper aria attributes', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
@@ -298,15 +276,7 @@ describe('Services', () => {
       expect(modal).toHaveAttribute('aria-labelledby', 'service-modal-title');
     });
 
-    it.skip('cards are keyboard accessible', () => {
-      render(<Services />);
-      const buttons = screen.getAllByRole('button');
-      buttons.forEach((button) => {
-        expect(button).toHaveAttribute('type', 'button');
-      });
-    });
-
-    it.skip('decorative elements have aria-hidden', () => {
+    it('decorative elements have aria-hidden', () => {
       const { container } = render(<Services />);
       const decorativeBlurs = container.querySelectorAll(
         '.blur-3xl[aria-hidden="true"]'
@@ -316,19 +286,19 @@ describe('Services', () => {
   });
 
   describe('Responsive Design', () => {
-    it.skip('has mobile-friendly stacking classes', () => {
+    it('has mobile-friendly stacking classes', () => {
       const { container } = render(<Services />);
-      const gridContainer = container.querySelector('.md\\:grid-cols-2');
+      const gridContainer = container.querySelector('.sm\\:grid-cols-2');
       expect(gridContainer).toBeInTheDocument();
     });
 
-    it.skip('has responsive padding', () => {
+    it('has responsive padding', () => {
       const { container } = render(<Services />);
       const innerContainer = container.querySelector('.sm\\:px-6.lg\\:px-8');
       expect(innerContainer).toBeInTheDocument();
     });
 
-    it.skip('has responsive section padding', () => {
+    it('has responsive section padding', () => {
       render(<Services />);
       const section = screen.getByRole('region', { name: /servizi/i });
       expect(section).toHaveClass('py-24', 'lg:py-32');
@@ -336,29 +306,39 @@ describe('Services', () => {
   });
 
   describe('Content Accuracy', () => {
-    it.skip('all service titles match requirements', () => {
+    it('all service titles match requirements', () => {
       render(<Services />);
       const expectedTitles = [
-        'Consulenza AI',
-        'Sviluppo Web App',
-        'Agenti AI',
-        'Prototipi Rapidi',
-        'Ottimizzazione PM',
+        'Strategia AI',
+        'Sviluppo Su Misura',
+        'Automazione Intelligente',
+        'Validazione Rapida',
+        'Ottimizzazione Operativa',
       ];
       expectedTitles.forEach((title) => {
         expect(screen.getByText(title)).toBeInTheDocument();
       });
     });
 
-    it.skip('modal title has correct ID for aria-labelledby', () => {
+    it('modal title has correct ID for aria-labelledby', () => {
       render(<Services />);
       const consulenzaButton = screen.getByLabelText(
-        /scopri di più su consulenza ai/i
+        /scopri di più - strategia ai/i
       );
       fireEvent.click(consulenzaButton);
 
-      const modalTitle = screen.getByRole('heading', { level: 2, name: /consulenza ai/i });
+      const modalTitle = screen.getByRole('heading', {
+        level: 2,
+        name: /strategia ai/i,
+      });
       expect(modalTitle).toHaveAttribute('id', 'service-modal-title');
+    });
+
+    it('displays bridge narrative text', () => {
+      render(<Services />);
+      expect(
+        screen.getByText(/non sono categorie rigide/i)
+      ).toBeInTheDocument();
     });
   });
 });
