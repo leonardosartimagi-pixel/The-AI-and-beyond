@@ -678,5 +678,14 @@
   },
   "mobileContact": {
     "label": "Contattaci"
+  },
+  "notFound": {
+    "title": "Pagina non trovata",
+    "heading": "404",
+    "description": "La pagina che cerchi non esiste o è stata spostata.",
+    "backHome": "Torna alla home"
+  },
+  "skipNav": {
+    "label": "Vai al contenuto principale"
   }
 }
