@@ -5,9 +5,57 @@ interface JsonLdProps {
   locale: string;
 }
 
+const FAQ_ITEMS = {
+  it: [
+    {
+      question: "L'AI è adatta alla mia azienda?",
+      answer:
+        "Dipende. Non da quanto è grande la tua azienda, ma da dove perde tempo o soldi. Se hai processi ripetitivi che occupano persone qualificate, dati che nessuno analizza, o un team che fa lavoro manuale evitabile — probabilmente sì. Il primo passo è sempre una diagnosi: capiamo il tuo contesto, mappiamo le inefficienze, e ti diciamo con onestà dove l'AI ha senso e dove no.",
+    },
+    {
+      question: 'Quanto tempo richiede un progetto AI?',
+      answer:
+        'Un MVP o proof-of-concept: 2-4 settimane. Progetti più strutturati: 2-3 mesi. Lavoriamo in agile — sprint settimanali, demo regolari, nessun effetto black-box. Vedi il progresso dal giorno uno, non dopo mesi di silenzio.',
+    },
+    {
+      question: 'Quanto costa un progetto di consulenza AI?',
+      answer:
+        'Non abbiamo un listino prezzi — automatizzare lo smistamento email di un team di 5 persone è diverso da costruire un gestionale AI-powered. Il costo dipende da cosa va costruito e da quanto è complesso. Quello che facciamo sempre: prima call gratuita per capire il problema, poi un preventivo chiaro con scope, tempi e costi — prima che venga scritto codice.',
+    },
+    {
+      question: 'Come funziona il processo di lavoro?',
+      answer:
+        'Call conoscitiva gratuita — capiamo il problema e il contesto. Analisi e proposta concreta con scope, tempi e costi. Se si parte, lavoriamo in agile: sprint settimanali, demo di quello che funziona, feedback continuo. Non ricevi un deliverable finale dopo mesi di silenzio — vedi il progresso settimana per settimana.',
+    },
+  ],
+  en: [
+    {
+      question: 'Is AI right for my business?',
+      answer:
+        "It depends. Not on how big your company is, but on where it's losing time or money. If you have repetitive processes tying up skilled people, data no one analyzes, or a team doing avoidable manual work — probably yes. The first step is always a diagnosis: we understand your context, map the inefficiencies, and honestly tell you where AI makes sense and where it doesn't.",
+    },
+    {
+      question: 'How long does an AI project take?',
+      answer:
+        'An MVP or proof-of-concept: 2-4 weeks. More structured projects: 2-3 months. We work in agile — weekly sprints, regular demos, zero black-box effect. You see progress from day one, not after months of silence.',
+    },
+    {
+      question: 'How much does an AI consulting project cost?',
+      answer:
+        "We don't have a price list — automating email sorting for a 5-person team is different from building an AI-powered management system. Cost depends on what needs to be built and how complex it is. What we always do: free first call to understand the problem, then a clear quote with scope, timeline, and costs — before any code is written.",
+    },
+    {
+      question: 'How does the work process work?',
+      answer:
+        "Free introductory call — we understand the problem and context. Analysis and concrete proposal with scope, timeline, and costs. If we go ahead, we work in agile: weekly sprints, demos of what works, continuous feedback. You don't receive a final deliverable after months of silence — you see progress week by week.",
+    },
+  ],
+};
+
 export async function JsonLd({ locale }: JsonLdProps) {
   const nonce = (await headers()).get('x-nonce') ?? undefined;
   const isItalian = locale === 'it';
+  const faqItems = isItalian ? FAQ_ITEMS.it : FAQ_ITEMS.en;
 
   const graphSchema = {
     '@context': 'https://schema.org',
@@ -21,8 +69,8 @@ export async function JsonLd({ locale }: JsonLdProps) {
         logo: {
           '@type': 'ImageObject',
           '@id': `${SITE_URL}/#logo`,
-          url: `${SITE_URL}/logo.png`,
-          contentUrl: `${SITE_URL}/logo.png`,
+          url: `${SITE_URL}/logos/logo-color.png`,
+          contentUrl: `${SITE_URL}/logos/logo-color.png`,
           caption: SITE_NAME,
         },
         image: { '@id': `${SITE_URL}/#logo` },
@@ -148,6 +196,21 @@ export async function JsonLd({ locale }: JsonLdProps) {
               'Process Automation',
               'Machine Learning',
             ],
+      },
+
+      // FAQPage
+      {
+        '@type': 'FAQPage',
+        '@id': `${SITE_URL}/${locale}/#faq`,
+        isPartOf: { '@id': `${SITE_URL}/${locale}/#webpage` },
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
       },
     ],
   };
