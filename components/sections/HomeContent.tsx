@@ -9,6 +9,13 @@ const About = dynamic(() => import('./About').then((mod) => mod.About), {
   loading: () => <section className="py-24 lg:py-32" aria-hidden="true" />,
 });
 
+const Innovation = dynamic(
+  () => import('./Innovation').then((mod) => mod.Innovation),
+  {
+    loading: () => <section className="py-24 lg:py-32" aria-hidden="true" />,
+  }
+);
+
 const Services = dynamic(
   () => import('./Services').then((mod) => mod.Services),
   {
@@ -55,6 +62,7 @@ export function HomeContent() {
       <Hero />
       <BrandShowcase />
       <About />
+      <Innovation />
       <Services />
       <Portfolio />
       <BeforeAfter />
