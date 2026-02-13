@@ -62,9 +62,9 @@ export function HomeContent() {
       <Hero />
       <BrandShowcase />
       <About />
-      <Innovation />
       <Services />
       <Portfolio />
+      <Innovation />
       <BeforeAfter />
       <ROICalculator />
       <Process />
