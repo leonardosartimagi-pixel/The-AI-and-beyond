@@ -1,6 +1,7 @@
 export { Hero } from './Hero';
 export { AnimatedLogo } from './AnimatedLogo';
 export { About } from './About';
+export { Innovation } from './Innovation';
 export { Services } from './Services';
 export { Portfolio } from './Portfolio';
 export { BeforeAfter } from './BeforeAfter';

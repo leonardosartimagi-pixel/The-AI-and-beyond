@@ -14,6 +14,7 @@ import { MobileMenu } from './MobileMenu';
 
 export const NAV_ITEMS = [
   { key: 'about', href: 'chi-siamo' },
+  { key: 'innovation', href: 'innovazione' },
   { key: 'services', href: 'servizi' },
   { key: 'portfolio', href: 'portfolio' },
   { key: 'process', href: 'come-lavoriamo' },
