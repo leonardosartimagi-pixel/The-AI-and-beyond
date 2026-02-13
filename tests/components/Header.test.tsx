@@ -15,7 +15,7 @@ describe('Header', () => {
 
   it('renders navigation links on desktop', () => {
     render(<Header />);
-    expect(NAV_ITEMS.length).toBe(5);
+    expect(NAV_ITEMS.length).toBe(6);
     const buttons = screen.getAllByRole('button');
     expect(buttons.length).toBeGreaterThan(0);
   });
@@ -64,7 +64,8 @@ describe('Header', () => {
   });
 
   it('exports NAV_ITEMS constant', () => {
-    expect(NAV_ITEMS).toHaveLength(5);
+    expect(NAV_ITEMS).toHaveLength(6);
     expect(NAV_ITEMS[0]).toEqual({ key: 'about', href: 'chi-siamo' });
+    expect(NAV_ITEMS[1]).toEqual({ key: 'innovation', href: 'innovazione' });
   });
 });

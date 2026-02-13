@@ -8,6 +8,7 @@
   },
   "nav": {
     "about": "About Us",
+    "innovation": "Innovation",
     "services": "Services",
     "portfolio": "Portfolio",
     "process": "How We Work",
@@ -687,5 +688,38 @@
   },
   "skipNav": {
     "label": "Skip to main content"
+  },
+  "innovation": {
+    "label": "Innovation & Research",
+    "title": "Innovation in AI-Powered",
+    "titleAccent": "Accessibility",
+    "subtitle": "Research and development projects in applied artificial intelligence",
+    "featured": {
+      "tag": "Featured Project",
+      "title": "V-Move CareBot",
+      "subtitle": "Autonomous guide robot for people with disabilities in marinas",
+      "description": "V-Move CareBot is an AI-powered assisted mobility system designed to ensure accessibility and safety in port environments. It integrates computer vision, LIDAR sensors, and autonomous navigation to guide people with motor or visual disabilities.",
+      "context": "Presented at the Viareggio Robotics Festival, the project garnered national press attention and was featured in an article by La Nazione, highlighting the impact of artificial intelligence in the accessibility and nautical sectors.",
+      "technologies": "Technologies used",
+      "techList": {
+        "ai": "NVIDIA Jetson for edge AI processing",
+        "vision": "Computer vision and obstacle recognition",
+        "sensors": "360° LIDAR, GPS, IMU, IoT sensors",
+        "navigation": "Autonomous navigation on complex surfaces",
+        "safety": "Integrated safety and medical assistance systems"
+      },
+      "impact": "Impact and recognition",
+      "impactText": "The project demonstrated how AI can solve real accessibility problems in complex contexts such as tourist ports, proposing advanced yet concrete and implementable technological solutions.",
+      "credits": "Leonardo Sarti Magi with the project team",
+      "links": {
+        "article": "Read the article on La Nazione",
+        "festival": "Viareggio Robotics Festival"
+      }
+    },
+    "cta": {
+      "title": "Want to bring AI into your organization?",
+      "description": "From enterprise solutions to custom innovation, we design AI systems that solve real problems.",
+      "button": "Let's talk"
+    }
   }
 }
