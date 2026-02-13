@@ -84,16 +84,19 @@ export function Innovation({ className = '' }: InnovationProps) {
           animate={isInView ? 'visible' : 'hidden'}
           className="mb-12 text-center lg:mb-16"
         >
+          {/* Label con linee decorative */}
           <motion.p
             variants={textVariants}
-            className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent"
+            className="mb-4 inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-accent"
           >
+            <span className="h-px w-8 bg-accent" aria-hidden="true" />
             {t('label')}
+            <span className="h-px w-8 bg-accent" aria-hidden="true" />
           </motion.p>
 
           <motion.h2
             variants={textVariants}
-            className="mb-6 font-heading text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl lg:text-5xl"
+            className="mx-auto mb-6 max-w-2xl font-heading text-3xl font-bold leading-tight tracking-tight text-primary dark:text-gray-100 sm:text-4xl lg:text-5xl"
           >
             <span className="block">{t('title')}</span>
             <span className="text-accent">{t('titleAccent')}</span>
