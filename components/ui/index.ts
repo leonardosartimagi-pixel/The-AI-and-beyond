@@ -17,6 +17,7 @@ export { Badge, badgeVariants, type BadgeProps } from './Badge';
 export { MagneticButton } from './MagneticButton';
 export { LanguageSwitcher } from './LanguageSwitcher';
 export { PortfolioVideoPlayer } from './PortfolioVideoPlayer';
+export { FloatingAICTA } from './FloatingAICTA';
 export { SectionHeader, type SectionHeaderProps } from './SectionHeader';
 export {
   SectionWrapper,
