@@ -121,7 +121,12 @@ test.describe('Navigation and Smooth Scroll', () => {
       return;
     }
 
-    // Tab to logo (first focusable element, scoped to header)
+    // Tab to skip navigation link (first focusable element)
+    await page.keyboard.press('Tab');
+    const skipLink = page.locator('a[href="#main-content"]');
+    await expect(skipLink).toBeFocused();
+
+    // Tab to logo
     await page.keyboard.press('Tab');
     const logo = page.locator('header button[aria-label="Torna alla home"]');
     await expect(logo).toBeFocused();
