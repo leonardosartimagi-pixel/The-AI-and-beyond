@@ -8,6 +8,7 @@ import { CookieConsentBanner } from '@/components/layout/CookieConsentBanner';
 import { LanguageSelectorModal } from '@/components/layout/LanguageSelectorModal';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { VercelAnalytics } from '@/components/analytics/VercelAnalytics';
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import {
   GlobalParticles,
   SmoothScroll,
@@ -179,6 +180,14 @@ export default async function LocaleLayout({ children, params }: Props) {
         className="bg-white font-sans text-gray-900 antialiased transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100"
         suppressHydrationWarning
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+        >
+          {locale === 'it'
+            ? 'Vai al contenuto principale'
+            : 'Skip to main content'}
+        </a>
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
             <LanguageSelectorModal />
@@ -193,6 +202,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           </NextIntlClientProvider>
         </ThemeProvider>
         <VercelAnalytics />
+        <GoogleAnalytics />
       </body>
     </html>
   );

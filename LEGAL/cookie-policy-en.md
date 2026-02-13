@@ -75,16 +75,31 @@ Analytical cookies allow the website owner to collect information about visitor 
 - **Activation:** only after explicit user consent
 - **Compliance:** Vercel Analytics is designed to be GDPR-compliant without the need for additional IP anonymization
 
+#### Google Analytics 4
+
+- **Name:** `_ga`, `_ga_*`
+- **Type:** HTTP cookie
+- **Duration:** `_ga` 2 years, `_ga_*` 2 years (from date of setting/update)
+- **Purpose:**
+  - Analyze website traffic and visitor behavior (pages visited, session duration, anonymized geographic origin)
+  - Generate aggregate statistics on website usage
+- **Manager:** Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland
+- **Privacy Policy:** https://policies.google.com/privacy
+- **Activation:** only after explicit user consent
+- **Compliance:** IP anonymization enabled (`anonymize_ip: true`); cookies set with `Secure` and `SameSite=Lax` flags
+- **Opt-out:** https://tools.google.com/dlpage/gaoptout
+
 ---
 
 ## 4. Summary Cookie Table
 
-| Cookie Name           | Manager           | Type                | Duration       | Purpose                            | Consent Required |
-| --------------------- | ----------------- | ------------------- | -------------- | ---------------------------------- | ---------------- |
-| `cookie-consent`      | The AI and beyond | localStorage        | Persistent     | Store consent preferences          | No               |
-| `preferred-locale`    | The AI and beyond | localStorage        | Persistent     | Language preference                | No               |
-| `__vercel_live_token` | Vercel            | cookie              | Session        | Development token (preview only)   | No               |
-| Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non-persistent | Performance and page view analysis | Yes              |
+| Cookie Name           | Manager            | Type                | Duration       | Purpose                            | Consent Required |
+| --------------------- | ------------------ | ------------------- | -------------- | ---------------------------------- | ---------------- |
+| `cookie-consent`      | The AI and beyond  | localStorage        | Persistent     | Store consent preferences          | No               |
+| `preferred-locale`    | The AI and beyond  | localStorage        | Persistent     | Language preference                | No               |
+| `__vercel_live_token` | Vercel             | cookie              | Session        | Development token (preview only)   | No               |
+| Vercel Analytics      | Vercel Inc.        | beacon/localStorage | Non-persistent | Performance and page view analysis | Yes              |
+| `_ga`, `_ga_*`        | Google Ireland Ltd | HTTP cookie         | 2 years        | Traffic and behavior analysis      | Yes              |
 
 ---
 
@@ -157,6 +172,13 @@ Vercel Analytics does not provide an explicit opt-out mechanism because it is de
 - Disable beacons in your browser if available
 - Contact us to request exclusion
 
+#### Opt-out from Google Analytics
+
+Google provides a browser add-on that allows you to disable Google Analytics tracking on all websites:
+
+- **Browser add-on:** https://tools.google.com/dlpage/gaoptout
+- Alternatively, simply decline analytical cookies through our website banner
+
 ### 5.4 Do Not Track (DNT) and Global Privacy Control (GPC)
 
 Our website **actively respects** privacy signals sent by your browser. If your browser has DNT or GPC enabled, the website automatically treats you as having declined analytical cookies, without displaying the consent banner.
@@ -185,11 +207,22 @@ Our website uses services provided by third parties for analytics and functional
 - **Location:** San Francisco, USA
 - **Compliance:** GDPR-compliant
 
+### 6.2 Google Ireland Limited
+
+- **Service:** Google Analytics 4
+- **Website:** https://analytics.google.com
+- **Privacy Policy:** https://policies.google.com/privacy
+- **Usage:** Web traffic analysis and visitor behavior tracking
+- **Location:** Gordon House, Barrow Street, Dublin 4, Ireland
+- **Sub-processor:** Google LLC, Mountain View, CA, USA
+- **Compliance:** GDPR-compliant, certified under EU-US Data Privacy Framework
+
 ### Information on Data Transfers to Third Countries
 
-Analytics services from Vercel involve the transfer of data to the United States. For data transfer to third countries, the Data Controller relies on the following mechanisms:
+Analytics services from Vercel and Google involve the transfer of data to the United States. For data transfer to third countries, the Data Controller relies on the following mechanisms:
 
 - **For Vercel:** Vercel has implemented appropriate security measures in accordance with the GDPR and is certified under the EU-US Data Privacy Framework. For details, please consult their Privacy Policy.
+- **For Google:** Google Ireland Limited transfers data to Google LLC (USA) based on the EU-US Data Privacy Framework. Google has implemented technical and organizational security measures compliant with the GDPR. For details, see: https://policies.google.com/privacy/frameworks
 
 ---
 
@@ -249,7 +282,7 @@ Our website has been configured to:
 - Provide complete and transparent information about cookie usage
 - Allow users to manage and revoke consent at any time
 - Not use profiling, marketing, or advertising cookies
-- Not track users through third-party cookies (except for Vercel Analytics, loaded only with consent)
+- Not track users through third-party cookies (except for Vercel Analytics and Google Analytics 4, loaded only with consent)
 
 ---
 
