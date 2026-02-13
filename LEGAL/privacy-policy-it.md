@@ -8,7 +8,7 @@
 **Email Informazioni Generali:** info@theaiandbeyond.it
 **Sito Web:** https://theaiandbeyond.it
 
-**Data Ultimo Aggiornamento:** 11 febbraio 2026
+**Data Ultimo Aggiornamento:** 12 febbraio 2026
 
 ---
 
@@ -86,6 +86,22 @@ I seguenti servizi di analisi sono integrati nel Sito ma attivati **SOLO dopo il
 - **Attivazione**: Solo dopo accettazione del banner cookie
 - **Conservazione**: Secondo le politiche di Vercel (disponibile in https://vercel.com/privacy)
 
+#### 3.3.2 Google Analytics 4
+
+- **Fornitore**: Google Ireland Limited (sede legale: Gordon House, Barrow Street, Dublino 4, Irlanda)
+- **Sub-responsabile**: Google LLC, Mountain View, CA, USA
+- **Dati raccolti**:
+  - Visualizzazioni di pagina e durata sessione
+  - Origine geografica anonimizzata
+  - Informazioni di base sul browser e dispositivo
+- **Cookie utilizzati**: `_ga` (durata: 2 anni), `_ga_*` (durata: 2 anni)
+- **Base giuridica**: Consenso esplicito dell'utente (articolo 6, comma 1, lettera a) GDPR)
+- **Attivazione**: Solo dopo accettazione del banner cookie
+- **Anonimizzazione IP**: Attiva (`anonymize_ip: true`)
+- **Flag di sicurezza cookie**: `SameSite=Lax; Secure`
+- **Conservazione**: Secondo le politiche di Google (disponibile in https://policies.google.com/privacy)
+- **Opt-out**: https://tools.google.com/dlpage/gaoptout
+
 ---
 
 ## 4. Finalità del Trattamento
@@ -109,7 +125,7 @@ I dati personali sono trattati per le seguenti finalità:
 
 - **Finalità**: Comprendere come gli utenti interagiscono con il Sito al fine di migliorare l'esperienza utente, l'usabilità e le funzionalità
 - **Base giuridica**: Articolo 6, comma 1, lettera a) GDPR: Consenso esplicito dell'utente
-- **Applicabile a**: Vercel Analytics, Speed Insights
+- **Applicabile a**: Vercel Analytics, Speed Insights, Google Analytics 4
 
 ### 4.4 Rispetto degli Obblighi Legali
 
@@ -128,6 +144,7 @@ Il trattamento dei dati personali è effettuato sulla base delle seguenti fondam
 | IP per rate limiting       | Interesse legittimo (art. 6.1.f)               | Protezione da abusi e spam; IP memorizzato in Upstash Redis per max 15 min |
 | Cookie tecnici di consenso | Necessità tecnica (Direttiva ePrivacy)         | Non richiede consenso, è strettamente necessario                           |
 | Analytics (Vercel)         | Consenso (art. 6.1.a)                          | Attivati solo dopo consenso esplicito                                      |
+| Analytics (Google)         | Consenso (art. 6.1.a)                          | Attivati solo dopo consenso esplicito; IP anonimizzato                     |
 | Google Fonts               | Interesse legittimo (art. 6.1.f)               | Self-hosted, no tracking                                                   |
 | Obblighi legali            | Adempimento legge (art. 6.1.c)                 | Conservazione per scopi fiscali/amministrativi                             |
 
@@ -192,9 +209,10 @@ I dati del modulo di contatto sono trasmessi a **Resend Inc.** (sede legale: Sta
 - **Accordo di trattamento**: Resend ha sottoscritto Data Processing Agreement conforme GDPR
 - **Conservazione**: I dati sono conservati per il tempo necessario alla consegna email, dopodiché rimossi
 
-### 7.3 Analytics - Vercel Analytics
+### 7.3 Analytics
 
 - **Vercel Analytics**: Elaborati presso Vercel Inc. (USA, con EU-US Data Privacy Framework)
+- **Google Analytics 4**: Elaborati presso Google Ireland Limited (Irlanda, UE), con trasferimento a Google LLC (USA) tramite EU-US Data Privacy Framework
 
 ### 7.4 Trasferimenti Extra-UE
 
@@ -202,6 +220,7 @@ Alcuni dati possono essere trasferiti verso Stati Uniti tramite:
 
 - **EU-US Data Privacy Framework**: Per Vercel Inc. (analytics, hosting)
 - **EU-US Data Privacy Framework**: Per Upstash Inc. (rate limiting, IP temporaneo)
+- **EU-US Data Privacy Framework**: Per Google LLC (analytics, sub-responsabile di Google Ireland Limited). Google ha implementato misure tecniche e organizzative conformi al GDPR. Per dettagli: https://policies.google.com/privacy/frameworks
 
 Tali trasferimenti sono autorizzati dalla Commissione Europea e comportano garanzie equipollenti a quelle previste dal GDPR.
 
@@ -215,6 +234,7 @@ Tali trasferimenti sono autorizzati dalla Commissione Europea e comportano garan
 | IP per rate limiting       | 15 minuti (Upstash Redis, eliminazione automatica TTL) | Rate limiting per prevenzione abusi |
 | Cookie di consenso         | 12 mesi                                                | Ricordare preferenze utente         |
 | Analytics (Vercel)         | Secondo policy Vercel (default 90 giorni)              | Analisi statistiche aggregate       |
+| Analytics (Google)         | 2 anni (cookie `_ga`, `_ga_*`)                         | Analisi statistiche aggregate       |
 | Logistica hosting (Vercel) | Secondo retention policy Vercel                        | Sicurezza e troubleshooting         |
 
 **Nota**: Dopo la scadenza del periodo di conservazione, i dati sono eliminati o anonimizzati in conformità al principio di minimizzazione dei dati.
@@ -301,6 +321,7 @@ I cookie sono piccoli file di testo memorizzati sul dispositivo dell'utente che 
 #### 10.2.2 Cookie Analitici (Richiedono Consenso)
 
 - **Vercel Analytics**: Memorizza cookie per tracciare le visualizzazioni di pagina. Attivato solo dopo consenso.
+- **Google Analytics 4**: Memorizza i cookie `_ga` e `_ga_*` (durata: 2 anni) per analizzare il traffico web e il comportamento dei visitatori. Attivato solo dopo consenso. IP anonimizzato.
 
 ### 10.3 Gestione dei Cookie
 
@@ -314,10 +335,11 @@ L'utente può gestire le preferenze di cookie:
 
 Il Sito integra i seguenti servizi che memorizzano cookie di terze parti:
 
-| Servizio         | Tipo         | Consenso Richiesto | Privacy Policy             |
-| ---------------- | ------------ | ------------------ | -------------------------- |
-| Vercel Analytics | Analytics    | Sì                 | https://vercel.com/privacy |
-| Google Fonts     | Funzionalità | No (self-hosted)   | N/A                        |
+| Servizio           | Tipo         | Consenso Richiesto | Privacy Policy                      |
+| ------------------ | ------------ | ------------------ | ----------------------------------- |
+| Vercel Analytics   | Analytics    | Sì                 | https://vercel.com/privacy          |
+| Google Analytics 4 | Analytics    | Sì                 | https://policies.google.com/privacy |
+| Google Fonts       | Funzionalità | No (self-hosted)   | N/A                                 |
 
 ---
 
@@ -344,7 +366,18 @@ Secondo l'articolo 28 GDPR, i seguenti servizi fungono da **Responsabili del Tra
 - **Conservazione**: Fino a consegna email
 - **Contatti**: support@resend.com
 
-#### 11.1.3 Upstash Inc.
+#### 11.1.3 Google Ireland Limited
+
+- **Ruolo**: Analytics (Google Analytics 4)
+- **Sede**: Gordon House, Barrow Street, Dublino 4, Irlanda
+- **Sub-responsabile**: Google LLC, Mountain View, CA, USA
+- **DPA**: Disponibile su https://privacy.google.com/businesses/processorterms/
+- **Certificazione**: EU-US Data Privacy Framework (tramite Google LLC)
+- **Dati elaborati**: Visualizzazioni di pagina, durata sessione, origine geografica anonimizzata, informazioni browser/dispositivo
+- **Conservazione**: 2 anni (cookie `_ga`, `_ga_*`)
+- **Contatti**: https://support.google.com/policies/contact/general_privacy_form
+
+#### 11.1.4 Upstash Inc.
 
 - **Ruolo**: Rate limiting (memorizzazione temporanea IP per prevenzione abusi)
 - **Sede**: Stati Uniti
@@ -359,6 +392,7 @@ I dati personali NON sono condivisi con terze parti, eccetto:
 
 - **Resend**: Per l'invio di email (modulo contatto)
 - **Vercel**: Per hosting e analytics (solo con consenso)
+- **Google**: Per analytics (Google Analytics 4, solo con consenso)
 - **Upstash**: Per il rate limiting (memorizzazione temporanea IP, max 15 minuti)
 
 Nessun dato è venduto, ceduto in licenza o altrimenti divulgato a fini di marketing o profitto.
@@ -376,6 +410,7 @@ L'interessato ha il diritto di contattare direttamente i Responsabili del Tratta
 **Contatti diretti**:
 
 - **Vercel**: https://vercel.com/contact (Data Privacy)
+- **Google**: https://support.google.com/policies/contact/general_privacy_form
 - **Resend**: support@resend.com
 
 ---
@@ -436,7 +471,7 @@ Il Titolare risponderà a tutte le richieste entro 30 giorni (extendibili a 60 g
 
 - **Interessato**: La persona fisica cui si riferiscono i dati personali
 - **Titolare del Trattamento**: La persona fisica o giuridica che determina le finalità e le modalità del trattamento (in questo caso: Leonardo Sarti Magi)
-- **Responsabile del Trattamento**: La persona fisica o giuridica che tratta i dati su istruzione del Titolare (Vercel, Resend, Upstash)
+- **Responsabile del Trattamento**: La persona fisica o giuridica che tratta i dati su istruzione del Titolare (Vercel, Resend, Google, Upstash)
 - **Trattamento**: Qualsiasi operazione su dati personali (raccolta, conservazione, utilizzo, cancellazione, ecc.)
 - **Dato Personale**: Qualsiasi informazione relativa a una persona fisica identificata o identificabile
 - **GDPR**: Regolamento (UE) 2016/679 - Regolamento generale sulla protezione dei dati
@@ -449,4 +484,4 @@ Il Titolare risponderà a tutte le richieste entro 30 giorni (extendibili a 60 g
 
 **Documento redatto in conformità al GDPR (Reg. UE 2016/679) e al Codice della Privacy italiano (D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018).**
 
-**Ultima revisione**: 11 febbraio 2026
+**Ultima revisione**: 12 febbraio 2026

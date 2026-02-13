@@ -75,16 +75,31 @@ I cookie analitici consentono al gestore del sito di raccogliere informazioni su
 - **Attivazione:** solo dopo consenso esplicito dell'utente
 - **Conformità:** Vercel Analytics è progettato per essere conforme al RGPD senza necessità di IP anonymization aggiuntiva
 
+#### Google Analytics 4
+
+- **Nome:** `_ga`, `_ga_*`
+- **Tipo:** cookie HTTP
+- **Durata:** `_ga` 2 anni, `_ga_*` 2 anni (dalla data di impostazione/aggiornamento)
+- **Scopo:**
+  - Analizzare il traffico del sito e il comportamento dei visitatori (pagine visitate, durata sessione, provenienza geografica anonimizzata)
+  - Generare statistiche aggregate sull'utilizzo del sito
+- **Gestore:** Google Ireland Limited, Gordon House, Barrow Street, Dublino 4, Irlanda
+- **Privacy Policy:** https://policies.google.com/privacy
+- **Attivazione:** solo dopo consenso esplicito dell'utente
+- **Conformità:** IP anonymization attiva (`anonymize_ip: true`); cookie impostati con flag `Secure` e `SameSite=Lax`
+- **Opt-out:** https://tools.google.com/dlpage/gaoptout
+
 ---
 
 ## 4. Tabella riepilogativa dei cookie
 
-| Nome Cookie           | Gestore           | Tipo                | Durata          | Scopo                              | Consenso Richiesto |
-| --------------------- | ----------------- | ------------------- | --------------- | ---------------------------------- | ------------------ |
-| `cookie-consent`      | The AI and beyond | localStorage        | Persistente     | Memorizzare preferenze di consenso | No                 |
-| `preferred-locale`    | The AI and beyond | localStorage        | Persistente     | Preferenza lingua                  | No                 |
-| `__vercel_live_token` | Vercel            | cookie              | Sessione        | Token sviluppo (solo preview)      | No                 |
-| Vercel Analytics      | Vercel Inc.       | beacon/localStorage | Non persistente | Analisi performance e pagine viste | Sì                 |
+| Nome Cookie           | Gestore            | Tipo                | Durata          | Scopo                              | Consenso Richiesto |
+| --------------------- | ------------------ | ------------------- | --------------- | ---------------------------------- | ------------------ |
+| `cookie-consent`      | The AI and beyond  | localStorage        | Persistente     | Memorizzare preferenze di consenso | No                 |
+| `preferred-locale`    | The AI and beyond  | localStorage        | Persistente     | Preferenza lingua                  | No                 |
+| `__vercel_live_token` | Vercel             | cookie              | Sessione        | Token sviluppo (solo preview)      | No                 |
+| Vercel Analytics      | Vercel Inc.        | beacon/localStorage | Non persistente | Analisi performance e pagine viste | Sì                 |
+| `_ga`, `_ga_*`        | Google Ireland Ltd | cookie HTTP         | 2 anni          | Analisi traffico e comportamento   | Sì                 |
 
 ---
 
@@ -157,6 +172,13 @@ Vercel Analytics non fornisce un meccanismo di opt-out esplicito perché è prog
 - Disabilitare i beacon nel browser se disponibile
 - Contattarci per richiedere l'esclusione
 
+#### Opt-out da Google Analytics
+
+Google fornisce un componente aggiuntivo per il browser che consente di disattivare il monitoraggio di Google Analytics su tutti i siti web:
+
+- **Browser add-on:** https://tools.google.com/dlpage/gaoptout
+- In alternativa, è sufficiente rifiutare i cookie analitici tramite il banner del nostro sito
+
 ### 5.4 Modalità "Non tracciare" (DNT) e Global Privacy Control (GPC)
 
 Il nostro sito **rispetta attivamente** i segnali di privacy inviati dal browser. Se il vostro browser ha attivato DNT o GPC, il sito tratta automaticamente l'utente come se avesse rifiutato i cookie analitici, senza mostrare il banner di consenso.
@@ -185,11 +207,22 @@ Il nostro sito utilizza servizi forniti da terze parti per l'analisi e il funzio
 - **Sede:** San Francisco, USA
 - **Conformità:** GDPR-compliant
 
+### 6.2 Google Ireland Limited
+
+- **Servizio:** Google Analytics 4
+- **Sito web:** https://analytics.google.com
+- **Privacy Policy:** https://policies.google.com/privacy
+- **Utilizzo:** Analisi del traffico web e comportamento dei visitatori
+- **Sede:** Gordon House, Barrow Street, Dublino 4, Irlanda
+- **Sub-processore:** Google LLC, Mountain View, CA, USA
+- **Conformità:** GDPR-compliant, certificato EU-US Data Privacy Framework
+
 ### Informazioni sulla trasferimento dati verso paesi terzi
 
-I servizi analitici di Vercel comportano il trasferimento di dati verso gli Stati Uniti. Per la trasferimento dati verso i paesi terzi, il Titolare si affida ai seguenti meccanismi:
+I servizi analitici di Vercel e Google comportano il trasferimento di dati verso gli Stati Uniti. Per la trasferimento dati verso i paesi terzi, il Titolare si affida ai seguenti meccanismi:
 
 - **Per Vercel:** Vercel ha implementato misure di sicurezza appropriate secondo il GDPR ed è certificato EU-US Data Privacy Framework. Per i dettagli, consultare la loro Privacy Policy.
+- **Per Google:** Google Ireland Limited trasferisce dati a Google LLC (USA) sulla base del EU-US Data Privacy Framework. Google ha implementato misure di sicurezza tecniche e organizzative conformi al GDPR. Per i dettagli, consultare: https://policies.google.com/privacy/frameworks
 
 ---
 
@@ -249,7 +282,7 @@ Il nostro sito è stato configurato per:
 - Fornire informazioni complete e trasparenti sull'utilizzo dei cookie
 - Permettere all'utente di gestire e revocare il consenso in qualsiasi momento
 - Non utilizzare cookie di profiling, marketing, o advertising
-- Non tracciare l'utente attraverso cookie di terze parti (ad eccezione di Vercel Analytics, caricato solo con consenso)
+- Non tracciare l'utente attraverso cookie di terze parti (ad eccezione di Vercel Analytics e Google Analytics 4, caricati solo con consenso)
 
 ---
 

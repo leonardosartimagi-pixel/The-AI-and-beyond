@@ -8,7 +8,7 @@
 **General Information Email:** info@theaiandbeyond.it
 **Website:** https://theaiandbeyond.it
 
-**Last Updated:** February 11, 2026
+**Last Updated:** February 12, 2026
 
 ---
 
@@ -86,6 +86,22 @@ The following analytics services are integrated into the Website but activated *
 - **Activation**: Only after accepting the cookie banner
 - **Retention**: According to Vercel's policies (available at https://vercel.com/privacy)
 
+#### 3.3.2 Google Analytics 4
+
+- **Provider**: Google Ireland Limited (legal seat: Gordon House, Barrow Street, Dublin 4, Ireland)
+- **Sub-processor**: Google LLC, Mountain View, CA, USA
+- **Data collected**:
+  - Page views and session duration
+  - Anonymized geographic origin
+  - Basic browser and device information
+- **Cookies used**: `_ga` (duration: 2 years), `_ga_*` (duration: 2 years)
+- **Legal basis**: Explicit user consent (Article 6, paragraph 1, letter a, GDPR)
+- **Activation**: Only after accepting the cookie banner
+- **IP anonymization**: Enabled (`anonymize_ip: true`)
+- **Cookie security flags**: `SameSite=Lax; Secure`
+- **Retention**: According to Google's policies (available at https://policies.google.com/privacy)
+- **Opt-out**: https://tools.google.com/dlpage/gaoptout
+
 ---
 
 ## 4. Purposes of Processing
@@ -109,7 +125,7 @@ Personal data are processed for the following purposes:
 
 - **Purpose**: To understand how users interact with the Website to improve user experience, usability, and functionality
 - **Legal basis**: Article 6, paragraph 1, letter a, GDPR: Explicit user consent
-- **Applicable to**: Vercel Analytics, Speed Insights
+- **Applicable to**: Vercel Analytics, Speed Insights, Google Analytics 4
 
 ### 4.4 Compliance with Legal Obligations
 
@@ -128,6 +144,7 @@ The processing of personal data is carried out on the basis of the following leg
 | IP for rate limiting      | Legitimate interest (Art. 6.1.f)             | Protection from abuse and spam; IP stored in Upstash Redis for max 15 min |
 | Technical consent cookies | Technical necessity (ePrivacy Directive)     | Does not require consent, strictly necessary                              |
 | Analytics (Vercel)        | Consent (Art. 6.1.a)                         | Activated only after explicit consent                                     |
+| Analytics (Google)        | Consent (Art. 6.1.a)                         | Activated only after explicit consent; IP anonymized                      |
 | Google Fonts              | Legitimate interest (Art. 6.1.f)             | Self-hosted, no tracking                                                  |
 | Legal obligations         | Legal compliance (Art. 6.1.c)                | Retention for tax/administrative purposes                                 |
 
@@ -192,9 +209,10 @@ Contact form data is transmitted to **Resend Inc.** (legal seat: United States)
 - **Processing Agreement**: Resend has signed a Data Processing Agreement compliant with GDPR
 - **Retention**: Data is retained for the time necessary for email delivery, then removed
 
-### 7.3 Analytics - Vercel Analytics
+### 7.3 Analytics
 
 - **Vercel Analytics**: Processed at Vercel Inc. (USA, with EU-US Data Privacy Framework)
+- **Google Analytics 4**: Processed at Google Ireland Limited (Ireland, EU), with transfer to Google LLC (USA) via EU-US Data Privacy Framework
 
 ### 7.4 Extra-EU Transfers
 
@@ -202,6 +220,7 @@ Some data may be transferred to the United States via:
 
 - **EU-US Data Privacy Framework**: For Vercel Inc. (analytics, hosting)
 - **EU-US Data Privacy Framework**: For Upstash Inc. (rate limiting, temporary IP)
+- **EU-US Data Privacy Framework**: For Google LLC (analytics, sub-processor of Google Ireland Limited). Google has implemented technical and organizational measures compliant with GDPR. For details: https://policies.google.com/privacy/frameworks
 
 Such transfers are authorized by the European Commission and provide safeguards equivalent to those under GDPR.
 
@@ -215,6 +234,7 @@ Such transfers are authorized by the European Commission and provide safeguards 
 | IP for rate limiting       | 15 minutes (Upstash Redis, automatic TTL deletion) | Rate limiting for abuse prevention |
 | Consent cookie             | 12 months                                          | Remember user preferences          |
 | Analytics (Vercel)         | According to Vercel policy (default 90 days)       | Statistical analysis               |
+| Analytics (Google)         | 2 years (`_ga`, `_ga_*` cookies)                   | Statistical analysis               |
 | Hosting logistics (Vercel) | According to Vercel retention policy               | Security and troubleshooting       |
 
 **Note**: After the retention period expires, data are deleted or anonymized in accordance with the principle of data minimization.
@@ -301,6 +321,7 @@ Cookies are small text files stored on the user's device that contain informatio
 #### 10.2.2 Analytical Cookies (Require Consent)
 
 - **Vercel Analytics**: Stores cookies to track page views. Activated only after consent.
+- **Google Analytics 4**: Stores `_ga` and `_ga_*` cookies (duration: 2 years) to analyze web traffic and visitor behavior. Activated only after consent. IP anonymized.
 
 ### 10.3 Cookie Management
 
@@ -314,10 +335,11 @@ Users can manage cookie preferences by:
 
 The Website integrates the following services that store third-party cookies:
 
-| Service          | Type          | Consent Required | Privacy Policy             |
-| ---------------- | ------------- | ---------------- | -------------------------- |
-| Vercel Analytics | Analytics     | Yes              | https://vercel.com/privacy |
-| Google Fonts     | Functionality | No (self-hosted) | N/A                        |
+| Service            | Type          | Consent Required | Privacy Policy                      |
+| ------------------ | ------------- | ---------------- | ----------------------------------- |
+| Vercel Analytics   | Analytics     | Yes              | https://vercel.com/privacy          |
+| Google Analytics 4 | Analytics     | Yes              | https://policies.google.com/privacy |
+| Google Fonts       | Functionality | No (self-hosted) | N/A                                 |
 
 ---
 
@@ -344,7 +366,18 @@ Under Article 28 GDPR, the following services act as **Data Processors** (proces
 - **Retention**: Until email delivery
 - **Contact**: support@resend.com
 
-#### 11.1.3 Upstash Inc.
+#### 11.1.3 Google Ireland Limited
+
+- **Role**: Analytics (Google Analytics 4)
+- **Location**: Gordon House, Barrow Street, Dublin 4, Ireland
+- **Sub-processor**: Google LLC, Mountain View, CA, USA
+- **DPA**: Available at https://privacy.google.com/businesses/processorterms/
+- **Certification**: EU-US Data Privacy Framework (via Google LLC)
+- **Data processed**: Page views, session duration, anonymized geographic origin, browser/device information
+- **Retention**: 2 years (`_ga`, `_ga_*` cookies)
+- **Contact**: https://support.google.com/policies/contact/general_privacy_form
+
+#### 11.1.4 Upstash Inc.
 
 - **Role**: Rate limiting (temporary IP storage for abuse prevention)
 - **Location**: United States
@@ -359,6 +392,7 @@ Personal data are NOT shared with third parties, except:
 
 - **Resend**: For email delivery (contact form)
 - **Vercel**: For hosting and analytics (only with consent)
+- **Google**: For analytics (Google Analytics 4, only with consent)
 - **Upstash**: For rate limiting (temporary IP storage, max 15 minutes)
 
 No data are sold, licensed, or otherwise disclosed for marketing or profit purposes.
@@ -376,6 +410,7 @@ Data subjects have the right to contact Data Processors directly for:
 **Direct contacts**:
 
 - **Vercel**: https://vercel.com/contact (Data Privacy)
+- **Google**: https://support.google.com/policies/contact/general_privacy_form
 - **Resend**: support@resend.com
 
 ---
@@ -436,7 +471,7 @@ The Data Controller will respond to all requests within 30 days (extendable to 6
 
 - **Data Subject**: The natural person to whom personal data refers
 - **Data Controller**: The natural or legal person that determines the purposes and methods of processing (in this case: Leonardo Sarti Magi)
-- **Data Processor**: The natural or legal person that processes data on the instructions of the Data Controller (Vercel, Resend, Upstash)
+- **Data Processor**: The natural or legal person that processes data on the instructions of the Data Controller (Vercel, Resend, Google, Upstash)
 - **Processing**: Any operation on personal data (collection, storage, use, deletion, etc.)
 - **Personal Data**: Any information relating to an identified or identifiable natural person
 - **GDPR**: Regulation (EU) 2016/679 - General Data Protection Regulation
@@ -449,4 +484,4 @@ The Data Controller will respond to all requests within 30 days (extendable to 6
 
 **Document prepared in accordance with GDPR (Regulation (EU) 2016/679) and the Italian Privacy Code (Decree-Law 196/2003 as amended by Decree-Law 101/2018).**
 
-**Last review**: February 11, 2026
+**Last review**: February 12, 2026
