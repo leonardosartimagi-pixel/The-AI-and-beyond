@@ -202,6 +202,7 @@ export async function JsonLd({ locale }: JsonLdProps) {
       {
         '@type': 'FAQPage',
         '@id': `${SITE_URL}/${locale}/#faq`,
+        name: isItalian ? 'Domande frequenti' : 'Frequently Asked Questions',
         isPartOf: { '@id': `${SITE_URL}/${locale}/#webpage` },
         mainEntity: faqItems.map((item) => ({
           '@type': 'Question',
