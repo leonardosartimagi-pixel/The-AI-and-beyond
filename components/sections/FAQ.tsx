@@ -9,7 +9,6 @@ import { EASING } from '@/lib/animation-variants';
 
 interface FAQProps {
   className?: string;
-  nonce?: string;
 }
 
 const FAQ_KEYS = ['ai-fit', 'timeline', 'cost', 'process'] as const;
@@ -97,7 +96,7 @@ function FAQItem({
   );
 }
 
-export function FAQ({ className = '', nonce }: FAQProps) {
+export function FAQ({ className = '' }: FAQProps) {
   const t = useTranslations('faq');
   const prefersReducedMotion = useReducedMotion();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -106,31 +105,8 @@ export function FAQ({ className = '', nonce }: FAQProps) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Generate FAQ Schema.org JSON-LD
-  const faqSchemaItems = FAQ_KEYS.map((key) => ({
-    '@type': 'Question',
-    name: t(`items.${key}.question`),
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: t(`items.${key}.answer`),
-    },
-  }));
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqSchemaItems,
-  };
-
   return (
     <>
-      {/* FAQ Schema JSON-LD */}
-      <script
-        type="application/ld+json"
-        nonce={nonce}
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
       <SectionWrapper
         id="faq"
         ariaLabel={t('label')}
