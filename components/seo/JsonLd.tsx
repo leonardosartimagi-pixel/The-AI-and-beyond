@@ -106,7 +106,76 @@ export async function JsonLd({ locale }: JsonLdProps) {
           ? 'Consulente AI & Sviluppatore Software'
           : 'AI Consultant & Software Developer',
         worksFor: { '@id': `${SITE_URL}/#organization` },
-        sameAs: ['https://linkedin.com/in/leonardosartimagi'],
+        sameAs: [
+          'https://linkedin.com/in/leonardosartimagi',
+          'https://roboticafestival.it/partecipanti/sarti-magi-leonardo/',
+        ],
+        alumniOf: {
+          '@type': 'EducationalOrganization',
+          name: isItalian ? 'Università di Pisa' : 'University of Pisa',
+        },
+      },
+
+      // Event - Festival della Robotica di Viareggio
+      {
+        '@type': 'Event',
+        '@id': `${SITE_URL}/#vmove-robotics-festival`,
+        name: isItalian
+          ? 'Festival della Robotica di Viareggio 2025'
+          : 'Viareggio Robotics Festival 2025',
+        url: 'https://roboticafestival.it/viareggio-2025/',
+        location: {
+          '@type': 'Place',
+          name: 'Viareggio',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Viareggio',
+            addressRegion: 'Toscana',
+            addressCountry: 'IT',
+          },
+        },
+        startDate: '2025-01-11',
+        performer: {
+          '@type': 'Person',
+          name: 'Leonardo Sarti Magi',
+          sameAs: `${SITE_URL}/#person`,
+        },
+        about: {
+          '@type': 'CreativeWork',
+          name: 'V-Move CareBot',
+          description: isItalian
+            ? 'Robot guida autonomo per persone con disabilità nei porti turistici, basato su intelligenza artificiale e navigazione autonoma'
+            : 'Autonomous guide robot for people with disabilities in marinas, based on artificial intelligence and autonomous navigation',
+          creator: { '@id': `${SITE_URL}/#person` },
+        },
+        organizer: {
+          '@type': 'Organization',
+          name: 'Festival della Robotica',
+          url: 'https://roboticafestival.it/',
+        },
+      },
+
+      // NewsArticle - La Nazione article
+      {
+        '@type': 'NewsArticle',
+        '@id': `${SITE_URL}/#vmove-lanazione-article`,
+        headline: isItalian
+          ? "Il futuro bussa a Yachting Events - Al «Festival della Robotica» il mondo Darsena incontra l'IA"
+          : 'The future knocks at Yachting Events - At the «Robotics Festival» the Marina world meets AI',
+        url: 'https://www.lanazione.it/viareggio/cronaca/il-futuro-bussa-a-yachting-7a25f42c',
+        datePublished: '2025-01-11',
+        publisher: {
+          '@type': 'Organization',
+          name: 'La Nazione',
+          url: 'https://www.lanazione.it/',
+        },
+        mentions: [
+          { '@id': `${SITE_URL}/#person` },
+          { '@id': `${SITE_URL}/#vmove-robotics-festival` },
+        ],
+        about: isItalian
+          ? 'Presentazione di V-Move CareBot, robot AI per accessibilità nei porti turistici'
+          : 'Presentation of V-Move CareBot, AI robot for accessibility in tourist ports',
       },
 
       // WebSite

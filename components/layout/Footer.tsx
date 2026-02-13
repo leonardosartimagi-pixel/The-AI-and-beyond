@@ -8,6 +8,7 @@ import { useConsentStorage } from '@/hooks/useConsentStorage';
 
 const QUICK_LINKS = [
   { key: 'about', href: 'chi-siamo' },
+  { key: 'innovation', href: 'innovazione' },
   { key: 'services', href: 'servizi' },
   { key: 'portfolio', href: 'portfolio' },
   { key: 'process', href: 'come-lavoriamo' },

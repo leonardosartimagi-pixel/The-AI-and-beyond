@@ -8,6 +8,7 @@
   },
   "nav": {
     "about": "Chi Siamo",
+    "innovation": "Innovazione",
     "services": "Servizi",
     "portfolio": "Portfolio",
     "process": "Come Lavoriamo",
@@ -687,5 +688,38 @@
   },
   "skipNav": {
     "label": "Vai al contenuto principale"
+  },
+  "innovation": {
+    "label": "Innovazione & Ricerca",
+    "title": "Innovazione nell'Accessibilità",
+    "titleAccent": "basata su AI",
+    "subtitle": "Progetti di ricerca e sviluppo nel campo dell'intelligenza artificiale applicata",
+    "featured": {
+      "tag": "Featured Project",
+      "title": "V-Move CareBot",
+      "subtitle": "Robot guida autonomo per persone con disabilità nei porti turistici",
+      "description": "V-Move CareBot è un sistema di mobilità assistita basato su intelligenza artificiale, progettato per garantire accessibilità e sicurezza negli ambienti portuali. Integra visione artificiale, sensori LIDAR e navigazione autonoma per accompagnare persone con disabilità motorie o visive.",
+      "context": "Presentato al Festival della Robotica di Viareggio, il progetto ha suscitato l'interesse della stampa nazionale ed è stato oggetto di un articolo de La Nazione, evidenziando l'impatto dell'intelligenza artificiale nel settore dell'accessibilità e della nautica.",
+      "technologies": "Tecnologie utilizzate",
+      "techList": {
+        "ai": "NVIDIA Jetson per elaborazione AI edge",
+        "vision": "Computer vision e riconoscimento ostacoli",
+        "sensors": "LIDAR 360°, GPS, IMU, sensori IoT",
+        "navigation": "Navigazione autonoma su superfici complesse",
+        "safety": "Sistemi di sicurezza e assistenza medica integrata"
+      },
+      "impact": "Impatto e riconoscimenti",
+      "impactText": "Il progetto ha dimostrato come l'AI possa risolvere problemi reali di accessibilità in contesti complessi come i porti turistici, proponendo soluzioni tecnologiche avanzate ma concrete e implementabili.",
+      "credits": "Leonardo Sarti Magi con il team di progetto",
+      "links": {
+        "article": "Leggi l'articolo su La Nazione",
+        "festival": "Festival della Robotica di Viareggio"
+      }
+    },
+    "cta": {
+      "title": "Vuoi portare l'AI nella tua organizzazione?",
+      "description": "Dalle soluzioni enterprise all'innovazione su misura, progettiamo sistemi AI che risolvono problemi reali.",
+      "button": "Parliamone"
+    }
   }
 }
