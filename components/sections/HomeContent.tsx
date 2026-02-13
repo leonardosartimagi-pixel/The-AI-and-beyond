@@ -49,11 +49,7 @@ const Contact = dynamic(() => import('./Contact').then((mod) => mod.Contact), {
   loading: () => <section className="py-24 lg:py-32" aria-hidden="true" />,
 });
 
-interface HomeContentProps {
-  nonce?: string;
-}
-
-export function HomeContent({ nonce }: HomeContentProps) {
+export function HomeContent() {
   return (
     <>
       <Hero />
@@ -64,7 +60,7 @@ export function HomeContent({ nonce }: HomeContentProps) {
       <BeforeAfter />
       <ROICalculator />
       <Process />
-      <FAQ nonce={nonce} />
+      <FAQ />
       <Contact />
     </>
   );
