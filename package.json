@@ -23,7 +23,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.3.0",
+    "@hookform/resolvers": "^5.2.2",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "@upstash/redis": "^1.36.2",
